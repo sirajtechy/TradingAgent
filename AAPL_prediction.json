@@ -1,0 +1,81 @@
+{
+  "ticker": "AAPL",
+  "direction": "SELL",
+  "entry_date": "2026-03-31",
+  "exit_date": "2026-04-30",
+  "entry_price": 248.6,
+  "target_price": 233.39,
+  "stop_loss": 256.21,
+  "risk_pts": 7.61,
+  "reward_pts": 15.22,
+  "risk_reward": 2.0,
+  "atr_14": 5.07,
+  "confluence": {
+    "confluence_score": 54.6,
+    "agreeing_strategies": 3,
+    "total_active_strategies": 4,
+    "grade": "MODERATE"
+  },
+  "strategy_signals": [
+    {
+      "strategy": "EMA Crossover",
+      "signal": "SELL",
+      "strength": 0.28,
+      "note": "EMA9=250.33, EMA21=253.89, gap=1.40%"
+    },
+    {
+      "strategy": "MACD + RSI",
+      "signal": "HOLD",
+      "strength": 0.3,
+      "note": "MACD_hist=-0.231, RSI=32.1"
+    },
+    {
+      "strategy": "Bollinger Squeeze",
+      "signal": "HOLD",
+      "strength": 0.2,
+      "note": "Squeeze=OFF, Release=NO, Mom=-2.345"
+    },
+    {
+      "strategy": "Supertrend",
+      "signal": "SELL",
+      "strength": 1.0,
+      "note": "ST_line=261.90, Direction=DOWN, Fresh=NO"
+    },
+    {
+      "strategy": "OBV Divergence",
+      "signal": "HOLD",
+      "strength": 0.1,
+      "note": "OBV_trend=-9944477, Price_trend=-1.60, BullDiv=False, BearDiv=False"
+    },
+    {
+      "strategy": "S/R Breakout",
+      "signal": "HOLD",
+      "strength": 0.1,
+      "note": "Resistance=266.15, Support=245.51, Close=248.60"
+    },
+    {
+      "strategy": "RSI Divergence",
+      "signal": "BUY",
+      "strength": 0.371,
+      "note": "RSI=32.1, BullDiv=True, BearDiv=False"
+    },
+    {
+      "strategy": "Mean Reversion",
+      "signal": "HOLD",
+      "strength": 0.1,
+      "note": "%B=0.244, Mid=253.71, Lower=243.73, Upper=263.69"
+    },
+    {
+      "strategy": "Ichimoku Cloud",
+      "signal": "SELL",
+      "strength": 0.667,
+      "note": "Price=248.60, Cloud=261.92\u2013264.87, Tenkan=251.25, Kijun=260.81, BullScore=0.33"
+    },
+    {
+      "strategy": "ML Meta-Learner (XGBoost proxy)",
+      "signal": "HOLD",
+      "strength": 0.223,
+      "note": "BuyScore=0.030, SellScore=0.307"
+    }
+  ]
+}

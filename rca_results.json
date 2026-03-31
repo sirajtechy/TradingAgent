@@ -1,0 +1,6981 @@
+{
+  "total_misclassified": 408,
+  "categories": {
+    "signal_conflict": {
+      "count": 22,
+      "pct_of_misses": 5.4,
+      "total_conflict_signals": 23,
+      "conflict_win_rate": 4.3,
+      "finding": "23 signals fired during conflict. Win rate on conflicts: 4.3% \u2014 BELOW AVERAGE. Root cause: conflict_winner_discount is insufficient; weak dominant signals still fire instead of abstaining."
+    },
+    "timing_errors": {
+      "count": 131,
+      "pct_of_misses": 32.1,
+      "avg_abs_return_pct": 1.42,
+      "finding": "131 misses on moves < 3%. Root cause: monthly signal window is too coarse \u2014 small reversals within the month tip the actual direction against the signal. A trailing stop / early-exit rule would convert these to neutral rather than wrong."
+    },
+    "market_regime": {
+      "count": 183,
+      "pct_of_misses": 44.9,
+      "top_affected_months": [
+        [
+          "January 2026",
+          30
+        ],
+        [
+          "August 2025",
+          22
+        ],
+        [
+          "May 2025",
+          19
+        ]
+      ],
+      "finding": "183 misses in trending/volatile regimes. Top affected months: ['January 2026', 'August 2025', 'May 2025']. Root cause: CWAF has no regime detection layer \u2014 bullish signals fire in high-volatility / downtrend regimes because ADX and VIX context are ignored."
+    },
+    "indicator_lag": {
+      "count": 72,
+      "pct_of_misses": 17.6,
+      "avg_tech_score_on_lag_misses": 72.8,
+      "finding": "72 misses where tech score was bullish (>60) but price fell. Root cause: momentum indicators (EMA, MACD) lag by 10\u201320 days on monthly bars. The tech agent fires on prior-month momentum when the trend has already reversed."
+    },
+    "fundamental_misalignment": {
+      "count": 0,
+      "pct_of_misses": 0.0,
+      "avg_fund_score_on_miss": 0,
+      "finding": "0 misses where fundamentals were bearish (<45) but orchestrator still fired bullish. Root cause: tech_only weight (0.85 tech / 0.15 fund) overpowers fundamental bearish signals \u2014 the fund agent's warning is diluted to irrelevance."
+    }
+  },
+  "misclassified_signals": [
+    {
+      "ticker": "AAPL",
+      "month": "March 2025",
+      "signal": "bullish",
+      "actual_direction": "down",
+      "price_return_pct": -9.9,
+      "orchestrator_score": 62.57,
+      "tech_score": 66.2,
+      "fund_score": 42.0,
+      "confidence": 0.2108,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.85,
+        "fund": 0.15
+      },
+      "root_cause": "Indicator Lag Error"
+    },
+    {
+      "ticker": "AAPL",
+      "month": "April 2025",
+      "signal": "neutral",
+      "actual_direction": "down",
+      "price_return_pct": -4.92,
+      "orchestrator_score": 52.11,
+      "tech_score": 53.9,
+      "fund_score": 42.0,
+      "confidence": 0.1326,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.85,
+        "fund": 0.15
+      },
+      "root_cause": "Market Regime Error"
+    },
+    {
+      "ticker": "AAPL",
+      "month": "May 2025",
+      "signal": "neutral",
+      "actual_direction": "down",
+      "price_return_pct": -5.36,
+      "orchestrator_score": 55.85,
+      "tech_score": 58.3,
+      "fund_score": 42.0,
+      "confidence": 0.0578,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.85,
+        "fund": 0.15
+      },
+      "root_cause": "Market Regime Error"
+    },
+    {
+      "ticker": "AAPL",
+      "month": "June 2025",
+      "signal": "bearish",
+      "actual_direction": "up",
+      "price_return_pct": 0.11,
+      "orchestrator_score": 32.99,
+      "tech_score": 31.4,
+      "fund_score": 42.0,
+      "confidence": 0.1224,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.85,
+        "fund": 0.15
+      },
+      "root_cause": "Timing Error"
+    },
+    {
+      "ticker": "AAPL",
+      "month": "July 2025",
+      "signal": "neutral",
+      "actual_direction": "up",
+      "price_return_pct": 1.89,
+      "orchestrator_score": 57.89,
+      "tech_score": 60.7,
+      "fund_score": 42.0,
+      "confidence": 0.0238,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.85,
+        "fund": 0.15
+      },
+      "root_cause": "Timing Error"
+    },
+    {
+      "ticker": "AAPL",
+      "month": "August 2025",
+      "signal": "bearish",
+      "actual_direction": "up",
+      "price_return_pct": 11.96,
+      "orchestrator_score": 32.05,
+      "tech_score": 30.3,
+      "fund_score": 42.0,
+      "confidence": 0.1598,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.85,
+        "fund": 0.15
+      },
+      "root_cause": "Market Regime Error"
+    },
+    {
+      "ticker": "AAPL",
+      "month": "December 2025",
+      "signal": "bullish",
+      "actual_direction": "down",
+      "price_return_pct": -2.07,
+      "orchestrator_score": 75.48,
+      "tech_score": 80.7,
+      "fund_score": 45.9,
+      "confidence": 0.1938,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.85,
+        "fund": 0.15
+      },
+      "root_cause": "Timing Error"
+    },
+    {
+      "ticker": "AAPL",
+      "month": "January 2026",
+      "signal": "neutral",
+      "actual_direction": "down",
+      "price_return_pct": -4.55,
+      "orchestrator_score": 45.45,
+      "tech_score": 45.0,
+      "fund_score": 45.9,
+      "confidence": 0.7,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.5,
+        "fund": 0.5
+      },
+      "root_cause": "Market Regime Error"
+    },
+    {
+      "ticker": "AAPL",
+      "month": "February 2026",
+      "signal": "neutral",
+      "actual_direction": "up",
+      "price_return_pct": 1.91,
+      "orchestrator_score": 52.36,
+      "tech_score": 53.5,
+      "fund_score": 45.9,
+      "confidence": 0.119,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.85,
+        "fund": 0.15
+      },
+      "root_cause": "Timing Error"
+    },
+    {
+      "ticker": "ABBV",
+      "month": "March 2025",
+      "signal": "bullish",
+      "actual_direction": "down",
+      "price_return_pct": -1.79,
+      "orchestrator_score": 74.98,
+      "tech_score": 80.8,
+      "fund_score": 42.0,
+      "confidence": 0.1972,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.85,
+        "fund": 0.15
+      },
+      "root_cause": "Timing Error"
+    },
+    {
+      "ticker": "ABBV",
+      "month": "April 2025",
+      "signal": "bullish",
+      "actual_direction": "down",
+      "price_return_pct": -6.79,
+      "orchestrator_score": 62.14,
+      "tech_score": 65.7,
+      "fund_score": 42.0,
+      "confidence": 0.1938,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.85,
+        "fund": 0.15
+      },
+      "root_cause": "Indicator Lag Error"
+    },
+    {
+      "ticker": "ABBV",
+      "month": "May 2025",
+      "signal": "bullish",
+      "actual_direction": "down",
+      "price_return_pct": -4.61,
+      "orchestrator_score": 65.97,
+      "tech_score": 70.2,
+      "fund_score": 42.0,
+      "confidence": 0.1632,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.85,
+        "fund": 0.15
+      },
+      "root_cause": "Indicator Lag Error"
+    },
+    {
+      "ticker": "ABBV",
+      "month": "June 2025",
+      "signal": "neutral",
+      "actual_direction": "down",
+      "price_return_pct": -2.04,
+      "orchestrator_score": 59.08,
+      "tech_score": 62.1,
+      "fund_score": 42.0,
+      "confidence": 0.0714,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.85,
+        "fund": 0.15
+      },
+      "root_cause": "Timing Error"
+    },
+    {
+      "ticker": "ABBV",
+      "month": "July 2025",
+      "signal": "neutral",
+      "actual_direction": "up",
+      "price_return_pct": 2.87,
+      "orchestrator_score": 41.0,
+      "tech_score": 40.0,
+      "fund_score": 42.0,
+      "confidence": 0.7,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.5,
+        "fund": 0.5
+      },
+      "root_cause": "Timing Error"
+    },
+    {
+      "ticker": "ABBV",
+      "month": "August 2025",
+      "signal": "neutral",
+      "actual_direction": "up",
+      "price_return_pct": 11.31,
+      "orchestrator_score": 52.62,
+      "tech_score": 54.5,
+      "fund_score": 42.0,
+      "confidence": 0.153,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.85,
+        "fund": 0.15
+      },
+      "root_cause": "Market Regime Error"
+    },
+    {
+      "ticker": "ABBV",
+      "month": "October 2025",
+      "signal": "bullish",
+      "actual_direction": "down",
+      "price_return_pct": -0.73,
+      "orchestrator_score": 76.68,
+      "tech_score": 82.8,
+      "fund_score": 42.0,
+      "confidence": 0.2652,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.85,
+        "fund": 0.15
+      },
+      "root_cause": "Timing Error"
+    },
+    {
+      "ticker": "ABBV",
+      "month": "November 2025",
+      "signal": "neutral",
+      "actual_direction": "up",
+      "price_return_pct": 4.43,
+      "orchestrator_score": 39.85,
+      "tech_score": 37.7,
+      "fund_score": 42.0,
+      "confidence": 0.7,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.5,
+        "fund": 0.5
+      },
+      "root_cause": "Market Regime Error"
+    },
+    {
+      "ticker": "ABBV",
+      "month": "December 2025",
+      "signal": "neutral",
+      "actual_direction": "up",
+      "price_return_pct": 0.9,
+      "orchestrator_score": 53.22,
+      "tech_score": 55.2,
+      "fund_score": 42.0,
+      "confidence": 0.1632,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.85,
+        "fund": 0.15
+      },
+      "root_cause": "Timing Error"
+    },
+    {
+      "ticker": "ABBV",
+      "month": "January 2026",
+      "signal": "bullish",
+      "actual_direction": "down",
+      "price_return_pct": -1.61,
+      "orchestrator_score": 67.92,
+      "tech_score": 72.5,
+      "fund_score": 42.0,
+      "confidence": 0.085,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.85,
+        "fund": 0.15
+      },
+      "root_cause": "Timing Error"
+    },
+    {
+      "ticker": "ABT",
+      "month": "March 2025",
+      "signal": "bullish",
+      "actual_direction": "down",
+      "price_return_pct": -5.21,
+      "orchestrator_score": 76.07,
+      "tech_score": 81.5,
+      "fund_score": 45.3,
+      "confidence": 0.221,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.85,
+        "fund": 0.15
+      },
+      "root_cause": "Indicator Lag Error"
+    },
+    {
+      "ticker": "ABT",
+      "month": "April 2025",
+      "signal": "bullish",
+      "actual_direction": "down",
+      "price_return_pct": -1.17,
+      "orchestrator_score": 63.05,
+      "tech_score": 66.2,
+      "fund_score": 45.2,
+      "confidence": 0.2108,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.85,
+        "fund": 0.15
+      },
+      "root_cause": "Timing Error"
+    },
+    {
+      "ticker": "ABT",
+      "month": "July 2025",
+      "signal": "bullish",
+      "actual_direction": "down",
+      "price_return_pct": -5.06,
+      "orchestrator_score": 73.69,
+      "tech_score": 78.7,
+      "fund_score": 45.3,
+      "confidence": 0.1258,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.85,
+        "fund": 0.15
+      },
+      "root_cause": "Indicator Lag Error"
+    },
+    {
+      "ticker": "ABT",
+      "month": "August 2025",
+      "signal": "neutral",
+      "actual_direction": "up",
+      "price_return_pct": 5.13,
+      "orchestrator_score": 44.05,
+      "tech_score": 40.4,
+      "fund_score": 47.7,
+      "confidence": 0.7,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.5,
+        "fund": 0.5
+      },
+      "root_cause": "Market Regime Error"
+    },
+    {
+      "ticker": "ABT",
+      "month": "October 2025",
+      "signal": "bullish",
+      "actual_direction": "down",
+      "price_return_pct": -6.51,
+      "orchestrator_score": 66.64,
+      "tech_score": 70.4,
+      "fund_score": 45.3,
+      "confidence": 0.1564,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.85,
+        "fund": 0.15
+      },
+      "root_cause": "Indicator Lag Error"
+    },
+    {
+      "ticker": "ABT",
+      "month": "November 2025",
+      "signal": "bearish",
+      "actual_direction": "up",
+      "price_return_pct": 4.27,
+      "orchestrator_score": 30.02,
+      "tech_score": 26.9,
+      "fund_score": 47.7,
+      "confidence": 0.2754,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.85,
+        "fund": 0.15
+      },
+      "root_cause": "Market Regime Error"
+    },
+    {
+      "ticker": "ABT",
+      "month": "December 2025",
+      "signal": "neutral",
+      "actual_direction": "down",
+      "price_return_pct": -2.42,
+      "orchestrator_score": 61.52,
+      "tech_score": 64.4,
+      "fund_score": 45.2,
+      "confidence": 0.1496,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.85,
+        "fund": 0.15
+      },
+      "root_cause": "Timing Error"
+    },
+    {
+      "ticker": "ABT",
+      "month": "January 2026",
+      "signal": "neutral",
+      "actual_direction": "down",
+      "price_return_pct": -12.32,
+      "orchestrator_score": 44.5,
+      "tech_score": 41.3,
+      "fund_score": 47.7,
+      "confidence": 0.7,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.5,
+        "fund": 0.5
+      },
+      "root_cause": "Market Regime Error"
+    },
+    {
+      "ticker": "ABT",
+      "month": "February 2026",
+      "signal": "bearish",
+      "actual_direction": "up",
+      "price_return_pct": 6.45,
+      "orchestrator_score": 35.61,
+      "tech_score": 33.5,
+      "fund_score": 47.6,
+      "confidence": 0.051,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.85,
+        "fund": 0.15
+      },
+      "root_cause": "Market Regime Error"
+    },
+    {
+      "ticker": "AMZN",
+      "month": "May 2025",
+      "signal": "neutral",
+      "actual_direction": "up",
+      "price_return_pct": 11.16,
+      "orchestrator_score": 43.4,
+      "tech_score": 44.8,
+      "fund_score": 42.0,
+      "confidence": 0.7,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.5,
+        "fund": 0.5
+      },
+      "root_cause": "Market Regime Error"
+    },
+    {
+      "ticker": "AMZN",
+      "month": "August 2025",
+      "signal": "bullish",
+      "actual_direction": "down",
+      "price_return_pct": -2.18,
+      "orchestrator_score": 72.77,
+      "tech_score": 78.2,
+      "fund_score": 42.0,
+      "confidence": 0.1088,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.85,
+        "fund": 0.15
+      },
+      "root_cause": "Timing Error"
+    },
+    {
+      "ticker": "AMZN",
+      "month": "September 2025",
+      "signal": "bullish",
+      "actual_direction": "down",
+      "price_return_pct": -2.98,
+      "orchestrator_score": 65.72,
+      "tech_score": 69.9,
+      "fund_score": 42.0,
+      "confidence": 0.1734,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.85,
+        "fund": 0.15
+      },
+      "root_cause": "Timing Error"
+    },
+    {
+      "ticker": "AMZN",
+      "month": "October 2025",
+      "signal": "neutral",
+      "actual_direction": "up",
+      "price_return_pct": 1.5,
+      "orchestrator_score": 41.1,
+      "tech_score": 40.2,
+      "fund_score": 42.0,
+      "confidence": 0.7,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.5,
+        "fund": 0.5
+      },
+      "root_cause": "Timing Error"
+    },
+    {
+      "ticker": "AMZN",
+      "month": "November 2025",
+      "signal": "bullish",
+      "actual_direction": "down",
+      "price_return_pct": -4.5,
+      "orchestrator_score": 75.75,
+      "tech_score": 81.7,
+      "fund_score": 42.0,
+      "confidence": 0.2278,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.85,
+        "fund": 0.15
+      },
+      "root_cause": "Indicator Lag Error"
+    },
+    {
+      "ticker": "AMZN",
+      "month": "December 2025",
+      "signal": "neutral",
+      "actual_direction": "down",
+      "price_return_pct": -0.3,
+      "orchestrator_score": 50.5,
+      "tech_score": 52.0,
+      "fund_score": 42.0,
+      "confidence": 0.068,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.85,
+        "fund": 0.15
+      },
+      "root_cause": "Timing Error"
+    },
+    {
+      "ticker": "AMZN",
+      "month": "January 2026",
+      "signal": "neutral",
+      "actual_direction": "up",
+      "price_return_pct": 3.67,
+      "orchestrator_score": 61.29,
+      "tech_score": 64.7,
+      "fund_score": 42.0,
+      "confidence": 0.1598,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.85,
+        "fund": 0.15
+      },
+      "root_cause": "Market Regime Error"
+    },
+    {
+      "ticker": "AMZN",
+      "month": "February 2026",
+      "signal": "bullish",
+      "actual_direction": "down",
+      "price_return_pct": -12.24,
+      "orchestrator_score": 64.78,
+      "tech_score": 68.8,
+      "fund_score": 42.0,
+      "confidence": 0.2108,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.85,
+        "fund": 0.15
+      },
+      "root_cause": "Indicator Lag Error"
+    },
+    {
+      "ticker": "ANET",
+      "month": "April 2025",
+      "signal": "bearish",
+      "actual_direction": "up",
+      "price_return_pct": 4.19,
+      "orchestrator_score": 30.17,
+      "tech_score": 24.8,
+      "fund_score": 60.6,
+      "confidence": 0.3468,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.85,
+        "fund": 0.15
+      },
+      "root_cause": "Market Regime Error"
+    },
+    {
+      "ticker": "ANET",
+      "month": "May 2025",
+      "signal": "neutral",
+      "actual_direction": "up",
+      "price_return_pct": 5.31,
+      "orchestrator_score": 58.3,
+      "tech_score": 57.9,
+      "fund_score": 60.6,
+      "confidence": 0.0714,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.85,
+        "fund": 0.15
+      },
+      "root_cause": "Market Regime Error"
+    },
+    {
+      "ticker": "ANET",
+      "month": "June 2025",
+      "signal": "neutral",
+      "actual_direction": "up",
+      "price_return_pct": 14.72,
+      "orchestrator_score": 49.65,
+      "tech_score": 38.7,
+      "fund_score": 60.6,
+      "confidence": 0.7,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.5,
+        "fund": 0.5
+      },
+      "root_cause": "Market Regime Error"
+    },
+    {
+      "ticker": "ANET",
+      "month": "November 2025",
+      "signal": "bullish",
+      "actual_direction": "down",
+      "price_return_pct": -17.13,
+      "orchestrator_score": 73.61,
+      "tech_score": 75.9,
+      "fund_score": 60.6,
+      "confidence": 0.0306,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.85,
+        "fund": 0.15
+      },
+      "root_cause": "Indicator Lag Error"
+    },
+    {
+      "ticker": "ANET",
+      "month": "December 2025",
+      "signal": "neutral",
+      "actual_direction": "up",
+      "price_return_pct": 1.35,
+      "orchestrator_score": 48.0,
+      "tech_score": 35.4,
+      "fund_score": 60.6,
+      "confidence": 0.7,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.5,
+        "fund": 0.5
+      },
+      "root_cause": "Timing Error"
+    },
+    {
+      "ticker": "ANET",
+      "month": "January 2026",
+      "signal": "neutral",
+      "actual_direction": "up",
+      "price_return_pct": 8.17,
+      "orchestrator_score": 60.94,
+      "tech_score": 61.0,
+      "fund_score": 60.6,
+      "confidence": 0.034,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.85,
+        "fund": 0.15
+      },
+      "root_cause": "Market Regime Error"
+    },
+    {
+      "ticker": "ANET",
+      "month": "February 2026",
+      "signal": "bullish",
+      "actual_direction": "down",
+      "price_return_pct": -5.81,
+      "orchestrator_score": 70.89,
+      "tech_score": 72.7,
+      "fund_score": 60.6,
+      "confidence": 0.0782,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.85,
+        "fund": 0.15
+      },
+      "root_cause": "Indicator Lag Error"
+    },
+    {
+      "ticker": "AXP",
+      "month": "March 2025",
+      "signal": "neutral",
+      "actual_direction": "down",
+      "price_return_pct": -11.79,
+      "orchestrator_score": 50.0,
+      "tech_score": 40.2,
+      "fund_score": 59.8,
+      "confidence": 0.7,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.5,
+        "fund": 0.5
+      },
+      "root_cause": "Market Regime Error"
+    },
+    {
+      "ticker": "AXP",
+      "month": "April 2025",
+      "signal": "neutral",
+      "actual_direction": "down",
+      "price_return_pct": -0.43,
+      "orchestrator_score": 38.04,
+      "tech_score": 34.2,
+      "fund_score": 59.8,
+      "confidence": 0.0272,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.85,
+        "fund": 0.15
+      },
+      "root_cause": "Timing Error"
+    },
+    {
+      "ticker": "AXP",
+      "month": "May 2025",
+      "signal": "neutral",
+      "actual_direction": "up",
+      "price_return_pct": 10.37,
+      "orchestrator_score": 53.35,
+      "tech_score": 46.9,
+      "fund_score": 59.8,
+      "confidence": 0.7,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.5,
+        "fund": 0.5
+      },
+      "root_cause": "Market Regime Error"
+    },
+    {
+      "ticker": "AXP",
+      "month": "July 2025",
+      "signal": "bullish",
+      "actual_direction": "down",
+      "price_return_pct": -4.64,
+      "orchestrator_score": 76.89,
+      "tech_score": 79.9,
+      "fund_score": 59.8,
+      "confidence": 0.1666,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.85,
+        "fund": 0.15
+      },
+      "root_cause": "Indicator Lag Error"
+    },
+    {
+      "ticker": "AXP",
+      "month": "August 2025",
+      "signal": "neutral",
+      "actual_direction": "up",
+      "price_return_pct": 10.68,
+      "orchestrator_score": 38.12,
+      "tech_score": 34.3,
+      "fund_score": 59.8,
+      "confidence": 0.0238,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.85,
+        "fund": 0.15
+      },
+      "root_cause": "Market Regime Error"
+    },
+    {
+      "ticker": "AXP",
+      "month": "October 2025",
+      "signal": "neutral",
+      "actual_direction": "up",
+      "price_return_pct": 8.32,
+      "orchestrator_score": 57.16,
+      "tech_score": 56.7,
+      "fund_score": 59.8,
+      "confidence": 0.1122,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.85,
+        "fund": 0.15
+      },
+      "root_cause": "Market Regime Error"
+    },
+    {
+      "ticker": "AXP",
+      "month": "January 2026",
+      "signal": "neutral",
+      "actual_direction": "down",
+      "price_return_pct": -4.59,
+      "orchestrator_score": 53.55,
+      "tech_score": 47.3,
+      "fund_score": 59.8,
+      "confidence": 0.7,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.5,
+        "fund": 0.5
+      },
+      "root_cause": "Market Regime Error"
+    },
+    {
+      "ticker": "AXP",
+      "month": "February 2026",
+      "signal": "neutral",
+      "actual_direction": "down",
+      "price_return_pct": -12.29,
+      "orchestrator_score": 47.65,
+      "tech_score": 35.5,
+      "fund_score": 59.8,
+      "confidence": 0.7,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.5,
+        "fund": 0.5
+      },
+      "root_cause": "Market Regime Error"
+    },
+    {
+      "ticker": "BAC",
+      "month": "March 2025",
+      "signal": "neutral",
+      "actual_direction": "down",
+      "price_return_pct": -9.96,
+      "orchestrator_score": 61.79,
+      "tech_score": 59.2,
+      "fund_score": 63.9,
+      "confidence": 0.08739999999999992,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.45,
+        "fund": 0.55
+      },
+      "root_cause": "Market Regime Error"
+    },
+    {
+      "ticker": "BAC",
+      "month": "April 2025",
+      "signal": "neutral",
+      "actual_direction": "down",
+      "price_return_pct": -4.17,
+      "orchestrator_score": 60.66,
+      "tech_score": 42.3,
+      "fund_score": 63.9,
+      "confidence": 0.0684,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.15,
+        "fund": 0.85
+      },
+      "root_cause": "Market Regime Error"
+    },
+    {
+      "ticker": "BAC",
+      "month": "May 2025",
+      "signal": "neutral",
+      "actual_direction": "up",
+      "price_return_pct": 10.66,
+      "orchestrator_score": 61.65,
+      "tech_score": 48.9,
+      "fund_score": 63.9,
+      "confidence": 0.0684,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.15,
+        "fund": 0.85
+      },
+      "root_cause": "Market Regime Error"
+    },
+    {
+      "ticker": "BAC",
+      "month": "August 2025",
+      "signal": "neutral",
+      "actual_direction": "up",
+      "price_return_pct": 7.34,
+      "orchestrator_score": 60.48,
+      "tech_score": 56.3,
+      "fund_score": 63.9,
+      "confidence": 0.1702000000000001,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.45,
+        "fund": 0.55
+      },
+      "root_cause": "Market Regime Error"
+    },
+    {
+      "ticker": "BAC",
+      "month": "January 2026",
+      "signal": "neutral",
+      "actual_direction": "down",
+      "price_return_pct": -3.27,
+      "orchestrator_score": 60.34,
+      "tech_score": 61.3,
+      "fund_score": 54.9,
+      "confidence": 0.0442,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.85,
+        "fund": 0.15
+      },
+      "root_cause": "Indicator Lag Error"
+    },
+    {
+      "ticker": "BAC",
+      "month": "February 2026",
+      "signal": "neutral",
+      "actual_direction": "down",
+      "price_return_pct": -6.33,
+      "orchestrator_score": 49.95,
+      "tech_score": 45.0,
+      "fund_score": 54.9,
+      "confidence": 0.7,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.5,
+        "fund": 0.5
+      },
+      "root_cause": "Market Regime Error"
+    },
+    {
+      "ticker": "BLK",
+      "month": "March 2025",
+      "signal": "neutral",
+      "actual_direction": "down",
+      "price_return_pct": -2.65,
+      "orchestrator_score": 48.5,
+      "tech_score": 41.0,
+      "fund_score": 56.0,
+      "confidence": 0.7,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.5,
+        "fund": 0.5
+      },
+      "root_cause": "Timing Error"
+    },
+    {
+      "ticker": "BLK",
+      "month": "April 2025",
+      "signal": "neutral",
+      "actual_direction": "down",
+      "price_return_pct": -2.74,
+      "orchestrator_score": 52.3,
+      "tech_score": 48.6,
+      "fund_score": 56.0,
+      "confidence": 0.7,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.5,
+        "fund": 0.5
+      },
+      "root_cause": "Timing Error"
+    },
+    {
+      "ticker": "BLK",
+      "month": "May 2025",
+      "signal": "neutral",
+      "actual_direction": "up",
+      "price_return_pct": 7.18,
+      "orchestrator_score": 54.05,
+      "tech_score": 53.7,
+      "fund_score": 56.0,
+      "confidence": 0.1258,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.85,
+        "fund": 0.15
+      },
+      "root_cause": "Market Regime Error"
+    },
+    {
+      "ticker": "BLK",
+      "month": "September 2025",
+      "signal": "neutral",
+      "actual_direction": "up",
+      "price_return_pct": 4.79,
+      "orchestrator_score": 52.76,
+      "tech_score": 52.9,
+      "fund_score": 52.0,
+      "confidence": 0.0986,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.85,
+        "fund": 0.15
+      },
+      "root_cause": "Market Regime Error"
+    },
+    {
+      "ticker": "BLK",
+      "month": "October 2025",
+      "signal": "bullish",
+      "actual_direction": "down",
+      "price_return_pct": -5.82,
+      "orchestrator_score": 78.94,
+      "tech_score": 83.7,
+      "fund_score": 52.0,
+      "confidence": 0.2958,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.85,
+        "fund": 0.15
+      },
+      "root_cause": "Indicator Lag Error"
+    },
+    {
+      "ticker": "BLK",
+      "month": "December 2025",
+      "signal": "neutral",
+      "actual_direction": "up",
+      "price_return_pct": 3.94,
+      "orchestrator_score": 49.4,
+      "tech_score": 42.8,
+      "fund_score": 56.0,
+      "confidence": 0.7,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.5,
+        "fund": 0.5
+      },
+      "root_cause": "Market Regime Error"
+    },
+    {
+      "ticker": "BLK",
+      "month": "January 2026",
+      "signal": "neutral",
+      "actual_direction": "up",
+      "price_return_pct": 4.54,
+      "orchestrator_score": 50.1,
+      "tech_score": 44.2,
+      "fund_score": 56.0,
+      "confidence": 0.7,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.5,
+        "fund": 0.5
+      },
+      "root_cause": "Market Regime Error"
+    },
+    {
+      "ticker": "BLK",
+      "month": "February 2026",
+      "signal": "bullish",
+      "actual_direction": "down",
+      "price_return_pct": -4.98,
+      "orchestrator_score": 63.22,
+      "tech_score": 65.2,
+      "fund_score": 52.0,
+      "confidence": 0.1768,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.85,
+        "fund": 0.15
+      },
+      "root_cause": "Indicator Lag Error"
+    },
+    {
+      "ticker": "BMY",
+      "month": "April 2025",
+      "signal": "bullish",
+      "actual_direction": "down",
+      "price_return_pct": -18.42,
+      "orchestrator_score": 67.54,
+      "tech_score": 71.2,
+      "fund_score": 46.8,
+      "confidence": 0.1292,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.85,
+        "fund": 0.15
+      },
+      "root_cause": "Indicator Lag Error"
+    },
+    {
+      "ticker": "BMY",
+      "month": "May 2025",
+      "signal": "neutral",
+      "actual_direction": "down",
+      "price_return_pct": -3.82,
+      "orchestrator_score": 47.0,
+      "tech_score": 43.1,
+      "fund_score": 50.9,
+      "confidence": 0.7,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.5,
+        "fund": 0.5
+      },
+      "root_cause": "Market Regime Error"
+    },
+    {
+      "ticker": "BMY",
+      "month": "June 2025",
+      "signal": "neutral",
+      "actual_direction": "down",
+      "price_return_pct": -4.0,
+      "orchestrator_score": 54.08,
+      "tech_score": 55.1,
+      "fund_score": 48.3,
+      "confidence": 0.1666,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.85,
+        "fund": 0.15
+      },
+      "root_cause": "Market Regime Error"
+    },
+    {
+      "ticker": "BMY",
+      "month": "July 2025",
+      "signal": "bearish",
+      "actual_direction": "up",
+      "price_return_pct": 0.64,
+      "orchestrator_score": 31.38,
+      "tech_score": 28.4,
+      "fund_score": 48.3,
+      "confidence": 0.2244,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.85,
+        "fund": 0.15
+      },
+      "root_cause": "Timing Error"
+    },
+    {
+      "ticker": "BMY",
+      "month": "August 2025",
+      "signal": "bearish",
+      "actual_direction": "up",
+      "price_return_pct": 8.94,
+      "orchestrator_score": 26.11,
+      "tech_score": 22.2,
+      "fund_score": 48.3,
+      "confidence": 0.4352,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.85,
+        "fund": 0.15
+      },
+      "root_cause": "Market Regime Error"
+    },
+    {
+      "ticker": "BMY",
+      "month": "September 2025",
+      "signal": "neutral",
+      "actual_direction": "down",
+      "price_return_pct": -6.42,
+      "orchestrator_score": 45.5,
+      "tech_score": 42.7,
+      "fund_score": 48.3,
+      "confidence": 0.7,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.5,
+        "fund": 0.5
+      },
+      "root_cause": "Market Regime Error"
+    },
+    {
+      "ticker": "BMY",
+      "month": "October 2025",
+      "signal": "bearish",
+      "actual_direction": "up",
+      "price_return_pct": 2.54,
+      "orchestrator_score": 31.73,
+      "tech_score": 28.8,
+      "fund_score": 48.3,
+      "confidence": 0.2108,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.85,
+        "fund": 0.15
+      },
+      "root_cause": "Timing Error"
+    },
+    {
+      "ticker": "BMY",
+      "month": "November 2025",
+      "signal": "neutral",
+      "actual_direction": "up",
+      "price_return_pct": 6.79,
+      "orchestrator_score": 57.48,
+      "tech_score": 59.1,
+      "fund_score": 48.3,
+      "confidence": 0.0306,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.85,
+        "fund": 0.15
+      },
+      "root_cause": "Market Regime Error"
+    },
+    {
+      "ticker": "BMY",
+      "month": "February 2026",
+      "signal": "neutral",
+      "actual_direction": "up",
+      "price_return_pct": 13.3,
+      "orchestrator_score": 60.97,
+      "tech_score": 63.5,
+      "fund_score": 46.6,
+      "confidence": 0.119,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.85,
+        "fund": 0.15
+      },
+      "root_cause": "Market Regime Error"
+    },
+    {
+      "ticker": "CI",
+      "month": "May 2025",
+      "signal": "bullish",
+      "actual_direction": "down",
+      "price_return_pct": -6.88,
+      "orchestrator_score": 78.15,
+      "tech_score": 83.6,
+      "fund_score": 47.3,
+      "confidence": 0.2924,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.85,
+        "fund": 0.15
+      },
+      "root_cause": "Indicator Lag Error"
+    },
+    {
+      "ticker": "CI",
+      "month": "June 2025",
+      "signal": "neutral",
+      "actual_direction": "up",
+      "price_return_pct": 3.55,
+      "orchestrator_score": 43.75,
+      "tech_score": 40.2,
+      "fund_score": 47.3,
+      "confidence": 0.7,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.5,
+        "fund": 0.5
+      },
+      "root_cause": "Market Regime Error"
+    },
+    {
+      "ticker": "CI",
+      "month": "July 2025",
+      "signal": "bullish",
+      "actual_direction": "down",
+      "price_return_pct": -9.9,
+      "orchestrator_score": 69.23,
+      "tech_score": 73.1,
+      "fund_score": 47.3,
+      "confidence": 0.0646,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.85,
+        "fund": 0.15
+      },
+      "root_cause": "Indicator Lag Error"
+    },
+    {
+      "ticker": "CI",
+      "month": "August 2025",
+      "signal": "bearish",
+      "actual_direction": "up",
+      "price_return_pct": 12.53,
+      "orchestrator_score": 24.69,
+      "tech_score": 20.7,
+      "fund_score": 47.3,
+      "confidence": 0.4862,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.85,
+        "fund": 0.15
+      },
+      "root_cause": "Market Regime Error"
+    },
+    {
+      "ticker": "CI",
+      "month": "September 2025",
+      "signal": "neutral",
+      "actual_direction": "down",
+      "price_return_pct": -4.25,
+      "orchestrator_score": 60.98,
+      "tech_score": 63.4,
+      "fund_score": 47.3,
+      "confidence": 0.1156,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.85,
+        "fund": 0.15
+      },
+      "root_cause": "Indicator Lag Error"
+    },
+    {
+      "ticker": "CI",
+      "month": "October 2025",
+      "signal": "neutral",
+      "actual_direction": "down",
+      "price_return_pct": -14.28,
+      "orchestrator_score": 41.7,
+      "tech_score": 36.1,
+      "fund_score": 47.3,
+      "confidence": 0.7,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.5,
+        "fund": 0.5
+      },
+      "root_cause": "Market Regime Error"
+    },
+    {
+      "ticker": "CI",
+      "month": "November 2025",
+      "signal": "bearish",
+      "actual_direction": "up",
+      "price_return_pct": 13.45,
+      "orchestrator_score": 24.36,
+      "tech_score": 18.9,
+      "fund_score": 55.3,
+      "confidence": 0.5474,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.85,
+        "fund": 0.15
+      },
+      "root_cause": "Market Regime Error"
+    },
+    {
+      "ticker": "CI",
+      "month": "December 2025",
+      "signal": "neutral",
+      "actual_direction": "up",
+      "price_return_pct": 0.27,
+      "orchestrator_score": 50.1,
+      "tech_score": 50.6,
+      "fund_score": 47.3,
+      "confidence": 0.0204,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.85,
+        "fund": 0.15
+      },
+      "root_cause": "Timing Error"
+    },
+    {
+      "ticker": "CI",
+      "month": "January 2026",
+      "signal": "neutral",
+      "actual_direction": "down",
+      "price_return_pct": -0.41,
+      "orchestrator_score": 47.9,
+      "tech_score": 48.5,
+      "fund_score": 47.3,
+      "confidence": 0.7,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.5,
+        "fund": 0.5
+      },
+      "root_cause": "Timing Error"
+    },
+    {
+      "ticker": "CI",
+      "month": "February 2026",
+      "signal": "bearish",
+      "actual_direction": "up",
+      "price_return_pct": 5.73,
+      "orchestrator_score": 34.63,
+      "tech_score": 32.4,
+      "fund_score": 47.3,
+      "confidence": 0.0884,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.85,
+        "fund": 0.15
+      },
+      "root_cause": "Market Regime Error"
+    },
+    {
+      "ticker": "CL",
+      "month": "April 2025",
+      "signal": "bullish",
+      "actual_direction": "down",
+      "price_return_pct": -0.91,
+      "orchestrator_score": 70.33,
+      "tech_score": 73.9,
+      "fund_score": 50.1,
+      "confidence": 0.0374,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.85,
+        "fund": 0.15
+      },
+      "root_cause": "Timing Error"
+    },
+    {
+      "ticker": "CL",
+      "month": "May 2025",
+      "signal": "neutral",
+      "actual_direction": "up",
+      "price_return_pct": 0.81,
+      "orchestrator_score": 47.5,
+      "tech_score": 44.9,
+      "fund_score": 50.1,
+      "confidence": 0.7,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.5,
+        "fund": 0.5
+      },
+      "root_cause": "Timing Error"
+    },
+    {
+      "ticker": "CL",
+      "month": "June 2025",
+      "signal": "bullish",
+      "actual_direction": "down",
+      "price_return_pct": -4.55,
+      "orchestrator_score": 66.5,
+      "tech_score": 69.4,
+      "fund_score": 50.1,
+      "confidence": 0.1904,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.85,
+        "fund": 0.15
+      },
+      "root_cause": "Indicator Lag Error"
+    },
+    {
+      "ticker": "CL",
+      "month": "July 2025",
+      "signal": "neutral",
+      "actual_direction": "down",
+      "price_return_pct": -5.04,
+      "orchestrator_score": 49.5,
+      "tech_score": 48.9,
+      "fund_score": 50.1,
+      "confidence": 0.7,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.5,
+        "fund": 0.5
+      },
+      "root_cause": "Market Regime Error"
+    },
+    {
+      "ticker": "CL",
+      "month": "August 2025",
+      "signal": "bearish",
+      "actual_direction": "up",
+      "price_return_pct": 0.26,
+      "orchestrator_score": 27.32,
+      "tech_score": 23.3,
+      "fund_score": 50.1,
+      "confidence": 0.3978,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.85,
+        "fund": 0.15
+      },
+      "root_cause": "Timing Error"
+    },
+    {
+      "ticker": "CL",
+      "month": "November 2025",
+      "signal": "bearish",
+      "actual_direction": "up",
+      "price_return_pct": 4.33,
+      "orchestrator_score": 31.86,
+      "tech_score": 28.2,
+      "fund_score": 52.6,
+      "confidence": 0.2312,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.85,
+        "fund": 0.15
+      },
+      "root_cause": "Market Regime Error"
+    },
+    {
+      "ticker": "CL",
+      "month": "December 2025",
+      "signal": "bullish",
+      "actual_direction": "down",
+      "price_return_pct": -1.09,
+      "orchestrator_score": 68.37,
+      "tech_score": 71.6,
+      "fund_score": 50.1,
+      "confidence": 0.1156,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.85,
+        "fund": 0.15
+      },
+      "root_cause": "Timing Error"
+    },
+    {
+      "ticker": "CL",
+      "month": "January 2026",
+      "signal": "neutral",
+      "actual_direction": "up",
+      "price_return_pct": 14.96,
+      "orchestrator_score": 57.02,
+      "tech_score": 57.8,
+      "fund_score": 52.6,
+      "confidence": 0.0748,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.85,
+        "fund": 0.15
+      },
+      "root_cause": "Market Regime Error"
+    },
+    {
+      "ticker": "COP",
+      "month": "March 2025",
+      "signal": "neutral",
+      "actual_direction": "up",
+      "price_return_pct": 3.25,
+      "orchestrator_score": 45.55,
+      "tech_score": 43.6,
+      "fund_score": 47.5,
+      "confidence": 0.7,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.5,
+        "fund": 0.5
+      },
+      "root_cause": "Market Regime Error"
+    },
+    {
+      "ticker": "COP",
+      "month": "April 2025",
+      "signal": "bullish",
+      "actual_direction": "down",
+      "price_return_pct": -12.51,
+      "orchestrator_score": 72.19,
+      "tech_score": 77.3,
+      "fund_score": 43.2,
+      "confidence": 0.0782,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.85,
+        "fund": 0.15
+      },
+      "root_cause": "Indicator Lag Error"
+    },
+    {
+      "ticker": "COP",
+      "month": "June 2025",
+      "signal": "bearish",
+      "actual_direction": "up",
+      "price_return_pct": 5.65,
+      "orchestrator_score": 31.14,
+      "tech_score": 28.2,
+      "fund_score": 47.8,
+      "confidence": 0.2312,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.85,
+        "fund": 0.15
+      },
+      "root_cause": "Market Regime Error"
+    },
+    {
+      "ticker": "COP",
+      "month": "July 2025",
+      "signal": "bearish",
+      "actual_direction": "up",
+      "price_return_pct": 7.72,
+      "orchestrator_score": 37.03,
+      "tech_score": 34.8,
+      "fund_score": 49.7,
+      "confidence": 0.0068,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.85,
+        "fund": 0.15
+      },
+      "root_cause": "Market Regime Error"
+    },
+    {
+      "ticker": "COP",
+      "month": "August 2025",
+      "signal": "neutral",
+      "actual_direction": "up",
+      "price_return_pct": 4.66,
+      "orchestrator_score": 59.38,
+      "tech_score": 61.5,
+      "fund_score": 47.4,
+      "confidence": 0.051,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.85,
+        "fund": 0.15
+      },
+      "root_cause": "Market Regime Error"
+    },
+    {
+      "ticker": "COP",
+      "month": "September 2025",
+      "signal": "bullish",
+      "actual_direction": "down",
+      "price_return_pct": -3.15,
+      "orchestrator_score": 73.25,
+      "tech_score": 77.8,
+      "fund_score": 47.5,
+      "confidence": 0.0952,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.85,
+        "fund": 0.15
+      },
+      "root_cause": "Indicator Lag Error"
+    },
+    {
+      "ticker": "COP",
+      "month": "October 2025",
+      "signal": "neutral",
+      "actual_direction": "down",
+      "price_return_pct": -6.82,
+      "orchestrator_score": 53.18,
+      "tech_score": 54.2,
+      "fund_score": 47.4,
+      "confidence": 0.1428,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.85,
+        "fund": 0.15
+      },
+      "root_cause": "Market Regime Error"
+    },
+    {
+      "ticker": "COP",
+      "month": "November 2025",
+      "signal": "neutral",
+      "actual_direction": "up",
+      "price_return_pct": 0.73,
+      "orchestrator_score": 44.65,
+      "tech_score": 39.6,
+      "fund_score": 49.7,
+      "confidence": 0.7,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.5,
+        "fund": 0.5
+      },
+      "root_cause": "Timing Error"
+    },
+    {
+      "ticker": "COP",
+      "month": "December 2025",
+      "signal": "neutral",
+      "actual_direction": "up",
+      "price_return_pct": 6.1,
+      "orchestrator_score": 50.04,
+      "tech_score": 50.1,
+      "fund_score": 49.7,
+      "confidence": 0.0034,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.85,
+        "fund": 0.15
+      },
+      "root_cause": "Market Regime Error"
+    },
+    {
+      "ticker": "COST",
+      "month": "March 2025",
+      "signal": "bullish",
+      "actual_direction": "down",
+      "price_return_pct": -11.34,
+      "orchestrator_score": 69.66,
+      "tech_score": 74.3,
+      "fund_score": 43.4,
+      "confidence": 0.0238,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.85,
+        "fund": 0.15
+      },
+      "root_cause": "Indicator Lag Error"
+    },
+    {
+      "ticker": "COST",
+      "month": "April 2025",
+      "signal": "neutral",
+      "actual_direction": "up",
+      "price_return_pct": 4.86,
+      "orchestrator_score": 55.55,
+      "tech_score": 57.7,
+      "fund_score": 43.4,
+      "confidence": 0.0782,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.85,
+        "fund": 0.15
+      },
+      "root_cause": "Market Regime Error"
+    },
+    {
+      "ticker": "COST",
+      "month": "June 2025",
+      "signal": "bullish",
+      "actual_direction": "down",
+      "price_return_pct": -5.29,
+      "orchestrator_score": 71.79,
+      "tech_score": 76.8,
+      "fund_score": 43.4,
+      "confidence": 0.0612,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.85,
+        "fund": 0.15
+      },
+      "root_cause": "Indicator Lag Error"
+    },
+    {
+      "ticker": "COST",
+      "month": "July 2025",
+      "signal": "neutral",
+      "actual_direction": "down",
+      "price_return_pct": -6.31,
+      "orchestrator_score": 41.35,
+      "tech_score": 39.3,
+      "fund_score": 43.4,
+      "confidence": 0.7,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.5,
+        "fund": 0.5
+      },
+      "root_cause": "Market Regime Error"
+    },
+    {
+      "ticker": "COST",
+      "month": "August 2025",
+      "signal": "bearish",
+      "actual_direction": "up",
+      "price_return_pct": 0.53,
+      "orchestrator_score": 31.24,
+      "tech_score": 29.1,
+      "fund_score": 43.4,
+      "confidence": 0.2006,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.85,
+        "fund": 0.15
+      },
+      "root_cause": "Timing Error"
+    },
+    {
+      "ticker": "COST",
+      "month": "November 2025",
+      "signal": "bearish",
+      "actual_direction": "up",
+      "price_return_pct": 0.23,
+      "orchestrator_score": 25.1,
+      "tech_score": 22.1,
+      "fund_score": 42.1,
+      "confidence": 0.4386,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.85,
+        "fund": 0.15
+      },
+      "root_cause": "Timing Error"
+    },
+    {
+      "ticker": "COST",
+      "month": "December 2025",
+      "signal": "neutral",
+      "actual_direction": "down",
+      "price_return_pct": -5.25,
+      "orchestrator_score": 44.65,
+      "tech_score": 47.2,
+      "fund_score": 42.1,
+      "confidence": 0.7,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.5,
+        "fund": 0.5
+      },
+      "root_cause": "Market Regime Error"
+    },
+    {
+      "ticker": "COST",
+      "month": "January 2026",
+      "signal": "bearish",
+      "actual_direction": "up",
+      "price_return_pct": 9.18,
+      "orchestrator_score": 33.43,
+      "tech_score": 31.9,
+      "fund_score": 42.1,
+      "confidence": 0.1054,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.85,
+        "fund": 0.15
+      },
+      "root_cause": "Market Regime Error"
+    },
+    {
+      "ticker": "COST",
+      "month": "February 2026",
+      "signal": "neutral",
+      "actual_direction": "up",
+      "price_return_pct": 7.5,
+      "orchestrator_score": 52.81,
+      "tech_score": 54.7,
+      "fund_score": 42.1,
+      "confidence": 0.1598,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.85,
+        "fund": 0.15
+      },
+      "root_cause": "Market Regime Error"
+    },
+    {
+      "ticker": "CRM",
+      "month": "May 2025",
+      "signal": "neutral",
+      "actual_direction": "down",
+      "price_return_pct": -1.24,
+      "orchestrator_score": 55.21,
+      "tech_score": 57.2,
+      "fund_score": 43.9,
+      "confidence": 0.0952,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.85,
+        "fund": 0.15
+      },
+      "root_cause": "Timing Error"
+    },
+    {
+      "ticker": "CRM",
+      "month": "June 2025",
+      "signal": "neutral",
+      "actual_direction": "up",
+      "price_return_pct": 3.2,
+      "orchestrator_score": 39.55,
+      "tech_score": 35.3,
+      "fund_score": 43.8,
+      "confidence": 0.7,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.5,
+        "fund": 0.5
+      },
+      "root_cause": "Market Regime Error"
+    },
+    {
+      "ticker": "CRM",
+      "month": "July 2025",
+      "signal": "neutral",
+      "actual_direction": "down",
+      "price_return_pct": -2.89,
+      "orchestrator_score": 60.22,
+      "tech_score": 63.1,
+      "fund_score": 43.9,
+      "confidence": 0.1054,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.85,
+        "fund": 0.15
+      },
+      "root_cause": "Timing Error"
+    },
+    {
+      "ticker": "CRM",
+      "month": "August 2025",
+      "signal": "neutral",
+      "actual_direction": "down",
+      "price_return_pct": -0.81,
+      "orchestrator_score": 41.1,
+      "tech_score": 35.9,
+      "fund_score": 46.3,
+      "confidence": 0.7,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.5,
+        "fund": 0.5
+      },
+      "root_cause": "Timing Error"
+    },
+    {
+      "ticker": "CRM",
+      "month": "September 2025",
+      "signal": "neutral",
+      "actual_direction": "down",
+      "price_return_pct": -4.18,
+      "orchestrator_score": 57.35,
+      "tech_score": 59.3,
+      "fund_score": 46.3,
+      "confidence": 0.0238,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.85,
+        "fund": 0.15
+      },
+      "root_cause": "Market Regime Error"
+    },
+    {
+      "ticker": "CRM",
+      "month": "October 2025",
+      "signal": "bearish",
+      "actual_direction": "up",
+      "price_return_pct": 8.29,
+      "orchestrator_score": 30.46,
+      "tech_score": 27.7,
+      "fund_score": 46.1,
+      "confidence": 0.2482,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.85,
+        "fund": 0.15
+      },
+      "root_cause": "Market Regime Error"
+    },
+    {
+      "ticker": "CRM",
+      "month": "November 2025",
+      "signal": "bullish",
+      "actual_direction": "down",
+      "price_return_pct": -11.47,
+      "orchestrator_score": 64.11,
+      "tech_score": 67.7,
+      "fund_score": 43.8,
+      "confidence": 0.2482,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.85,
+        "fund": 0.15
+      },
+      "root_cause": "Indicator Lag Error"
+    },
+    {
+      "ticker": "CRM",
+      "month": "December 2025",
+      "signal": "bearish",
+      "actual_direction": "up",
+      "price_return_pct": 15.53,
+      "orchestrator_score": 32.66,
+      "tech_score": 30.3,
+      "fund_score": 46.0,
+      "confidence": 0.1598,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.85,
+        "fund": 0.15
+      },
+      "root_cause": "Market Regime Error"
+    },
+    {
+      "ticker": "CRM",
+      "month": "January 2026",
+      "signal": "bullish",
+      "actual_direction": "down",
+      "price_return_pct": -19.86,
+      "orchestrator_score": 69.81,
+      "tech_score": 74.4,
+      "fund_score": 43.8,
+      "confidence": 0.0204,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.85,
+        "fund": 0.15
+      },
+      "root_cause": "Indicator Lag Error"
+    },
+    {
+      "ticker": "CVS",
+      "month": "April 2025",
+      "signal": "bullish",
+      "actual_direction": "down",
+      "price_return_pct": -3.03,
+      "orchestrator_score": 68.58,
+      "tech_score": 71.1,
+      "fund_score": 54.3,
+      "confidence": 0.1326,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.85,
+        "fund": 0.15
+      },
+      "root_cause": "Indicator Lag Error"
+    },
+    {
+      "ticker": "CVS",
+      "month": "May 2025",
+      "signal": "bullish",
+      "actual_direction": "down",
+      "price_return_pct": -4.0,
+      "orchestrator_score": 62.8,
+      "tech_score": 64.3,
+      "fund_score": 54.3,
+      "confidence": 0.1462,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.85,
+        "fund": 0.15
+      },
+      "root_cause": "Indicator Lag Error"
+    },
+    {
+      "ticker": "CVS",
+      "month": "July 2025",
+      "signal": "bullish",
+      "actual_direction": "down",
+      "price_return_pct": -8.7,
+      "orchestrator_score": 73.17,
+      "tech_score": 77.3,
+      "fund_score": 49.8,
+      "confidence": 0.0782,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.85,
+        "fund": 0.15
+      },
+      "root_cause": "Indicator Lag Error"
+    },
+    {
+      "ticker": "CVS",
+      "month": "August 2025",
+      "signal": "neutral",
+      "actual_direction": "up",
+      "price_return_pct": 17.79,
+      "orchestrator_score": 47.4,
+      "tech_score": 40.5,
+      "fund_score": 54.3,
+      "confidence": 0.7,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.5,
+        "fund": 0.5
+      },
+      "root_cause": "Market Regime Error"
+    },
+    {
+      "ticker": "CVS",
+      "month": "November 2025",
+      "signal": "neutral",
+      "actual_direction": "up",
+      "price_return_pct": 2.83,
+      "orchestrator_score": 50.05,
+      "tech_score": 50.5,
+      "fund_score": 47.5,
+      "confidence": 0.017,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.85,
+        "fund": 0.15
+      },
+      "root_cause": "Timing Error"
+    },
+    {
+      "ticker": "CVS",
+      "month": "December 2025",
+      "signal": "bullish",
+      "actual_direction": "down",
+      "price_return_pct": -0.63,
+      "orchestrator_score": 68.67,
+      "tech_score": 72.4,
+      "fund_score": 47.5,
+      "confidence": 0.0884,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.85,
+        "fund": 0.15
+      },
+      "root_cause": "Timing Error"
+    },
+    {
+      "ticker": "CVS",
+      "month": "January 2026",
+      "signal": "bullish",
+      "actual_direction": "down",
+      "price_return_pct": -5.33,
+      "orchestrator_score": 65.35,
+      "tech_score": 68.5,
+      "fund_score": 47.5,
+      "confidence": 0.221,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.85,
+        "fund": 0.15
+      },
+      "root_cause": "Indicator Lag Error"
+    },
+    {
+      "ticker": "CVS",
+      "month": "February 2026",
+      "signal": "neutral",
+      "actual_direction": "up",
+      "price_return_pct": 7.22,
+      "orchestrator_score": 43.25,
+      "tech_score": 39.1,
+      "fund_score": 47.4,
+      "confidence": 0.7,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.5,
+        "fund": 0.5
+      },
+      "root_cause": "Market Regime Error"
+    },
+    {
+      "ticker": "CVX",
+      "month": "April 2025",
+      "signal": "bullish",
+      "actual_direction": "down",
+      "price_return_pct": -16.73,
+      "orchestrator_score": 73.8,
+      "tech_score": 79.3,
+      "fund_score": 42.6,
+      "confidence": 0.1462,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.85,
+        "fund": 0.15
+      },
+      "root_cause": "Indicator Lag Error"
+    },
+    {
+      "ticker": "CVX",
+      "month": "May 2025",
+      "signal": "bearish",
+      "actual_direction": "up",
+      "price_return_pct": 1.69,
+      "orchestrator_score": 32.58,
+      "tech_score": 30.4,
+      "fund_score": 44.9,
+      "confidence": 0.1564,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.85,
+        "fund": 0.15
+      },
+      "root_cause": "Timing Error"
+    },
+    {
+      "ticker": "CVX",
+      "month": "June 2025",
+      "signal": "bearish",
+      "actual_direction": "up",
+      "price_return_pct": 5.19,
+      "orchestrator_score": 31.38,
+      "tech_score": 29.0,
+      "fund_score": 44.9,
+      "confidence": 0.204,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.85,
+        "fund": 0.15
+      },
+      "root_cause": "Market Regime Error"
+    },
+    {
+      "ticker": "CVX",
+      "month": "July 2025",
+      "signal": "neutral",
+      "actual_direction": "up",
+      "price_return_pct": 7.24,
+      "orchestrator_score": 44.4,
+      "tech_score": 46.4,
+      "fund_score": 42.4,
+      "confidence": 0.7,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.5,
+        "fund": 0.5
+      },
+      "root_cause": "Market Regime Error"
+    },
+    {
+      "ticker": "CVX",
+      "month": "August 2025",
+      "signal": "neutral",
+      "actual_direction": "up",
+      "price_return_pct": 7.09,
+      "orchestrator_score": 55.76,
+      "tech_score": 58.1,
+      "fund_score": 42.5,
+      "confidence": 0.0646,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.85,
+        "fund": 0.15
+      },
+      "root_cause": "Market Regime Error"
+    },
+    {
+      "ticker": "CVX",
+      "month": "September 2025",
+      "signal": "bullish",
+      "actual_direction": "down",
+      "price_return_pct": -2.8,
+      "orchestrator_score": 72.27,
+      "tech_score": 77.5,
+      "fund_score": 42.6,
+      "confidence": 0.085,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.85,
+        "fund": 0.15
+      },
+      "root_cause": "Timing Error"
+    },
+    {
+      "ticker": "CVX",
+      "month": "October 2025",
+      "signal": "neutral",
+      "actual_direction": "down",
+      "price_return_pct": -1.14,
+      "orchestrator_score": 44.3,
+      "tech_score": 46.1,
+      "fund_score": 42.5,
+      "confidence": 0.7,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.5,
+        "fund": 0.5
+      },
+      "root_cause": "Timing Error"
+    },
+    {
+      "ticker": "CVX",
+      "month": "November 2025",
+      "signal": "bullish",
+      "actual_direction": "down",
+      "price_return_pct": -3.11,
+      "orchestrator_score": 71.4,
+      "tech_score": 76.5,
+      "fund_score": 42.5,
+      "confidence": 0.051,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.85,
+        "fund": 0.15
+      },
+      "root_cause": "Indicator Lag Error"
+    },
+    {
+      "ticker": "CVX",
+      "month": "December 2025",
+      "signal": "neutral",
+      "actual_direction": "up",
+      "price_return_pct": 0.78,
+      "orchestrator_score": 40.65,
+      "tech_score": 38.8,
+      "fund_score": 42.5,
+      "confidence": 0.7,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.5,
+        "fund": 0.5
+      },
+      "root_cause": "Timing Error"
+    },
+    {
+      "ticker": "C",
+      "month": "March 2025",
+      "signal": "neutral",
+      "actual_direction": "down",
+      "price_return_pct": -12.03,
+      "orchestrator_score": 54.07,
+      "tech_score": 54.4,
+      "fund_score": 52.2,
+      "confidence": 0.1496,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.85,
+        "fund": 0.15
+      },
+      "root_cause": "Market Regime Error"
+    },
+    {
+      "ticker": "C",
+      "month": "April 2025",
+      "signal": "neutral",
+      "actual_direction": "down",
+      "price_return_pct": -2.97,
+      "orchestrator_score": 50.85,
+      "tech_score": 49.5,
+      "fund_score": 52.2,
+      "confidence": 0.7,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.5,
+        "fund": 0.5
+      },
+      "root_cause": "Timing Error"
+    },
+    {
+      "ticker": "C",
+      "month": "May 2025",
+      "signal": "neutral",
+      "actual_direction": "up",
+      "price_return_pct": 11.03,
+      "orchestrator_score": 61.63,
+      "tech_score": 63.3,
+      "fund_score": 52.2,
+      "confidence": 0.1122,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.85,
+        "fund": 0.15
+      },
+      "root_cause": "Market Regime Error"
+    },
+    {
+      "ticker": "C",
+      "month": "October 2025",
+      "signal": "bullish",
+      "actual_direction": "down",
+      "price_return_pct": -1.26,
+      "orchestrator_score": 68.62,
+      "tech_score": 72.4,
+      "fund_score": 47.2,
+      "confidence": 0.0884,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.85,
+        "fund": 0.15
+      },
+      "root_cause": "Timing Error"
+    },
+    {
+      "ticker": "C",
+      "month": "January 2026",
+      "signal": "bullish",
+      "actual_direction": "down",
+      "price_return_pct": -0.84,
+      "orchestrator_score": 71.25,
+      "tech_score": 75.5,
+      "fund_score": 47.2,
+      "confidence": 0.017,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.85,
+        "fund": 0.15
+      },
+      "root_cause": "Timing Error"
+    },
+    {
+      "ticker": "C",
+      "month": "February 2026",
+      "signal": "neutral",
+      "actual_direction": "down",
+      "price_return_pct": -4.27,
+      "orchestrator_score": 60.46,
+      "tech_score": 62.8,
+      "fund_score": 47.2,
+      "confidence": 0.0952,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.85,
+        "fund": 0.15
+      },
+      "root_cause": "Indicator Lag Error"
+    },
+    {
+      "ticker": "EOG",
+      "month": "March 2025",
+      "signal": "neutral",
+      "actual_direction": "down",
+      "price_return_pct": -0.28,
+      "orchestrator_score": 47.3,
+      "tech_score": 37.2,
+      "fund_score": 57.4,
+      "confidence": 0.7,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.5,
+        "fund": 0.5
+      },
+      "root_cause": "Timing Error"
+    },
+    {
+      "ticker": "EOG",
+      "month": "April 2025",
+      "signal": "bullish",
+      "actual_direction": "down",
+      "price_return_pct": -11.13,
+      "orchestrator_score": 69.98,
+      "tech_score": 72.2,
+      "fund_score": 57.4,
+      "confidence": 0.0952,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.85,
+        "fund": 0.15
+      },
+      "root_cause": "Indicator Lag Error"
+    },
+    {
+      "ticker": "EOG",
+      "month": "June 2025",
+      "signal": "bearish",
+      "actual_direction": "up",
+      "price_return_pct": 11.26,
+      "orchestrator_score": 25.83,
+      "tech_score": 19.5,
+      "fund_score": 61.7,
+      "confidence": 0.527,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.85,
+        "fund": 0.15
+      },
+      "root_cause": "Market Regime Error"
+    },
+    {
+      "ticker": "EOG",
+      "month": "July 2025",
+      "signal": "neutral",
+      "actual_direction": "up",
+      "price_return_pct": 2.2,
+      "orchestrator_score": 52.62,
+      "tech_score": 51.8,
+      "fund_score": 57.3,
+      "confidence": 0.0612,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.85,
+        "fund": 0.15
+      },
+      "root_cause": "Timing Error"
+    },
+    {
+      "ticker": "EOG",
+      "month": "September 2025",
+      "signal": "bullish",
+      "actual_direction": "down",
+      "price_return_pct": -9.19,
+      "orchestrator_score": 74.31,
+      "tech_score": 77.3,
+      "fund_score": 57.4,
+      "confidence": 0.0782,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.85,
+        "fund": 0.15
+      },
+      "root_cause": "Indicator Lag Error"
+    },
+    {
+      "ticker": "EOG",
+      "month": "October 2025",
+      "signal": "neutral",
+      "actual_direction": null,
+      "price_return_pct": null,
+      "orchestrator_score": null,
+      "tech_score": null,
+      "fund_score": null,
+      "confidence": null,
+      "conflict_detected": null,
+      "weights_applied": null,
+      "root_cause": "Timing Error"
+    },
+    {
+      "ticker": "EOG",
+      "month": "November 2025",
+      "signal": "bearish",
+      "actual_direction": "up",
+      "price_return_pct": 1.9,
+      "orchestrator_score": 35.01,
+      "tech_score": 30.3,
+      "fund_score": 61.7,
+      "confidence": 0.1598,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.85,
+        "fund": 0.15
+      },
+      "root_cause": "Timing Error"
+    },
+    {
+      "ticker": "EOG",
+      "month": "December 2025",
+      "signal": "neutral",
+      "actual_direction": "down",
+      "price_return_pct": -2.03,
+      "orchestrator_score": 55.24,
+      "tech_score": 54.1,
+      "fund_score": 61.7,
+      "confidence": 0.1394,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.85,
+        "fund": 0.15
+      },
+      "root_cause": "Timing Error"
+    },
+    {
+      "ticker": "EOG",
+      "month": "January 2026",
+      "signal": "bearish",
+      "actual_direction": "up",
+      "price_return_pct": 7.8,
+      "orchestrator_score": 35.44,
+      "tech_score": 30.8,
+      "fund_score": 61.7,
+      "confidence": 0.1428,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.85,
+        "fund": 0.15
+      },
+      "root_cause": "Market Regime Error"
+    },
+    {
+      "ticker": "GIS",
+      "month": "March 2025",
+      "signal": "neutral",
+      "actual_direction": "down",
+      "price_return_pct": -2.49,
+      "orchestrator_score": 55.47,
+      "tech_score": 56.7,
+      "fund_score": 48.5,
+      "confidence": 0.1122,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.85,
+        "fund": 0.15
+      },
+      "root_cause": "Timing Error"
+    },
+    {
+      "ticker": "GIS",
+      "month": "April 2025",
+      "signal": "neutral",
+      "actual_direction": "down",
+      "price_return_pct": -5.11,
+      "orchestrator_score": 44.7,
+      "tech_score": 41.0,
+      "fund_score": 48.4,
+      "confidence": 0.7,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.5,
+        "fund": 0.5
+      },
+      "root_cause": "Market Regime Error"
+    },
+    {
+      "ticker": "GIS",
+      "month": "June 2025",
+      "signal": "neutral",
+      "actual_direction": "down",
+      "price_return_pct": -6.89,
+      "orchestrator_score": 42.2,
+      "tech_score": 36.2,
+      "fund_score": 48.2,
+      "confidence": 0.7,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.5,
+        "fund": 0.5
+      },
+      "root_cause": "Market Regime Error"
+    },
+    {
+      "ticker": "GIS",
+      "month": "August 2025",
+      "signal": "bearish",
+      "actual_direction": "up",
+      "price_return_pct": 0.71,
+      "orchestrator_score": 26.65,
+      "tech_score": 23.2,
+      "fund_score": 46.2,
+      "confidence": 0.4012,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.85,
+        "fund": 0.15
+      },
+      "root_cause": "Timing Error"
+    },
+    {
+      "ticker": "GIS",
+      "month": "September 2025",
+      "signal": "bearish",
+      "actual_direction": "up",
+      "price_return_pct": 0.67,
+      "orchestrator_score": 35.23,
+      "tech_score": 33.3,
+      "fund_score": 46.2,
+      "confidence": 0.0578,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.85,
+        "fund": 0.15
+      },
+      "root_cause": "Timing Error"
+    },
+    {
+      "ticker": "GIS",
+      "month": "October 2025",
+      "signal": "neutral",
+      "actual_direction": "down",
+      "price_return_pct": -5.51,
+      "orchestrator_score": 60.82,
+      "tech_score": 63.4,
+      "fund_score": 46.2,
+      "confidence": 0.1156,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.85,
+        "fund": 0.15
+      },
+      "root_cause": "Indicator Lag Error"
+    },
+    {
+      "ticker": "GIS",
+      "month": "November 2025",
+      "signal": "bearish",
+      "actual_direction": "up",
+      "price_return_pct": 1.59,
+      "orchestrator_score": 28.08,
+      "tech_score": 24.9,
+      "fund_score": 46.1,
+      "confidence": 0.3434,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.85,
+        "fund": 0.15
+      },
+      "root_cause": "Timing Error"
+    },
+    {
+      "ticker": "GIS",
+      "month": "December 2025",
+      "signal": "neutral",
+      "actual_direction": "down",
+      "price_return_pct": -1.44,
+      "orchestrator_score": 44.45,
+      "tech_score": 42.8,
+      "fund_score": 46.1,
+      "confidence": 0.7,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.5,
+        "fund": 0.5
+      },
+      "root_cause": "Timing Error"
+    },
+    {
+      "ticker": "GIS",
+      "month": "January 2026",
+      "signal": "bearish",
+      "actual_direction": "up",
+      "price_return_pct": 0.88,
+      "orchestrator_score": 31.56,
+      "tech_score": 29.0,
+      "fund_score": 46.1,
+      "confidence": 0.204,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.85,
+        "fund": 0.15
+      },
+      "root_cause": "Timing Error"
+    },
+    {
+      "ticker": "GIS",
+      "month": "February 2026",
+      "signal": "neutral",
+      "actual_direction": "down",
+      "price_return_pct": -2.23,
+      "orchestrator_score": 57.49,
+      "tech_score": 59.5,
+      "fund_score": 46.1,
+      "confidence": 0.017,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.85,
+        "fund": 0.15
+      },
+      "root_cause": "Timing Error"
+    },
+    {
+      "ticker": "GOOGL",
+      "month": "April 2025",
+      "signal": "bearish",
+      "actual_direction": "up",
+      "price_return_pct": 3.57,
+      "orchestrator_score": 35.46,
+      "tech_score": 32.4,
+      "fund_score": 52.8,
+      "confidence": 0.0884,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.85,
+        "fund": 0.15
+      },
+      "root_cause": "Market Regime Error"
+    },
+    {
+      "ticker": "GOOGL",
+      "month": "May 2025",
+      "signal": "neutral",
+      "actual_direction": "up",
+      "price_return_pct": 8.15,
+      "orchestrator_score": 50.51,
+      "tech_score": 50.1,
+      "fund_score": 52.8,
+      "confidence": 0.0034,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.85,
+        "fund": 0.15
+      },
+      "root_cause": "Market Regime Error"
+    },
+    {
+      "ticker": "GOOGL",
+      "month": "October 2025",
+      "signal": "neutral",
+      "actual_direction": "up",
+      "price_return_pct": 15.79,
+      "orchestrator_score": 61.64,
+      "tech_score": 63.2,
+      "fund_score": 52.8,
+      "confidence": 0.1088,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.85,
+        "fund": 0.15
+      },
+      "root_cause": "Market Regime Error"
+    },
+    {
+      "ticker": "GOOGL",
+      "month": "December 2025",
+      "signal": "bullish",
+      "actual_direction": "down",
+      "price_return_pct": -1.91,
+      "orchestrator_score": 73.08,
+      "tech_score": 77.1,
+      "fund_score": 50.3,
+      "confidence": 0.0714,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.85,
+        "fund": 0.15
+      },
+      "root_cause": "Timing Error"
+    },
+    {
+      "ticker": "GOOGL",
+      "month": "February 2026",
+      "signal": "bullish",
+      "actual_direction": "down",
+      "price_return_pct": -7.76,
+      "orchestrator_score": 74.1,
+      "tech_score": 78.3,
+      "fund_score": 50.3,
+      "confidence": 0.1122,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.85,
+        "fund": 0.15
+      },
+      "root_cause": "Indicator Lag Error"
+    },
+    {
+      "ticker": "GS",
+      "month": "March 2025",
+      "signal": "neutral",
+      "actual_direction": "down",
+      "price_return_pct": -12.72,
+      "orchestrator_score": 57.66,
+      "tech_score": 50.4,
+      "fund_score": 63.6,
+      "confidence": 0.07360000000000005,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.45,
+        "fund": 0.55
+      },
+      "root_cause": "Market Regime Error"
+    },
+    {
+      "ticker": "GS",
+      "month": "April 2025",
+      "signal": "neutral",
+      "actual_direction": "up",
+      "price_return_pct": 0.48,
+      "orchestrator_score": 51.0,
+      "tech_score": 33.4,
+      "fund_score": 68.6,
+      "confidence": 0.3,
+      "conflict_detected": true,
+      "weights_applied": {
+        "tech": 0.5,
+        "fund": 0.5
+      },
+      "root_cause": "Signal Conflict Error"
+    },
+    {
+      "ticker": "GS",
+      "month": "October 2025",
+      "signal": "bullish",
+      "actual_direction": "down",
+      "price_return_pct": -0.78,
+      "orchestrator_score": 68.27,
+      "tech_score": 69.8,
+      "fund_score": 59.6,
+      "confidence": 0.1768,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.85,
+        "fund": 0.15
+      },
+      "root_cause": "Timing Error"
+    },
+    {
+      "ticker": "GS",
+      "month": "January 2026",
+      "signal": "neutral",
+      "actual_direction": "up",
+      "price_return_pct": 6.42,
+      "orchestrator_score": 60.88,
+      "tech_score": 61.1,
+      "fund_score": 59.6,
+      "confidence": 0.0374,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.85,
+        "fund": 0.15
+      },
+      "root_cause": "Market Regime Error"
+    },
+    {
+      "ticker": "GS",
+      "month": "February 2026",
+      "signal": "neutral",
+      "actual_direction": "down",
+      "price_return_pct": -8.11,
+      "orchestrator_score": 61.55,
+      "tech_score": 61.9,
+      "fund_score": 59.6,
+      "confidence": 0.0646,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.85,
+        "fund": 0.15
+      },
+      "root_cause": "Indicator Lag Error"
+    },
+    {
+      "ticker": "HAL",
+      "month": "March 2025",
+      "signal": "neutral",
+      "actual_direction": "down",
+      "price_return_pct": -4.26,
+      "orchestrator_score": 49.55,
+      "tech_score": 39.8,
+      "fund_score": 59.3,
+      "confidence": 0.7,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.5,
+        "fund": 0.5
+      },
+      "root_cause": "Market Regime Error"
+    },
+    {
+      "ticker": "HAL",
+      "month": "April 2025",
+      "signal": "neutral",
+      "actual_direction": "down",
+      "price_return_pct": -19.16,
+      "orchestrator_score": 50.75,
+      "tech_score": 42.2,
+      "fund_score": 59.3,
+      "confidence": 0.7,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.5,
+        "fund": 0.5
+      },
+      "root_cause": "Market Regime Error"
+    },
+    {
+      "ticker": "HAL",
+      "month": "June 2025",
+      "signal": "bearish",
+      "actual_direction": "up",
+      "price_return_pct": 5.88,
+      "orchestrator_score": 32.13,
+      "tech_score": 19.2,
+      "fund_score": 62.3,
+      "confidence": 0.4424,
+      "conflict_detected": true,
+      "weights_applied": {
+        "tech": 0.7,
+        "fund": 0.3
+      },
+      "root_cause": "Signal Conflict Error"
+    },
+    {
+      "ticker": "HAL",
+      "month": "July 2025",
+      "signal": "bearish",
+      "actual_direction": null,
+      "price_return_pct": null,
+      "orchestrator_score": null,
+      "tech_score": null,
+      "fund_score": null,
+      "confidence": null,
+      "conflict_detected": null,
+      "weights_applied": null,
+      "root_cause": "Timing Error"
+    },
+    {
+      "ticker": "HAL",
+      "month": "August 2025",
+      "signal": "neutral",
+      "actual_direction": "up",
+      "price_return_pct": 5.23,
+      "orchestrator_score": 51.95,
+      "tech_score": 42.4,
+      "fund_score": 61.5,
+      "confidence": 0.7,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.5,
+        "fund": 0.5
+      },
+      "root_cause": "Market Regime Error"
+    },
+    {
+      "ticker": "HAL",
+      "month": "November 2025",
+      "signal": "bullish",
+      "actual_direction": "down",
+      "price_return_pct": -2.31,
+      "orchestrator_score": 70.52,
+      "tech_score": 72.5,
+      "fund_score": 59.3,
+      "confidence": 0.085,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.85,
+        "fund": 0.15
+      },
+      "root_cause": "Timing Error"
+    },
+    {
+      "ticker": "HAL",
+      "month": "December 2025",
+      "signal": "neutral",
+      "actual_direction": "up",
+      "price_return_pct": 9.35,
+      "orchestrator_score": 54.74,
+      "tech_score": 54.1,
+      "fund_score": 58.4,
+      "confidence": 0.1394,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.85,
+        "fund": 0.15
+      },
+      "root_cause": "Market Regime Error"
+    },
+    {
+      "ticker": "JNJ",
+      "month": "March 2025",
+      "signal": "bullish",
+      "actual_direction": "down",
+      "price_return_pct": -0.79,
+      "orchestrator_score": 72.13,
+      "tech_score": 76.9,
+      "fund_score": 45.1,
+      "confidence": 0.0646,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.85,
+        "fund": 0.15
+      },
+      "root_cause": "Timing Error"
+    },
+    {
+      "ticker": "JNJ",
+      "month": "April 2025",
+      "signal": "bullish",
+      "actual_direction": "down",
+      "price_return_pct": -5.99,
+      "orchestrator_score": 70.77,
+      "tech_score": 75.3,
+      "fund_score": 45.1,
+      "confidence": 0.0102,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.85,
+        "fund": 0.15
+      },
+      "root_cause": "Indicator Lag Error"
+    },
+    {
+      "ticker": "JNJ",
+      "month": "June 2025",
+      "signal": "bullish",
+      "actual_direction": "down",
+      "price_return_pct": -1.8,
+      "orchestrator_score": 69.58,
+      "tech_score": 73.9,
+      "fund_score": 45.1,
+      "confidence": 0.0374,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.85,
+        "fund": 0.15
+      },
+      "root_cause": "Timing Error"
+    },
+    {
+      "ticker": "JNJ",
+      "month": "July 2025",
+      "signal": "neutral",
+      "actual_direction": "up",
+      "price_return_pct": 9.5,
+      "orchestrator_score": 40.55,
+      "tech_score": 36.0,
+      "fund_score": 45.1,
+      "confidence": 0.7,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.5,
+        "fund": 0.5
+      },
+      "root_cause": "Market Regime Error"
+    },
+    {
+      "ticker": "JNJ",
+      "month": "November 2025",
+      "signal": "neutral",
+      "actual_direction": "up",
+      "price_return_pct": 10.25,
+      "orchestrator_score": 56.23,
+      "tech_score": 58.2,
+      "fund_score": 45.1,
+      "confidence": 0.0612,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.85,
+        "fund": 0.15
+      },
+      "root_cause": "Market Regime Error"
+    },
+    {
+      "ticker": "JNJ",
+      "month": "December 2025",
+      "signal": "bullish",
+      "actual_direction": "down",
+      "price_return_pct": -0.0,
+      "orchestrator_score": 73.49,
+      "tech_score": 78.5,
+      "fund_score": 45.1,
+      "confidence": 0.119,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.85,
+        "fund": 0.15
+      },
+      "root_cause": "Timing Error"
+    },
+    {
+      "ticker": "JNJ",
+      "month": "January 2026",
+      "signal": "neutral",
+      "actual_direction": "up",
+      "price_return_pct": 9.81,
+      "orchestrator_score": 54.11,
+      "tech_score": 55.7,
+      "fund_score": 45.1,
+      "confidence": 0.1462,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.85,
+        "fund": 0.15
+      },
+      "root_cause": "Market Regime Error"
+    },
+    {
+      "ticker": "JPM",
+      "month": "March 2025",
+      "signal": "bullish",
+      "actual_direction": "down",
+      "price_return_pct": -8.24,
+      "orchestrator_score": 62.78,
+      "tech_score": 56.4,
+      "fund_score": 68.0,
+      "confidence": 0.16560000000000002,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.45,
+        "fund": 0.55
+      },
+      "root_cause": "Market Regime Error"
+    },
+    {
+      "ticker": "JPM",
+      "month": "April 2025",
+      "signal": "neutral",
+      "actual_direction": "up",
+      "price_return_pct": 0.34,
+      "orchestrator_score": 60.49,
+      "tech_score": 51.3,
+      "fund_score": 68.0,
+      "confidence": 0.092,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.45,
+        "fund": 0.55
+      },
+      "root_cause": "Timing Error"
+    },
+    {
+      "ticker": "JPM",
+      "month": "October 2025",
+      "signal": "bullish",
+      "actual_direction": "down",
+      "price_return_pct": -1.42,
+      "orchestrator_score": 70.12,
+      "tech_score": 77.6,
+      "fund_score": 64.0,
+      "confidence": 0.11959999999999973,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.45,
+        "fund": 0.55
+      },
+      "root_cause": "Timing Error"
+    },
+    {
+      "ticker": "JPM",
+      "month": "January 2026",
+      "signal": "bullish",
+      "actual_direction": "down",
+      "price_return_pct": -4.64,
+      "orchestrator_score": 67.24,
+      "tech_score": 71.2,
+      "fund_score": 64.0,
+      "confidence": 0.17479999999999984,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.45,
+        "fund": 0.55
+      },
+      "root_cause": "Market Regime Error"
+    },
+    {
+      "ticker": "JPM",
+      "month": "February 2026",
+      "signal": "neutral",
+      "actual_direction": "down",
+      "price_return_pct": -1.83,
+      "orchestrator_score": 60.86,
+      "tech_score": 43.1,
+      "fund_score": 64.0,
+      "confidence": 0.072,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.15,
+        "fund": 0.85
+      },
+      "root_cause": "Timing Error"
+    },
+    {
+      "ticker": "KO",
+      "month": "March 2025",
+      "signal": "bullish",
+      "actual_direction": "down",
+      "price_return_pct": -0.45,
+      "orchestrator_score": 67.88,
+      "tech_score": 72.0,
+      "fund_score": 44.5,
+      "confidence": 0.102,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.85,
+        "fund": 0.15
+      },
+      "root_cause": "Timing Error"
+    },
+    {
+      "ticker": "KO",
+      "month": "May 2025",
+      "signal": "neutral",
+      "actual_direction": "down",
+      "price_return_pct": -0.62,
+      "orchestrator_score": 60.05,
+      "tech_score": 62.8,
+      "fund_score": 44.5,
+      "confidence": 0.0952,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.85,
+        "fund": 0.15
+      },
+      "root_cause": "Timing Error"
+    },
+    {
+      "ticker": "KO",
+      "month": "June 2025",
+      "signal": "bullish",
+      "actual_direction": "down",
+      "price_return_pct": -1.76,
+      "orchestrator_score": 71.1,
+      "tech_score": 75.8,
+      "fund_score": 44.5,
+      "confidence": 0.0272,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.85,
+        "fund": 0.15
+      },
+      "root_cause": "Timing Error"
+    },
+    {
+      "ticker": "KO",
+      "month": "July 2025",
+      "signal": "neutral",
+      "actual_direction": "down",
+      "price_return_pct": -2.83,
+      "orchestrator_score": 55.04,
+      "tech_score": 56.9,
+      "fund_score": 44.5,
+      "confidence": 0.1054,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.85,
+        "fund": 0.15
+      },
+      "root_cause": "Timing Error"
+    },
+    {
+      "ticker": "KO",
+      "month": "August 2025",
+      "signal": "bearish",
+      "actual_direction": "up",
+      "price_return_pct": 1.62,
+      "orchestrator_score": 30.99,
+      "tech_score": 28.6,
+      "fund_score": 44.5,
+      "confidence": 0.2176,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.85,
+        "fund": 0.15
+      },
+      "root_cause": "Timing Error"
+    },
+    {
+      "ticker": "KO",
+      "month": "September 2025",
+      "signal": "neutral",
+      "actual_direction": "down",
+      "price_return_pct": -3.54,
+      "orchestrator_score": 40.35,
+      "tech_score": 36.2,
+      "fund_score": 44.5,
+      "confidence": 0.7,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.5,
+        "fund": 0.5
+      },
+      "root_cause": "Market Regime Error"
+    },
+    {
+      "ticker": "KO",
+      "month": "October 2025",
+      "signal": "bearish",
+      "actual_direction": "up",
+      "price_return_pct": 4.01,
+      "orchestrator_score": 35.64,
+      "tech_score": 34.1,
+      "fund_score": 44.4,
+      "confidence": 0.0306,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.85,
+        "fund": 0.15
+      },
+      "root_cause": "Market Regime Error"
+    },
+    {
+      "ticker": "KO",
+      "month": "December 2025",
+      "signal": "bullish",
+      "actual_direction": "down",
+      "price_return_pct": -3.5,
+      "orchestrator_score": 69.76,
+      "tech_score": 74.2,
+      "fund_score": 44.6,
+      "confidence": 0.0272,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.85,
+        "fund": 0.15
+      },
+      "root_cause": "Indicator Lag Error"
+    },
+    {
+      "ticker": "KO",
+      "month": "January 2026",
+      "signal": "neutral",
+      "actual_direction": "up",
+      "price_return_pct": 7.01,
+      "orchestrator_score": 43.25,
+      "tech_score": 42.0,
+      "fund_score": 44.5,
+      "confidence": 0.7,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.5,
+        "fund": 0.5
+      },
+      "root_cause": "Market Regime Error"
+    },
+    {
+      "ticker": "LLY",
+      "month": "March 2025",
+      "signal": "bullish",
+      "actual_direction": "down",
+      "price_return_pct": -10.66,
+      "orchestrator_score": 74.0,
+      "tech_score": 77.9,
+      "fund_score": 51.9,
+      "confidence": 0.0986,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.85,
+        "fund": 0.15
+      },
+      "root_cause": "Indicator Lag Error"
+    },
+    {
+      "ticker": "LLY",
+      "month": "April 2025",
+      "signal": "neutral",
+      "actual_direction": "up",
+      "price_return_pct": 7.18,
+      "orchestrator_score": 46.85,
+      "tech_score": 41.8,
+      "fund_score": 51.9,
+      "confidence": 0.7,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.5,
+        "fund": 0.5
+      },
+      "root_cause": "Market Regime Error"
+    },
+    {
+      "ticker": "LLY",
+      "month": "May 2025",
+      "signal": "bullish",
+      "actual_direction": "down",
+      "price_return_pct": -17.77,
+      "orchestrator_score": 72.04,
+      "tech_score": 75.6,
+      "fund_score": 51.9,
+      "confidence": 0.0204,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.85,
+        "fund": 0.15
+      },
+      "root_cause": "Indicator Lag Error"
+    },
+    {
+      "ticker": "LLY",
+      "month": "June 2025",
+      "signal": "bearish",
+      "actual_direction": "up",
+      "price_return_pct": 5.12,
+      "orchestrator_score": 33.28,
+      "tech_score": 30.0,
+      "fund_score": 51.9,
+      "confidence": 0.17,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.85,
+        "fund": 0.15
+      },
+      "root_cause": "Market Regime Error"
+    },
+    {
+      "ticker": "LLY",
+      "month": "July 2025",
+      "signal": "neutral",
+      "actual_direction": "down",
+      "price_return_pct": -2.5,
+      "orchestrator_score": 43.65,
+      "tech_score": 35.4,
+      "fund_score": 51.9,
+      "confidence": 0.7,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.5,
+        "fund": 0.5
+      },
+      "root_cause": "Timing Error"
+    },
+    {
+      "ticker": "LLY",
+      "month": "September 2025",
+      "signal": "neutral",
+      "actual_direction": "down",
+      "price_return_pct": -0.83,
+      "orchestrator_score": 50.3,
+      "tech_score": 48.7,
+      "fund_score": 51.9,
+      "confidence": 0.7,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.5,
+        "fund": 0.5
+      },
+      "root_cause": "Timing Error"
+    },
+    {
+      "ticker": "LLY",
+      "month": "October 2025",
+      "signal": "neutral",
+      "actual_direction": "up",
+      "price_return_pct": 10.68,
+      "orchestrator_score": 61.59,
+      "tech_score": 63.3,
+      "fund_score": 51.9,
+      "confidence": 0.1122,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.85,
+        "fund": 0.15
+      },
+      "root_cause": "Market Regime Error"
+    },
+    {
+      "ticker": "LLY",
+      "month": "January 2026",
+      "signal": "bullish",
+      "actual_direction": "down",
+      "price_return_pct": -3.49,
+      "orchestrator_score": 67.88,
+      "tech_score": 70.7,
+      "fund_score": 51.9,
+      "confidence": 0.1462,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.85,
+        "fund": 0.15
+      },
+      "root_cause": "Indicator Lag Error"
+    },
+    {
+      "ticker": "LLY",
+      "month": "February 2026",
+      "signal": "neutral",
+      "actual_direction": "up",
+      "price_return_pct": 1.6,
+      "orchestrator_score": 48.8,
+      "tech_score": 45.7,
+      "fund_score": 51.9,
+      "confidence": 0.7,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.5,
+        "fund": 0.5
+      },
+      "root_cause": "Timing Error"
+    },
+    {
+      "ticker": "MA",
+      "month": "March 2025",
+      "signal": "bullish",
+      "actual_direction": "down",
+      "price_return_pct": -6.19,
+      "orchestrator_score": 68.57,
+      "tech_score": 73.3,
+      "fund_score": 41.8,
+      "confidence": 0.0578,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.85,
+        "fund": 0.15
+      },
+      "root_cause": "Indicator Lag Error"
+    },
+    {
+      "ticker": "MA",
+      "month": "April 2025",
+      "signal": "bullish",
+      "actual_direction": "down",
+      "price_return_pct": -1.38,
+      "orchestrator_score": 67.13,
+      "tech_score": 71.6,
+      "fund_score": 41.8,
+      "confidence": 0.1156,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.85,
+        "fund": 0.15
+      },
+      "root_cause": "Timing Error"
+    },
+    {
+      "ticker": "MA",
+      "month": "June 2025",
+      "signal": "bullish",
+      "actual_direction": "down",
+      "price_return_pct": -6.02,
+      "orchestrator_score": 72.48,
+      "tech_score": 77.9,
+      "fund_score": 41.8,
+      "confidence": 0.0986,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.85,
+        "fund": 0.15
+      },
+      "root_cause": "Indicator Lag Error"
+    },
+    {
+      "ticker": "MA",
+      "month": "July 2025",
+      "signal": "neutral",
+      "actual_direction": "down",
+      "price_return_pct": -0.37,
+      "orchestrator_score": 54.21,
+      "tech_score": 56.4,
+      "fund_score": 41.8,
+      "confidence": 0.1224,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.85,
+        "fund": 0.15
+      },
+      "root_cause": "Timing Error"
+    },
+    {
+      "ticker": "MA",
+      "month": "September 2025",
+      "signal": "bullish",
+      "actual_direction": "down",
+      "price_return_pct": -4.56,
+      "orchestrator_score": 67.39,
+      "tech_score": 71.9,
+      "fund_score": 41.8,
+      "confidence": 0.1054,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.85,
+        "fund": 0.15
+      },
+      "root_cause": "Indicator Lag Error"
+    },
+    {
+      "ticker": "MA",
+      "month": "October 2025",
+      "signal": "neutral",
+      "actual_direction": "down",
+      "price_return_pct": -2.53,
+      "orchestrator_score": 41.65,
+      "tech_score": 41.5,
+      "fund_score": 41.8,
+      "confidence": 0.7,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.5,
+        "fund": 0.5
+      },
+      "root_cause": "Timing Error"
+    },
+    {
+      "ticker": "MA",
+      "month": "December 2025",
+      "signal": "neutral",
+      "actual_direction": "up",
+      "price_return_pct": 4.88,
+      "orchestrator_score": 45.5,
+      "tech_score": 49.2,
+      "fund_score": 41.8,
+      "confidence": 0.7,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.5,
+        "fund": 0.5
+      },
+      "root_cause": "Market Regime Error"
+    },
+    {
+      "ticker": "MA",
+      "month": "January 2026",
+      "signal": "bullish",
+      "actual_direction": "down",
+      "price_return_pct": -5.48,
+      "orchestrator_score": 65.69,
+      "tech_score": 69.9,
+      "fund_score": 41.8,
+      "confidence": 0.1734,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.85,
+        "fund": 0.15
+      },
+      "root_cause": "Indicator Lag Error"
+    },
+    {
+      "ticker": "MCD",
+      "month": "May 2025",
+      "signal": "bullish",
+      "actual_direction": "down",
+      "price_return_pct": -1.81,
+      "orchestrator_score": 72.21,
+      "tech_score": 77.6,
+      "fund_score": 41.7,
+      "confidence": 0.0884,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.85,
+        "fund": 0.15
+      },
+      "root_cause": "Timing Error"
+    },
+    {
+      "ticker": "MCD",
+      "month": "June 2025",
+      "signal": "neutral",
+      "actual_direction": "down",
+      "price_return_pct": -6.58,
+      "orchestrator_score": 56.49,
+      "tech_score": 59.1,
+      "fund_score": 41.7,
+      "confidence": 0.0306,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.85,
+        "fund": 0.15
+      },
+      "root_cause": "Market Regime Error"
+    },
+    {
+      "ticker": "MCD",
+      "month": "July 2025",
+      "signal": "bearish",
+      "actual_direction": "up",
+      "price_return_pct": 3.92,
+      "orchestrator_score": 34.56,
+      "tech_score": 33.3,
+      "fund_score": 41.7,
+      "confidence": 0.0578,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.85,
+        "fund": 0.15
+      },
+      "root_cause": "Market Regime Error"
+    },
+    {
+      "ticker": "MCD",
+      "month": "September 2025",
+      "signal": "bullish",
+      "actual_direction": "down",
+      "price_return_pct": -2.82,
+      "orchestrator_score": 68.47,
+      "tech_score": 73.2,
+      "fund_score": 41.7,
+      "confidence": 0.0612,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.85,
+        "fund": 0.15
+      },
+      "root_cause": "Timing Error"
+    },
+    {
+      "ticker": "MCD",
+      "month": "October 2025",
+      "signal": "neutral",
+      "actual_direction": "down",
+      "price_return_pct": -0.48,
+      "orchestrator_score": 43.4,
+      "tech_score": 45.1,
+      "fund_score": 41.7,
+      "confidence": 0.7,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.5,
+        "fund": 0.5
+      },
+      "root_cause": "Timing Error"
+    },
+    {
+      "ticker": "MCD",
+      "month": "November 2025",
+      "signal": "neutral",
+      "actual_direction": "up",
+      "price_return_pct": 4.49,
+      "orchestrator_score": 39.65,
+      "tech_score": 37.6,
+      "fund_score": 41.7,
+      "confidence": 0.7,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.5,
+        "fund": 0.5
+      },
+      "root_cause": "Market Regime Error"
+    },
+    {
+      "ticker": "MCD",
+      "month": "December 2025",
+      "signal": "bullish",
+      "actual_direction": "down",
+      "price_return_pct": -0.62,
+      "orchestrator_score": 70.85,
+      "tech_score": 76.0,
+      "fund_score": 41.7,
+      "confidence": 0.034,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.85,
+        "fund": 0.15
+      },
+      "root_cause": "Timing Error"
+    },
+    {
+      "ticker": "MCD",
+      "month": "January 2026",
+      "signal": "neutral",
+      "actual_direction": "up",
+      "price_return_pct": 3.07,
+      "orchestrator_score": 41.0,
+      "tech_score": 40.3,
+      "fund_score": 41.7,
+      "confidence": 0.7,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.5,
+        "fund": 0.5
+      },
+      "root_cause": "Market Regime Error"
+    },
+    {
+      "ticker": "META",
+      "month": "March 2025",
+      "signal": "neutral",
+      "actual_direction": "down",
+      "price_return_pct": -13.61,
+      "orchestrator_score": 54.4,
+      "tech_score": 53.8,
+      "fund_score": 57.8,
+      "confidence": 0.1292,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.85,
+        "fund": 0.15
+      },
+      "root_cause": "Market Regime Error"
+    },
+    {
+      "ticker": "META",
+      "month": "May 2025",
+      "signal": "neutral",
+      "actual_direction": "up",
+      "price_return_pct": 17.94,
+      "orchestrator_score": 57.55,
+      "tech_score": 57.5,
+      "fund_score": 57.8,
+      "confidence": 0.085,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.85,
+        "fund": 0.15
+      },
+      "root_cause": "Market Regime Error"
+    },
+    {
+      "ticker": "META",
+      "month": "July 2025",
+      "signal": "bullish",
+      "actual_direction": "down",
+      "price_return_pct": -5.81,
+      "orchestrator_score": 76.75,
+      "tech_score": 80.1,
+      "fund_score": 57.8,
+      "confidence": 0.1734,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.85,
+        "fund": 0.15
+      },
+      "root_cause": "Indicator Lag Error"
+    },
+    {
+      "ticker": "META",
+      "month": "August 2025",
+      "signal": "bullish",
+      "actual_direction": "down",
+      "price_return_pct": -4.49,
+      "orchestrator_score": 74.29,
+      "tech_score": 77.2,
+      "fund_score": 57.8,
+      "confidence": 0.0748,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.85,
+        "fund": 0.15
+      },
+      "root_cause": "Indicator Lag Error"
+    },
+    {
+      "ticker": "META",
+      "month": "September 2025",
+      "signal": "neutral",
+      "actual_direction": "up",
+      "price_return_pct": 0.7,
+      "orchestrator_score": 50.85,
+      "tech_score": 43.9,
+      "fund_score": 57.8,
+      "confidence": 0.7,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.5,
+        "fund": 0.5
+      },
+      "root_cause": "Timing Error"
+    },
+    {
+      "ticker": "META",
+      "month": "October 2025",
+      "signal": "neutral",
+      "actual_direction": "down",
+      "price_return_pct": -9.25,
+      "orchestrator_score": 46.55,
+      "tech_score": 35.3,
+      "fund_score": 57.8,
+      "confidence": 0.7,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.5,
+        "fund": 0.5
+      },
+      "root_cause": "Market Regime Error"
+    },
+    {
+      "ticker": "META",
+      "month": "December 2025",
+      "signal": "neutral",
+      "actual_direction": "up",
+      "price_return_pct": 2.86,
+      "orchestrator_score": 52.75,
+      "tech_score": 47.7,
+      "fund_score": 57.8,
+      "confidence": 0.7,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.5,
+        "fund": 0.5
+      },
+      "root_cause": "Timing Error"
+    },
+    {
+      "ticker": "META",
+      "month": "January 2026",
+      "signal": "neutral",
+      "actual_direction": "up",
+      "price_return_pct": 8.55,
+      "orchestrator_score": 52.11,
+      "tech_score": 51.1,
+      "fund_score": 57.8,
+      "confidence": 0.0374,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.85,
+        "fund": 0.15
+      },
+      "root_cause": "Market Regime Error"
+    },
+    {
+      "ticker": "META",
+      "month": "February 2026",
+      "signal": "bullish",
+      "actual_direction": "down",
+      "price_return_pct": -9.54,
+      "orchestrator_score": 75.05,
+      "tech_score": 78.1,
+      "fund_score": 57.8,
+      "confidence": 0.1054,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.85,
+        "fund": 0.15
+      },
+      "root_cause": "Indicator Lag Error"
+    },
+    {
+      "ticker": "MO",
+      "month": "April 2025",
+      "signal": "bullish",
+      "actual_direction": "down",
+      "price_return_pct": -2.08,
+      "orchestrator_score": 74.69,
+      "tech_score": 79.2,
+      "fund_score": 49.1,
+      "confidence": 0.1428,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.85,
+        "fund": 0.15
+      },
+      "root_cause": "Timing Error"
+    },
+    {
+      "ticker": "MO",
+      "month": "June 2025",
+      "signal": "bullish",
+      "actual_direction": "down",
+      "price_return_pct": -1.39,
+      "orchestrator_score": 76.55,
+      "tech_score": 81.4,
+      "fund_score": 49.1,
+      "confidence": 0.2176,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.85,
+        "fund": 0.15
+      },
+      "root_cause": "Timing Error"
+    },
+    {
+      "ticker": "MO",
+      "month": "July 2025",
+      "signal": "neutral",
+      "actual_direction": "up",
+      "price_return_pct": 4.9,
+      "orchestrator_score": 51.82,
+      "tech_score": 52.3,
+      "fund_score": 49.1,
+      "confidence": 0.0782,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.85,
+        "fund": 0.15
+      },
+      "root_cause": "Market Regime Error"
+    },
+    {
+      "ticker": "MO",
+      "month": "September 2025",
+      "signal": "bullish",
+      "actual_direction": "down",
+      "price_return_pct": -0.71,
+      "orchestrator_score": 67.4,
+      "tech_score": 70.6,
+      "fund_score": 49.3,
+      "confidence": 0.1496,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.85,
+        "fund": 0.15
+      },
+      "root_cause": "Timing Error"
+    },
+    {
+      "ticker": "MO",
+      "month": "October 2025",
+      "signal": "bullish",
+      "actual_direction": "down",
+      "price_return_pct": -13.52,
+      "orchestrator_score": 70.8,
+      "tech_score": 74.6,
+      "fund_score": 49.3,
+      "confidence": 0.0136,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.85,
+        "fund": 0.15
+      },
+      "root_cause": "Indicator Lag Error"
+    },
+    {
+      "ticker": "MO",
+      "month": "November 2025",
+      "signal": "bearish",
+      "actual_direction": "up",
+      "price_return_pct": 4.66,
+      "orchestrator_score": 26.61,
+      "tech_score": 22.2,
+      "fund_score": 51.6,
+      "confidence": 0.4352,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.85,
+        "fund": 0.15
+      },
+      "root_cause": "Market Regime Error"
+    },
+    {
+      "ticker": "MO",
+      "month": "December 2025",
+      "signal": "neutral",
+      "actual_direction": "down",
+      "price_return_pct": -0.31,
+      "orchestrator_score": 53.6,
+      "tech_score": 54.4,
+      "fund_score": 49.1,
+      "confidence": 0.1496,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.85,
+        "fund": 0.15
+      },
+      "root_cause": "Timing Error"
+    },
+    {
+      "ticker": "MO",
+      "month": "January 2026",
+      "signal": "neutral",
+      "actual_direction": "up",
+      "price_return_pct": 7.51,
+      "orchestrator_score": 46.2,
+      "tech_score": 43.3,
+      "fund_score": 49.1,
+      "confidence": 0.7,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.5,
+        "fund": 0.5
+      },
+      "root_cause": "Market Regime Error"
+    },
+    {
+      "ticker": "MPC",
+      "month": "March 2025",
+      "signal": "neutral",
+      "actual_direction": "down",
+      "price_return_pct": -4.05,
+      "orchestrator_score": 42.45,
+      "tech_score": 44.2,
+      "fund_score": 40.7,
+      "confidence": 0.7,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.5,
+        "fund": 0.5
+      },
+      "root_cause": "Market Regime Error"
+    },
+    {
+      "ticker": "MPC",
+      "month": "April 2025",
+      "signal": "neutral",
+      "actual_direction": "down",
+      "price_return_pct": -5.07,
+      "orchestrator_score": 40.45,
+      "tech_score": 40.2,
+      "fund_score": 40.7,
+      "confidence": 0.7,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.5,
+        "fund": 0.5
+      },
+      "root_cause": "Market Regime Error"
+    },
+    {
+      "ticker": "MPC",
+      "month": "May 2025",
+      "signal": "neutral",
+      "actual_direction": "up",
+      "price_return_pct": 17.64,
+      "orchestrator_score": 49.88,
+      "tech_score": 51.5,
+      "fund_score": 40.7,
+      "confidence": 0.051,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.85,
+        "fund": 0.15
+      },
+      "root_cause": "Market Regime Error"
+    },
+    {
+      "ticker": "MPC",
+      "month": "July 2025",
+      "signal": "neutral",
+      "actual_direction": "up",
+      "price_return_pct": 2.81,
+      "orchestrator_score": 60.18,
+      "tech_score": 63.6,
+      "fund_score": 40.8,
+      "confidence": 0.1224,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.85,
+        "fund": 0.15
+      },
+      "root_cause": "Timing Error"
+    },
+    {
+      "ticker": "MPC",
+      "month": "August 2025",
+      "signal": "neutral",
+      "actual_direction": "up",
+      "price_return_pct": 6.18,
+      "orchestrator_score": 44.6,
+      "tech_score": 48.4,
+      "fund_score": 40.8,
+      "confidence": 0.7,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.5,
+        "fund": 0.5
+      },
+      "root_cause": "Market Regime Error"
+    },
+    {
+      "ticker": "MPC",
+      "month": "October 2025",
+      "signal": "neutral",
+      "actual_direction": "up",
+      "price_return_pct": 1.5,
+      "orchestrator_score": 57.8,
+      "tech_score": 77.3,
+      "fund_score": 38.3,
+      "confidence": 0.3,
+      "conflict_detected": true,
+      "weights_applied": {
+        "tech": 0.5,
+        "fund": 0.5
+      },
+      "root_cause": "Signal Conflict Error"
+    },
+    {
+      "ticker": "MPC",
+      "month": "November 2025",
+      "signal": "neutral",
+      "actual_direction": "down",
+      "price_return_pct": -0.1,
+      "orchestrator_score": 55.35,
+      "tech_score": 72.4,
+      "fund_score": 38.3,
+      "confidence": 0.3,
+      "conflict_detected": true,
+      "weights_applied": {
+        "tech": 0.5,
+        "fund": 0.5
+      },
+      "root_cause": "Signal Conflict Error"
+    },
+    {
+      "ticker": "MPC",
+      "month": "December 2025",
+      "signal": "neutral",
+      "actual_direction": "down",
+      "price_return_pct": -15.44,
+      "orchestrator_score": 51.6,
+      "tech_score": 64.9,
+      "fund_score": 38.3,
+      "confidence": 0.3,
+      "conflict_detected": true,
+      "weights_applied": {
+        "tech": 0.5,
+        "fund": 0.5
+      },
+      "root_cause": "Signal Conflict Error"
+    },
+    {
+      "ticker": "MPC",
+      "month": "January 2026",
+      "signal": "bearish",
+      "actual_direction": "up",
+      "price_return_pct": 8.34,
+      "orchestrator_score": 30.6,
+      "tech_score": 28.8,
+      "fund_score": 40.8,
+      "confidence": 0.2108,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.85,
+        "fund": 0.15
+      },
+      "root_cause": "Market Regime Error"
+    },
+    {
+      "ticker": "MPC",
+      "month": "February 2026",
+      "signal": "neutral",
+      "actual_direction": "up",
+      "price_return_pct": 13.06,
+      "orchestrator_score": 58.99,
+      "tech_score": 62.2,
+      "fund_score": 40.8,
+      "confidence": 0.0748,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.85,
+        "fund": 0.15
+      },
+      "root_cause": "Market Regime Error"
+    },
+    {
+      "ticker": "MRK",
+      "month": "March 2025",
+      "signal": "neutral",
+      "actual_direction": "down",
+      "price_return_pct": -2.44,
+      "orchestrator_score": 56.24,
+      "tech_score": 56.5,
+      "fund_score": 54.8,
+      "confidence": 0.119,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.85,
+        "fund": 0.15
+      },
+      "root_cause": "Timing Error"
+    },
+    {
+      "ticker": "MRK",
+      "month": "May 2025",
+      "signal": "neutral",
+      "actual_direction": "down",
+      "price_return_pct": -9.81,
+      "orchestrator_score": 55.46,
+      "tech_score": 55.6,
+      "fund_score": 54.7,
+      "confidence": 0.1496,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.85,
+        "fund": 0.15
+      },
+      "root_cause": "Market Regime Error"
+    },
+    {
+      "ticker": "MRK",
+      "month": "June 2025",
+      "signal": "neutral",
+      "actual_direction": "up",
+      "price_return_pct": 3.97,
+      "orchestrator_score": 45.7,
+      "tech_score": 36.7,
+      "fund_score": 54.7,
+      "confidence": 0.7,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.5,
+        "fund": 0.5
+      },
+      "root_cause": "Market Regime Error"
+    },
+    {
+      "ticker": "MRK",
+      "month": "July 2025",
+      "signal": "neutral",
+      "actual_direction": "up",
+      "price_return_pct": 3.27,
+      "orchestrator_score": 50.7,
+      "tech_score": 50.0,
+      "fund_score": 54.7,
+      "confidence": 0.0,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.85,
+        "fund": 0.15
+      },
+      "root_cause": "Market Regime Error"
+    },
+    {
+      "ticker": "MRK",
+      "month": "August 2025",
+      "signal": "bearish",
+      "actual_direction": "up",
+      "price_return_pct": 7.68,
+      "orchestrator_score": 32.77,
+      "tech_score": 28.9,
+      "fund_score": 54.7,
+      "confidence": 0.2074,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.85,
+        "fund": 0.15
+      },
+      "root_cause": "Market Regime Error"
+    },
+    {
+      "ticker": "MRK",
+      "month": "September 2025",
+      "signal": "neutral",
+      "actual_direction": "down",
+      "price_return_pct": -5.66,
+      "orchestrator_score": 56.65,
+      "tech_score": 57.0,
+      "fund_score": 54.7,
+      "confidence": 0.102,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.85,
+        "fund": 0.15
+      },
+      "root_cause": "Market Regime Error"
+    },
+    {
+      "ticker": "MRK",
+      "month": "October 2025",
+      "signal": "neutral",
+      "actual_direction": "up",
+      "price_return_pct": 2.8,
+      "orchestrator_score": 51.98,
+      "tech_score": 51.5,
+      "fund_score": 54.7,
+      "confidence": 0.051,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.85,
+        "fund": 0.15
+      },
+      "root_cause": "Timing Error"
+    },
+    {
+      "ticker": "MRK",
+      "month": "November 2025",
+      "signal": "neutral",
+      "actual_direction": "up",
+      "price_return_pct": 21.92,
+      "orchestrator_score": 51.95,
+      "tech_score": 49.1,
+      "fund_score": 54.8,
+      "confidence": 0.7,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.5,
+        "fund": 0.5
+      },
+      "root_cause": "Market Regime Error"
+    },
+    {
+      "ticker": "MSFT",
+      "month": "April 2025",
+      "signal": "bearish",
+      "actual_direction": "up",
+      "price_return_pct": 4.97,
+      "orchestrator_score": 30.05,
+      "tech_score": 26.5,
+      "fund_score": 50.2,
+      "confidence": 0.289,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.85,
+        "fund": 0.15
+      },
+      "root_cause": "Market Regime Error"
+    },
+    {
+      "ticker": "MSFT",
+      "month": "August 2025",
+      "signal": "bullish",
+      "actual_direction": "down",
+      "price_return_pct": -4.87,
+      "orchestrator_score": 75.58,
+      "tech_score": 80.5,
+      "fund_score": 47.7,
+      "confidence": 0.187,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.85,
+        "fund": 0.15
+      },
+      "root_cause": "Indicator Lag Error"
+    },
+    {
+      "ticker": "MSFT",
+      "month": "September 2025",
+      "signal": "neutral",
+      "actual_direction": "up",
+      "price_return_pct": 1.56,
+      "orchestrator_score": 48.45,
+      "tech_score": 45.6,
+      "fund_score": 51.3,
+      "confidence": 0.7,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.5,
+        "fund": 0.5
+      },
+      "root_cause": "Timing Error"
+    },
+    {
+      "ticker": "MSFT",
+      "month": "November 2025",
+      "signal": "neutral",
+      "actual_direction": "down",
+      "price_return_pct": -4.8,
+      "orchestrator_score": 57.08,
+      "tech_score": 58.1,
+      "fund_score": 51.3,
+      "confidence": 0.0646,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.85,
+        "fund": 0.15
+      },
+      "root_cause": "Market Regime Error"
+    },
+    {
+      "ticker": "MSFT",
+      "month": "December 2025",
+      "signal": "neutral",
+      "actual_direction": "down",
+      "price_return_pct": -0.92,
+      "orchestrator_score": 45.1,
+      "tech_score": 38.9,
+      "fund_score": 51.3,
+      "confidence": 0.7,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.5,
+        "fund": 0.5
+      },
+      "root_cause": "Timing Error"
+    },
+    {
+      "ticker": "MSFT",
+      "month": "January 2026",
+      "signal": "neutral",
+      "actual_direction": "down",
+      "price_return_pct": -11.03,
+      "orchestrator_score": 52.91,
+      "tech_score": 53.2,
+      "fund_score": 51.3,
+      "confidence": 0.1088,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.85,
+        "fund": 0.15
+      },
+      "root_cause": "Market Regime Error"
+    },
+    {
+      "ticker": "MS",
+      "month": "March 2025",
+      "signal": "neutral",
+      "actual_direction": "down",
+      "price_return_pct": -13.36,
+      "orchestrator_score": 53.2,
+      "tech_score": 48.6,
+      "fund_score": 57.8,
+      "confidence": 0.7,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.5,
+        "fund": 0.5
+      },
+      "root_cause": "Market Regime Error"
+    },
+    {
+      "ticker": "MS",
+      "month": "April 2025",
+      "signal": "neutral",
+      "actual_direction": "down",
+      "price_return_pct": -0.39,
+      "orchestrator_score": 49.45,
+      "tech_score": 41.1,
+      "fund_score": 57.8,
+      "confidence": 0.7,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.5,
+        "fund": 0.5
+      },
+      "root_cause": "Timing Error"
+    },
+    {
+      "ticker": "MS",
+      "month": "May 2025",
+      "signal": "neutral",
+      "actual_direction": "up",
+      "price_return_pct": 10.93,
+      "orchestrator_score": 59.16,
+      "tech_score": 59.4,
+      "fund_score": 57.8,
+      "confidence": 0.0204,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.85,
+        "fund": 0.15
+      },
+      "root_cause": "Market Regime Error"
+    },
+    {
+      "ticker": "MS",
+      "month": "January 2026",
+      "signal": "neutral",
+      "actual_direction": "up",
+      "price_return_pct": 3.54,
+      "orchestrator_score": 60.09,
+      "tech_score": 60.5,
+      "fund_score": 57.8,
+      "confidence": 0.017,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.85,
+        "fund": 0.15
+      },
+      "root_cause": "Market Regime Error"
+    },
+    {
+      "ticker": "MS",
+      "month": "February 2026",
+      "signal": "neutral",
+      "actual_direction": "down",
+      "price_return_pct": -8.91,
+      "orchestrator_score": 61.88,
+      "tech_score": 62.6,
+      "fund_score": 57.8,
+      "confidence": 0.0884,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.85,
+        "fund": 0.15
+      },
+      "root_cause": "Indicator Lag Error"
+    },
+    {
+      "ticker": "NVDA",
+      "month": "April 2025",
+      "signal": "bearish",
+      "actual_direction": "up",
+      "price_return_pct": 0.59,
+      "orchestrator_score": 32.17,
+      "tech_score": 19.3,
+      "fund_score": 62.2,
+      "confidence": 0.4396,
+      "conflict_detected": true,
+      "weights_applied": {
+        "tech": 0.7,
+        "fund": 0.3
+      },
+      "root_cause": "Signal Conflict Error"
+    },
+    {
+      "ticker": "NVDA",
+      "month": "May 2025",
+      "signal": "neutral",
+      "actual_direction": "up",
+      "price_return_pct": 24.06,
+      "orchestrator_score": 60.03,
+      "tech_score": 47.7,
+      "fund_score": 62.2,
+      "confidence": 0.0072,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.15,
+        "fund": 0.85
+      },
+      "root_cause": "Market Regime Error"
+    },
+    {
+      "ticker": "NVDA",
+      "month": "August 2025",
+      "signal": "bullish",
+      "actual_direction": "down",
+      "price_return_pct": -2.07,
+      "orchestrator_score": 67.86,
+      "tech_score": 69.3,
+      "fund_score": 59.7,
+      "confidence": 0.1938,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.85,
+        "fund": 0.15
+      },
+      "root_cause": "Timing Error"
+    },
+    {
+      "ticker": "NVDA",
+      "month": "September 2025",
+      "signal": "neutral",
+      "actual_direction": "up",
+      "price_return_pct": 4.41,
+      "orchestrator_score": 53.0,
+      "tech_score": 46.3,
+      "fund_score": 59.7,
+      "confidence": 0.7,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.5,
+        "fund": 0.5
+      },
+      "root_cause": "Market Regime Error"
+    },
+    {
+      "ticker": "NVDA",
+      "month": "November 2025",
+      "signal": "bullish",
+      "actual_direction": "down",
+      "price_return_pct": -12.59,
+      "orchestrator_score": 75.93,
+      "tech_score": 78.8,
+      "fund_score": 59.7,
+      "confidence": 0.1292,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.85,
+        "fund": 0.15
+      },
+      "root_cause": "Indicator Lag Error"
+    },
+    {
+      "ticker": "NVDA",
+      "month": "December 2025",
+      "signal": "neutral",
+      "actual_direction": "up",
+      "price_return_pct": 5.96,
+      "orchestrator_score": 47.85,
+      "tech_score": 36.0,
+      "fund_score": 59.7,
+      "confidence": 0.7,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.5,
+        "fund": 0.5
+      },
+      "root_cause": "Market Regime Error"
+    },
+    {
+      "ticker": "NVDA",
+      "month": "February 2026",
+      "signal": "bullish",
+      "actual_direction": "down",
+      "price_return_pct": -7.29,
+      "orchestrator_score": 75.0,
+      "tech_score": 77.7,
+      "fund_score": 59.7,
+      "confidence": 0.0918,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.85,
+        "fund": 0.15
+      },
+      "root_cause": "Indicator Lag Error"
+    },
+    {
+      "ticker": "ORCL",
+      "month": "March 2025",
+      "signal": "neutral",
+      "actual_direction": "down",
+      "price_return_pct": -15.17,
+      "orchestrator_score": 38.65,
+      "tech_score": 35.3,
+      "fund_score": 42.0,
+      "confidence": 0.7,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.5,
+        "fund": 0.5
+      },
+      "root_cause": "Market Regime Error"
+    },
+    {
+      "ticker": "ORCL",
+      "month": "April 2025",
+      "signal": "bearish",
+      "actual_direction": "up",
+      "price_return_pct": 1.06,
+      "orchestrator_score": 25.18,
+      "tech_score": 22.2,
+      "fund_score": 42.1,
+      "confidence": 0.4352,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.85,
+        "fund": 0.15
+      },
+      "root_cause": "Timing Error"
+    },
+    {
+      "ticker": "ORCL",
+      "month": "May 2025",
+      "signal": "neutral",
+      "actual_direction": "up",
+      "price_return_pct": 17.63,
+      "orchestrator_score": 53.06,
+      "tech_score": 55.0,
+      "fund_score": 42.1,
+      "confidence": 0.17,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.85,
+        "fund": 0.15
+      },
+      "root_cause": "Market Regime Error"
+    },
+    {
+      "ticker": "ORCL",
+      "month": "August 2025",
+      "signal": "neutral",
+      "actual_direction": "down",
+      "price_return_pct": -10.89,
+      "orchestrator_score": 57.2,
+      "tech_score": 75.8,
+      "fund_score": 38.6,
+      "confidence": 0.3,
+      "conflict_detected": true,
+      "weights_applied": {
+        "tech": 0.5,
+        "fund": 0.5
+      },
+      "root_cause": "Signal Conflict Error"
+    },
+    {
+      "ticker": "ORCL",
+      "month": "September 2025",
+      "signal": "bearish",
+      "actual_direction": "up",
+      "price_return_pct": 25.04,
+      "orchestrator_score": 36.07,
+      "tech_score": 33.1,
+      "fund_score": 38.5,
+      "confidence": 0.09119999999999993,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.45,
+        "fund": 0.55
+      },
+      "root_cause": "Market Regime Error"
+    },
+    {
+      "ticker": "ORCL",
+      "month": "October 2025",
+      "signal": "neutral",
+      "actual_direction": "down",
+      "price_return_pct": -8.5,
+      "orchestrator_score": 44.8,
+      "tech_score": 50.9,
+      "fund_score": 38.7,
+      "confidence": 0.3,
+      "conflict_detected": true,
+      "weights_applied": {
+        "tech": 0.5,
+        "fund": 0.5
+      },
+      "root_cause": "Signal Conflict Error"
+    },
+    {
+      "ticker": "ORCL",
+      "month": "November 2025",
+      "signal": "neutral",
+      "actual_direction": "down",
+      "price_return_pct": -23.1,
+      "orchestrator_score": 38.54,
+      "tech_score": 38.2,
+      "fund_score": 38.6,
+      "confidence": 0.0504,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.15,
+        "fund": 0.85
+      },
+      "root_cause": "Market Regime Error"
+    },
+    {
+      "ticker": "ORCL",
+      "month": "January 2026",
+      "signal": "neutral",
+      "actual_direction": "down",
+      "price_return_pct": -15.34,
+      "orchestrator_score": 39.75,
+      "tech_score": 48.0,
+      "fund_score": 38.3,
+      "confidence": 0.0612,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.15,
+        "fund": 0.85
+      },
+      "root_cause": "Market Regime Error"
+    },
+    {
+      "ticker": "OXY",
+      "month": "March 2025",
+      "signal": "neutral",
+      "actual_direction": "up",
+      "price_return_pct": 0.49,
+      "orchestrator_score": 42.15,
+      "tech_score": 42.8,
+      "fund_score": 41.5,
+      "confidence": 0.7,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.5,
+        "fund": 0.5
+      },
+      "root_cause": "Timing Error"
+    },
+    {
+      "ticker": "OXY",
+      "month": "April 2025",
+      "signal": "neutral",
+      "actual_direction": "down",
+      "price_return_pct": -18.25,
+      "orchestrator_score": 59.18,
+      "tech_score": 62.3,
+      "fund_score": 41.5,
+      "confidence": 0.0782,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.85,
+        "fund": 0.15
+      },
+      "root_cause": "Indicator Lag Error"
+    },
+    {
+      "ticker": "OXY",
+      "month": "May 2025",
+      "signal": "bearish",
+      "actual_direction": "up",
+      "price_return_pct": 3.48,
+      "orchestrator_score": 30.79,
+      "tech_score": 28.9,
+      "fund_score": 41.5,
+      "confidence": 0.2074,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.85,
+        "fund": 0.15
+      },
+      "root_cause": "Market Regime Error"
+    },
+    {
+      "ticker": "OXY",
+      "month": "June 2025",
+      "signal": "bearish",
+      "actual_direction": "up",
+      "price_return_pct": 5.05,
+      "orchestrator_score": 28.41,
+      "tech_score": 26.1,
+      "fund_score": 41.5,
+      "confidence": 0.3026,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.85,
+        "fund": 0.15
+      },
+      "root_cause": "Market Regime Error"
+    },
+    {
+      "ticker": "OXY",
+      "month": "July 2025",
+      "signal": "bearish",
+      "actual_direction": "up",
+      "price_return_pct": 5.71,
+      "orchestrator_score": 31.98,
+      "tech_score": 30.3,
+      "fund_score": 41.5,
+      "confidence": 0.1598,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.85,
+        "fund": 0.15
+      },
+      "root_cause": "Market Regime Error"
+    },
+    {
+      "ticker": "OXY",
+      "month": "August 2025",
+      "signal": "neutral",
+      "actual_direction": "up",
+      "price_return_pct": 8.35,
+      "orchestrator_score": 43.4,
+      "tech_score": 45.3,
+      "fund_score": 41.5,
+      "confidence": 0.7,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.5,
+        "fund": 0.5
+      },
+      "root_cause": "Market Regime Error"
+    },
+    {
+      "ticker": "OXY",
+      "month": "October 2025",
+      "signal": "bullish",
+      "actual_direction": "down",
+      "price_return_pct": -13.86,
+      "orchestrator_score": 70.74,
+      "tech_score": 75.9,
+      "fund_score": 41.5,
+      "confidence": 0.0306,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.85,
+        "fund": 0.15
+      },
+      "root_cause": "Indicator Lag Error"
+    },
+    {
+      "ticker": "OXY",
+      "month": "November 2025",
+      "signal": "bearish",
+      "actual_direction": "up",
+      "price_return_pct": 1.94,
+      "orchestrator_score": 30.02,
+      "tech_score": 28.0,
+      "fund_score": 41.5,
+      "confidence": 0.238,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.85,
+        "fund": 0.15
+      },
+      "root_cause": "Timing Error"
+    },
+    {
+      "ticker": "OXY",
+      "month": "December 2025",
+      "signal": "neutral",
+      "actual_direction": "down",
+      "price_return_pct": -0.71,
+      "orchestrator_score": 51.45,
+      "tech_score": 53.2,
+      "fund_score": 41.5,
+      "confidence": 0.1088,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.85,
+        "fund": 0.15
+      },
+      "root_cause": "Timing Error"
+    },
+    {
+      "ticker": "OXY",
+      "month": "January 2026",
+      "signal": "neutral",
+      "actual_direction": "up",
+      "price_return_pct": 10.38,
+      "orchestrator_score": 50.6,
+      "tech_score": 52.2,
+      "fund_score": 41.5,
+      "confidence": 0.0748,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.85,
+        "fund": 0.15
+      },
+      "root_cause": "Market Regime Error"
+    },
+    {
+      "ticker": "PEP",
+      "month": "March 2025",
+      "signal": "bullish",
+      "actual_direction": "down",
+      "price_return_pct": -1.88,
+      "orchestrator_score": 65.27,
+      "tech_score": 68.6,
+      "fund_score": 46.4,
+      "confidence": 0.2176,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.85,
+        "fund": 0.15
+      },
+      "root_cause": "Timing Error"
+    },
+    {
+      "ticker": "PEP",
+      "month": "April 2025",
+      "signal": "neutral",
+      "actual_direction": "down",
+      "price_return_pct": -10.42,
+      "orchestrator_score": 46.0,
+      "tech_score": 45.6,
+      "fund_score": 46.4,
+      "confidence": 0.7,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.5,
+        "fund": 0.5
+      },
+      "root_cause": "Market Regime Error"
+    },
+    {
+      "ticker": "PEP",
+      "month": "June 2025",
+      "signal": "neutral",
+      "actual_direction": "up",
+      "price_return_pct": 0.78,
+      "orchestrator_score": 45.05,
+      "tech_score": 41.3,
+      "fund_score": 48.8,
+      "confidence": 0.7,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.5,
+        "fund": 0.5
+      },
+      "root_cause": "Timing Error"
+    },
+    {
+      "ticker": "PEP",
+      "month": "July 2025",
+      "signal": "neutral",
+      "actual_direction": "up",
+      "price_return_pct": 8.19,
+      "orchestrator_score": 56.62,
+      "tech_score": 58.0,
+      "fund_score": 48.8,
+      "confidence": 0.068,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.85,
+        "fund": 0.15
+      },
+      "root_cause": "Market Regime Error"
+    },
+    {
+      "ticker": "PEP",
+      "month": "August 2025",
+      "signal": "neutral",
+      "actual_direction": "up",
+      "price_return_pct": 7.78,
+      "orchestrator_score": 45.65,
+      "tech_score": 45.0,
+      "fund_score": 46.3,
+      "confidence": 0.7,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.5,
+        "fund": 0.5
+      },
+      "root_cause": "Market Regime Error"
+    },
+    {
+      "ticker": "PEP",
+      "month": "September 2025",
+      "signal": "neutral",
+      "actual_direction": "down",
+      "price_return_pct": -4.78,
+      "orchestrator_score": 56.52,
+      "tech_score": 58.3,
+      "fund_score": 46.4,
+      "confidence": 0.0578,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.85,
+        "fund": 0.15
+      },
+      "root_cause": "Market Regime Error"
+    },
+    {
+      "ticker": "PEP",
+      "month": "October 2025",
+      "signal": "bearish",
+      "actual_direction": "up",
+      "price_return_pct": 5.06,
+      "orchestrator_score": 34.82,
+      "tech_score": 32.8,
+      "fund_score": 46.3,
+      "confidence": 0.0748,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.85,
+        "fund": 0.15
+      },
+      "root_cause": "Market Regime Error"
+    },
+    {
+      "ticker": "PEP",
+      "month": "November 2025",
+      "signal": "neutral",
+      "actual_direction": "up",
+      "price_return_pct": 1.81,
+      "orchestrator_score": 50.05,
+      "tech_score": 50.7,
+      "fund_score": 46.4,
+      "confidence": 0.0238,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.85,
+        "fund": 0.15
+      },
+      "root_cause": "Timing Error"
+    },
+    {
+      "ticker": "PEP",
+      "month": "December 2025",
+      "signal": "bullish",
+      "actual_direction": "down",
+      "price_return_pct": -2.13,
+      "orchestrator_score": 69.26,
+      "tech_score": 73.3,
+      "fund_score": 46.4,
+      "confidence": 0.0578,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.85,
+        "fund": 0.15
+      },
+      "root_cause": "Timing Error"
+    },
+    {
+      "ticker": "PEP",
+      "month": "January 2026",
+      "signal": "bearish",
+      "actual_direction": "up",
+      "price_return_pct": 7.04,
+      "orchestrator_score": 34.4,
+      "tech_score": 32.3,
+      "fund_score": 46.3,
+      "confidence": 0.0918,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.85,
+        "fund": 0.15
+      },
+      "root_cause": "Market Regime Error"
+    },
+    {
+      "ticker": "PFE",
+      "month": "March 2025",
+      "signal": "bullish",
+      "actual_direction": "down",
+      "price_return_pct": -4.62,
+      "orchestrator_score": 66.38,
+      "tech_score": 67.2,
+      "fund_score": 61.7,
+      "confidence": 0.2448,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.85,
+        "fund": 0.15
+      },
+      "root_cause": "Indicator Lag Error"
+    },
+    {
+      "ticker": "PFE",
+      "month": "May 2025",
+      "signal": "bullish",
+      "actual_direction": "down",
+      "price_return_pct": -1.93,
+      "orchestrator_score": 62.67,
+      "tech_score": 58.6,
+      "fund_score": 66.0,
+      "confidence": 0.184,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.45,
+        "fund": 0.55
+      },
+      "root_cause": "Timing Error"
+    },
+    {
+      "ticker": "PFE",
+      "month": "July 2025",
+      "signal": "neutral",
+      "actual_direction": "down",
+      "price_return_pct": -0.08,
+      "orchestrator_score": 61.91,
+      "tech_score": 56.8,
+      "fund_score": 66.1,
+      "confidence": 0.17940000000000025,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.45,
+        "fund": 0.55
+      },
+      "root_cause": "Timing Error"
+    },
+    {
+      "ticker": "PFE",
+      "month": "August 2025",
+      "signal": "bearish",
+      "actual_direction": "up",
+      "price_return_pct": 6.31,
+      "orchestrator_score": 36.46,
+      "tech_score": 23.8,
+      "fund_score": 66.0,
+      "confidence": 0.3136,
+      "conflict_detected": true,
+      "weights_applied": {
+        "tech": 0.7,
+        "fund": 0.3
+      },
+      "root_cause": "Signal Conflict Error"
+    },
+    {
+      "ticker": "PFE",
+      "month": "September 2025",
+      "signal": "neutral",
+      "actual_direction": "down",
+      "price_return_pct": -3.68,
+      "orchestrator_score": 54.1,
+      "tech_score": 46.6,
+      "fund_score": 61.6,
+      "confidence": 0.7,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.5,
+        "fund": 0.5
+      },
+      "root_cause": "Market Regime Error"
+    },
+    {
+      "ticker": "PFE",
+      "month": "October 2025",
+      "signal": "bullish",
+      "actual_direction": "down",
+      "price_return_pct": -4.67,
+      "orchestrator_score": 65.86,
+      "tech_score": 66.6,
+      "fund_score": 61.7,
+      "confidence": 0.2244,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.85,
+        "fund": 0.15
+      },
+      "root_cause": "Indicator Lag Error"
+    },
+    {
+      "ticker": "PFE",
+      "month": "November 2025",
+      "signal": "neutral",
+      "actual_direction": "up",
+      "price_return_pct": 6.26,
+      "orchestrator_score": 38.65,
+      "tech_score": 34.6,
+      "fund_score": 61.6,
+      "confidence": 0.0136,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.85,
+        "fund": 0.15
+      },
+      "root_cause": "Market Regime Error"
+    },
+    {
+      "ticker": "PFE",
+      "month": "December 2025",
+      "signal": "bullish",
+      "actual_direction": "down",
+      "price_return_pct": -2.91,
+      "orchestrator_score": 76.49,
+      "tech_score": 79.1,
+      "fund_score": 61.7,
+      "confidence": 0.1394,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.85,
+        "fund": 0.15
+      },
+      "root_cause": "Timing Error"
+    },
+    {
+      "ticker": "PFE",
+      "month": "January 2026",
+      "signal": "neutral",
+      "actual_direction": "up",
+      "price_return_pct": 7.96,
+      "orchestrator_score": 53.0,
+      "tech_score": 44.3,
+      "fund_score": 61.7,
+      "confidence": 0.7,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.5,
+        "fund": 0.5
+      },
+      "root_cause": "Market Regime Error"
+    },
+    {
+      "ticker": "PG",
+      "month": "March 2025",
+      "signal": "bullish",
+      "actual_direction": "down",
+      "price_return_pct": -3.34,
+      "orchestrator_score": 72.27,
+      "tech_score": 76.9,
+      "fund_score": 46.0,
+      "confidence": 0.0646,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.85,
+        "fund": 0.15
+      },
+      "root_cause": "Indicator Lag Error"
+    },
+    {
+      "ticker": "PG",
+      "month": "April 2025",
+      "signal": "neutral",
+      "actual_direction": "down",
+      "price_return_pct": -4.19,
+      "orchestrator_score": 57.65,
+      "tech_score": 59.7,
+      "fund_score": 46.0,
+      "confidence": 0.0102,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.85,
+        "fund": 0.15
+      },
+      "root_cause": "Market Regime Error"
+    },
+    {
+      "ticker": "PG",
+      "month": "May 2025",
+      "signal": "bearish",
+      "actual_direction": "up",
+      "price_return_pct": 4.5,
+      "orchestrator_score": 35.53,
+      "tech_score": 33.7,
+      "fund_score": 45.9,
+      "confidence": 0.0442,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.85,
+        "fund": 0.15
+      },
+      "root_cause": "Market Regime Error"
+    },
+    {
+      "ticker": "PG",
+      "month": "June 2025",
+      "signal": "bullish",
+      "actual_direction": "down",
+      "price_return_pct": -5.9,
+      "orchestrator_score": 73.62,
+      "tech_score": 78.5,
+      "fund_score": 46.0,
+      "confidence": 0.119,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.85,
+        "fund": 0.15
+      },
+      "root_cause": "Indicator Lag Error"
+    },
+    {
+      "ticker": "PG",
+      "month": "August 2025",
+      "signal": "bearish",
+      "actual_direction": "up",
+      "price_return_pct": 4.37,
+      "orchestrator_score": 25.84,
+      "tech_score": 22.3,
+      "fund_score": 45.9,
+      "confidence": 0.4318,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.85,
+        "fund": 0.15
+      },
+      "root_cause": "Market Regime Error"
+    },
+    {
+      "ticker": "PG",
+      "month": "September 2025",
+      "signal": "neutral",
+      "actual_direction": "down",
+      "price_return_pct": -2.24,
+      "orchestrator_score": 60.87,
+      "tech_score": 63.7,
+      "fund_score": 44.8,
+      "confidence": 0.1258,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.85,
+        "fund": 0.15
+      },
+      "root_cause": "Timing Error"
+    },
+    {
+      "ticker": "PG",
+      "month": "November 2025",
+      "signal": "neutral",
+      "actual_direction": "down",
+      "price_return_pct": -1.47,
+      "orchestrator_score": 42.35,
+      "tech_score": 39.9,
+      "fund_score": 44.8,
+      "confidence": 0.7,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.5,
+        "fund": 0.5
+      },
+      "root_cause": "Timing Error"
+    },
+    {
+      "ticker": "PG",
+      "month": "December 2025",
+      "signal": "neutral",
+      "actual_direction": "down",
+      "price_return_pct": -2.77,
+      "orchestrator_score": 42.2,
+      "tech_score": 39.7,
+      "fund_score": 44.7,
+      "confidence": 0.7,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.5,
+        "fund": 0.5
+      },
+      "root_cause": "Timing Error"
+    },
+    {
+      "ticker": "PG",
+      "month": "January 2026",
+      "signal": "bearish",
+      "actual_direction": "up",
+      "price_return_pct": 6.66,
+      "orchestrator_score": 35.01,
+      "tech_score": 33.3,
+      "fund_score": 44.7,
+      "confidence": 0.0578,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.85,
+        "fund": 0.15
+      },
+      "root_cause": "Market Regime Error"
+    },
+    {
+      "ticker": "PM",
+      "month": "July 2025",
+      "signal": "bullish",
+      "actual_direction": "down",
+      "price_return_pct": -10.96,
+      "orchestrator_score": 66.56,
+      "tech_score": 70.9,
+      "fund_score": 42.0,
+      "confidence": 0.1394,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.85,
+        "fund": 0.15
+      },
+      "root_cause": "Indicator Lag Error"
+    },
+    {
+      "ticker": "PM",
+      "month": "August 2025",
+      "signal": "neutral",
+      "actual_direction": "up",
+      "price_return_pct": 1.88,
+      "orchestrator_score": 40.0,
+      "tech_score": 38.0,
+      "fund_score": 42.0,
+      "confidence": 0.7,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.5,
+        "fund": 0.5
+      },
+      "root_cause": "Timing Error"
+    },
+    {
+      "ticker": "PM",
+      "month": "September 2025",
+      "signal": "neutral",
+      "actual_direction": "down",
+      "price_return_pct": -2.48,
+      "orchestrator_score": 45.5,
+      "tech_score": 49.0,
+      "fund_score": 42.0,
+      "confidence": 0.7,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.5,
+        "fund": 0.5
+      },
+      "root_cause": "Timing Error"
+    },
+    {
+      "ticker": "PM",
+      "month": "November 2025",
+      "signal": "bearish",
+      "actual_direction": "up",
+      "price_return_pct": 9.11,
+      "orchestrator_score": 28.91,
+      "tech_score": 26.6,
+      "fund_score": 42.0,
+      "confidence": 0.2856,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.85,
+        "fund": 0.15
+      },
+      "root_cause": "Market Regime Error"
+    },
+    {
+      "ticker": "PM",
+      "month": "January 2026",
+      "signal": "neutral",
+      "actual_direction": "up",
+      "price_return_pct": 11.87,
+      "orchestrator_score": 61.8,
+      "tech_score": 65.3,
+      "fund_score": 42.0,
+      "confidence": 0.1802,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.85,
+        "fund": 0.15
+      },
+      "root_cause": "Market Regime Error"
+    },
+    {
+      "ticker": "PSX",
+      "month": "March 2025",
+      "signal": "neutral",
+      "actual_direction": "down",
+      "price_return_pct": -6.11,
+      "orchestrator_score": 50.25,
+      "tech_score": 67.7,
+      "fund_score": 32.8,
+      "confidence": 0.3,
+      "conflict_detected": true,
+      "weights_applied": {
+        "tech": 0.5,
+        "fund": 0.5
+      },
+      "root_cause": "Signal Conflict Error"
+    },
+    {
+      "ticker": "PSX",
+      "month": "May 2025",
+      "signal": "bearish",
+      "actual_direction": "up",
+      "price_return_pct": 10.1,
+      "orchestrator_score": 36.3,
+      "tech_score": 39.7,
+      "fund_score": 35.7,
+      "confidence": 0.1548,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.15,
+        "fund": 0.85
+      },
+      "root_cause": "Market Regime Error"
+    },
+    {
+      "ticker": "PSX",
+      "month": "June 2025",
+      "signal": "bearish",
+      "actual_direction": "up",
+      "price_return_pct": 5.08,
+      "orchestrator_score": 37.48,
+      "tech_score": 47.0,
+      "fund_score": 35.8,
+      "confidence": 0.1512,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.15,
+        "fund": 0.85
+      },
+      "root_cause": "Market Regime Error"
+    },
+    {
+      "ticker": "PSX",
+      "month": "July 2025",
+      "signal": "bearish",
+      "actual_direction": "up",
+      "price_return_pct": 4.27,
+      "orchestrator_score": 34.28,
+      "tech_score": 42.7,
+      "fund_score": 32.8,
+      "confidence": 0.2592,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.15,
+        "fund": 0.85
+      },
+      "root_cause": "Market Regime Error"
+    },
+    {
+      "ticker": "PSX",
+      "month": "August 2025",
+      "signal": "bearish",
+      "actual_direction": "up",
+      "price_return_pct": 9.16,
+      "orchestrator_score": 34.84,
+      "tech_score": 46.4,
+      "fund_score": 32.8,
+      "confidence": 0.2592,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.15,
+        "fund": 0.85
+      },
+      "root_cause": "Market Regime Error"
+    },
+    {
+      "ticker": "PSX",
+      "month": "September 2025",
+      "signal": "neutral",
+      "actual_direction": "up",
+      "price_return_pct": 2.99,
+      "orchestrator_score": 56.55,
+      "tech_score": 80.3,
+      "fund_score": 32.8,
+      "confidence": 0.3,
+      "conflict_detected": true,
+      "weights_applied": {
+        "tech": 0.5,
+        "fund": 0.5
+      },
+      "root_cause": "Signal Conflict Error"
+    },
+    {
+      "ticker": "PSX",
+      "month": "October 2025",
+      "signal": "neutral",
+      "actual_direction": "up",
+      "price_return_pct": 0.77,
+      "orchestrator_score": 55.95,
+      "tech_score": 79.0,
+      "fund_score": 32.9,
+      "confidence": 0.3,
+      "conflict_detected": true,
+      "weights_applied": {
+        "tech": 0.5,
+        "fund": 0.5
+      },
+      "root_cause": "Signal Conflict Error"
+    },
+    {
+      "ticker": "PSX",
+      "month": "November 2025",
+      "signal": "neutral",
+      "actual_direction": "up",
+      "price_return_pct": 1.46,
+      "orchestrator_score": 49.6,
+      "tech_score": 66.3,
+      "fund_score": 32.9,
+      "confidence": 0.3,
+      "conflict_detected": true,
+      "weights_applied": {
+        "tech": 0.5,
+        "fund": 0.5
+      },
+      "root_cause": "Signal Conflict Error"
+    },
+    {
+      "ticker": "PSX",
+      "month": "December 2025",
+      "signal": "neutral",
+      "actual_direction": "down",
+      "price_return_pct": -5.4,
+      "orchestrator_score": 51.45,
+      "tech_score": 70.0,
+      "fund_score": 32.9,
+      "confidence": 0.3,
+      "conflict_detected": true,
+      "weights_applied": {
+        "tech": 0.5,
+        "fund": 0.5
+      },
+      "root_cause": "Signal Conflict Error"
+    },
+    {
+      "ticker": "PSX",
+      "month": "January 2026",
+      "signal": "bearish",
+      "actual_direction": "up",
+      "price_return_pct": 11.25,
+      "orchestrator_score": 32.8,
+      "tech_score": 32.8,
+      "fund_score": 32.8,
+      "confidence": 0.3456000000000001,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.45,
+        "fund": 0.55
+      },
+      "root_cause": "Market Regime Error"
+    },
+    {
+      "ticker": "PSX",
+      "month": "February 2026",
+      "signal": "neutral",
+      "actual_direction": "up",
+      "price_return_pct": 8.39,
+      "orchestrator_score": 57.0,
+      "tech_score": 81.1,
+      "fund_score": 32.9,
+      "confidence": 0.3,
+      "conflict_detected": true,
+      "weights_applied": {
+        "tech": 0.5,
+        "fund": 0.5
+      },
+      "root_cause": "Signal Conflict Error"
+    },
+    {
+      "ticker": "SLB",
+      "month": "March 2025",
+      "signal": "neutral",
+      "actual_direction": "up",
+      "price_return_pct": 0.53,
+      "orchestrator_score": 54.84,
+      "tech_score": 54.3,
+      "fund_score": 57.9,
+      "confidence": 0.1462,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.85,
+        "fund": 0.15
+      },
+      "root_cause": "Timing Error"
+    },
+    {
+      "ticker": "SLB",
+      "month": "April 2025",
+      "signal": "neutral",
+      "actual_direction": "down",
+      "price_return_pct": -18.4,
+      "orchestrator_score": 60.45,
+      "tech_score": 60.9,
+      "fund_score": 57.9,
+      "confidence": 0.0306,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.85,
+        "fund": 0.15
+      },
+      "root_cause": "Indicator Lag Error"
+    },
+    {
+      "ticker": "SLB",
+      "month": "June 2025",
+      "signal": "bearish",
+      "actual_direction": "up",
+      "price_return_pct": 3.77,
+      "orchestrator_score": 32.36,
+      "tech_score": 17.6,
+      "fund_score": 66.8,
+      "confidence": 0.4872,
+      "conflict_detected": true,
+      "weights_applied": {
+        "tech": 0.7,
+        "fund": 0.3
+      },
+      "root_cause": "Signal Conflict Error"
+    },
+    {
+      "ticker": "SLB",
+      "month": "July 2025",
+      "signal": "neutral",
+      "actual_direction": "up",
+      "price_return_pct": 1.09,
+      "orchestrator_score": 48.45,
+      "tech_score": 36.7,
+      "fund_score": 60.2,
+      "confidence": 0.7,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.5,
+        "fund": 0.5
+      },
+      "root_cause": "Timing Error"
+    },
+    {
+      "ticker": "SLB",
+      "month": "August 2025",
+      "signal": "bearish",
+      "actual_direction": "up",
+      "price_return_pct": 8.99,
+      "orchestrator_score": 29.0,
+      "tech_score": 23.5,
+      "fund_score": 60.2,
+      "confidence": 0.391,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.85,
+        "fund": 0.15
+      },
+      "root_cause": "Market Regime Error"
+    },
+    {
+      "ticker": "SLB",
+      "month": "September 2025",
+      "signal": "bullish",
+      "actual_direction": "down",
+      "price_return_pct": -3.93,
+      "orchestrator_score": 68.97,
+      "tech_score": 70.5,
+      "fund_score": 60.3,
+      "confidence": 0.153,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.85,
+        "fund": 0.15
+      },
+      "root_cause": "Indicator Lag Error"
+    },
+    {
+      "ticker": "SLB",
+      "month": "October 2025",
+      "signal": "bearish",
+      "actual_direction": "up",
+      "price_return_pct": 5.67,
+      "orchestrator_score": 31.47,
+      "tech_score": 26.4,
+      "fund_score": 60.2,
+      "confidence": 0.2924,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.85,
+        "fund": 0.15
+      },
+      "root_cause": "Market Regime Error"
+    },
+    {
+      "ticker": "SLB",
+      "month": "December 2025",
+      "signal": "neutral",
+      "actual_direction": "up",
+      "price_return_pct": 7.21,
+      "orchestrator_score": 57.84,
+      "tech_score": 57.4,
+      "fund_score": 60.3,
+      "confidence": 0.0884,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.85,
+        "fund": 0.15
+      },
+      "root_cause": "Market Regime Error"
+    },
+    {
+      "ticker": "TSLA",
+      "month": "April 2025",
+      "signal": "neutral",
+      "actual_direction": "up",
+      "price_return_pct": 12.68,
+      "orchestrator_score": 44.25,
+      "tech_score": 45.0,
+      "fund_score": 43.5,
+      "confidence": 0.7,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.5,
+        "fund": 0.5
+      },
+      "root_cause": "Market Regime Error"
+    },
+    {
+      "ticker": "TSLA",
+      "month": "June 2025",
+      "signal": "bullish",
+      "actual_direction": "down",
+      "price_return_pct": -6.59,
+      "orchestrator_score": 66.53,
+      "tech_score": 70.6,
+      "fund_score": 43.5,
+      "confidence": 0.1496,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.85,
+        "fund": 0.15
+      },
+      "root_cause": "Indicator Lag Error"
+    },
+    {
+      "ticker": "TSLA",
+      "month": "July 2025",
+      "signal": "neutral",
+      "actual_direction": "up",
+      "price_return_pct": 0.43,
+      "orchestrator_score": 43.05,
+      "tech_score": 42.6,
+      "fund_score": 43.5,
+      "confidence": 0.7,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.5,
+        "fund": 0.5
+      },
+      "root_cause": "Timing Error"
+    },
+    {
+      "ticker": "TSLA",
+      "month": "August 2025",
+      "signal": "neutral",
+      "actual_direction": "up",
+      "price_return_pct": 8.3,
+      "orchestrator_score": 42.75,
+      "tech_score": 42.0,
+      "fund_score": 43.5,
+      "confidence": 0.7,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.5,
+        "fund": 0.5
+      },
+      "root_cause": "Market Regime Error"
+    },
+    {
+      "ticker": "TSLA",
+      "month": "September 2025",
+      "signal": "neutral",
+      "actual_direction": "up",
+      "price_return_pct": 32.75,
+      "orchestrator_score": 60.07,
+      "tech_score": 63.0,
+      "fund_score": 43.5,
+      "confidence": 0.102,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.85,
+        "fund": 0.15
+      },
+      "root_cause": "Market Regime Error"
+    },
+    {
+      "ticker": "TSLA",
+      "month": "October 2025",
+      "signal": "bullish",
+      "actual_direction": "down",
+      "price_return_pct": -1.04,
+      "orchestrator_score": 69.51,
+      "tech_score": 74.1,
+      "fund_score": 43.5,
+      "confidence": 0.0306,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.85,
+        "fund": 0.15
+      },
+      "root_cause": "Timing Error"
+    },
+    {
+      "ticker": "TSLA",
+      "month": "November 2025",
+      "signal": "bullish",
+      "actual_direction": "down",
+      "price_return_pct": -5.78,
+      "orchestrator_score": 68.23,
+      "tech_score": 72.6,
+      "fund_score": 43.5,
+      "confidence": 0.0816,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.85,
+        "fund": 0.15
+      },
+      "root_cause": "Indicator Lag Error"
+    },
+    {
+      "ticker": "TSLA",
+      "month": "December 2025",
+      "signal": "neutral",
+      "actual_direction": "up",
+      "price_return_pct": 5.64,
+      "orchestrator_score": 61.69,
+      "tech_score": 64.9,
+      "fund_score": 43.5,
+      "confidence": 0.1666,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.85,
+        "fund": 0.15
+      },
+      "root_cause": "Market Regime Error"
+    },
+    {
+      "ticker": "TSLA",
+      "month": "January 2026",
+      "signal": "neutral",
+      "actual_direction": "down",
+      "price_return_pct": -4.29,
+      "orchestrator_score": 45.8,
+      "tech_score": 48.1,
+      "fund_score": 43.5,
+      "confidence": 0.7,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.5,
+        "fund": 0.5
+      },
+      "root_cause": "Market Regime Error"
+    },
+    {
+      "ticker": "TSLA",
+      "month": "February 2026",
+      "signal": "neutral",
+      "actual_direction": "down",
+      "price_return_pct": -6.48,
+      "orchestrator_score": 39.95,
+      "tech_score": 36.4,
+      "fund_score": 43.5,
+      "confidence": 0.7,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.5,
+        "fund": 0.5
+      },
+      "root_cause": "Market Regime Error"
+    },
+    {
+      "ticker": "UNH",
+      "month": "March 2025",
+      "signal": "bearish",
+      "actual_direction": "up",
+      "price_return_pct": 9.11,
+      "orchestrator_score": 33.95,
+      "tech_score": 28.4,
+      "fund_score": 38.5,
+      "confidence": 0.3168000000000001,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.45,
+        "fund": 0.55
+      },
+      "root_cause": "Market Regime Error"
+    },
+    {
+      "ticker": "UNH",
+      "month": "April 2025",
+      "signal": "neutral",
+      "actual_direction": "down",
+      "price_return_pct": -21.87,
+      "orchestrator_score": 55.15,
+      "tech_score": 71.7,
+      "fund_score": 38.6,
+      "confidence": 0.3,
+      "conflict_detected": true,
+      "weights_applied": {
+        "tech": 0.5,
+        "fund": 0.5
+      },
+      "root_cause": "Signal Conflict Error"
+    },
+    {
+      "ticker": "UNH",
+      "month": "June 2025",
+      "signal": "neutral",
+      "actual_direction": "up",
+      "price_return_pct": 3.11,
+      "orchestrator_score": 38.95,
+      "tech_score": 35.4,
+      "fund_score": 42.5,
+      "confidence": 0.7,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.5,
+        "fund": 0.5
+      },
+      "root_cause": "Market Regime Error"
+    },
+    {
+      "ticker": "UNH",
+      "month": "July 2025",
+      "signal": "neutral",
+      "actual_direction": "down",
+      "price_return_pct": -14.72,
+      "orchestrator_score": 45.0,
+      "tech_score": 51.9,
+      "fund_score": 38.1,
+      "confidence": 0.3,
+      "conflict_detected": true,
+      "weights_applied": {
+        "tech": 0.5,
+        "fund": 0.5
+      },
+      "root_cause": "Signal Conflict Error"
+    },
+    {
+      "ticker": "UNH",
+      "month": "August 2025",
+      "signal": "bearish",
+      "actual_direction": "up",
+      "price_return_pct": 24.17,
+      "orchestrator_score": 26.75,
+      "tech_score": 23.6,
+      "fund_score": 44.6,
+      "confidence": 0.3876,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.85,
+        "fund": 0.15
+      },
+      "root_cause": "Market Regime Error"
+    },
+    {
+      "ticker": "UNH",
+      "month": "September 2025",
+      "signal": "neutral",
+      "actual_direction": "up",
+      "price_return_pct": 12.1,
+      "orchestrator_score": 51.55,
+      "tech_score": 65.0,
+      "fund_score": 38.1,
+      "confidence": 0.3,
+      "conflict_detected": true,
+      "weights_applied": {
+        "tech": 0.5,
+        "fund": 0.5
+      },
+      "root_cause": "Signal Conflict Error"
+    },
+    {
+      "ticker": "UNH",
+      "month": "October 2025",
+      "signal": "neutral",
+      "actual_direction": "down",
+      "price_return_pct": -0.16,
+      "orchestrator_score": 48.65,
+      "tech_score": 59.0,
+      "fund_score": 38.3,
+      "confidence": 0.3,
+      "conflict_detected": true,
+      "weights_applied": {
+        "tech": 0.5,
+        "fund": 0.5
+      },
+      "root_cause": "Signal Conflict Error"
+    },
+    {
+      "ticker": "UNH",
+      "month": "December 2025",
+      "signal": "neutral",
+      "actual_direction": "up",
+      "price_return_pct": 1.4,
+      "orchestrator_score": 39.34,
+      "tech_score": 45.8,
+      "fund_score": 38.2,
+      "confidence": 0.0648,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.15,
+        "fund": 0.85
+      },
+      "root_cause": "Timing Error"
+    },
+    {
+      "ticker": "UNH",
+      "month": "January 2026",
+      "signal": "neutral",
+      "actual_direction": "down",
+      "price_return_pct": -13.08,
+      "orchestrator_score": 38.86,
+      "tech_score": 42.6,
+      "fund_score": 38.2,
+      "confidence": 0.0648,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.15,
+        "fund": 0.85
+      },
+      "root_cause": "Market Regime Error"
+    },
+    {
+      "ticker": "UNH",
+      "month": "February 2026",
+      "signal": "bearish",
+      "actual_direction": "up",
+      "price_return_pct": 2.21,
+      "orchestrator_score": 28.15,
+      "tech_score": 25.2,
+      "fund_score": 44.9,
+      "confidence": 0.3332,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.85,
+        "fund": 0.15
+      },
+      "root_cause": "Timing Error"
+    },
+    {
+      "ticker": "VLO",
+      "month": "March 2025",
+      "signal": "bearish",
+      "actual_direction": "up",
+      "price_return_pct": 0.57,
+      "orchestrator_score": 34.94,
+      "tech_score": 29.6,
+      "fund_score": 39.3,
+      "confidence": 0.25919999999999993,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.45,
+        "fund": 0.55
+      },
+      "root_cause": "Timing Error"
+    },
+    {
+      "ticker": "VLO",
+      "month": "April 2025",
+      "signal": "neutral",
+      "actual_direction": "down",
+      "price_return_pct": -12.53,
+      "orchestrator_score": 57.3,
+      "tech_score": 60.0,
+      "fund_score": 42.0,
+      "confidence": 0.0,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.85,
+        "fund": 0.15
+      },
+      "root_cause": "Market Regime Error"
+    },
+    {
+      "ticker": "VLO",
+      "month": "May 2025",
+      "signal": "neutral",
+      "actual_direction": "up",
+      "price_return_pct": 12.04,
+      "orchestrator_score": 46.95,
+      "tech_score": 47.4,
+      "fund_score": 46.5,
+      "confidence": 0.7,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.5,
+        "fund": 0.5
+      },
+      "root_cause": "Market Regime Error"
+    },
+    {
+      "ticker": "VLO",
+      "month": "June 2025",
+      "signal": "neutral",
+      "actual_direction": "up",
+      "price_return_pct": 4.44,
+      "orchestrator_score": 52.03,
+      "tech_score": 53.8,
+      "fund_score": 42.0,
+      "confidence": 0.1292,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.85,
+        "fund": 0.15
+      },
+      "root_cause": "Market Regime Error"
+    },
+    {
+      "ticker": "VLO",
+      "month": "July 2025",
+      "signal": "neutral",
+      "actual_direction": "up",
+      "price_return_pct": 3.68,
+      "orchestrator_score": 55.09,
+      "tech_score": 57.4,
+      "fund_score": 42.0,
+      "confidence": 0.0884,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.85,
+        "fund": 0.15
+      },
+      "root_cause": "Market Regime Error"
+    },
+    {
+      "ticker": "VLO",
+      "month": "August 2025",
+      "signal": "neutral",
+      "actual_direction": "up",
+      "price_return_pct": 10.71,
+      "orchestrator_score": 40.25,
+      "tech_score": 38.4,
+      "fund_score": 42.1,
+      "confidence": 0.7,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.5,
+        "fund": 0.5
+      },
+      "root_cause": "Market Regime Error"
+    },
+    {
+      "ticker": "VLO",
+      "month": "October 2025",
+      "signal": "bullish",
+      "actual_direction": "down",
+      "price_return_pct": -0.09,
+      "orchestrator_score": 70.33,
+      "tech_score": 75.3,
+      "fund_score": 42.2,
+      "confidence": 0.0102,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.85,
+        "fund": 0.15
+      },
+      "root_cause": "Timing Error"
+    },
+    {
+      "ticker": "VLO",
+      "month": "December 2025",
+      "signal": "neutral",
+      "actual_direction": "down",
+      "price_return_pct": -6.73,
+      "orchestrator_score": 56.3,
+      "tech_score": 72.9,
+      "fund_score": 39.7,
+      "confidence": 0.3,
+      "conflict_detected": true,
+      "weights_applied": {
+        "tech": 0.5,
+        "fund": 0.5
+      },
+      "root_cause": "Signal Conflict Error"
+    },
+    {
+      "ticker": "VLO",
+      "month": "January 2026",
+      "signal": "bearish",
+      "actual_direction": "up",
+      "price_return_pct": 11.45,
+      "orchestrator_score": 35.99,
+      "tech_score": 34.9,
+      "fund_score": 42.2,
+      "confidence": 0.0034,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.85,
+        "fund": 0.15
+      },
+      "root_cause": "Market Regime Error"
+    },
+    {
+      "ticker": "VLO",
+      "month": "February 2026",
+      "signal": "neutral",
+      "actual_direction": "up",
+      "price_return_pct": 13.48,
+      "orchestrator_score": 45.75,
+      "tech_score": 51.8,
+      "fund_score": 39.7,
+      "confidence": 0.3,
+      "conflict_detected": true,
+      "weights_applied": {
+        "tech": 0.5,
+        "fund": 0.5
+      },
+      "root_cause": "Signal Conflict Error"
+    },
+    {
+      "ticker": "V",
+      "month": "March 2025",
+      "signal": "bullish",
+      "actual_direction": "down",
+      "price_return_pct": -5.48,
+      "orchestrator_score": 72.13,
+      "tech_score": 76.5,
+      "fund_score": 47.4,
+      "confidence": 0.051,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.85,
+        "fund": 0.15
+      },
+      "root_cause": "Indicator Lag Error"
+    },
+    {
+      "ticker": "V",
+      "month": "April 2025",
+      "signal": "bullish",
+      "actual_direction": "down",
+      "price_return_pct": -2.55,
+      "orchestrator_score": 70.86,
+      "tech_score": 75.0,
+      "fund_score": 47.4,
+      "confidence": 0.0,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.85,
+        "fund": 0.15
+      },
+      "root_cause": "Timing Error"
+    },
+    {
+      "ticker": "V",
+      "month": "June 2025",
+      "signal": "bullish",
+      "actual_direction": "down",
+      "price_return_pct": -4.54,
+      "orchestrator_score": 72.98,
+      "tech_score": 78.2,
+      "fund_score": 43.4,
+      "confidence": 0.1088,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.85,
+        "fund": 0.15
+      },
+      "root_cause": "Indicator Lag Error"
+    },
+    {
+      "ticker": "V",
+      "month": "July 2025",
+      "signal": "neutral",
+      "actual_direction": "down",
+      "price_return_pct": -1.17,
+      "orchestrator_score": 55.22,
+      "tech_score": 56.6,
+      "fund_score": 47.4,
+      "confidence": 0.1156,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.85,
+        "fund": 0.15
+      },
+      "root_cause": "Timing Error"
+    },
+    {
+      "ticker": "V",
+      "month": "August 2025",
+      "signal": "neutral",
+      "actual_direction": "up",
+      "price_return_pct": 2.01,
+      "orchestrator_score": 41.8,
+      "tech_score": 36.2,
+      "fund_score": 47.4,
+      "confidence": 0.7,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.5,
+        "fund": 0.5
+      },
+      "root_cause": "Timing Error"
+    },
+    {
+      "ticker": "V",
+      "month": "September 2025",
+      "signal": "bullish",
+      "actual_direction": "down",
+      "price_return_pct": -3.3,
+      "orchestrator_score": 67.88,
+      "tech_score": 71.5,
+      "fund_score": 47.4,
+      "confidence": 0.119,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.85,
+        "fund": 0.15
+      },
+      "root_cause": "Indicator Lag Error"
+    },
+    {
+      "ticker": "V",
+      "month": "October 2025",
+      "signal": "neutral",
+      "actual_direction": "up",
+      "price_return_pct": 1.07,
+      "orchestrator_score": 47.6,
+      "tech_score": 47.8,
+      "fund_score": 47.4,
+      "confidence": 0.7,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.5,
+        "fund": 0.5
+      },
+      "root_cause": "Timing Error"
+    },
+    {
+      "ticker": "V",
+      "month": "December 2025",
+      "signal": "neutral",
+      "actual_direction": "up",
+      "price_return_pct": 5.73,
+      "orchestrator_score": 44.55,
+      "tech_score": 47.1,
+      "fund_score": 42.0,
+      "confidence": 0.7,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.5,
+        "fund": 0.5
+      },
+      "root_cause": "Market Regime Error"
+    },
+    {
+      "ticker": "V",
+      "month": "January 2026",
+      "signal": "bullish",
+      "actual_direction": "down",
+      "price_return_pct": -8.23,
+      "orchestrator_score": 68.43,
+      "tech_score": 73.1,
+      "fund_score": 42.0,
+      "confidence": 0.0646,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.85,
+        "fund": 0.15
+      },
+      "root_cause": "Indicator Lag Error"
+    },
+    {
+      "ticker": "WFC",
+      "month": "March 2025",
+      "signal": "bullish",
+      "actual_direction": "down",
+      "price_return_pct": -9.74,
+      "orchestrator_score": 67.27,
+      "tech_score": 68.6,
+      "fund_score": 59.7,
+      "confidence": 0.2176,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.85,
+        "fund": 0.15
+      },
+      "root_cause": "Indicator Lag Error"
+    },
+    {
+      "ticker": "WFC",
+      "month": "April 2025",
+      "signal": "neutral",
+      "actual_direction": "down",
+      "price_return_pct": -0.96,
+      "orchestrator_score": 53.15,
+      "tech_score": 46.6,
+      "fund_score": 59.7,
+      "confidence": 0.7,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.5,
+        "fund": 0.5
+      },
+      "root_cause": "Timing Error"
+    },
+    {
+      "ticker": "WFC",
+      "month": "August 2025",
+      "signal": "neutral",
+      "actual_direction": "up",
+      "price_return_pct": 2.52,
+      "orchestrator_score": 55.55,
+      "tech_score": 56.4,
+      "fund_score": 50.7,
+      "confidence": 0.1224,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.85,
+        "fund": 0.15
+      },
+      "root_cause": "Timing Error"
+    },
+    {
+      "ticker": "WFC",
+      "month": "November 2025",
+      "signal": "bullish",
+      "actual_direction": "down",
+      "price_return_pct": -0.77,
+      "orchestrator_score": 72.8,
+      "tech_score": 76.7,
+      "fund_score": 50.7,
+      "confidence": 0.0578,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.85,
+        "fund": 0.15
+      },
+      "root_cause": "Timing Error"
+    },
+    {
+      "ticker": "WFC",
+      "month": "January 2026",
+      "signal": "bullish",
+      "actual_direction": "down",
+      "price_return_pct": -2.91,
+      "orchestrator_score": 67.95,
+      "tech_score": 71.0,
+      "fund_score": 50.7,
+      "confidence": 0.136,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.85,
+        "fund": 0.15
+      },
+      "root_cause": "Timing Error"
+    },
+    {
+      "ticker": "WFC",
+      "month": "February 2026",
+      "signal": "neutral",
+      "actual_direction": "down",
+      "price_return_pct": -9.55,
+      "orchestrator_score": 54.86,
+      "tech_score": 55.6,
+      "fund_score": 50.7,
+      "confidence": 0.1496,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.85,
+        "fund": 0.15
+      },
+      "root_cause": "Market Regime Error"
+    },
+    {
+      "ticker": "WMT",
+      "month": "March 2025",
+      "signal": "neutral",
+      "actual_direction": "down",
+      "price_return_pct": -13.41,
+      "orchestrator_score": 60.38,
+      "tech_score": 62.7,
+      "fund_score": 47.2,
+      "confidence": 0.0918,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.85,
+        "fund": 0.15
+      },
+      "root_cause": "Indicator Lag Error"
+    },
+    {
+      "ticker": "WMT",
+      "month": "April 2025",
+      "signal": "neutral",
+      "actual_direction": "up",
+      "price_return_pct": 9.4,
+      "orchestrator_score": 50.13,
+      "tech_score": 50.9,
+      "fund_score": 45.8,
+      "confidence": 0.0306,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.85,
+        "fund": 0.15
+      },
+      "root_cause": "Market Regime Error"
+    },
+    {
+      "ticker": "WMT",
+      "month": "June 2025",
+      "signal": "bullish",
+      "actual_direction": "down",
+      "price_return_pct": -1.47,
+      "orchestrator_score": 72.15,
+      "tech_score": 76.8,
+      "fund_score": 45.8,
+      "confidence": 0.0612,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.85,
+        "fund": 0.15
+      },
+      "root_cause": "Timing Error"
+    },
+    {
+      "ticker": "WMT",
+      "month": "July 2025",
+      "signal": "bullish",
+      "actual_direction": "down",
+      "price_return_pct": -0.19,
+      "orchestrator_score": 67.05,
+      "tech_score": 70.8,
+      "fund_score": 45.8,
+      "confidence": 0.1428,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.85,
+        "fund": 0.15
+      },
+      "root_cause": "Timing Error"
+    },
+    {
+      "ticker": "WMT",
+      "month": "August 2025",
+      "signal": "bullish",
+      "actual_direction": "down",
+      "price_return_pct": -0.79,
+      "orchestrator_score": 70.02,
+      "tech_score": 74.3,
+      "fund_score": 45.8,
+      "confidence": 0.0238,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.85,
+        "fund": 0.15
+      },
+      "root_cause": "Timing Error"
+    },
+    {
+      "ticker": "WMT",
+      "month": "September 2025",
+      "signal": "neutral",
+      "actual_direction": "up",
+      "price_return_pct": 6.29,
+      "orchestrator_score": 45.1,
+      "tech_score": 44.4,
+      "fund_score": 45.8,
+      "confidence": 0.7,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.5,
+        "fund": 0.5
+      },
+      "root_cause": "Market Regime Error"
+    },
+    {
+      "ticker": "WMT",
+      "month": "October 2025",
+      "signal": "bullish",
+      "actual_direction": "down",
+      "price_return_pct": -0.81,
+      "orchestrator_score": 62.29,
+      "tech_score": 65.2,
+      "fund_score": 45.8,
+      "confidence": 0.1768,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.85,
+        "fund": 0.15
+      },
+      "root_cause": "Timing Error"
+    },
+    {
+      "ticker": "WMT",
+      "month": "November 2025",
+      "signal": "neutral",
+      "actual_direction": "up",
+      "price_return_pct": 9.22,
+      "orchestrator_score": 41.4,
+      "tech_score": 37.0,
+      "fund_score": 45.8,
+      "confidence": 0.7,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.5,
+        "fund": 0.5
+      },
+      "root_cause": "Market Regime Error"
+    },
+    {
+      "ticker": "WMT",
+      "month": "January 2026",
+      "signal": "neutral",
+      "actual_direction": "up",
+      "price_return_pct": 6.94,
+      "orchestrator_score": 47.65,
+      "tech_score": 49.5,
+      "fund_score": 45.8,
+      "confidence": 0.7,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.5,
+        "fund": 0.5
+      },
+      "root_cause": "Market Regime Error"
+    },
+    {
+      "ticker": "XOM",
+      "month": "April 2025",
+      "signal": "bullish",
+      "actual_direction": "down",
+      "price_return_pct": -8.89,
+      "orchestrator_score": 75.45,
+      "tech_score": 80.7,
+      "fund_score": 45.7,
+      "confidence": 0.1938,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.85,
+        "fund": 0.15
+      },
+      "root_cause": "Indicator Lag Error"
+    },
+    {
+      "ticker": "XOM",
+      "month": "June 2025",
+      "signal": "bearish",
+      "actual_direction": "up",
+      "price_return_pct": 6.92,
+      "orchestrator_score": 28.0,
+      "tech_score": 24.1,
+      "fund_score": 50.1,
+      "confidence": 0.3706,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.85,
+        "fund": 0.15
+      },
+      "root_cause": "Market Regime Error"
+    },
+    {
+      "ticker": "XOM",
+      "month": "July 2025",
+      "signal": "neutral",
+      "actual_direction": "up",
+      "price_return_pct": 3.8,
+      "orchestrator_score": 45.65,
+      "tech_score": 45.6,
+      "fund_score": 45.7,
+      "confidence": 0.7,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.5,
+        "fund": 0.5
+      },
+      "root_cause": "Market Regime Error"
+    },
+    {
+      "ticker": "XOM",
+      "month": "August 2025",
+      "signal": "neutral",
+      "actual_direction": "up",
+      "price_return_pct": 3.33,
+      "orchestrator_score": 60.75,
+      "tech_score": 63.4,
+      "fund_score": 45.7,
+      "confidence": 0.1156,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.85,
+        "fund": 0.15
+      },
+      "root_cause": "Market Regime Error"
+    },
+    {
+      "ticker": "XOM",
+      "month": "September 2025",
+      "signal": "bullish",
+      "actual_direction": "down",
+      "price_return_pct": -0.06,
+      "orchestrator_score": 74.69,
+      "tech_score": 79.8,
+      "fund_score": 45.7,
+      "confidence": 0.1632,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.85,
+        "fund": 0.15
+      },
+      "root_cause": "Timing Error"
+    },
+    {
+      "ticker": "XOM",
+      "month": "October 2025",
+      "signal": "neutral",
+      "actual_direction": "up",
+      "price_return_pct": 1.72,
+      "orchestrator_score": 52.33,
+      "tech_score": 53.5,
+      "fund_score": 45.7,
+      "confidence": 0.119,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.85,
+        "fund": 0.15
+      },
+      "root_cause": "Timing Error"
+    },
+    {
+      "ticker": "XOM",
+      "month": "December 2025",
+      "signal": "neutral",
+      "actual_direction": "up",
+      "price_return_pct": 4.37,
+      "orchestrator_score": 57.27,
+      "tech_score": 59.3,
+      "fund_score": 45.8,
+      "confidence": 0.0238,
+      "conflict_detected": false,
+      "weights_applied": {
+        "tech": 0.85,
+        "fund": 0.15
+      },
+      "root_cause": "Market Regime Error"
+    }
+  ]
+}
