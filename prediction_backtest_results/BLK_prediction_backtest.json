@@ -1,0 +1,473 @@
+{
+  "ticker": "BLK",
+  "periods": [
+    {
+      "ticker": "BLK",
+      "signal_date": "2025-09-01",
+      "result_date": "2025-09-30",
+      "entry_price": 1110.23,
+      "end_price": 1148.67,
+      "return_pct": 4.61,
+      "actual_direction": "BUY",
+      "predicted_direction": "BUY",
+      "correct": true,
+      "confluence_score": 51.0,
+      "confluence_grade": "MODERATE",
+      "strategy_results": [
+        {
+          "strategy": "EMA Crossover",
+          "signal": "BUY",
+          "strength": 0.094,
+          "correct": true
+        },
+        {
+          "strategy": "MACD + RSI",
+          "signal": "HOLD",
+          "strength": 0.3,
+          "correct": null
+        },
+        {
+          "strategy": "Bollinger Squeeze",
+          "signal": "HOLD",
+          "strength": 0.2,
+          "correct": null
+        },
+        {
+          "strategy": "Supertrend",
+          "signal": "BUY",
+          "strength": 0.553,
+          "correct": true
+        },
+        {
+          "strategy": "OBV Divergence",
+          "signal": "HOLD",
+          "strength": 0.1,
+          "correct": null
+        },
+        {
+          "strategy": "S/R Breakout",
+          "signal": "HOLD",
+          "strength": 0.1,
+          "correct": null
+        },
+        {
+          "strategy": "RSI Divergence",
+          "signal": "SELL",
+          "strength": 0.242,
+          "correct": false
+        },
+        {
+          "strategy": "Mean Reversion",
+          "signal": "HOLD",
+          "strength": 0.1,
+          "correct": null
+        },
+        {
+          "strategy": "Ichimoku Cloud",
+          "signal": "BUY",
+          "strength": 1.0,
+          "correct": true
+        },
+        {
+          "strategy": "ML Meta-Learner (XGBoost proxy)",
+          "signal": "HOLD",
+          "strength": 0.269,
+          "correct": null
+        }
+      ],
+      "target_price": 1166.12,
+      "stop_loss": 1082.28,
+      "risk_reward": 2.0
+    },
+    {
+      "ticker": "BLK",
+      "signal_date": "2025-10-01",
+      "result_date": "2025-10-31",
+      "entry_price": 1153.8,
+      "end_price": 1048.94,
+      "return_pct": -7.11,
+      "actual_direction": "SELL",
+      "predicted_direction": "BUY",
+      "correct": false,
+      "confluence_score": 80.5,
+      "confluence_grade": "STRONG",
+      "strategy_results": [
+        {
+          "strategy": "EMA Crossover",
+          "signal": "BUY",
+          "strength": 0.233,
+          "correct": false
+        },
+        {
+          "strategy": "MACD + RSI",
+          "signal": "HOLD",
+          "strength": 0.3,
+          "correct": null
+        },
+        {
+          "strategy": "Bollinger Squeeze",
+          "signal": "HOLD",
+          "strength": 0.2,
+          "correct": null
+        },
+        {
+          "strategy": "Supertrend",
+          "signal": "BUY",
+          "strength": 0.888,
+          "correct": false
+        },
+        {
+          "strategy": "OBV Divergence",
+          "signal": "HOLD",
+          "strength": 0.1,
+          "correct": null
+        },
+        {
+          "strategy": "S/R Breakout",
+          "signal": "HOLD",
+          "strength": 0.1,
+          "correct": null
+        },
+        {
+          "strategy": "RSI Divergence",
+          "signal": "BUY",
+          "strength": 0.46,
+          "correct": false
+        },
+        {
+          "strategy": "Mean Reversion",
+          "signal": "HOLD",
+          "strength": 0.1,
+          "correct": null
+        },
+        {
+          "strategy": "Ichimoku Cloud",
+          "signal": "BUY",
+          "strength": 1.0,
+          "correct": false
+        },
+        {
+          "strategy": "ML Meta-Learner (XGBoost proxy)",
+          "signal": "BUY",
+          "strength": 0.365,
+          "correct": false
+        }
+      ],
+      "target_price": 1215.03,
+      "stop_loss": 1123.19,
+      "risk_reward": 2.0
+    },
+    {
+      "ticker": "BLK",
+      "signal_date": "2025-11-01",
+      "result_date": "2025-11-30",
+      "entry_price": 1071.6,
+      "end_price": 1064.44,
+      "return_pct": 0.63,
+      "actual_direction": "BUY",
+      "predicted_direction": "SELL",
+      "correct": false,
+      "confluence_score": 42.8,
+      "confluence_grade": "WEAK",
+      "strategy_results": [
+        {
+          "strategy": "EMA Crossover",
+          "signal": "SELL",
+          "strength": 0.294,
+          "correct": false
+        },
+        {
+          "strategy": "MACD + RSI",
+          "signal": "HOLD",
+          "strength": 0.3,
+          "correct": null
+        },
+        {
+          "strategy": "Bollinger Squeeze",
+          "signal": "HOLD",
+          "strength": 0.2,
+          "correct": null
+        },
+        {
+          "strategy": "Supertrend",
+          "signal": "SELL",
+          "strength": 0.578,
+          "correct": false
+        },
+        {
+          "strategy": "OBV Divergence",
+          "signal": "HOLD",
+          "strength": 0.1,
+          "correct": null
+        },
+        {
+          "strategy": "S/R Breakout",
+          "signal": "SELL",
+          "strength": 0.157,
+          "correct": false
+        },
+        {
+          "strategy": "RSI Divergence",
+          "signal": "HOLD",
+          "strength": 0.1,
+          "correct": null
+        },
+        {
+          "strategy": "Mean Reversion",
+          "signal": "BUY",
+          "strength": 0.99,
+          "correct": true
+        },
+        {
+          "strategy": "Ichimoku Cloud",
+          "signal": "SELL",
+          "strength": 0.667,
+          "correct": false
+        },
+        {
+          "strategy": "ML Meta-Learner (XGBoost proxy)",
+          "signal": "HOLD",
+          "strength": 0.288,
+          "correct": null
+        }
+      ],
+      "target_price": 991.45,
+      "stop_loss": 1111.67,
+      "risk_reward": 2.0
+    },
+    {
+      "ticker": "BLK",
+      "signal_date": "2025-12-01",
+      "result_date": "2025-12-31",
+      "entry_price": 1036.46,
+      "end_price": 1079.05,
+      "return_pct": 4.85,
+      "actual_direction": "BUY",
+      "predicted_direction": "SELL",
+      "correct": false,
+      "confluence_score": 48.6,
+      "confluence_grade": "WEAK",
+      "strategy_results": [
+        {
+          "strategy": "EMA Crossover",
+          "signal": "SELL",
+          "strength": 0.382,
+          "correct": false
+        },
+        {
+          "strategy": "MACD + RSI",
+          "signal": "BUY",
+          "strength": 0.527,
+          "correct": true
+        },
+        {
+          "strategy": "Bollinger Squeeze",
+          "signal": "HOLD",
+          "strength": 0.2,
+          "correct": null
+        },
+        {
+          "strategy": "Supertrend",
+          "signal": "SELL",
+          "strength": 0.633,
+          "correct": false
+        },
+        {
+          "strategy": "OBV Divergence",
+          "signal": "HOLD",
+          "strength": 0.1,
+          "correct": null
+        },
+        {
+          "strategy": "S/R Breakout",
+          "signal": "HOLD",
+          "strength": 0.1,
+          "correct": null
+        },
+        {
+          "strategy": "RSI Divergence",
+          "signal": "HOLD",
+          "strength": 0.1,
+          "correct": null
+        },
+        {
+          "strategy": "Mean Reversion",
+          "signal": "HOLD",
+          "strength": 0.1,
+          "correct": null
+        },
+        {
+          "strategy": "Ichimoku Cloud",
+          "signal": "SELL",
+          "strength": 0.667,
+          "correct": false
+        },
+        {
+          "strategy": "ML Meta-Learner (XGBoost proxy)",
+          "signal": "HOLD",
+          "strength": 0.326,
+          "correct": null
+        }
+      ],
+      "target_price": 969.64,
+      "stop_loss": 1069.86,
+      "risk_reward": 2.0
+    },
+    {
+      "ticker": "BLK",
+      "signal_date": "2026-01-01",
+      "result_date": "2026-01-31",
+      "entry_price": 1064.41,
+      "end_price": 1070.2,
+      "return_pct": -0.82,
+      "actual_direction": "SELL",
+      "predicted_direction": "BUY",
+      "correct": false,
+      "confluence_score": 6.6,
+      "confluence_grade": "NONE",
+      "strategy_results": [
+        {
+          "strategy": "EMA Crossover",
+          "signal": "BUY",
+          "strength": 0.095,
+          "correct": false
+        },
+        {
+          "strategy": "MACD + RSI",
+          "signal": "HOLD",
+          "strength": 0.3,
+          "correct": null
+        },
+        {
+          "strategy": "Bollinger Squeeze",
+          "signal": "HOLD",
+          "strength": 0.2,
+          "correct": null
+        },
+        {
+          "strategy": "Supertrend",
+          "signal": "BUY",
+          "strength": 0.091,
+          "correct": false
+        },
+        {
+          "strategy": "OBV Divergence",
+          "signal": "HOLD",
+          "strength": 0.1,
+          "correct": null
+        },
+        {
+          "strategy": "S/R Breakout",
+          "signal": "HOLD",
+          "strength": 0.1,
+          "correct": null
+        },
+        {
+          "strategy": "RSI Divergence",
+          "signal": "SELL",
+          "strength": 0.526,
+          "correct": true
+        },
+        {
+          "strategy": "Mean Reversion",
+          "signal": "HOLD",
+          "strength": 0.1,
+          "correct": null
+        },
+        {
+          "strategy": "Ichimoku Cloud",
+          "signal": "HOLD",
+          "strength": 0.333,
+          "correct": null
+        },
+        {
+          "strategy": "ML Meta-Learner (XGBoost proxy)",
+          "signal": "HOLD",
+          "strength": 0.486,
+          "correct": null
+        }
+      ],
+      "target_price": 1112.42,
+      "stop_loss": 1040.41,
+      "risk_reward": 2.0
+    },
+    {
+      "ticker": "BLK",
+      "signal_date": "2026-02-01",
+      "result_date": "2026-02-28",
+      "entry_price": 1112.75,
+      "end_price": 1043.42,
+      "return_pct": -6.29,
+      "actual_direction": "SELL",
+      "predicted_direction": "BUY",
+      "correct": false,
+      "confluence_score": 51.2,
+      "confluence_grade": "MODERATE",
+      "strategy_results": [
+        {
+          "strategy": "EMA Crossover",
+          "signal": "BUY",
+          "strength": 0.164,
+          "correct": false
+        },
+        {
+          "strategy": "MACD + RSI",
+          "signal": "HOLD",
+          "strength": 0.3,
+          "correct": null
+        },
+        {
+          "strategy": "Bollinger Squeeze",
+          "signal": "HOLD",
+          "strength": 0.2,
+          "correct": null
+        },
+        {
+          "strategy": "Supertrend",
+          "signal": "BUY",
+          "strength": 0.673,
+          "correct": false
+        },
+        {
+          "strategy": "OBV Divergence",
+          "signal": "HOLD",
+          "strength": 0.1,
+          "correct": null
+        },
+        {
+          "strategy": "S/R Breakout",
+          "signal": "HOLD",
+          "strength": 0.1,
+          "correct": null
+        },
+        {
+          "strategy": "RSI Divergence",
+          "signal": "HOLD",
+          "strength": 0.1,
+          "correct": null
+        },
+        {
+          "strategy": "Mean Reversion",
+          "signal": "HOLD",
+          "strength": 0.1,
+          "correct": null
+        },
+        {
+          "strategy": "Ichimoku Cloud",
+          "signal": "BUY",
+          "strength": 0.667,
+          "correct": false
+        },
+        {
+          "strategy": "ML Meta-Learner (XGBoost proxy)",
+          "signal": "HOLD",
+          "strength": 0.266,
+          "correct": null
+        }
+      ],
+      "target_price": 1199.01,
+      "stop_loss": 1069.61,
+      "risk_reward": 2.0
+    }
+  ]
+}
