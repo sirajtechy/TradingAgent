@@ -1,0 +1,33 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.pytest_cache/
+*.egg-info/
+dist/
+build/
+
+# Environment
+.venv/
+.env
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+.DS_Store
+
+# Node / Next.js (dashboard)
+backtest-dashboard/node_modules/
+backtest-dashboard/.next/
+backtest-dashboard/out/
+
+# Temp / audit scripts
+_audit_data.py
+_check_data.py
+_export_dashboard_data.py
+start-dev.sh
+
+# Binary docs
+*.pdf

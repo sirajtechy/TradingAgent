@@ -1,0 +1,29 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "fundamental-analysis-agent"
+version = "0.1.0"
+description = "Deterministic fundamental analysis agent with point-in-time scoring"
+readme = "README.md"
+requires-python = ">=3.9"
+dependencies = [
+  "requests>=2.32.0",
+  "langgraph>=0.6.11",
+]
+
+[project.optional-dependencies]
+dev = [
+  "pytest>=8.4.0",
+]
+
+[project.scripts]
+fundamental-agent = "fundamental_agent.cli:main"
+technical-agent = "technical_agent.cli:main"
+
+[tool.setuptools.packages.find]
+include = ["fundamental_agent*", "technical_agent*", "orchestrator_agent*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

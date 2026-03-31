@@ -1,0 +1,1812 @@
+[
+  {
+    "ticker": "ORCL",
+    "sector": "Technology",
+    "month": "September 2025",
+    "signal_date": "2025-09-01",
+    "predicted": "BEARISH",
+    "actual": "UP",
+    "return_pct": 25.04,
+    "composite_score": 39.2,
+    "band": "weak",
+    "error_type": "FN",
+    "subscores": {
+      "financial_health": 55.7,
+      "valuation": 16.7,
+      "quality": 60.0,
+      "growth": 46.7
+    },
+    "frameworks_at_fault": {
+      "graham": 16.7
+    },
+    "all_framework_scores": {
+      "piotroski": 55.6,
+      "altman": 55.7,
+      "graham": 16.7,
+      "lynch": null,
+      "greenblatt": 60.0,
+      "growth_profile": 46.7
+    },
+    "root_causes": [
+      "Bearish frameworks dragged score down: graham=16.7%",
+      "Graham too strict (16.7%) \u2014 penalises growth stocks with no dividend / high P/E",
+      "Bullish signals overridden: greenblatt=60.0%"
+    ],
+    "category": "graham_too_strict",
+    "data_quality": {
+      "coverage_ratio": 0.83,
+      "coverage_quality": "medium",
+      "warnings_count": 2
+    }
+  },
+  {
+    "ticker": "ANET",
+    "sector": "Technology",
+    "month": "March 2025",
+    "signal_date": "2025-03-01",
+    "predicted": "BULLISH",
+    "actual": "DOWN",
+    "return_pct": -16.24,
+    "composite_score": 69.8,
+    "band": "mixed_positive",
+    "error_type": "FP",
+    "subscores": {
+      "financial_health": 60.0,
+      "valuation": 55.0,
+      "quality": 100.0,
+      "growth": 66.7
+    },
+    "frameworks_at_fault": {
+      "altman": 70.0,
+      "lynch": 60.0,
+      "greenblatt": 100.0,
+      "growth_profile": 66.7
+    },
+    "all_framework_scores": {
+      "piotroski": 50.0,
+      "altman": 70.0,
+      "graham": 50.0,
+      "lynch": 60.0,
+      "greenblatt": 100.0,
+      "growth_profile": 66.7
+    },
+    "root_causes": [
+      "Altman Z in safe zone (70.0%) \u2014 doesn't predict sudden drops",
+      "Growth profile bullish (66.7%) \u2014 growth may be priced in"
+    ],
+    "category": "multiple_factors",
+    "data_quality": {
+      "coverage_ratio": 1.0,
+      "coverage_quality": "medium",
+      "warnings_count": 3
+    }
+  },
+  {
+    "ticker": "ANET",
+    "sector": "Technology",
+    "month": "November 2025",
+    "signal_date": "2025-11-01",
+    "predicted": "BULLISH",
+    "actual": "DOWN",
+    "return_pct": -17.13,
+    "composite_score": 66.8,
+    "band": "mixed_positive",
+    "error_type": "FP",
+    "subscores": {
+      "financial_health": 60.0,
+      "valuation": 45.0,
+      "quality": 100.0,
+      "growth": 66.7
+    },
+    "frameworks_at_fault": {
+      "altman": 70.0,
+      "greenblatt": 100.0,
+      "growth_profile": 66.7
+    },
+    "all_framework_scores": {
+      "piotroski": 50.0,
+      "altman": 70.0,
+      "graham": 50.0,
+      "lynch": 40.0,
+      "greenblatt": 100.0,
+      "growth_profile": 66.7
+    },
+    "root_causes": [
+      "Altman Z in safe zone (70.0%) \u2014 doesn't predict sudden drops",
+      "Growth profile bullish (66.7%) \u2014 growth may be priced in"
+    ],
+    "category": "multiple_factors",
+    "data_quality": {
+      "coverage_ratio": 1.0,
+      "coverage_quality": "medium",
+      "warnings_count": 3
+    }
+  },
+  {
+    "ticker": "ANET",
+    "sector": "Technology",
+    "month": "February 2026",
+    "signal_date": "2026-02-01",
+    "predicted": "BULLISH",
+    "actual": "DOWN",
+    "return_pct": -5.81,
+    "composite_score": 66.8,
+    "band": "mixed_positive",
+    "error_type": "FP",
+    "subscores": {
+      "financial_health": 60.0,
+      "valuation": 45.0,
+      "quality": 100.0,
+      "growth": 66.7
+    },
+    "frameworks_at_fault": {
+      "altman": 70.0,
+      "greenblatt": 100.0,
+      "growth_profile": 66.7
+    },
+    "all_framework_scores": {
+      "piotroski": 50.0,
+      "altman": 70.0,
+      "graham": 50.0,
+      "lynch": 40.0,
+      "greenblatt": 100.0,
+      "growth_profile": 66.7
+    },
+    "root_causes": [
+      "Altman Z in safe zone (70.0%) \u2014 doesn't predict sudden drops",
+      "Growth profile bullish (66.7%) \u2014 growth may be priced in"
+    ],
+    "category": "multiple_factors",
+    "data_quality": {
+      "coverage_ratio": 1.0,
+      "coverage_quality": "medium",
+      "warnings_count": 3
+    }
+  },
+  {
+    "ticker": "INTC",
+    "sector": "Technology",
+    "month": "June 2025",
+    "signal_date": "2025-06-01",
+    "predicted": "BEARISH",
+    "actual": "UP",
+    "return_pct": 16.06,
+    "composite_score": 27.9,
+    "band": "weak",
+    "error_type": "FN",
+    "subscores": {
+      "financial_health": 21.6,
+      "valuation": 50.0,
+      "quality": 20.0,
+      "growth": 20.0
+    },
+    "frameworks_at_fault": {
+      "piotroski": 33.3,
+      "altman": 10.0,
+      "greenblatt": 20.0,
+      "growth_profile": 20.0
+    },
+    "all_framework_scores": {
+      "piotroski": 33.3,
+      "altman": 10.0,
+      "graham": 50.0,
+      "lynch": null,
+      "greenblatt": 20.0,
+      "growth_profile": 20.0
+    },
+    "root_causes": [
+      "Bearish frameworks dragged score down: piotroski=33.3%, altman=10.0%, greenblatt=20.0%, growth_profile=20.0%"
+    ],
+    "category": "multiple_factors",
+    "data_quality": {
+      "coverage_ratio": 0.83,
+      "coverage_quality": "medium",
+      "warnings_count": 2
+    }
+  },
+  {
+    "ticker": "INTC",
+    "sector": "Technology",
+    "month": "August 2025",
+    "signal_date": "2025-08-01",
+    "predicted": "BEARISH",
+    "actual": "UP",
+    "return_pct": 22.98,
+    "composite_score": 27.9,
+    "band": "weak",
+    "error_type": "FN",
+    "subscores": {
+      "financial_health": 21.6,
+      "valuation": 50.0,
+      "quality": 20.0,
+      "growth": 20.0
+    },
+    "frameworks_at_fault": {
+      "piotroski": 33.3,
+      "altman": 10.0,
+      "greenblatt": 20.0,
+      "growth_profile": 20.0
+    },
+    "all_framework_scores": {
+      "piotroski": 33.3,
+      "altman": 10.0,
+      "graham": 50.0,
+      "lynch": null,
+      "greenblatt": 20.0,
+      "growth_profile": 20.0
+    },
+    "root_causes": [
+      "Bearish frameworks dragged score down: piotroski=33.3%, altman=10.0%, greenblatt=20.0%, growth_profile=20.0%"
+    ],
+    "category": "multiple_factors",
+    "data_quality": {
+      "coverage_ratio": 0.83,
+      "coverage_quality": "medium",
+      "warnings_count": 2
+    }
+  },
+  {
+    "ticker": "INTC",
+    "sector": "Technology",
+    "month": "September 2025",
+    "signal_date": "2025-09-01",
+    "predicted": "BEARISH",
+    "actual": "UP",
+    "return_pct": 41.6,
+    "composite_score": 27.9,
+    "band": "weak",
+    "error_type": "FN",
+    "subscores": {
+      "financial_health": 21.6,
+      "valuation": 50.0,
+      "quality": 20.0,
+      "growth": 20.0
+    },
+    "frameworks_at_fault": {
+      "piotroski": 33.3,
+      "altman": 10.0,
+      "greenblatt": 20.0,
+      "growth_profile": 20.0
+    },
+    "all_framework_scores": {
+      "piotroski": 33.3,
+      "altman": 10.0,
+      "graham": 50.0,
+      "lynch": null,
+      "greenblatt": 20.0,
+      "growth_profile": 20.0
+    },
+    "root_causes": [
+      "Bearish frameworks dragged score down: piotroski=33.3%, altman=10.0%, greenblatt=20.0%, growth_profile=20.0%"
+    ],
+    "category": "multiple_factors",
+    "data_quality": {
+      "coverage_ratio": 0.83,
+      "coverage_quality": "medium",
+      "warnings_count": 2
+    }
+  },
+  {
+    "ticker": "INTC",
+    "sector": "Technology",
+    "month": "October 2025",
+    "signal_date": "2025-10-01",
+    "predicted": "BEARISH",
+    "actual": "UP",
+    "return_pct": 19.7,
+    "composite_score": 27.9,
+    "band": "weak",
+    "error_type": "FN",
+    "subscores": {
+      "financial_health": 21.6,
+      "valuation": 50.0,
+      "quality": 20.0,
+      "growth": 20.0
+    },
+    "frameworks_at_fault": {
+      "piotroski": 33.3,
+      "altman": 10.0,
+      "greenblatt": 20.0,
+      "growth_profile": 20.0
+    },
+    "all_framework_scores": {
+      "piotroski": 33.3,
+      "altman": 10.0,
+      "graham": 50.0,
+      "lynch": null,
+      "greenblatt": 20.0,
+      "growth_profile": 20.0
+    },
+    "root_causes": [
+      "Bearish frameworks dragged score down: piotroski=33.3%, altman=10.0%, greenblatt=20.0%, growth_profile=20.0%"
+    ],
+    "category": "multiple_factors",
+    "data_quality": {
+      "coverage_ratio": 0.83,
+      "coverage_quality": "medium",
+      "warnings_count": 2
+    }
+  },
+  {
+    "ticker": "INTC",
+    "sector": "Technology",
+    "month": "November 2025",
+    "signal_date": "2025-11-01",
+    "predicted": "BEARISH",
+    "actual": "UP",
+    "return_pct": 1.43,
+    "composite_score": 27.9,
+    "band": "weak",
+    "error_type": "FN",
+    "subscores": {
+      "financial_health": 21.6,
+      "valuation": 50.0,
+      "quality": 20.0,
+      "growth": 20.0
+    },
+    "frameworks_at_fault": {
+      "piotroski": 33.3,
+      "altman": 10.0,
+      "greenblatt": 20.0,
+      "growth_profile": 20.0
+    },
+    "all_framework_scores": {
+      "piotroski": 33.3,
+      "altman": 10.0,
+      "graham": 50.0,
+      "lynch": null,
+      "greenblatt": 20.0,
+      "growth_profile": 20.0
+    },
+    "root_causes": [
+      "Bearish frameworks dragged score down: piotroski=33.3%, altman=10.0%, greenblatt=20.0%, growth_profile=20.0%"
+    ],
+    "category": "multiple_factors",
+    "data_quality": {
+      "coverage_ratio": 0.83,
+      "coverage_quality": "medium",
+      "warnings_count": 2
+    }
+  },
+  {
+    "ticker": "INTC",
+    "sector": "Technology",
+    "month": "January 2026",
+    "signal_date": "2026-01-01",
+    "predicted": "BEARISH",
+    "actual": "UP",
+    "return_pct": 25.93,
+    "composite_score": 23.4,
+    "band": "weak",
+    "error_type": "FN",
+    "subscores": {
+      "financial_health": 21.6,
+      "valuation": 33.3,
+      "quality": 20.0,
+      "growth": 20.0
+    },
+    "frameworks_at_fault": {
+      "piotroski": 33.3,
+      "altman": 10.0,
+      "graham": 33.3,
+      "greenblatt": 20.0,
+      "growth_profile": 20.0
+    },
+    "all_framework_scores": {
+      "piotroski": 33.3,
+      "altman": 10.0,
+      "graham": 33.3,
+      "lynch": null,
+      "greenblatt": 20.0,
+      "growth_profile": 20.0
+    },
+    "root_causes": [
+      "Bearish frameworks dragged score down: piotroski=33.3%, altman=10.0%, graham=33.3%, greenblatt=20.0%, growth_profile=20.0%"
+    ],
+    "category": "multiple_factors",
+    "data_quality": {
+      "coverage_ratio": 0.83,
+      "coverage_quality": "medium",
+      "warnings_count": 2
+    }
+  },
+  {
+    "ticker": "UNH",
+    "sector": "Healthcare",
+    "month": "March 2025",
+    "signal_date": "2025-03-01",
+    "predicted": "BEARISH",
+    "actual": "UP",
+    "return_pct": 9.11,
+    "composite_score": 39.7,
+    "band": "weak",
+    "error_type": "FN",
+    "subscores": {
+      "financial_health": 56.2,
+      "valuation": 33.3,
+      "quality": 40.0,
+      "growth": 33.3
+    },
+    "frameworks_at_fault": {
+      "graham": 33.3,
+      "growth_profile": 33.3
+    },
+    "all_framework_scores": {
+      "piotroski": 55.6,
+      "altman": 56.9,
+      "graham": 33.3,
+      "lynch": null,
+      "greenblatt": 40.0,
+      "growth_profile": 33.3
+    },
+    "root_causes": [
+      "Bearish frameworks dragged score down: graham=33.3%, growth_profile=33.3%"
+    ],
+    "category": "multiple_factors",
+    "data_quality": {
+      "coverage_ratio": 0.83,
+      "coverage_quality": "medium",
+      "warnings_count": 2
+    }
+  },
+  {
+    "ticker": "PFE",
+    "sector": "Healthcare",
+    "month": "March 2025",
+    "signal_date": "2025-03-01",
+    "predicted": "BULLISH",
+    "actual": "DOWN",
+    "return_pct": -4.62,
+    "composite_score": 62.3,
+    "band": "mixed_positive",
+    "error_type": "FP",
+    "subscores": {
+      "financial_health": 67.2,
+      "valuation": 50.0,
+      "quality": 80.0,
+      "growth": 60.0
+    },
+    "frameworks_at_fault": {
+      "piotroski": 100.0,
+      "greenblatt": 80.0,
+      "growth_profile": 60.0
+    },
+    "all_framework_scores": {
+      "piotroski": 100.0,
+      "altman": 34.4,
+      "graham": 50.0,
+      "lynch": null,
+      "greenblatt": 80.0,
+      "growth_profile": 60.0
+    },
+    "root_causes": [
+      "Piotroski inflated health (100.0%) \u2014 backward-looking metric",
+      "Lynch N/A \u2192 valuation subscore based on Graham alone (undersampled)",
+      "Growth profile bullish (60.0%) \u2014 growth may be priced in",
+      "Borderline bullish (score=62.3, threshold=62)",
+      "Bearish signals outvoted: altman=34.4%"
+    ],
+    "category": "missing_indicator",
+    "data_quality": {
+      "coverage_ratio": 0.83,
+      "coverage_quality": "medium",
+      "warnings_count": 2
+    }
+  },
+  {
+    "ticker": "PFE",
+    "sector": "Healthcare",
+    "month": "April 2025",
+    "signal_date": "2025-04-01",
+    "predicted": "BULLISH",
+    "actual": "DOWN",
+    "return_pct": -6.12,
+    "composite_score": 62.2,
+    "band": "mixed_positive",
+    "error_type": "FP",
+    "subscores": {
+      "financial_health": 66.9,
+      "valuation": 50.0,
+      "quality": 80.0,
+      "growth": 60.0
+    },
+    "frameworks_at_fault": {
+      "piotroski": 100.0,
+      "greenblatt": 80.0,
+      "growth_profile": 60.0
+    },
+    "all_framework_scores": {
+      "piotroski": 100.0,
+      "altman": 33.8,
+      "graham": 50.0,
+      "lynch": null,
+      "greenblatt": 80.0,
+      "growth_profile": 60.0
+    },
+    "root_causes": [
+      "Piotroski inflated health (100.0%) \u2014 backward-looking metric",
+      "Lynch N/A \u2192 valuation subscore based on Graham alone (undersampled)",
+      "Growth profile bullish (60.0%) \u2014 growth may be priced in",
+      "Borderline bullish (score=62.2, threshold=62)",
+      "Bearish signals outvoted: altman=33.8%"
+    ],
+    "category": "missing_indicator",
+    "data_quality": {
+      "coverage_ratio": 0.83,
+      "coverage_quality": "medium",
+      "warnings_count": 2
+    }
+  },
+  {
+    "ticker": "PFE",
+    "sector": "Healthcare",
+    "month": "May 2025",
+    "signal_date": "2025-05-01",
+    "predicted": "BULLISH",
+    "actual": "DOWN",
+    "return_pct": -1.93,
+    "composite_score": 66.7,
+    "band": "mixed_positive",
+    "error_type": "FP",
+    "subscores": {
+      "financial_health": 66.7,
+      "valuation": 66.7,
+      "quality": 80.0,
+      "growth": 60.0
+    },
+    "frameworks_at_fault": {
+      "piotroski": 100.0,
+      "graham": 66.7,
+      "greenblatt": 80.0,
+      "growth_profile": 60.0
+    },
+    "all_framework_scores": {
+      "piotroski": 100.0,
+      "altman": 33.3,
+      "graham": 66.7,
+      "lynch": null,
+      "greenblatt": 80.0,
+      "growth_profile": 60.0
+    },
+    "root_causes": [
+      "Piotroski inflated health (100.0%) \u2014 backward-looking metric",
+      "Lynch N/A \u2192 valuation subscore based on Graham alone (undersampled)",
+      "Growth profile bullish (60.0%) \u2014 growth may be priced in",
+      "Bearish signals outvoted: altman=33.3%"
+    ],
+    "category": "missing_indicator",
+    "data_quality": {
+      "coverage_ratio": 0.83,
+      "coverage_quality": "medium",
+      "warnings_count": 2
+    }
+  },
+  {
+    "ticker": "PFE",
+    "sector": "Healthcare",
+    "month": "July 2025",
+    "signal_date": "2025-07-01",
+    "predicted": "BULLISH",
+    "actual": "DOWN",
+    "return_pct": -0.08,
+    "composite_score": 66.7,
+    "band": "mixed_positive",
+    "error_type": "FP",
+    "subscores": {
+      "financial_health": 66.8,
+      "valuation": 66.7,
+      "quality": 80.0,
+      "growth": 60.0
+    },
+    "frameworks_at_fault": {
+      "piotroski": 100.0,
+      "graham": 66.7,
+      "greenblatt": 80.0,
+      "growth_profile": 60.0
+    },
+    "all_framework_scores": {
+      "piotroski": 100.0,
+      "altman": 33.5,
+      "graham": 66.7,
+      "lynch": null,
+      "greenblatt": 80.0,
+      "growth_profile": 60.0
+    },
+    "root_causes": [
+      "Piotroski inflated health (100.0%) \u2014 backward-looking metric",
+      "Lynch N/A \u2192 valuation subscore based on Graham alone (undersampled)",
+      "Growth profile bullish (60.0%) \u2014 growth may be priced in",
+      "Bearish signals outvoted: altman=33.5%"
+    ],
+    "category": "missing_indicator",
+    "data_quality": {
+      "coverage_ratio": 0.83,
+      "coverage_quality": "medium",
+      "warnings_count": 2
+    }
+  },
+  {
+    "ticker": "PFE",
+    "sector": "Healthcare",
+    "month": "September 2025",
+    "signal_date": "2025-09-01",
+    "predicted": "BULLISH",
+    "actual": "DOWN",
+    "return_pct": -3.68,
+    "composite_score": 62.2,
+    "band": "mixed_positive",
+    "error_type": "FP",
+    "subscores": {
+      "financial_health": 67.0,
+      "valuation": 50.0,
+      "quality": 80.0,
+      "growth": 60.0
+    },
+    "frameworks_at_fault": {
+      "piotroski": 100.0,
+      "greenblatt": 80.0,
+      "growth_profile": 60.0
+    },
+    "all_framework_scores": {
+      "piotroski": 100.0,
+      "altman": 34.0,
+      "graham": 50.0,
+      "lynch": null,
+      "greenblatt": 80.0,
+      "growth_profile": 60.0
+    },
+    "root_causes": [
+      "Piotroski inflated health (100.0%) \u2014 backward-looking metric",
+      "Lynch N/A \u2192 valuation subscore based on Graham alone (undersampled)",
+      "Growth profile bullish (60.0%) \u2014 growth may be priced in",
+      "Borderline bullish (score=62.2, threshold=62)",
+      "Bearish signals outvoted: altman=34.0%"
+    ],
+    "category": "missing_indicator",
+    "data_quality": {
+      "coverage_ratio": 0.83,
+      "coverage_quality": "medium",
+      "warnings_count": 2
+    }
+  },
+  {
+    "ticker": "PFE",
+    "sector": "Healthcare",
+    "month": "October 2025",
+    "signal_date": "2025-10-01",
+    "predicted": "BULLISH",
+    "actual": "DOWN",
+    "return_pct": -4.67,
+    "composite_score": 62.3,
+    "band": "mixed_positive",
+    "error_type": "FP",
+    "subscores": {
+      "financial_health": 67.2,
+      "valuation": 50.0,
+      "quality": 80.0,
+      "growth": 60.0
+    },
+    "frameworks_at_fault": {
+      "piotroski": 100.0,
+      "greenblatt": 80.0,
+      "growth_profile": 60.0
+    },
+    "all_framework_scores": {
+      "piotroski": 100.0,
+      "altman": 34.4,
+      "graham": 50.0,
+      "lynch": null,
+      "greenblatt": 80.0,
+      "growth_profile": 60.0
+    },
+    "root_causes": [
+      "Piotroski inflated health (100.0%) \u2014 backward-looking metric",
+      "Lynch N/A \u2192 valuation subscore based on Graham alone (undersampled)",
+      "Growth profile bullish (60.0%) \u2014 growth may be priced in",
+      "Borderline bullish (score=62.3, threshold=62)",
+      "Bearish signals outvoted: altman=34.4%"
+    ],
+    "category": "missing_indicator",
+    "data_quality": {
+      "coverage_ratio": 0.83,
+      "coverage_quality": "medium",
+      "warnings_count": 2
+    }
+  },
+  {
+    "ticker": "PFE",
+    "sector": "Healthcare",
+    "month": "December 2025",
+    "signal_date": "2025-12-01",
+    "predicted": "BULLISH",
+    "actual": "DOWN",
+    "return_pct": -2.91,
+    "composite_score": 62.4,
+    "band": "mixed_positive",
+    "error_type": "FP",
+    "subscores": {
+      "financial_health": 67.4,
+      "valuation": 50.0,
+      "quality": 80.0,
+      "growth": 60.0
+    },
+    "frameworks_at_fault": {
+      "piotroski": 100.0,
+      "greenblatt": 80.0,
+      "growth_profile": 60.0
+    },
+    "all_framework_scores": {
+      "piotroski": 100.0,
+      "altman": 34.8,
+      "graham": 50.0,
+      "lynch": null,
+      "greenblatt": 80.0,
+      "growth_profile": 60.0
+    },
+    "root_causes": [
+      "Piotroski inflated health (100.0%) \u2014 backward-looking metric",
+      "Lynch N/A \u2192 valuation subscore based on Graham alone (undersampled)",
+      "Growth profile bullish (60.0%) \u2014 growth may be priced in",
+      "Borderline bullish (score=62.4, threshold=62)",
+      "Bearish signals outvoted: altman=34.8%"
+    ],
+    "category": "missing_indicator",
+    "data_quality": {
+      "coverage_ratio": 0.83,
+      "coverage_quality": "medium",
+      "warnings_count": 2
+    }
+  },
+  {
+    "ticker": "JPM",
+    "sector": "Financials",
+    "month": "March 2025",
+    "signal_date": "2025-03-01",
+    "predicted": "BULLISH",
+    "actual": "DOWN",
+    "return_pct": -8.24,
+    "composite_score": 68.0,
+    "band": "mixed_positive",
+    "error_type": "FP",
+    "subscores": {
+      "financial_health": 71.4,
+      "valuation": 75.0,
+      "quality": null,
+      "growth": 53.3
+    },
+    "frameworks_at_fault": {
+      "piotroski": 71.4,
+      "lynch": 100.0
+    },
+    "all_framework_scores": {
+      "piotroski": 71.4,
+      "altman": null,
+      "graham": 50.0,
+      "lynch": 100.0,
+      "greenblatt": null,
+      "growth_profile": 53.3
+    },
+    "root_causes": [
+      "All frameworks aligned bullish \u2014 no single indicator fault, likely macro/sentiment"
+    ],
+    "category": "macro_blind_spot",
+    "data_quality": {
+      "coverage_ratio": 0.67,
+      "coverage_quality": "medium",
+      "warnings_count": 2
+    }
+  },
+  {
+    "ticker": "JPM",
+    "sector": "Financials",
+    "month": "October 2025",
+    "signal_date": "2025-10-01",
+    "predicted": "BULLISH",
+    "actual": "DOWN",
+    "return_pct": -1.42,
+    "composite_score": 64.0,
+    "band": "mixed_positive",
+    "error_type": "FP",
+    "subscores": {
+      "financial_health": 71.4,
+      "valuation": 65.0,
+      "quality": null,
+      "growth": 53.3
+    },
+    "frameworks_at_fault": {
+      "piotroski": 71.4,
+      "lynch": 80.0
+    },
+    "all_framework_scores": {
+      "piotroski": 71.4,
+      "altman": null,
+      "graham": 50.0,
+      "lynch": 80.0,
+      "greenblatt": null,
+      "growth_profile": 53.3
+    },
+    "root_causes": [
+      "Borderline bullish (score=64.0, threshold=62)"
+    ],
+    "category": "borderline_call",
+    "data_quality": {
+      "coverage_ratio": 0.67,
+      "coverage_quality": "medium",
+      "warnings_count": 2
+    }
+  },
+  {
+    "ticker": "JPM",
+    "sector": "Financials",
+    "month": "January 2026",
+    "signal_date": "2026-01-01",
+    "predicted": "BULLISH",
+    "actual": "DOWN",
+    "return_pct": -4.64,
+    "composite_score": 64.0,
+    "band": "mixed_positive",
+    "error_type": "FP",
+    "subscores": {
+      "financial_health": 71.4,
+      "valuation": 65.0,
+      "quality": null,
+      "growth": 53.3
+    },
+    "frameworks_at_fault": {
+      "piotroski": 71.4,
+      "lynch": 80.0
+    },
+    "all_framework_scores": {
+      "piotroski": 71.4,
+      "altman": null,
+      "graham": 50.0,
+      "lynch": 80.0,
+      "greenblatt": null,
+      "growth_profile": 53.3
+    },
+    "root_causes": [
+      "Borderline bullish (score=64.0, threshold=62)"
+    ],
+    "category": "borderline_call",
+    "data_quality": {
+      "coverage_ratio": 0.67,
+      "coverage_quality": "medium",
+      "warnings_count": 2
+    }
+  },
+  {
+    "ticker": "JPM",
+    "sector": "Financials",
+    "month": "February 2026",
+    "signal_date": "2026-02-01",
+    "predicted": "BULLISH",
+    "actual": "DOWN",
+    "return_pct": -1.83,
+    "composite_score": 64.0,
+    "band": "mixed_positive",
+    "error_type": "FP",
+    "subscores": {
+      "financial_health": 71.4,
+      "valuation": 65.0,
+      "quality": null,
+      "growth": 53.3
+    },
+    "frameworks_at_fault": {
+      "piotroski": 71.4,
+      "lynch": 80.0
+    },
+    "all_framework_scores": {
+      "piotroski": 71.4,
+      "altman": null,
+      "graham": 50.0,
+      "lynch": 80.0,
+      "greenblatt": null,
+      "growth_profile": 53.3
+    },
+    "root_causes": [
+      "Borderline bullish (score=64.0, threshold=62)"
+    ],
+    "category": "borderline_call",
+    "data_quality": {
+      "coverage_ratio": 0.67,
+      "coverage_quality": "medium",
+      "warnings_count": 2
+    }
+  },
+  {
+    "ticker": "BAC",
+    "sector": "Financials",
+    "month": "March 2025",
+    "signal_date": "2025-03-01",
+    "predicted": "BULLISH",
+    "actual": "DOWN",
+    "return_pct": -9.96,
+    "composite_score": 63.9,
+    "band": "mixed_positive",
+    "error_type": "FP",
+    "subscores": {
+      "financial_health": 57.1,
+      "valuation": 100.0,
+      "quality": null,
+      "growth": 33.3
+    },
+    "frameworks_at_fault": {
+      "graham": 100.0
+    },
+    "all_framework_scores": {
+      "piotroski": 57.1,
+      "altman": null,
+      "graham": 100.0,
+      "lynch": null,
+      "greenblatt": null,
+      "growth_profile": 33.3
+    },
+    "root_causes": [
+      "Lynch N/A \u2192 valuation subscore based on Graham alone (undersampled)",
+      "Borderline bullish (score=63.9, threshold=62)",
+      "Bearish signals outvoted: growth_profile=33.3%"
+    ],
+    "category": "missing_indicator",
+    "data_quality": {
+      "coverage_ratio": 0.5,
+      "coverage_quality": "low",
+      "warnings_count": 2
+    }
+  },
+  {
+    "ticker": "BAC",
+    "sector": "Financials",
+    "month": "April 2025",
+    "signal_date": "2025-04-01",
+    "predicted": "BULLISH",
+    "actual": "DOWN",
+    "return_pct": -4.17,
+    "composite_score": 63.9,
+    "band": "mixed_positive",
+    "error_type": "FP",
+    "subscores": {
+      "financial_health": 57.1,
+      "valuation": 100.0,
+      "quality": null,
+      "growth": 33.3
+    },
+    "frameworks_at_fault": {
+      "graham": 100.0
+    },
+    "all_framework_scores": {
+      "piotroski": 57.1,
+      "altman": null,
+      "graham": 100.0,
+      "lynch": null,
+      "greenblatt": null,
+      "growth_profile": 33.3
+    },
+    "root_causes": [
+      "Lynch N/A \u2192 valuation subscore based on Graham alone (undersampled)",
+      "Borderline bullish (score=63.9, threshold=62)",
+      "Bearish signals outvoted: growth_profile=33.3%"
+    ],
+    "category": "missing_indicator",
+    "data_quality": {
+      "coverage_ratio": 0.5,
+      "coverage_quality": "low",
+      "warnings_count": 2
+    }
+  },
+  {
+    "ticker": "GS",
+    "sector": "Financials",
+    "month": "March 2025",
+    "signal_date": "2025-03-01",
+    "predicted": "BULLISH",
+    "actual": "DOWN",
+    "return_pct": -12.72,
+    "composite_score": 63.6,
+    "band": "mixed_positive",
+    "error_type": "FP",
+    "subscores": {
+      "financial_health": 71.4,
+      "valuation": 55.0,
+      "quality": null,
+      "growth": 66.7
+    },
+    "frameworks_at_fault": {
+      "piotroski": 71.4,
+      "lynch": 60.0,
+      "growth_profile": 66.7
+    },
+    "all_framework_scores": {
+      "piotroski": 71.4,
+      "altman": null,
+      "graham": 50.0,
+      "lynch": 60.0,
+      "greenblatt": null,
+      "growth_profile": 66.7
+    },
+    "root_causes": [
+      "Growth profile bullish (66.7%) \u2014 growth may be priced in",
+      "Borderline bullish (score=63.6, threshold=62)"
+    ],
+    "category": "borderline_call",
+    "data_quality": {
+      "coverage_ratio": 0.67,
+      "coverage_quality": "medium",
+      "warnings_count": 2
+    }
+  },
+  {
+    "ticker": "PSX",
+    "sector": "Energy",
+    "month": "May 2025",
+    "signal_date": "2025-05-01",
+    "predicted": "BEARISH",
+    "actual": "UP",
+    "return_pct": 10.1,
+    "composite_score": 37.0,
+    "band": "weak",
+    "error_type": "FN",
+    "subscores": {
+      "financial_health": 56.0,
+      "valuation": 46.6,
+      "quality": 20.0,
+      "growth": 20.0
+    },
+    "frameworks_at_fault": {
+      "graham": 33.3,
+      "greenblatt": 20.0,
+      "growth_profile": 20.0
+    },
+    "all_framework_scores": {
+      "piotroski": 55.6,
+      "altman": 56.3,
+      "graham": 33.3,
+      "lynch": 60.0,
+      "greenblatt": 20.0,
+      "growth_profile": 20.0
+    },
+    "root_causes": [
+      "Bearish frameworks dragged score down: graham=33.3%, greenblatt=20.0%, growth_profile=20.0%",
+      "Bullish signals overridden: lynch=60.0%"
+    ],
+    "category": "conflicting_outvoted",
+    "data_quality": {
+      "coverage_ratio": 1.0,
+      "coverage_quality": "high",
+      "warnings_count": 2
+    }
+  },
+  {
+    "ticker": "PSX",
+    "sector": "Energy",
+    "month": "June 2025",
+    "signal_date": "2025-06-01",
+    "predicted": "BEARISH",
+    "actual": "UP",
+    "return_pct": 5.08,
+    "composite_score": 37.0,
+    "band": "weak",
+    "error_type": "FN",
+    "subscores": {
+      "financial_health": 56.1,
+      "valuation": 46.6,
+      "quality": 20.0,
+      "growth": 20.0
+    },
+    "frameworks_at_fault": {
+      "graham": 33.3,
+      "greenblatt": 20.0,
+      "growth_profile": 20.0
+    },
+    "all_framework_scores": {
+      "piotroski": 55.6,
+      "altman": 56.6,
+      "graham": 33.3,
+      "lynch": 60.0,
+      "greenblatt": 20.0,
+      "growth_profile": 20.0
+    },
+    "root_causes": [
+      "Bearish frameworks dragged score down: graham=33.3%, greenblatt=20.0%, growth_profile=20.0%",
+      "Bullish signals overridden: lynch=60.0%"
+    ],
+    "category": "conflicting_outvoted",
+    "data_quality": {
+      "coverage_ratio": 1.0,
+      "coverage_quality": "high",
+      "warnings_count": 2
+    }
+  },
+  {
+    "ticker": "PSX",
+    "sector": "Energy",
+    "month": "July 2025",
+    "signal_date": "2025-07-01",
+    "predicted": "BEARISH",
+    "actual": "UP",
+    "return_pct": 4.27,
+    "composite_score": 34.0,
+    "band": "weak",
+    "error_type": "FN",
+    "subscores": {
+      "financial_health": 56.2,
+      "valuation": 36.6,
+      "quality": 20.0,
+      "growth": 20.0
+    },
+    "frameworks_at_fault": {
+      "graham": 33.3,
+      "greenblatt": 20.0,
+      "growth_profile": 20.0
+    },
+    "all_framework_scores": {
+      "piotroski": 55.6,
+      "altman": 56.8,
+      "graham": 33.3,
+      "lynch": 40.0,
+      "greenblatt": 20.0,
+      "growth_profile": 20.0
+    },
+    "root_causes": [
+      "Bearish frameworks dragged score down: graham=33.3%, greenblatt=20.0%, growth_profile=20.0%"
+    ],
+    "category": "multiple_factors",
+    "data_quality": {
+      "coverage_ratio": 1.0,
+      "coverage_quality": "high",
+      "warnings_count": 2
+    }
+  },
+  {
+    "ticker": "PSX",
+    "sector": "Energy",
+    "month": "August 2025",
+    "signal_date": "2025-08-01",
+    "predicted": "BEARISH",
+    "actual": "UP",
+    "return_pct": 9.16,
+    "composite_score": 34.1,
+    "band": "weak",
+    "error_type": "FN",
+    "subscores": {
+      "financial_health": 56.2,
+      "valuation": 36.6,
+      "quality": 20.0,
+      "growth": 20.0
+    },
+    "frameworks_at_fault": {
+      "graham": 33.3,
+      "greenblatt": 20.0,
+      "growth_profile": 20.0
+    },
+    "all_framework_scores": {
+      "piotroski": 55.6,
+      "altman": 56.9,
+      "graham": 33.3,
+      "lynch": 40.0,
+      "greenblatt": 20.0,
+      "growth_profile": 20.0
+    },
+    "root_causes": [
+      "Bearish frameworks dragged score down: graham=33.3%, greenblatt=20.0%, growth_profile=20.0%"
+    ],
+    "category": "multiple_factors",
+    "data_quality": {
+      "coverage_ratio": 1.0,
+      "coverage_quality": "high",
+      "warnings_count": 2
+    }
+  },
+  {
+    "ticker": "PSX",
+    "sector": "Energy",
+    "month": "September 2025",
+    "signal_date": "2025-09-01",
+    "predicted": "BEARISH",
+    "actual": "UP",
+    "return_pct": 2.99,
+    "composite_score": 34.1,
+    "band": "weak",
+    "error_type": "FN",
+    "subscores": {
+      "financial_health": 56.4,
+      "valuation": 36.6,
+      "quality": 20.0,
+      "growth": 20.0
+    },
+    "frameworks_at_fault": {
+      "graham": 33.3,
+      "greenblatt": 20.0,
+      "growth_profile": 20.0
+    },
+    "all_framework_scores": {
+      "piotroski": 55.6,
+      "altman": 57.2,
+      "graham": 33.3,
+      "lynch": 40.0,
+      "greenblatt": 20.0,
+      "growth_profile": 20.0
+    },
+    "root_causes": [
+      "Bearish frameworks dragged score down: graham=33.3%, greenblatt=20.0%, growth_profile=20.0%"
+    ],
+    "category": "multiple_factors",
+    "data_quality": {
+      "coverage_ratio": 1.0,
+      "coverage_quality": "high",
+      "warnings_count": 2
+    }
+  },
+  {
+    "ticker": "PSX",
+    "sector": "Energy",
+    "month": "October 2025",
+    "signal_date": "2025-10-01",
+    "predicted": "BEARISH",
+    "actual": "UP",
+    "return_pct": 0.77,
+    "composite_score": 34.1,
+    "band": "weak",
+    "error_type": "FN",
+    "subscores": {
+      "financial_health": 56.5,
+      "valuation": 36.6,
+      "quality": 20.0,
+      "growth": 20.0
+    },
+    "frameworks_at_fault": {
+      "graham": 33.3,
+      "greenblatt": 20.0,
+      "growth_profile": 20.0
+    },
+    "all_framework_scores": {
+      "piotroski": 55.6,
+      "altman": 57.3,
+      "graham": 33.3,
+      "lynch": 40.0,
+      "greenblatt": 20.0,
+      "growth_profile": 20.0
+    },
+    "root_causes": [
+      "Bearish frameworks dragged score down: graham=33.3%, greenblatt=20.0%, growth_profile=20.0%"
+    ],
+    "category": "multiple_factors",
+    "data_quality": {
+      "coverage_ratio": 1.0,
+      "coverage_quality": "high",
+      "warnings_count": 2
+    }
+  },
+  {
+    "ticker": "PSX",
+    "sector": "Energy",
+    "month": "November 2025",
+    "signal_date": "2025-11-01",
+    "predicted": "BEARISH",
+    "actual": "UP",
+    "return_pct": 1.46,
+    "composite_score": 34.1,
+    "band": "weak",
+    "error_type": "FN",
+    "subscores": {
+      "financial_health": 56.5,
+      "valuation": 36.6,
+      "quality": 20.0,
+      "growth": 20.0
+    },
+    "frameworks_at_fault": {
+      "graham": 33.3,
+      "greenblatt": 20.0,
+      "growth_profile": 20.0
+    },
+    "all_framework_scores": {
+      "piotroski": 55.6,
+      "altman": 57.3,
+      "graham": 33.3,
+      "lynch": 40.0,
+      "greenblatt": 20.0,
+      "growth_profile": 20.0
+    },
+    "root_causes": [
+      "Bearish frameworks dragged score down: graham=33.3%, greenblatt=20.0%, growth_profile=20.0%"
+    ],
+    "category": "multiple_factors",
+    "data_quality": {
+      "coverage_ratio": 1.0,
+      "coverage_quality": "high",
+      "warnings_count": 2
+    }
+  },
+  {
+    "ticker": "PSX",
+    "sector": "Energy",
+    "month": "January 2026",
+    "signal_date": "2026-01-01",
+    "predicted": "BEARISH",
+    "actual": "UP",
+    "return_pct": 11.25,
+    "composite_score": 34.1,
+    "band": "weak",
+    "error_type": "FN",
+    "subscores": {
+      "financial_health": 56.4,
+      "valuation": 36.6,
+      "quality": 20.0,
+      "growth": 20.0
+    },
+    "frameworks_at_fault": {
+      "graham": 33.3,
+      "greenblatt": 20.0,
+      "growth_profile": 20.0
+    },
+    "all_framework_scores": {
+      "piotroski": 55.6,
+      "altman": 57.1,
+      "graham": 33.3,
+      "lynch": 40.0,
+      "greenblatt": 20.0,
+      "growth_profile": 20.0
+    },
+    "root_causes": [
+      "Bearish frameworks dragged score down: graham=33.3%, greenblatt=20.0%, growth_profile=20.0%"
+    ],
+    "category": "multiple_factors",
+    "data_quality": {
+      "coverage_ratio": 1.0,
+      "coverage_quality": "high",
+      "warnings_count": 2
+    }
+  },
+  {
+    "ticker": "PSX",
+    "sector": "Energy",
+    "month": "February 2026",
+    "signal_date": "2026-02-01",
+    "predicted": "BEARISH",
+    "actual": "UP",
+    "return_pct": 8.39,
+    "composite_score": 34.1,
+    "band": "weak",
+    "error_type": "FN",
+    "subscores": {
+      "financial_health": 56.5,
+      "valuation": 36.6,
+      "quality": 20.0,
+      "growth": 20.0
+    },
+    "frameworks_at_fault": {
+      "graham": 33.3,
+      "greenblatt": 20.0,
+      "growth_profile": 20.0
+    },
+    "all_framework_scores": {
+      "piotroski": 55.6,
+      "altman": 57.5,
+      "graham": 33.3,
+      "lynch": 40.0,
+      "greenblatt": 20.0,
+      "growth_profile": 20.0
+    },
+    "root_causes": [
+      "Bearish frameworks dragged score down: graham=33.3%, greenblatt=20.0%, growth_profile=20.0%"
+    ],
+    "category": "multiple_factors",
+    "data_quality": {
+      "coverage_ratio": 1.0,
+      "coverage_quality": "high",
+      "warnings_count": 2
+    }
+  },
+  {
+    "ticker": "EOG",
+    "sector": "Energy",
+    "month": "March 2025",
+    "signal_date": "2025-03-01",
+    "predicted": "BULLISH",
+    "actual": "DOWN",
+    "return_pct": -0.28,
+    "composite_score": 63.6,
+    "band": "mixed_positive",
+    "error_type": "FP",
+    "subscores": {
+      "financial_health": 53.1,
+      "valuation": 83.3,
+      "quality": 90.0,
+      "growth": 26.7
+    },
+    "frameworks_at_fault": {
+      "altman": 61.8,
+      "graham": 83.3,
+      "greenblatt": 90.0
+    },
+    "all_framework_scores": {
+      "piotroski": 44.4,
+      "altman": 61.8,
+      "graham": 83.3,
+      "lynch": null,
+      "greenblatt": 90.0,
+      "growth_profile": 26.7
+    },
+    "root_causes": [
+      "Lynch N/A \u2192 valuation subscore based on Graham alone (undersampled)",
+      "Borderline bullish (score=63.6, threshold=62)",
+      "Bearish signals outvoted: growth_profile=26.7%"
+    ],
+    "category": "missing_indicator",
+    "data_quality": {
+      "coverage_ratio": 0.83,
+      "coverage_quality": "medium",
+      "warnings_count": 2
+    }
+  },
+  {
+    "ticker": "EOG",
+    "sector": "Energy",
+    "month": "April 2025",
+    "signal_date": "2025-04-01",
+    "predicted": "BULLISH",
+    "actual": "DOWN",
+    "return_pct": -11.13,
+    "composite_score": 63.6,
+    "band": "mixed_positive",
+    "error_type": "FP",
+    "subscores": {
+      "financial_health": 53.1,
+      "valuation": 83.3,
+      "quality": 90.0,
+      "growth": 26.7
+    },
+    "frameworks_at_fault": {
+      "altman": 61.9,
+      "graham": 83.3,
+      "greenblatt": 90.0
+    },
+    "all_framework_scores": {
+      "piotroski": 44.4,
+      "altman": 61.9,
+      "graham": 83.3,
+      "lynch": null,
+      "greenblatt": 90.0,
+      "growth_profile": 26.7
+    },
+    "root_causes": [
+      "Lynch N/A \u2192 valuation subscore based on Graham alone (undersampled)",
+      "Borderline bullish (score=63.6, threshold=62)",
+      "Bearish signals outvoted: growth_profile=26.7%"
+    ],
+    "category": "missing_indicator",
+    "data_quality": {
+      "coverage_ratio": 0.83,
+      "coverage_quality": "medium",
+      "warnings_count": 2
+    }
+  },
+  {
+    "ticker": "EOG",
+    "sector": "Energy",
+    "month": "May 2025",
+    "signal_date": "2025-05-01",
+    "predicted": "BULLISH",
+    "actual": "DOWN",
+    "return_pct": -1.6,
+    "composite_score": 67.9,
+    "band": "mixed_positive",
+    "error_type": "FP",
+    "subscores": {
+      "financial_health": 52.4,
+      "valuation": 100.0,
+      "quality": 90.0,
+      "growth": 26.7
+    },
+    "frameworks_at_fault": {
+      "altman": 60.4,
+      "graham": 100.0,
+      "greenblatt": 90.0
+    },
+    "all_framework_scores": {
+      "piotroski": 44.4,
+      "altman": 60.4,
+      "graham": 100.0,
+      "lynch": null,
+      "greenblatt": 90.0,
+      "growth_profile": 26.7
+    },
+    "root_causes": [
+      "Lynch N/A \u2192 valuation subscore based on Graham alone (undersampled)",
+      "Bearish signals outvoted: growth_profile=26.7%"
+    ],
+    "category": "missing_indicator",
+    "data_quality": {
+      "coverage_ratio": 0.83,
+      "coverage_quality": "medium",
+      "warnings_count": 2
+    }
+  },
+  {
+    "ticker": "EOG",
+    "sector": "Energy",
+    "month": "September 2025",
+    "signal_date": "2025-09-01",
+    "predicted": "BULLISH",
+    "actual": "DOWN",
+    "return_pct": -9.19,
+    "composite_score": 63.6,
+    "band": "mixed_positive",
+    "error_type": "FP",
+    "subscores": {
+      "financial_health": 53.1,
+      "valuation": 83.3,
+      "quality": 90.0,
+      "growth": 26.7
+    },
+    "frameworks_at_fault": {
+      "altman": 61.8,
+      "graham": 83.3,
+      "greenblatt": 90.0
+    },
+    "all_framework_scores": {
+      "piotroski": 44.4,
+      "altman": 61.8,
+      "graham": 83.3,
+      "lynch": null,
+      "greenblatt": 90.0,
+      "growth_profile": 26.7
+    },
+    "root_causes": [
+      "Lynch N/A \u2192 valuation subscore based on Graham alone (undersampled)",
+      "Borderline bullish (score=63.6, threshold=62)",
+      "Bearish signals outvoted: growth_profile=26.7%"
+    ],
+    "category": "missing_indicator",
+    "data_quality": {
+      "coverage_ratio": 0.83,
+      "coverage_quality": "medium",
+      "warnings_count": 2
+    }
+  },
+  {
+    "ticker": "EOG",
+    "sector": "Energy",
+    "month": "October 2025",
+    "signal_date": "2025-10-01",
+    "predicted": "BULLISH",
+    "actual": "DOWN",
+    "return_pct": -5.04,
+    "composite_score": 68.0,
+    "band": "mixed_positive",
+    "error_type": "FP",
+    "subscores": {
+      "financial_health": 52.5,
+      "valuation": 100.0,
+      "quality": 90.0,
+      "growth": 26.7
+    },
+    "frameworks_at_fault": {
+      "altman": 60.6,
+      "graham": 100.0,
+      "greenblatt": 90.0
+    },
+    "all_framework_scores": {
+      "piotroski": 44.4,
+      "altman": 60.6,
+      "graham": 100.0,
+      "lynch": null,
+      "greenblatt": 90.0,
+      "growth_profile": 26.7
+    },
+    "root_causes": [
+      "Lynch N/A \u2192 valuation subscore based on Graham alone (undersampled)",
+      "Bearish signals outvoted: growth_profile=26.7%"
+    ],
+    "category": "missing_indicator",
+    "data_quality": {
+      "coverage_ratio": 0.83,
+      "coverage_quality": "medium",
+      "warnings_count": 2
+    }
+  },
+  {
+    "ticker": "EOG",
+    "sector": "Energy",
+    "month": "December 2025",
+    "signal_date": "2025-12-01",
+    "predicted": "BULLISH",
+    "actual": "DOWN",
+    "return_pct": -2.03,
+    "composite_score": 67.9,
+    "band": "mixed_positive",
+    "error_type": "FP",
+    "subscores": {
+      "financial_health": 52.3,
+      "valuation": 100.0,
+      "quality": 90.0,
+      "growth": 26.7
+    },
+    "frameworks_at_fault": {
+      "altman": 60.3,
+      "graham": 100.0,
+      "greenblatt": 90.0
+    },
+    "all_framework_scores": {
+      "piotroski": 44.4,
+      "altman": 60.3,
+      "graham": 100.0,
+      "lynch": null,
+      "greenblatt": 90.0,
+      "growth_profile": 26.7
+    },
+    "root_causes": [
+      "Lynch N/A \u2192 valuation subscore based on Graham alone (undersampled)",
+      "Bearish signals outvoted: growth_profile=26.7%"
+    ],
+    "category": "missing_indicator",
+    "data_quality": {
+      "coverage_ratio": 0.83,
+      "coverage_quality": "medium",
+      "warnings_count": 2
+    }
+  },
+  {
+    "ticker": "HAL",
+    "sector": "Energy",
+    "month": "March 2025",
+    "signal_date": "2025-03-01",
+    "predicted": "BULLISH",
+    "actual": "DOWN",
+    "return_pct": -4.26,
+    "composite_score": 65.6,
+    "band": "mixed_positive",
+    "error_type": "FP",
+    "subscores": {
+      "financial_health": 56.2,
+      "valuation": 83.3,
+      "quality": 100.0,
+      "growth": 20.0
+    },
+    "frameworks_at_fault": {
+      "graham": 83.3,
+      "greenblatt": 100.0
+    },
+    "all_framework_scores": {
+      "piotroski": 55.6,
+      "altman": 56.9,
+      "graham": 83.3,
+      "lynch": null,
+      "greenblatt": 100.0,
+      "growth_profile": 20.0
+    },
+    "root_causes": [
+      "Lynch N/A \u2192 valuation subscore based on Graham alone (undersampled)",
+      "Borderline bullish (score=65.6, threshold=62)",
+      "Bearish signals outvoted: growth_profile=20.0%"
+    ],
+    "category": "missing_indicator",
+    "data_quality": {
+      "coverage_ratio": 0.83,
+      "coverage_quality": "medium",
+      "warnings_count": 2
+    }
+  },
+  {
+    "ticker": "HAL",
+    "sector": "Energy",
+    "month": "April 2025",
+    "signal_date": "2025-04-01",
+    "predicted": "BULLISH",
+    "actual": "DOWN",
+    "return_pct": -19.16,
+    "composite_score": 65.5,
+    "band": "mixed_positive",
+    "error_type": "FP",
+    "subscores": {
+      "financial_health": 56.2,
+      "valuation": 83.3,
+      "quality": 100.0,
+      "growth": 20.0
+    },
+    "frameworks_at_fault": {
+      "graham": 83.3,
+      "greenblatt": 100.0
+    },
+    "all_framework_scores": {
+      "piotroski": 55.6,
+      "altman": 56.8,
+      "graham": 83.3,
+      "lynch": null,
+      "greenblatt": 100.0,
+      "growth_profile": 20.0
+    },
+    "root_causes": [
+      "Lynch N/A \u2192 valuation subscore based on Graham alone (undersampled)",
+      "Borderline bullish (score=65.5, threshold=62)",
+      "Bearish signals outvoted: growth_profile=20.0%"
+    ],
+    "category": "missing_indicator",
+    "data_quality": {
+      "coverage_ratio": 0.83,
+      "coverage_quality": "medium",
+      "warnings_count": 2
+    }
+  },
+  {
+    "ticker": "HAL",
+    "sector": "Energy",
+    "month": "May 2025",
+    "signal_date": "2025-05-01",
+    "predicted": "BULLISH",
+    "actual": "DOWN",
+    "return_pct": -1.16,
+    "composite_score": 65.4,
+    "band": "mixed_positive",
+    "error_type": "FP",
+    "subscores": {
+      "financial_health": 55.7,
+      "valuation": 83.3,
+      "quality": 100.0,
+      "growth": 20.0
+    },
+    "frameworks_at_fault": {
+      "graham": 83.3,
+      "greenblatt": 100.0
+    },
+    "all_framework_scores": {
+      "piotroski": 55.6,
+      "altman": 55.8,
+      "graham": 83.3,
+      "lynch": null,
+      "greenblatt": 100.0,
+      "growth_profile": 20.0
+    },
+    "root_causes": [
+      "Lynch N/A \u2192 valuation subscore based on Graham alone (undersampled)",
+      "Borderline bullish (score=65.4, threshold=62)",
+      "Bearish signals outvoted: growth_profile=20.0%"
+    ],
+    "category": "missing_indicator",
+    "data_quality": {
+      "coverage_ratio": 0.83,
+      "coverage_quality": "medium",
+      "warnings_count": 2
+    }
+  },
+  {
+    "ticker": "HAL",
+    "sector": "Energy",
+    "month": "November 2025",
+    "signal_date": "2025-11-01",
+    "predicted": "BULLISH",
+    "actual": "DOWN",
+    "return_pct": -2.31,
+    "composite_score": 65.6,
+    "band": "mixed_positive",
+    "error_type": "FP",
+    "subscores": {
+      "financial_health": 56.4,
+      "valuation": 83.3,
+      "quality": 100.0,
+      "growth": 20.0
+    },
+    "frameworks_at_fault": {
+      "graham": 83.3,
+      "greenblatt": 100.0
+    },
+    "all_framework_scores": {
+      "piotroski": 55.6,
+      "altman": 57.1,
+      "graham": 83.3,
+      "lynch": null,
+      "greenblatt": 100.0,
+      "growth_profile": 20.0
+    },
+    "root_causes": [
+      "Lynch N/A \u2192 valuation subscore based on Graham alone (undersampled)",
+      "Borderline bullish (score=65.6, threshold=62)",
+      "Bearish signals outvoted: growth_profile=20.0%"
+    ],
+    "category": "missing_indicator",
+    "data_quality": {
+      "coverage_ratio": 0.83,
+      "coverage_quality": "medium",
+      "warnings_count": 2
+    }
+  }
+]

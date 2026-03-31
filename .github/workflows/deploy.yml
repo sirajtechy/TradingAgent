@@ -1,0 +1,76 @@
+name: Deploy to Vercel
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+env:
+  VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+  VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+
+jobs:
+  # ── Lint & Test (Python agents) ───────────────────────────────────────
+  test-python:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: |
+          pip install -e ".[dev]"
+        working-directory: .
+
+      - name: Run tests
+        run: python -m pytest -q --tb=short
+        env:
+          FMP_API_KEY: ${{ secrets.FMP_API_KEY }}
+
+  # ── Build dashboard ───────────────────────────────────────────────────
+  build-dashboard:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Node 22
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: "npm"
+          cache-dependency-path: backtest-dashboard/package-lock.json
+
+      - name: Install & Build
+        working-directory: backtest-dashboard
+        run: |
+          npm ci
+          npm run build
+
+  # ── Deploy to Vercel (production on main, preview on PR) ─────────────
+  deploy:
+    runs-on: ubuntu-latest
+    needs: [test-python, build-dashboard]
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Vercel CLI
+        run: npm install -g vercel
+
+      - name: Pull Vercel environment
+        run: vercel pull --yes --environment=${{ github.ref == 'refs/heads/main' && 'production' || 'preview' }} --token=${{ secrets.VERCEL_TOKEN }}
+
+      - name: Build with Vercel
+        run: vercel build ${{ github.ref == 'refs/heads/main' && '--prod' || '' }} --token=${{ secrets.VERCEL_TOKEN }}
+
+      - name: Deploy to Vercel
+        id: deploy
+        run: |
+          URL=$(vercel deploy --prebuilt ${{ github.ref == 'refs/heads/main' && '--prod' || '' }} --token=${{ secrets.VERCEL_TOKEN }})
+          echo "url=$URL" >> "$GITHUB_OUTPUT"
+          echo "### 🚀 Deployed to Vercel" >> "$GITHUB_STEP_SUMMARY"
+          echo "**URL:** $URL" >> "$GITHUB_STEP_SUMMARY"

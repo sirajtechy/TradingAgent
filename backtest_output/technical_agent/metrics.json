@@ -1,0 +1,45 @@
+{
+  "agent": "technical",
+  "tickers": [
+    "AAPL",
+    "AMZN",
+    "ANET",
+    "COP",
+    "CRM",
+    "CVX",
+    "EOG",
+    "GOOGL",
+    "HAL",
+    "META",
+    "MPC",
+    "MSFT",
+    "NVDA",
+    "ORCL",
+    "OXY",
+    "PSX",
+    "SLB",
+    "TSLA",
+    "VLO",
+    "XOM"
+  ],
+  "total_periods": 240,
+  "metrics": {
+    "win_rate_pct": 57.0,
+    "sharpe_ratio": 0.71,
+    "max_drawdown_pct": 70.51,
+    "profit_factor": 1.68,
+    "total_trades": 193,
+    "buys": 160,
+    "sells": 33,
+    "holds": 47
+  },
+  "confusion_matrix": {
+    "BUY_UP": 97,
+    "BUY_DOWN": 63,
+    "SELL_UP": 20,
+    "SELL_DOWN": 13,
+    "HOLD_UP": 29,
+    "HOLD_DOWN": 18
+  },
+  "misclassifications": 83
+}
