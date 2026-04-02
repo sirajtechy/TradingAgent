@@ -3,9 +3,9 @@ requires = ["setuptools>=68", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "fundamental-analysis-agent"
-version = "0.1.0"
-description = "Deterministic fundamental analysis agent with point-in-time scoring"
+name = "trading-analysis-platform"
+version = "0.2.0"
+description = "Multi-agent trading analysis platform: Fundamental + Technical + O'Neil CAN SLIM + Orchestrator"
 readme = "README.md"
 requires-python = ">=3.9"
 dependencies = [
@@ -23,10 +23,18 @@ dev = [
 
 [project.scripts]
 fundamental-agent = "fundamental_agent.cli:main"
-technical-agent = "technical_agent.cli:main"
+technical-agent   = "technical_agent.cli:main"
+oneil-agent       = "oneil_agent.cli:main"
 
 [tool.setuptools.packages.find]
-include = ["fundamental_agent*", "technical_agent*", "orchestrator_agent*"]
+include = [
+  "fundamental_agent*",
+  "technical_agent*",
+  "orchestrator_agent*",
+  "oneil_agent*",
+  "prediction_engine*",
+  "backtests*",
+]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
