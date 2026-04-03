@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useMemo } from "react";
+import Link from "next/link";
 import { getDashboardData, getSignals, getAllTickers, getAllMonths, computeMetrics } from "@/app/lib/data";
 import { AgentName, Signal } from "@/app/lib/types";
 import FilterBar from "@/app/components/FilterBar";
@@ -10,8 +11,9 @@ import ConfusionMatrix from "@/app/components/ConfusionMatrix";
 import BarChart from "@/app/components/BarChart";
 import SignalTable from "@/app/components/SignalTable";
 import MisclassificationExplorer from "@/app/components/MisclassificationExplorer";
+import PredictionsView from "@/app/components/PredictionsView";
 
-type Tab = "overview" | "confusion" | "signals" | "misclass";
+type Tab = "predictions" | "overview" | "confusion" | "signals" | "misclass";
 
 export default function Dashboard() {
   const data = getDashboardData();
@@ -25,7 +27,7 @@ export default function Dashboard() {
   const [correct, setCorrect] = useState("all");
   const [ticker, setTicker] = useState("all");
   const [month, setMonth] = useState("all");
-  const [tab, setTab] = useState<Tab>("overview");
+  const [tab, setTab] = useState<Tab>("predictions");
 
   // Filtered signals
   const filtered = useMemo(() => {
@@ -78,6 +80,7 @@ export default function Dashboard() {
   }, [filtered, months]);
 
   const tabs: { key: Tab; label: string; count?: number }[] = [
+    { key: "predictions", label: "🔮 Predictions" },
     { key: "overview", label: "Overview" },
     { key: "confusion", label: "Confusion Matrix" },
     { key: "signals", label: "Signal Log", count: filtered.length },
@@ -92,13 +95,19 @@ export default function Dashboard() {
           <div className="flex items-center justify-between">
             <div>
               <h1 className="text-xl font-bold text-gray-100">
-                Backtest Dashboard
+                Trading Dashboard
               </h1>
               <p className="text-xs text-gray-500 mt-0.5">
                 {data.meta.window} · {data.meta.months} months · {data.signals.length} total signals
               </p>
             </div>
             <div className="flex items-center gap-4">
+              <Link
+                href="/backtest"
+                className="text-sm text-blue-400 hover:text-blue-300 transition-colors"
+              >
+                Backtest Runner →
+              </Link>
               <div className="text-right">
                 <p className="text-xs text-gray-500">Generated</p>
                 <p className="text-sm font-mono text-gray-400">{data.meta.generated}</p>
@@ -139,6 +148,8 @@ export default function Dashboard() {
         </div>
 
         {/* Tab content */}
+        {tab === "predictions" && <PredictionsView />}
+
         {tab === "overview" && (
           <div className="space-y-6">
             {/* Stat cards */}
