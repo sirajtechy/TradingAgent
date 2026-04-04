@@ -75,3 +75,57 @@ export interface DashboardData {
 }
 
 export type AgentName = "technical" | "fundamental" | "orchestrator";
+
+// ─── Live Prediction Types ────────────────────────────────────────────
+export interface Prediction {
+  ticker: string;
+  sector: string;
+  date: string;
+  signal: "bullish" | "bearish" | "neutral";
+  signalLabel: "BUY" | "SELL" | "HOLD";
+  orchestratorScore: number;
+  confidence: number;
+  conflictDetected: boolean;
+  conflictResolution: string | null;
+  note: string | null;
+  techSignal: string | null;
+  techScore: number | null;
+  techBand: string | null;
+  techConfidence: string | null;
+  techSubscores: Record<string, number>;
+  fundSignal: string | null;
+  fundScore: number | null;
+  fundBand: string | null;
+  fundDataQuality: string | null;
+  fundSubscores: Record<string, number>;
+  weightTech: number;
+  weightFund: number;
+}
+
+export interface SectorPredictionSummary {
+  bullish: number;
+  bearish: number;
+  neutral: number;
+  dominant: string;
+  avgScore: number;
+}
+
+export interface PredictionData {
+  meta: {
+    date: string;
+    agents: string;
+    totalTickers: number;
+    errors: number;
+  };
+  summary: {
+    bullish: number;
+    bearish: number;
+    neutral: number;
+    avgScore: number;
+    agreementRate: number;
+    conflictCount: number;
+  };
+  sectorSummaries: Record<string, SectorPredictionSummary>;
+  predictions: Prediction[];
+  highConfidenceSetups: string[];
+}

@@ -13,8 +13,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Backtest Dashboard — Agent Performance",
-  description: "12-month sector backtest results for Technical, Fundamental, and Orchestrator agents",
+  title: "Trading Dashboard — Predictions & Backtests",
+  description: "Live predictions and 12-month backtest results for Technical, Fundamental, and Orchestrator agents",
 };
 
 export default function RootLayout({
