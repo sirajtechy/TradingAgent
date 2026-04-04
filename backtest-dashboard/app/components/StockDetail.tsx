@@ -627,15 +627,13 @@ export default function StockDetail({ ticker, signals, predictions, tickers, onT
             <div>
               <span className="text-[var(--text-dim)]">Tech</span>
               <p className="font-bold text-lg font-mono">
-                {prediction.techScore?.toFixed(1) ?? "—"}{" "}
-                <span className="text-[10px] text-[var(--text-dim)]">{prediction.techBand}</span>
+                {prediction.conviction ?? "—"}
               </p>
             </div>
             <div>
-              <span className="text-[var(--text-dim)]">Fund</span>
-              <p className="font-bold text-lg font-mono">
-                {prediction.fundScore?.toFixed(1) ?? "—"}{" "}
-                <span className="text-[10px] text-[var(--text-dim)]">{prediction.fundBand}</span>
+              <span className="text-[var(--text-dim)]">Target</span>
+              <p className="font-bold text-lg font-mono text-blue-400">
+                {prediction.targetPrice != null ? `$${prediction.targetPrice.toFixed(2)}` : "—"}
               </p>
             </div>
             <div>
