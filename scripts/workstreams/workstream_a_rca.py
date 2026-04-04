@@ -15,14 +15,19 @@ from __future__ import annotations
 import json
 import os
 import statistics
+import sys
 from collections import Counter, defaultdict
+from pathlib import Path
 from typing import Any, Dict, List
+
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent.parent))
+import paths
 
 # ─────────────────────────────────────────────────────────────────────────────
 # Step 1 — Load & Audit All Misclassified Signals
 # ─────────────────────────────────────────────────────────────────────────────
 
-RESULTS_DIR = "orchestrator_sector_results"
+RESULTS_DIR = str(paths.ORCH_BACKTEST)
 
 
 def load_all_signals() -> List[Dict[str, Any]]:

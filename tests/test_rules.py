@@ -1,4 +1,4 @@
-from fundamental_agent.rules import evaluate_snapshot
+from agents.fundamental.rules import evaluate_snapshot
 
 from tests.fixtures import make_snapshot
 

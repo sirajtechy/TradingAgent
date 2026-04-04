@@ -9,8 +9,8 @@ Tests the 3×3 decision matrix from ORCHESTRATOR_DESIGN.md §4.1–4.3:
 
 import pytest
 
-from orchestrator_agent.config import OrchestratorSettings
-from orchestrator_agent.fusion import agent_confidence, fuse_signals
+from agents.orchestrator.config import OrchestratorSettings
+from agents.orchestrator.fusion import agent_confidence, fuse_signals
 
 
 # ---------------------------------------------------------------------------

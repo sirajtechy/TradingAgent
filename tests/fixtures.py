@@ -1,6 +1,6 @@
 from datetime import date
 
-from fundamental_agent.models import (
+from agents.fundamental.models import (
     AnalysisRequest,
     DividendEvent,
     PricePoint,

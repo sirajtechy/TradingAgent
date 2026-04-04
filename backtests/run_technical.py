@@ -24,11 +24,12 @@ from typing import Any, Dict, Optional, Tuple
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
+import paths
 from backtests.common import (
     ALL_TICKERS, MONTHS, SECTORS,
     empty_matrix, matrix_metrics, print_matrix, update_matrix,
 )
-from technical_agent.backtest import run_monthly_backtest
+from agents.technical.backtest import run_monthly_backtest
 
 
 def _run_ticker(
@@ -55,7 +56,7 @@ def main() -> None:
     parser.add_argument("--sector",     default=None)
     parser.add_argument("--resume",     action="store_true")
     parser.add_argument("--workers",    type=int, default=8)
-    parser.add_argument("--output-dir", default="technical_results")
+    parser.add_argument("--output-dir", default=str(paths.TECH_BACKTEST))
     args = parser.parse_args()
 
     output_dir = Path(args.output_dir)

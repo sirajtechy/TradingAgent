@@ -1,0 +1,52 @@
+{
+  "ticker": "XOM",
+  "analysis_date": null,
+  "final_signal": "neutral",
+  "final_confidence": 0.3,
+  "orchestrator_score": 51.1,
+  "conflict_detected": true,
+  "conflict_resolution": "Conflict: TA bullish vs FA bearish with similar confidence \u2192 abstain",
+  "weights_applied": {
+    "tech": 0.5,
+    "fund": 0.5
+  },
+  "tech_output": {
+    "signal": "bullish",
+    "score": 66.9,
+    "band": "good",
+    "confidence": "medium",
+    "computed_confidence": 0.27600000000000025,
+    "subscores": {
+      "ema_trend": 100.0,
+      "macd_system": 37.0,
+      "rsi_regime": 62.0,
+      "bollinger": 70.0,
+      "volume_obv": 57.0,
+      "adx_stochastic": 58.0,
+      "pattern_recognition": 60.4,
+      "ichimoku": 77.0,
+      "momentum": 65.0
+    },
+    "data_quality": null,
+    "adx_confidence": null
+  },
+  "fund_output": {
+    "signal": "bearish",
+    "score": 35.3,
+    "band": "weak",
+    "confidence": "high",
+    "computed_confidence": 0.1880000000000001,
+    "subscores": {
+      "financial_health": 54.1,
+      "valuation": 30.0,
+      "quality": 35.0,
+      "growth": 20.0
+    },
+    "data_quality": "good",
+    "adx_confidence": null
+  },
+  "tech_error": null,
+  "fund_error": null,
+  "note": "Conflict: TA bullish vs FA bearish with similar confidence \u2192 abstain",
+  "text_report": "ORCHESTRATOR REPORT  \u2014  XOM\n================================================================\nAnalysis date : latest\n\n  SIGNAL      : \u2014 NEUTRAL\n  SCORE       : 51.1 / 100\n  CONFIDENCE  : 30%\n\n  Weights     : Tech 50%  |  Fund 50%\n  Conflict    : YES  \u2014 Conflict: TA bullish vs FA bearish with similar confidence \u2192 abstain\n\n\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\nTECHNICAL AGENT\n  Signal      : \u25b2 BULLISH\n  Score       : 66.9 / 100  [good]\n  Confidence  : medium  (computed: 0.28)\n  Subscores   : ema_trend: 100% | macd_system: 37% | rsi_regime: 62% | bollinger: 70% | volume_obv: 57% | adx_stochastic: 58% | pattern_recognition: 60% | ichimoku: 77% | momentum: 65%\n\n\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\nFUNDAMENTAL AGENT\n  Signal      : \u25bc BEARISH\n  Score       : 35.3 / 100  [weak]\n  Confidence  : high  (computed: 0.19)\n  Data quality: good\n  Subscores   : financial_health: 54% | valuation: 30% | quality: 35% | growth: 20%\n\n================================================================"
+}

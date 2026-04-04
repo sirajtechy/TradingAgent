@@ -1,90 +1,63 @@
-/**
- * Pure utility functions for computing dashboard metrics from signals.
- * No static data imports — safe to use from both the static dashboard and backtest runner.
- */
-import { Signal, ConfusionMatrix } from "./types";
+import type { Signal, ConfusionMatrix } from "./types";
 
-export interface ComputedMetrics {
-  totalPeriods: number;
-  totalTrades: number;
-  correct: number;
-  incorrect: number;
-  winRate: number | null;
-  sharpe: number | null;
-  maxDrawdown: number | null;
-  profitFactor: number | null;
-  buys: number;
-  sells: number;
-  holds: number;
-  cm: ConfusionMatrix;
+export function winRate(signals: Signal[]): number {
+  const trades = signals.filter((s) => s.correct !== null);
+  if (trades.length === 0) return 0;
+  return (trades.filter((s) => s.correct).length / trades.length) * 100;
 }
 
-export function computeMetrics(signals: Signal[]): ComputedMetrics {
+export function sharpeRatio(signals: Signal[]): number {
+  const returns = signals
+    .filter((s) => s.signal !== "HOLD")
+    .map((s) => (s.signal === "SELL" ? -s.returnPct : s.returnPct));
+  if (returns.length < 2) return 0;
+  const mean = returns.reduce((a, b) => a + b, 0) / returns.length;
+  const std = Math.sqrt(
+    returns.reduce((sum, r) => sum + (r - mean) ** 2, 0) / (returns.length - 1)
+  );
+  if (std === 0) return 0;
+  return (mean / std) * Math.sqrt(12);
+}
+
+export function maxDrawdown(signals: Signal[]): number {
+  const returns = signals
+    .filter((s) => s.signal !== "HOLD")
+    .map((s) => (s.signal === "SELL" ? -s.returnPct : s.returnPct));
+  let peak = 0;
+  let cumulative = 0;
+  let maxDd = 0;
+  for (const r of returns) {
+    cumulative += r;
+    if (cumulative > peak) peak = cumulative;
+    const dd = peak - cumulative;
+    if (dd > maxDd) maxDd = dd;
+  }
+  return maxDd;
+}
+
+export function profitFactor(signals: Signal[]): number {
+  let gains = 0;
+  let losses = 0;
+  for (const s of signals) {
+    if (s.signal === "HOLD") continue;
+    const ret = s.signal === "SELL" ? -s.returnPct : s.returnPct;
+    if (ret > 0) gains += ret;
+    else losses += Math.abs(ret);
+  }
+  return losses === 0 ? (gains > 0 ? Infinity : 0) : gains / losses;
+}
+
+export function buildConfusionMatrix(signals: Signal[]): ConfusionMatrix {
+  const cm: ConfusionMatrix = { buyUp: 0, buyDown: 0, sellUp: 0, sellDown: 0, holdUp: 0, holdDown: 0 };
+  for (const s of signals) {
+    const key = `${s.signal.toLowerCase()}${s.actualDirection === "up" ? "Up" : "Down"}` as keyof ConfusionMatrix;
+    if (key in cm) cm[key]++;
+  }
+  return cm;
+}
+
+export function avgReturn(signals: Signal[]): number {
   const trades = signals.filter((s) => s.signal !== "HOLD");
-  const correct = trades.filter((s) => s.correct === true);
-  const incorrect = trades.filter((s) => s.correct === false);
-  const buys = signals.filter((s) => s.signal === "BUY");
-  const sells = signals.filter((s) => s.signal === "SELL");
-  const holds = signals.filter((s) => s.signal === "HOLD");
-
-  const tradeReturns = trades.map((s) =>
-    s.signal === "BUY" ? s.returnPct : -s.returnPct
-  );
-
-  const winRate = trades.length ? (correct.length / trades.length) * 100 : null;
-
-  let sharpe: number | null = null;
-  if (tradeReturns.length >= 2) {
-    const mean = tradeReturns.reduce((a, b) => a + b, 0) / tradeReturns.length;
-    const variance =
-      tradeReturns.reduce((a, b) => a + (b - mean) ** 2, 0) /
-      (tradeReturns.length - 1);
-    const std = Math.sqrt(variance);
-    if (std > 0) sharpe = (mean / std) * Math.sqrt(12);
-  }
-
-  let maxDrawdown: number | null = null;
-  if (tradeReturns.length) {
-    let cum = 0,
-      peak = 0,
-      maxDD = 0;
-    for (const r of tradeReturns) {
-      cum += r;
-      if (cum > peak) peak = cum;
-      const dd = peak - cum;
-      if (dd > maxDD) maxDD = dd;
-    }
-    maxDrawdown = maxDD;
-  }
-
-  let profitFactor: number | null = null;
-  const gains = tradeReturns.filter((r) => r > 0).reduce((a, b) => a + b, 0);
-  const losses = Math.abs(
-    tradeReturns.filter((r) => r < 0).reduce((a, b) => a + b, 0)
-  );
-  if (losses > 0) profitFactor = gains / losses;
-
-  const cm: ConfusionMatrix = {
-    buyUp: buys.filter((s) => s.actualDirection === "up").length,
-    buyDown: buys.filter((s) => s.actualDirection === "down").length,
-    sellUp: sells.filter((s) => s.actualDirection === "up").length,
-    sellDown: sells.filter((s) => s.actualDirection === "down").length,
-    holdUp: holds.filter((s) => s.actualDirection === "up").length,
-    holdDown: holds.filter((s) => s.actualDirection === "down").length,
-  };
-
-  return {
-    totalPeriods: signals.length,
-    totalTrades: trades.length,
-    correct: correct.length,
-    incorrect: incorrect.length,
-    winRate: winRate ? Math.round(winRate * 10) / 10 : null,
-    sharpe: sharpe ? Math.round(sharpe * 100) / 100 : null,
-    maxDrawdown: maxDrawdown ? Math.round(maxDrawdown * 100) / 100 : null,
-    profitFactor: profitFactor ? Math.round(profitFactor * 100) / 100 : null,
-    buys: buys.length,
-    sells: sells.length,
-    holds: holds.length,
-    cm,
-  };
+  if (trades.length === 0) return 0;
+  return trades.reduce((sum, s) => sum + s.returnPct, 0) / trades.length;
 }

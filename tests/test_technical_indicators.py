@@ -10,7 +10,7 @@ from typing import List, Optional
 
 import pytest
 
-from technical_agent.indicators import (
+from agents.technical.indicators import (
     adx,
     atr,
     bollinger_bands,

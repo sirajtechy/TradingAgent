@@ -80,7 +80,7 @@ def run_workstream_b(tickers: list = None, n_months: int = 6) -> None:
     print("█  WORKSTREAM B — TICKER + DATE PREDICTION ENGINE")
     print("█" * 70)
 
-    from prediction_engine.backtester import run_prediction_backtest, print_summary
+    from agents.prediction.backtester import run_prediction_backtest, print_summary
 
     use_tickers = tickers or SECTOR_TICKERS[:20]  # default: first 20 for speed
     windows = _build_monthly_windows(n_months)
@@ -96,18 +96,35 @@ def run_workstream_b(tickers: list = None, n_months: int = 6) -> None:
 
 def run_single_prediction(ticker: str) -> None:
     """Quick prediction for a single ticker (no backtest)."""
-    import yfinance as yf
     import pandas as pd
-    from datetime import date
-    from prediction_engine.strategies import run_all_strategies
-    from prediction_engine.formatter import build_prediction, print_prediction_report
+    from datetime import date, timedelta
+    from agents.polygon_data import PolygonClient, PolygonDataError
+    from agents.prediction.strategies import run_all_strategies
+    from agents.prediction.formatter import build_prediction, print_prediction_report
 
     print(f"\n▶ Fetching data for {ticker.upper()}...")
-    df = yf.download(ticker, period="6mo", auto_adjust=True, progress=False)
-    if isinstance(df.columns, pd.MultiIndex):
-        df.columns = df.columns.droplevel(1)
 
-    if df.empty:
+    df = None
+    _polygon = PolygonClient()
+
+    # Polygon primary
+    if _polygon.is_available():
+        try:
+            df = _polygon.fetch_daily_bars(ticker, date.today(), lookback_days=180)
+        except PolygonDataError:
+            df = None
+
+    # yfinance fallback
+    if df is None or df.empty:
+        try:
+            import yfinance as yf
+            df = yf.download(ticker, period="6mo", auto_adjust=True, progress=False)
+            if isinstance(df.columns, pd.MultiIndex):
+                df.columns = df.columns.droplevel(1)
+        except Exception:
+            df = None
+
+    if df is None or df.empty:
         print(f"ERROR: No data found for {ticker}")
         return
 

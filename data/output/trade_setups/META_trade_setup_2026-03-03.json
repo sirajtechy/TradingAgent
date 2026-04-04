@@ -1,0 +1,125 @@
+{
+  "ticker": "META",
+  "status": "ok",
+  "setup": {
+    "ticker": "META",
+    "direction": "LONG",
+    "entry_date": "2026-03-03",
+    "entry_price": 655.08,
+    "target_price": 714.4,
+    "stop_loss": 615.53,
+    "exit_date_est": "2026-03-07",
+    "expected_return_pct": 9.06,
+    "risk_pct": 6.04,
+    "reward_risk_ratio": 1.5,
+    "confidence": 84.0,
+    "holding_days_est": 3,
+    "rsi": 49.9,
+    "atr": 19.77,
+    "daily_bias": "BEARISH",
+    "daily_bias_pct": 0.0,
+    "weekly_bias": "NEUTRAL",
+    "weekly_bias_pct": 50.0,
+    "total_signals": 8,
+    "bullish_signals": 5,
+    "bearish_signals": 1,
+    "key_patterns": [
+      "Bullish Engulfing",
+      "Morning Star",
+      "Three White Soldiers",
+      "Three White Soldiers",
+      "Three White Soldiers"
+    ],
+    "all_signals": [
+      {
+        "pattern": "Bearish MACD Divergence",
+        "signal": "bearish",
+        "confidence": 0.7,
+        "desc": "Price made higher high but MACD made lower high \u2014 momentum fading",
+        "category": "divergence"
+      },
+      {
+        "pattern": "Inside Bar",
+        "signal": "neutral",
+        "confidence": 0.65,
+        "desc": "Bar contained within prior bar ($638.84-$659.04 inside $634.50-$659.94)",
+        "category": "range"
+      },
+      {
+        "pattern": "Bullish Engulfing",
+        "signal": "bullish",
+        "confidence": 0.7,
+        "desc": "",
+        "category": "candlestick"
+      },
+      {
+        "pattern": "Morning Star",
+        "signal": "bullish",
+        "confidence": 0.72,
+        "desc": "",
+        "category": "candlestick"
+      },
+      {
+        "pattern": "Three White Soldiers",
+        "signal": "bullish",
+        "confidence": 0.75,
+        "desc": "",
+        "category": "candlestick"
+      },
+      {
+        "pattern": "Three White Soldiers",
+        "signal": "bullish",
+        "confidence": 0.75,
+        "desc": "",
+        "category": "candlestick"
+      },
+      {
+        "pattern": "Three White Soldiers",
+        "signal": "bullish",
+        "confidence": 0.75,
+        "desc": "",
+        "category": "candlestick"
+      },
+      {
+        "pattern": "No Trend (ADX<15)",
+        "signal": "neutral",
+        "confidence": 0.55,
+        "desc": "ADX=13 \u2014 trendless market, range-bound trading expected",
+        "category": "trend"
+      }
+    ]
+  },
+  "error": null,
+  "data_bars_daily": 501,
+  "data_bars_weekly": 105,
+  "deep_daily": {
+    "timeframe": "daily",
+    "total_signals": 2,
+    "bullish_count": 0,
+    "bearish_count": 1,
+    "neutral_count": 1,
+    "bull_confidence": 0,
+    "bear_confidence": 0.7,
+    "bias_pct": 0.0,
+    "bias": "BEARISH",
+    "categories": [
+      "range",
+      "divergence"
+    ]
+  },
+  "deep_weekly": {
+    "timeframe": "weekly",
+    "total_signals": 1,
+    "bullish_count": 0,
+    "bearish_count": 0,
+    "neutral_count": 1,
+    "bull_confidence": 0,
+    "bear_confidence": 0,
+    "bias_pct": 50.0,
+    "bias": "NEUTRAL",
+    "categories": [
+      "trend"
+    ]
+  },
+  "elapsed_sec": 1.7
+}

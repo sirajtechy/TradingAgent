@@ -1,0 +1,52 @@
+{
+  "ticker": "COP",
+  "analysis_date": null,
+  "final_signal": "bullish",
+  "final_confidence": 0.136,
+  "orchestrator_score": 66.36,
+  "conflict_detected": false,
+  "conflict_resolution": null,
+  "weights_applied": {
+    "tech": 0.85,
+    "fund": 0.15
+  },
+  "tech_output": {
+    "signal": "bullish",
+    "score": 71.0,
+    "band": "good",
+    "confidence": "medium",
+    "computed_confidence": 0.16,
+    "subscores": {
+      "ema_trend": 100.0,
+      "macd_system": 37.0,
+      "rsi_regime": 54.0,
+      "bollinger": 70.0,
+      "volume_obv": 67.0,
+      "adx_stochastic": 68.0,
+      "pattern_recognition": 60.6,
+      "ichimoku": 100.0,
+      "momentum": 75.0
+    },
+    "data_quality": null,
+    "adx_confidence": null
+  },
+  "fund_output": {
+    "signal": "neutral",
+    "score": 40.1,
+    "band": "mixed",
+    "confidence": "high",
+    "computed_confidence": 0.0040000000000000565,
+    "subscores": {
+      "financial_health": 61.7,
+      "valuation": 30.0,
+      "quality": 45.0,
+      "growth": 33.3
+    },
+    "data_quality": "good",
+    "adx_confidence": null
+  },
+  "tech_error": null,
+  "fund_error": null,
+  "note": null,
+  "text_report": "ORCHESTRATOR REPORT  \u2014  COP\n================================================================\nAnalysis date : latest\n\n  SIGNAL      : \u25b2 BULLISH\n  SCORE       : 66.4 / 100\n  CONFIDENCE  : 14%\n\n  Weights     : Tech 85%  |  Fund 15%\n  Conflict    : No\n\n\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\nTECHNICAL AGENT\n  Signal      : \u25b2 BULLISH\n  Score       : 71.0 / 100  [good]\n  Confidence  : medium  (computed: 0.16)\n  Subscores   : ema_trend: 100% | macd_system: 37% | rsi_regime: 54% | bollinger: 70% | volume_obv: 67% | adx_stochastic: 68% | pattern_recognition: 61% | ichimoku: 100% | momentum: 75%\n\n\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\nFUNDAMENTAL AGENT\n  Signal      : \u2014 NEUTRAL\n  Score       : 40.1 / 100  [mixed]\n  Confidence  : high  (computed: 0.00)\n  Data quality: good\n  Subscores   : financial_health: 62% | valuation: 30% | quality: 45% | growth: 33%\n\n================================================================"
+}

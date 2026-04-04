@@ -25,11 +25,12 @@ from typing import Any, Dict, List, Optional, Tuple
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
+import paths
 from backtests.common import (
     ALL_TICKERS, MONTHS, SECTORS,
     empty_matrix, matrix_metrics, print_matrix, update_matrix,
 )
-from fundamental_agent.backtest import run_monthly_backtest
+from agents.fundamental.backtest import run_monthly_backtest
 
 
 def _run_ticker(
@@ -67,7 +68,7 @@ def main() -> None:
     parser.add_argument("--workers",         type=int, default=6)
     parser.add_argument("--data-source",     default="yfinance", choices=["fmp", "yfinance"])
     parser.add_argument("--shariah-standard",default="aaoifi")
-    parser.add_argument("--output-dir",      default="fundamental_results")
+    parser.add_argument("--output-dir",      default=str(paths.FUND_BACKTEST))
     args = parser.parse_args()
 
     output_dir = Path(args.output_dir)

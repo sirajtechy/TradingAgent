@@ -1,8 +1,12 @@
 #!/usr/bin/env python3
-"""Rebuild sector_backtest_results.json from per-ticker cache files in sector_results/,
+"""Rebuild sector_backtest_results.json from per-ticker cache files,
 then apply v3 scoring via reevaluate_thresholds.py."""
 import json
+import sys
 from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent.parent))
+import paths
 
 SECTORS = {
     "Technology":       ["AAPL","MSFT","NVDA","GOOGL","META","AMZN","TSLA","ORCL","ANET","CRM","ADBE","INTC"],
@@ -12,7 +16,7 @@ SECTORS = {
     "Energy":           ["XOM","CVX","COP","SLB","OXY","PSX","VLO","MPC","EOG","HAL","BKR","DVN"],
 }
 
-CACHE_DIR = Path("sector_results")
+CACHE_DIR = paths.FUND_BACKTEST
 
 
 def load_ticker(ticker):

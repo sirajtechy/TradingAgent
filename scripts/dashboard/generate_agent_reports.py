@@ -15,14 +15,18 @@ Runs 3 workers in parallel via ThreadPoolExecutor.
 import json
 import math
 import os
+import sys
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from dataclasses import dataclass, field
 from datetime import datetime
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Tuple
 
-BASE = Path(__file__).parent
-OUTPUT = BASE / "backtest_output"
+BASE = Path(__file__).resolve().parent.parent.parent
+sys.path.insert(0, str(BASE))
+import paths
+
+OUTPUT = paths.REPORTS_DIR
 
 # ── Sector mapping (same 5 sectors × 10 tickers as orchestrator run) ──────────
 SECTORS: Dict[str, List[str]] = {
@@ -67,7 +71,7 @@ def _load_ticker_json(path: Path) -> Optional[Dict]:
 
 def load_technical_data() -> Dict[str, Dict]:
     """Load technical backtest JSONs → {ticker: {periods, summary}}"""
-    d = BASE / "technical_sector_results"
+    d = paths.TECH_BACKTEST
     out = {}
     for f in sorted(d.glob("*_technical_backtest_results.json")):
         ticker = f.name.replace("_technical_backtest_results.json", "")
@@ -79,7 +83,7 @@ def load_technical_data() -> Dict[str, Dict]:
 
 def load_fundamental_data() -> Dict[str, Dict]:
     """Load fundamental backtest JSONs → {ticker: {periods, summary}}"""
-    d = BASE / "sector_results"
+    d = paths.FUND_BACKTEST
     out = {}
     for f in sorted(d.glob("*_backtest_results.json")):
         ticker = f.name.replace("_backtest_results.json", "")
@@ -91,7 +95,7 @@ def load_fundamental_data() -> Dict[str, Dict]:
 
 def load_orchestrator_data() -> Dict[str, Dict]:
     """Load orchestrator backtest JSONs → {ticker: {periods, summary}}"""
-    d = BASE / "orchestrator_sector_results"
+    d = paths.ORCH_BACKTEST
     out = {}
     for f in sorted(d.glob("*_orchestrator_backtest.json")):
         ticker = f.name.replace("_orchestrator_backtest.json", "")

@@ -6,7 +6,7 @@ Uses synthetic volume data so no network calls are needed.
 
 import pytest
 
-from technical_agent.volume_analysis import (
+from agents.technical.volume_analysis import (
     SECTOR_PEERS,
     analyze_sector_relative_volume,
     build_volume_analysis_report,

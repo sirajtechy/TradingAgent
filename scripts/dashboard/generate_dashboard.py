@@ -15,22 +15,24 @@ import argparse
 import sys
 from pathlib import Path
 
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent.parent))
 sys.path.insert(0, str(Path(__file__).parent))
 
-from fundamental_agent.dashboard import generate_dashboard
+import paths
+from agents.fundamental.dashboard import generate_dashboard
 
 
 def main() -> None:
     parser = argparse.ArgumentParser(description="Generate HTML dashboard from backtest results JSON.")
     parser.add_argument(
         "--input",
-        default="sector_backtest_results.json",
-        help="Path to sector_backtest_results.json (default: sector_backtest_results.json)",
+        default=str(paths.FUND_BACKTEST / "sector_backtest_results.json"),
+        help="Path to sector_backtest_results.json",
     )
     parser.add_argument(
         "--output",
-        default="backtest_dashboard.html",
-        help="Output HTML file path (default: backtest_dashboard.html)",
+        default=str(paths.FUND_BACKTEST / "backtest_dashboard.html"),
+        help="Output HTML file path",
     )
     args = parser.parse_args()
 

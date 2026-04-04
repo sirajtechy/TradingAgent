@@ -7,9 +7,9 @@ Uses mocked sub-agents to test the full pipeline without network calls.
 import pytest
 from unittest.mock import patch, MagicMock
 
-from orchestrator_agent.config import OrchestratorSettings
-from orchestrator_agent.graph import build_graph
-from orchestrator_agent.models import OrchestratorState, FusionResult
+from agents.orchestrator.config import OrchestratorSettings
+from agents.orchestrator.graph import build_graph
+from agents.orchestrator.models import OrchestratorState, FusionResult
 
 
 # ---------------------------------------------------------------------------

@@ -12,7 +12,10 @@ from datetime import date
 from pathlib import Path
 from typing import Any, Dict, List, Tuple
 
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent.parent))
 sys.path.insert(0, str(Path(__file__).parent))
+
+import paths
 
 MONTHS: List[Tuple[date, date]] = [
     (date(2025,  3,  1), date(2025,  3, 31)),
@@ -43,7 +46,7 @@ SECTORS: Dict[str, List[str]] = {
 
 def _run_one_ticker(ticker: str) -> Tuple[str, Any]:
     """Run backtest for a single ticker (called in worker process)."""
-    from technical_agent.backtest import run_monthly_backtest
+    from agents.technical.backtest import run_monthly_backtest
     try:
         result = run_monthly_backtest(ticker=ticker, months=MONTHS)
         acc = result["summary"]["accuracy_pct"]
@@ -112,7 +115,7 @@ def _print_matrix(met: Dict[str, Any], label: str) -> None:
 
 
 def main() -> None:
-    output_dir = Path("technical_sector_results")
+    output_dir = paths.TECH_BACKTEST
     output_dir.mkdir(exist_ok=True)
 
     all_tickers = []

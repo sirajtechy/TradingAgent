@@ -14,7 +14,10 @@ from datetime import date
 from pathlib import Path
 from typing import Any, Dict, List, Tuple
 
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent.parent))
 sys.path.insert(0, str(Path(__file__).parent))
+
+import paths
 
 MONTHS: List[Tuple[date, date]] = [
     (date(2025,  3,  1), date(2025,  3, 31)),
@@ -57,7 +60,7 @@ SECTORS: Dict[str, List[str]] = {
 
 def _run_one_ticker(ticker: str) -> Tuple[str, Any]:
     """Run orchestrator backtest for a single ticker (in worker process)."""
-    from orchestrator_agent.backtest import run_monthly_backtest
+    from agents.orchestrator.backtest import run_monthly_backtest
     try:
         result = run_monthly_backtest(ticker=ticker, months=MONTHS)
         s = result["summary"]
@@ -128,7 +131,7 @@ def _print_matrix(met: Dict[str, Any], label: str) -> None:
 
 
 def main() -> None:
-    output_dir = Path("orchestrator_sector_results")
+    output_dir = paths.ORCH_BACKTEST
     output_dir.mkdir(exist_ok=True)
 
     all_tickers = []

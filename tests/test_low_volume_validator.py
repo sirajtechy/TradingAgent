@@ -6,7 +6,7 @@ Uses synthetic price/volume data so no network calls are needed.
 
 import pytest
 
-from technical_agent.low_volume_validator import (
+from agents.technical.low_volume_validator import (
     ADEQUATE_VOLUME_THRESHOLD,
     LOW_VOLUME_THRESHOLD,
     PENNY_STOCK_THRESHOLD,

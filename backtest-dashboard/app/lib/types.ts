@@ -1,22 +1,31 @@
-// Types for the dashboard data
+// ─── Agent Types ──────────────────────────────────────────────────────
+export type AgentName = "technical" | "fundamental" | "orchestrator" | "prediction";
+export type SignalLabel = "BUY" | "SELL" | "HOLD";
+export type RawSignal = "bullish" | "bearish" | "neutral";
+export type Direction = "up" | "down";
+export type ScoreBand = "strong" | "good" | "mixed_positive" | "mixed" | "weak";
+
+// ─── Per-Period Backtest Signal ──────────────────────────────────────
 export interface Signal {
   ticker: string;
   sector: string;
-  agent: "technical" | "fundamental" | "orchestrator";
+  agent: AgentName;
   month: string;
   signalDate: string;
   resultDate: string;
   startPrice: number;
   endPrice: number;
   returnPct: number;
-  actualDirection: "up" | "down";
+  actualDirection: Direction;
   rawSignal: string;
-  signal: "BUY" | "SELL" | "HOLD";
+  signal: SignalLabel;
   correct: boolean | null;
   score: number | null;
-  scoreBand: string | null;
+  scoreBand: ScoreBand | null;
   frameworks?: Record<string, number | null>;
-  // orchestrator extras
+  // Patterns detected
+  patterns?: { name: string; direction: string; confidence: number }[];
+  // Orchestrator
   confidence?: number;
   conflictDetected?: boolean;
   conflictResolution?: string | null;
@@ -24,10 +33,24 @@ export interface Signal {
   fundScore?: number;
   weightTech?: number;
   weightFund?: number;
-  // fundamental extras
+  // Fundamental
   dataQuality?: string;
+  // Trade setup
+  entryPrice?: number;
+  targetPrice?: number;
+  stopLoss?: number;
+  entryDate?: string;
+  exitDateEst?: string;
+  expectedProfitPct?: number;
+  riskPct?: number;
+  rewardRiskRatio?: number | null;
+  confidenceScore?: number;
+  profitProbability?: number;
+  direction?: string;
+  tradeDurationDays?: number;
 }
 
+// ─── Confusion Matrix ────────────────────────────────────────────────
 export interface ConfusionMatrix {
   buyUp: number;
   buyDown: number;
@@ -37,6 +60,7 @@ export interface ConfusionMatrix {
   holdDown: number;
 }
 
+// ─── Sector / Agent Summaries ────────────────────────────────────────
 export interface SectorSummary {
   totalPeriods: number;
   totalTrades: number;
@@ -63,6 +87,7 @@ export interface AgentSummary {
   bySector: Record<string, SectorSummary>;
 }
 
+// ─── Dashboard Data ──────────────────────────────────────────────────
 export interface DashboardData {
   meta: {
     window: string;
@@ -74,29 +99,32 @@ export interface DashboardData {
   signals: Signal[];
 }
 
-export type AgentName = "technical" | "fundamental" | "orchestrator";
-
-// ─── Live Prediction Types ────────────────────────────────────────────
+// ─── Prediction Types ────────────────────────────────────────────────
 export interface Prediction {
   ticker: string;
   sector: string;
   date: string;
-  signal: "bullish" | "bearish" | "neutral";
-  signalLabel: "BUY" | "SELL" | "HOLD";
+  entryDate: string | null;
+  exitDate: string | null;
+  holdingDays: number | null;
+  signal: RawSignal;
+  signalLabel: SignalLabel;
+  sentiment: RawSignal;
   orchestratorScore: number;
   confidence: number;
+  conviction: string;
+  targetPrice: number | null;
+  lastPrice: number | null;
+  profitPct: number | null;
+  peakReturnPct: number | null;
+  targetHitProbPct: number | null;
+  maxDrawdownPct: number | null;
+  winRatePct: number | null;
+  seasonalMatch: boolean;
   conflictDetected: boolean;
   conflictResolution: string | null;
   note: string | null;
-  techSignal: string | null;
-  techScore: number | null;
-  techBand: string | null;
-  techConfidence: string | null;
   techSubscores: Record<string, number>;
-  fundSignal: string | null;
-  fundScore: number | null;
-  fundBand: string | null;
-  fundDataQuality: string | null;
   fundSubscores: Record<string, number>;
   weightTech: number;
   weightFund: number;
@@ -111,12 +139,7 @@ export interface SectorPredictionSummary {
 }
 
 export interface PredictionData {
-  meta: {
-    date: string;
-    agents: string;
-    totalTickers: number;
-    errors: number;
-  };
+  meta: { date: string; agents: string; totalTickers: number; errors: number };
   summary: {
     bullish: number;
     bearish: number;
@@ -128,4 +151,41 @@ export interface PredictionData {
   sectorSummaries: Record<string, SectorPredictionSummary>;
   predictions: Prediction[];
   highConfidenceSetups: string[];
+}
+
+// ─── Strategy / Prediction Backtest ──────────────────────────────────
+export interface StrategyResult {
+  strategy: string;
+  signal: SignalLabel;
+  strength: number;
+  correct: boolean | null;
+}
+
+export interface PredictionPeriod {
+  ticker: string;
+  signal_date: string;
+  result_date: string;
+  entry_price: number;
+  end_price: number;
+  return_pct: number;
+  actual_direction: string;
+  predicted_direction: string;
+  correct: boolean;
+  confluence_score: number;
+  confluence_grade: string;
+  strategy_results: StrategyResult[];
+  target_price: number;
+  stop_loss: number;
+  risk_reward: number;
+}
+
+// ─── Filter State ────────────────────────────────────────────────────
+export interface FilterState {
+  agents: AgentName[];
+  sectors: string[];
+  signals: SignalLabel[];
+  correctness: "all" | "correct" | "incorrect" | "abstained";
+  ticker: string;
+  month: string;
+  scoreBand: string;
 }

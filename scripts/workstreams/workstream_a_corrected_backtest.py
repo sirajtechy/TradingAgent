@@ -13,16 +13,21 @@ from __future__ import annotations
 import json
 import math
 import os
+import sys
+from pathlib import Path
 from typing import Any, Dict, List, Optional, Tuple
 
-from orchestrator_agent.config import OrchestratorSettings
-from orchestrator_agent.course_corrections import (
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent.parent))
+import paths
+
+from agents.orchestrator.config import OrchestratorSettings
+from agents.orchestrator.course_corrections import (
     apply_conflict_override,
     _score_to_signal,
 )
-from orchestrator_agent.models import AgentOutput, FusionResult
+from agents.orchestrator.models import AgentOutput, FusionResult
 
-RESULTS_DIR = "orchestrator_sector_results"
+RESULTS_DIR = str(paths.ORCH_BACKTEST)
 SETTINGS = OrchestratorSettings()
 
 
@@ -39,8 +44,8 @@ def _reconstruct_result(period: Dict[str, Any]) -> Optional[FusionResult]:
     fw = weights.get("fund", 0.5)
 
     def _make_agent_out(score: float, thresholds: List[float]) -> AgentOutput:
-        from orchestrator_agent.fusion import agent_confidence
-        from orchestrator_agent.models import BAND_TO_SIGNAL
+        from agents.orchestrator.fusion import agent_confidence
+        from agents.orchestrator.models import BAND_TO_SIGNAL
         # Derive band from score
         if score >= 75:
             band = "strong_bull"
@@ -172,7 +177,7 @@ def apply_corrections_to_period(period: Dict[str, Any]) -> Dict[str, Any]:
         and cum_3m is not None
         and cum_3m < _SIM_TREND_THRESHOLD
     ):
-        from orchestrator_agent.models import FusionResult as FR
+        from agents.orchestrator.models import FusionResult as FR
         result = FR(
             final_signal="neutral",
             final_confidence=result.final_confidence * 0.60,

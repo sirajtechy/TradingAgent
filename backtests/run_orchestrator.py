@@ -25,6 +25,7 @@ from typing import Any, Dict, Optional, Tuple
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
+import paths
 from backtests.common import (
     ALL_TICKERS, MONTHS, SECTORS,
     empty_matrix, matrix_metrics, print_matrix, update_matrix,
@@ -33,7 +34,7 @@ from backtests.common import (
 
 def _run_ticker(ticker: str) -> Tuple[str, Optional[Dict[str, Any]]]:
     """Worker function — must be importable at module level for ProcessPoolExecutor."""
-    from orchestrator_agent.backtest import run_monthly_backtest
+    from agents.orchestrator.backtest import run_monthly_backtest
     try:
         result = run_monthly_backtest(ticker=ticker, months=MONTHS)
         s = result["summary"]
@@ -50,7 +51,7 @@ def main() -> None:
     parser.add_argument("--sector",     default=None)
     parser.add_argument("--resume",     action="store_true")
     parser.add_argument("--workers",    type=int, default=6)
-    parser.add_argument("--output-dir", default="orchestrator_results")
+    parser.add_argument("--output-dir", default=str(paths.ORCH_BACKTEST))
     args = parser.parse_args()
 
     output_dir = Path(args.output_dir)

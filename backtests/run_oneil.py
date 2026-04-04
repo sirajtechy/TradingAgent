@@ -35,11 +35,12 @@ from typing import Any, Dict, List, Optional, Tuple
 # Make project root importable when run directly
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
+import paths
 from backtests.common import (
     ALL_TICKERS, MONTHS, SECTORS,
     empty_matrix, matrix_metrics, print_matrix, update_matrix,
 )
-from oneil_agent.backtest import build_backtest_report, run_monthly_backtest
+from agents.oneil.backtest import build_backtest_report, run_monthly_backtest
 
 
 # ─────────────────────────────────────────────────────────────────────────────
@@ -190,7 +191,7 @@ def main() -> None:
     parser.add_argument("--ticker",     default=None, help="Run a single ticker")
     parser.add_argument("--resume",     action="store_true", help="Skip tickers with cached JSON files")
     parser.add_argument("--workers",    type=int, default=8, help="Parallel workers (default 8)")
-    parser.add_argument("--output-dir", default="oneil_results", help="Output directory for JSON files")
+    parser.add_argument("--output-dir", default=str(paths.BACKTEST_DIR / "oneil"), help="Output directory for JSON files")
     args = parser.parse_args()
 
     output_dir = Path(args.output_dir)

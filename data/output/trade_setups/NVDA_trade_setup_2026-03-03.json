@@ -1,0 +1,148 @@
+{
+  "ticker": "NVDA",
+  "status": "ok",
+  "setup": {
+    "ticker": "NVDA",
+    "direction": "LONG",
+    "entry_date": "2026-03-03",
+    "entry_price": 180.05,
+    "target_price": 199.61,
+    "stop_loss": 167.01,
+    "exit_date_est": "2026-03-07",
+    "expected_return_pct": 10.86,
+    "risk_pct": 7.24,
+    "reward_risk_ratio": 1.5,
+    "confidence": 64.7,
+    "holding_days_est": 3,
+    "rsi": 44.1,
+    "atr": 6.52,
+    "daily_bias": "LEAN_BEARISH",
+    "daily_bias_pct": 35.5,
+    "weekly_bias": "NEUTRAL",
+    "weekly_bias_pct": 50.0,
+    "total_signals": 11,
+    "bullish_signals": 5,
+    "bearish_signals": 3,
+    "key_patterns": [
+      "Bullish MACD Divergence",
+      "Three White Soldiers",
+      "Three White Soldiers",
+      "Three White Soldiers",
+      "Bullish Engulfing"
+    ],
+    "all_signals": [
+      {
+        "pattern": "Bullish MACD Divergence",
+        "signal": "bullish",
+        "confidence": 0.7,
+        "desc": "Price made lower low but MACD made higher low \u2014 selling pressure fading",
+        "category": "divergence"
+      },
+      {
+        "pattern": "Gap Down (unfilled)",
+        "signal": "bearish",
+        "confidence": 0.65,
+        "desc": "2026-02-27: -1.7% gap down from $184.31 to $181.25 \u2014 unfilled",
+        "category": "gap"
+      },
+      {
+        "pattern": "Inside Bar",
+        "signal": "neutral",
+        "confidence": 0.65,
+        "desc": "Bar contained within prior bar ($176.92-$180.90 inside $174.64-$183.46)",
+        "category": "range"
+      },
+      {
+        "pattern": "EMA9/SMA20 Bearish Cross",
+        "signal": "bearish",
+        "confidence": 0.62,
+        "desc": "Short-term EMA9 crossed below SMA20 \u2014 momentum turning down",
+        "category": "ma_structure"
+      },
+      {
+        "pattern": "Doji",
+        "signal": "neutral",
+        "confidence": 0.5,
+        "desc": "",
+        "category": "candlestick"
+      },
+      {
+        "pattern": "Three White Soldiers",
+        "signal": "bullish",
+        "confidence": 0.75,
+        "desc": "",
+        "category": "candlestick"
+      },
+      {
+        "pattern": "Three White Soldiers",
+        "signal": "bullish",
+        "confidence": 0.75,
+        "desc": "",
+        "category": "candlestick"
+      },
+      {
+        "pattern": "Three White Soldiers",
+        "signal": "bullish",
+        "confidence": 0.75,
+        "desc": "",
+        "category": "candlestick"
+      },
+      {
+        "pattern": "Evening Star",
+        "signal": "bearish",
+        "confidence": 0.72,
+        "desc": "",
+        "category": "candlestick"
+      },
+      {
+        "pattern": "Bullish Engulfing",
+        "signal": "bullish",
+        "confidence": 0.7,
+        "desc": "",
+        "category": "candlestick"
+      },
+      {
+        "pattern": "No Trend (ADX<15)",
+        "signal": "neutral",
+        "confidence": 0.55,
+        "desc": "ADX=15 \u2014 trendless market, range-bound trading expected",
+        "category": "trend"
+      }
+    ]
+  },
+  "error": null,
+  "data_bars_daily": 501,
+  "data_bars_weekly": 105,
+  "deep_daily": {
+    "timeframe": "daily",
+    "total_signals": 4,
+    "bullish_count": 1,
+    "bearish_count": 2,
+    "neutral_count": 1,
+    "bull_confidence": 0.7,
+    "bear_confidence": 1.27,
+    "bias_pct": 35.5,
+    "bias": "LEAN_BEARISH",
+    "categories": [
+      "range",
+      "ma_structure",
+      "divergence",
+      "gap"
+    ]
+  },
+  "deep_weekly": {
+    "timeframe": "weekly",
+    "total_signals": 1,
+    "bullish_count": 0,
+    "bearish_count": 0,
+    "neutral_count": 1,
+    "bull_confidence": 0,
+    "bear_confidence": 0,
+    "bias_pct": 50.0,
+    "bias": "NEUTRAL",
+    "categories": [
+      "trend"
+    ]
+  },
+  "elapsed_sec": 1.7
+}

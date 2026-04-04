@@ -25,9 +25,11 @@ from datetime import date
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Tuple
 
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent.parent))
 sys.path.insert(0, str(Path(__file__).parent))
 
-from technical_agent.backtest import build_backtest_report, run_monthly_backtest
+import paths
+from agents.technical.backtest import build_backtest_report, run_monthly_backtest
 
 # ---------------------------------------------------------------------------
 # 12-month window: March 2025 – February 2026
@@ -304,9 +306,8 @@ def main() -> None:
     parser.add_argument("--resume", action="store_true",
                         help="Skip tickers whose JSON result file already exists")
     parser.add_argument(
-        "--output-dir", default="technical_sector_results",
-        help="Directory for per-ticker JSON files "
-             "(default: technical_sector_results/)",
+        "--output-dir", default=str(paths.TECH_BACKTEST),
+        help="Directory for per-ticker JSON files",
     )
     args = parser.parse_args()
 

@@ -24,9 +24,11 @@ from datetime import date
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Tuple
 
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent.parent))
 sys.path.insert(0, str(Path(__file__).parent))
 
-from fundamental_agent.backtest import build_backtest_report, run_monthly_backtest
+import paths
+from agents.fundamental.backtest import build_backtest_report, run_monthly_backtest
 
 # ---------------------------------------------------------------------------
 # 12-month window: March 2025 – February 2026
@@ -242,8 +244,8 @@ def main() -> None:
     parser.add_argument("--data-source", default="yfinance", choices=["fmp", "yfinance"])
     parser.add_argument("--resume", action="store_true",
                         help="Skip tickers whose JSON result file already exists")
-    parser.add_argument("--output-dir", default="sector_results",
-                        help="Directory for per-ticker JSON files (default: sector_results/)")
+    parser.add_argument("--output-dir", default=str(paths.FUND_BACKTEST),
+                        help="Directory for per-ticker JSON files")
     args = parser.parse_args()
 
     output_dir = Path(args.output_dir)
@@ -323,9 +325,9 @@ def main() -> None:
         "overall_confusion_matrix": overall_metrics,
     }
 
-    with open("sector_backtest_results.json", "w") as fh:
+    with open(paths.FUND_BACKTEST / "sector_backtest_results.json", "w") as fh:
         json.dump(consolidated, fh, indent=2, default=str)
-    print(f"\n✓  Full results saved to sector_backtest_results.json")
+    print(f"\n✓  Full results saved to {paths.FUND_BACKTEST / 'sector_backtest_results.json'}")
 
     # Concise confusion matrix JSON
     cm_output = {
@@ -336,16 +338,16 @@ def main() -> None:
             for sector, data in consolidated["sectors"].items()
         },
     }
-    with open("sector_confusion_matrix.json", "w") as fh:
+    with open(paths.FUND_BACKTEST / "sector_confusion_matrix.json", "w") as fh:
         json.dump(cm_output, fh, indent=2)
-    print(f"✓  Confusion matrices saved to sector_confusion_matrix.json")
+    print(f"✓  Confusion matrices saved to {paths.FUND_BACKTEST / 'sector_confusion_matrix.json'}")
 
-    # ── Generate HTML dashboard ──────────────────────────────────────────
+    # ── Generate HTML dashboard ────────────────────────────────────────────
     try:
-        from fundamental_agent.dashboard import generate_dashboard
+        from agents.fundamental.dashboard import generate_dashboard
         dashboard_path = generate_dashboard(
-            results_json="sector_backtest_results.json",
-            output_html="backtest_dashboard.html",
+            results_json=str(paths.FUND_BACKTEST / "sector_backtest_results.json"),
+            output_html=str(paths.FUND_BACKTEST / "backtest_dashboard.html"),
         )
         print(f"✓  Dashboard generated → {dashboard_path.resolve()}")
     except Exception as exc:

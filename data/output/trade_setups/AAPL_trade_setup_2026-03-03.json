@@ -1,0 +1,106 @@
+{
+  "ticker": "AAPL",
+  "status": "ok",
+  "setup": {
+    "ticker": "AAPL",
+    "direction": "LONG",
+    "entry_date": "2026-03-03",
+    "entry_price": 263.75,
+    "target_price": 283.31,
+    "stop_loss": 250.71,
+    "exit_date_est": "2026-03-07",
+    "expected_return_pct": 7.42,
+    "risk_pct": 4.94,
+    "reward_risk_ratio": 1.5,
+    "confidence": 80.3,
+    "holding_days_est": 3,
+    "rsi": 47.2,
+    "atr": 6.52,
+    "daily_bias": "NEUTRAL",
+    "daily_bias_pct": 50.0,
+    "weekly_bias": "NEUTRAL",
+    "weekly_bias_pct": 50.0,
+    "total_signals": 6,
+    "bullish_signals": 3,
+    "bearish_signals": 1,
+    "key_patterns": [
+      "Bullish Engulfing",
+      "Three White Soldiers",
+      "Three White Soldiers"
+    ],
+    "all_signals": [
+      {
+        "pattern": "Evening Star",
+        "signal": "bearish",
+        "confidence": 0.72,
+        "desc": "",
+        "category": "candlestick"
+      },
+      {
+        "pattern": "Bullish Engulfing",
+        "signal": "bullish",
+        "confidence": 0.7,
+        "desc": "",
+        "category": "candlestick"
+      },
+      {
+        "pattern": "Three White Soldiers",
+        "signal": "bullish",
+        "confidence": 0.75,
+        "desc": "",
+        "category": "candlestick"
+      },
+      {
+        "pattern": "Three White Soldiers",
+        "signal": "bullish",
+        "confidence": 0.75,
+        "desc": "",
+        "category": "candlestick"
+      },
+      {
+        "pattern": "Doji",
+        "signal": "neutral",
+        "confidence": 0.5,
+        "desc": "",
+        "category": "candlestick"
+      },
+      {
+        "pattern": "Bollinger Squeeze",
+        "signal": "neutral",
+        "confidence": 0.75,
+        "desc": "BB width at 14.03% \u2014 lowest in 20 bars (avg: 25.79%). Breakout imminent.",
+        "category": "volatility"
+      }
+    ]
+  },
+  "error": null,
+  "data_bars_daily": 501,
+  "data_bars_weekly": 105,
+  "deep_daily": {
+    "timeframe": "daily",
+    "total_signals": 0,
+    "bullish_count": 0,
+    "bearish_count": 0,
+    "neutral_count": 0,
+    "bull_confidence": 0,
+    "bear_confidence": 0,
+    "bias_pct": 50.0,
+    "bias": "NEUTRAL",
+    "categories": []
+  },
+  "deep_weekly": {
+    "timeframe": "weekly",
+    "total_signals": 1,
+    "bullish_count": 0,
+    "bearish_count": 0,
+    "neutral_count": 1,
+    "bull_confidence": 0,
+    "bear_confidence": 0,
+    "bias_pct": 50.0,
+    "bias": "NEUTRAL",
+    "categories": [
+      "volatility"
+    ]
+  },
+  "elapsed_sec": 1.7
+}

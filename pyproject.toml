@@ -12,7 +12,8 @@ dependencies = [
   "requests>=2.32.0",
   "langgraph>=0.6.11",
   "pandas>=2.0.0",
-  "yfinance>=0.2.0",
+  "python-dotenv>=1.0.0",
+  "yfinance>=0.2.0",        # fallback only — Polygon.io is the primary data source
   "typing_extensions>=4.0.0",
 ]
 
@@ -22,17 +23,13 @@ dev = [
 ]
 
 [project.scripts]
-fundamental-agent = "fundamental_agent.cli:main"
-technical-agent   = "technical_agent.cli:main"
-oneil-agent       = "oneil_agent.cli:main"
+fundamental-agent = "agents.fundamental.cli:main"
+technical-agent   = "agents.technical.cli:main"
+oneil-agent       = "agents.oneil.cli:main"
 
 [tool.setuptools.packages.find]
 include = [
-  "fundamental_agent*",
-  "technical_agent*",
-  "orchestrator_agent*",
-  "oneil_agent*",
-  "prediction_engine*",
+  "agents*",
   "backtests*",
 ]
 

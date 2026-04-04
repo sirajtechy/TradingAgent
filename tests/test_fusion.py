@@ -11,14 +11,14 @@ Tests cover:
 
 import pytest
 
-from orchestrator_agent.config import OrchestratorSettings
-from orchestrator_agent.fusion import (
+from agents.orchestrator.config import OrchestratorSettings
+from agents.orchestrator.fusion import (
     agent_confidence,
     fuse_signals,
     _extract_tech_output,
     _extract_fund_output,
 )
-from orchestrator_agent.models import BAND_TO_SIGNAL
+from agents.orchestrator.models import BAND_TO_SIGNAL
 
 
 # ---------------------------------------------------------------------------

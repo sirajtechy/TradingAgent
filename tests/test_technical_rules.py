@@ -9,14 +9,14 @@ from typing import Dict, List, Optional
 
 import pytest
 
-from technical_agent.indicators import compute_all_indicators
-from technical_agent.models import (
+from agents.technical.indicators import compute_all_indicators
+from agents.technical.models import (
     OHLCVBar,
     PatternSignal,
     RawTechnicalSnapshot,
     TechnicalRequest,
 )
-from technical_agent.rules import (
+from agents.technical.rules import (
     build_composite_score,
     evaluate_adx_stochastic,
     evaluate_bollinger,

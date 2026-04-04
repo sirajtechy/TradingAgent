@@ -1,0 +1,155 @@
+{
+  "ticker": "TSLA",
+  "status": "ok",
+  "setup": {
+    "ticker": "TSLA",
+    "direction": "LONG",
+    "entry_date": "2026-03-03",
+    "entry_price": 392.43,
+    "target_price": 436.3,
+    "stop_loss": 363.18,
+    "exit_date_est": "2026-03-07",
+    "expected_return_pct": 11.18,
+    "risk_pct": 7.45,
+    "reward_risk_ratio": 1.5,
+    "confidence": 80.8,
+    "holding_days_est": 3,
+    "rsi": 37.1,
+    "atr": 14.62,
+    "daily_bias": "BEARISH",
+    "daily_bias_pct": 35.0,
+    "weekly_bias": "BULLISH",
+    "weekly_bias_pct": 100.0,
+    "total_signals": 12,
+    "bullish_signals": 8,
+    "bearish_signals": 2,
+    "key_patterns": [
+      "Testing SMA200",
+      "Morning Star",
+      "Three White Soldiers",
+      "Bullish Engulfing",
+      "Bullish Engulfing"
+    ],
+    "all_signals": [
+      {
+        "pattern": "Below Value Area",
+        "signal": "bearish",
+        "confidence": 0.65,
+        "desc": "Price $392.43 below value area $409.23-$489.88. POC=$417.63",
+        "category": "volume_profile"
+      },
+      {
+        "pattern": "Gap Down (unfilled)",
+        "signal": "bearish",
+        "confidence": 0.65,
+        "desc": "2026-03-02: -1.9% gap down from $398.11 to $390.60 \u2014 unfilled",
+        "category": "gap"
+      },
+      {
+        "pattern": "Testing SMA200",
+        "signal": "bullish",
+        "confidence": 0.7,
+        "desc": "Price $392.43 is 0.3% from SMA200 $391.23 \u2014 major level test",
+        "category": "sr_level"
+      },
+      {
+        "pattern": "Doji",
+        "signal": "neutral",
+        "confidence": 0.5,
+        "desc": "",
+        "category": "candlestick"
+      },
+      {
+        "pattern": "Morning Star",
+        "signal": "bullish",
+        "confidence": 0.72,
+        "desc": "",
+        "category": "candlestick"
+      },
+      {
+        "pattern": "Three White Soldiers",
+        "signal": "bullish",
+        "confidence": 0.75,
+        "desc": "",
+        "category": "candlestick"
+      },
+      {
+        "pattern": "Bullish Engulfing",
+        "signal": "bullish",
+        "confidence": 0.7,
+        "desc": "",
+        "category": "candlestick"
+      },
+      {
+        "pattern": "Doji",
+        "signal": "neutral",
+        "confidence": 0.5,
+        "desc": "",
+        "category": "candlestick"
+      },
+      {
+        "pattern": "Bullish Engulfing",
+        "signal": "bullish",
+        "confidence": 0.7,
+        "desc": "",
+        "category": "candlestick"
+      },
+      {
+        "pattern": "Hammer",
+        "signal": "bullish",
+        "confidence": 0.65,
+        "desc": "",
+        "category": "candlestick"
+      },
+      {
+        "pattern": "Overextended Below SMA20",
+        "signal": "bullish",
+        "confidence": 0.65,
+        "desc": "Price -8.3% below SMA20 ($432.77) \u2014 mean reversion bounce likely",
+        "category": "mean_reversion"
+      },
+      {
+        "pattern": "Stochastic Oversold",
+        "signal": "bullish",
+        "confidence": 0.6,
+        "desc": "Stoch K=10, D=16 \u2014 oversold territory",
+        "category": "trend"
+      }
+    ]
+  },
+  "error": null,
+  "data_bars_daily": 501,
+  "data_bars_weekly": 105,
+  "deep_daily": {
+    "timeframe": "daily",
+    "total_signals": 3,
+    "bullish_count": 1,
+    "bearish_count": 2,
+    "neutral_count": 0,
+    "bull_confidence": 0.7,
+    "bear_confidence": 1.3,
+    "bias_pct": 35.0,
+    "bias": "BEARISH",
+    "categories": [
+      "sr_level",
+      "volume_profile",
+      "gap"
+    ]
+  },
+  "deep_weekly": {
+    "timeframe": "weekly",
+    "total_signals": 2,
+    "bullish_count": 2,
+    "bearish_count": 0,
+    "neutral_count": 0,
+    "bull_confidence": 1.25,
+    "bear_confidence": 0,
+    "bias_pct": 100.0,
+    "bias": "BULLISH",
+    "categories": [
+      "mean_reversion",
+      "trend"
+    ]
+  },
+  "elapsed_sec": 0.9
+}

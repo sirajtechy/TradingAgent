@@ -1,0 +1,141 @@
+{
+  "ticker": "CRM",
+  "status": "ok",
+  "setup": {
+    "ticker": "CRM",
+    "direction": "LONG",
+    "entry_date": "2026-03-03",
+    "entry_price": 196.05,
+    "target_price": 222.28,
+    "stop_loss": 178.56,
+    "exit_date_est": "2026-03-07",
+    "expected_return_pct": 13.38,
+    "risk_pct": 8.92,
+    "reward_risk_ratio": 1.5,
+    "confidence": 89.6,
+    "holding_days_est": 3,
+    "rsi": 45.9,
+    "atr": 8.74,
+    "daily_bias": "BULLISH",
+    "daily_bias_pct": 100.0,
+    "weekly_bias": "BULLISH",
+    "weekly_bias_pct": 100.0,
+    "total_signals": 10,
+    "bullish_signals": 6,
+    "bearish_signals": 1,
+    "key_patterns": [
+      "Bullish MACD Divergence",
+      "Outside Bar",
+      "Bullish Engulfing",
+      "Three White Soldiers",
+      "Overextended Below SMA20"
+    ],
+    "all_signals": [
+      {
+        "pattern": "Bullish MACD Divergence",
+        "signal": "bullish",
+        "confidence": 0.7,
+        "desc": "Price made lower low but MACD made higher low \u2014 selling pressure fading",
+        "category": "divergence"
+      },
+      {
+        "pattern": "Bollinger Squeeze",
+        "signal": "neutral",
+        "confidence": 0.75,
+        "desc": "BB width at 11.55% \u2014 lowest in 20 bars (avg: 23.55%). Breakout imminent.",
+        "category": "volatility"
+      },
+      {
+        "pattern": "Outside Bar",
+        "signal": "bullish",
+        "confidence": 0.62,
+        "desc": "Range engulfs prior bar \u2014 bullish expansion",
+        "category": "range"
+      },
+      {
+        "pattern": "Doji",
+        "signal": "neutral",
+        "confidence": 0.5,
+        "desc": "",
+        "category": "candlestick"
+      },
+      {
+        "pattern": "Three Black Crows",
+        "signal": "bearish",
+        "confidence": 0.75,
+        "desc": "",
+        "category": "candlestick"
+      },
+      {
+        "pattern": "Bullish Engulfing",
+        "signal": "bullish",
+        "confidence": 0.7,
+        "desc": "",
+        "category": "candlestick"
+      },
+      {
+        "pattern": "Three White Soldiers",
+        "signal": "bullish",
+        "confidence": 0.75,
+        "desc": "",
+        "category": "candlestick"
+      },
+      {
+        "pattern": "Overextended Below SMA20",
+        "signal": "bullish",
+        "confidence": 0.65,
+        "desc": "Price -13.1% below SMA20 ($232.47) \u2014 mean reversion bounce likely",
+        "category": "mean_reversion"
+      },
+      {
+        "pattern": "Overextended Below SMA50",
+        "signal": "bullish",
+        "confidence": 0.7,
+        "desc": "Price -18.4% below SMA50 ($247.73) \u2014 oversold, bounce candidate",
+        "category": "mean_reversion"
+      },
+      {
+        "pattern": "Strong Trend (ADX>40)",
+        "signal": "neutral",
+        "confidence": 0.6,
+        "desc": "ADX=41 \u2014 very strong trend, potential exhaustion if overbought",
+        "category": "trend"
+      }
+    ]
+  },
+  "error": null,
+  "data_bars_daily": 501,
+  "data_bars_weekly": 105,
+  "deep_daily": {
+    "timeframe": "daily",
+    "total_signals": 3,
+    "bullish_count": 2,
+    "bearish_count": 0,
+    "neutral_count": 1,
+    "bull_confidence": 1.32,
+    "bear_confidence": 0,
+    "bias_pct": 100.0,
+    "bias": "BULLISH",
+    "categories": [
+      "range",
+      "divergence",
+      "volatility"
+    ]
+  },
+  "deep_weekly": {
+    "timeframe": "weekly",
+    "total_signals": 3,
+    "bullish_count": 2,
+    "bearish_count": 0,
+    "neutral_count": 1,
+    "bull_confidence": 1.35,
+    "bear_confidence": 0,
+    "bias_pct": 100.0,
+    "bias": "BULLISH",
+    "categories": [
+      "mean_reversion",
+      "trend"
+    ]
+  },
+  "elapsed_sec": 0.9
+}

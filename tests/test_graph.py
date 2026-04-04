@@ -1,5 +1,5 @@
-from fundamental_agent.graph import build_graph
-from fundamental_agent.reporting import build_text_report
+from agents.fundamental.graph import build_graph
+from agents.fundamental.reporting import build_text_report
 
 from tests.fixtures import make_snapshot
 
@@ -23,7 +23,7 @@ def test_graph_runs_end_to_end_with_static_provider():
 
 def test_report_builder_mentions_shariah_status():
     snapshot = make_snapshot()
-    from fundamental_agent.rules import evaluate_snapshot
+    from agents.fundamental.rules import evaluate_snapshot
 
     result = evaluate_snapshot(snapshot, include_experimental_score=True)
     report = build_text_report(result)

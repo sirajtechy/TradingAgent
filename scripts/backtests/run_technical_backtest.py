@@ -20,7 +20,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent))
 
-from technical_agent.backtest import build_backtest_report, run_monthly_backtest
+from agents.technical.backtest import build_backtest_report, run_monthly_backtest
 
 MONTHS = [
     (date(2025, 10, 1), date(2025, 10, 31)),

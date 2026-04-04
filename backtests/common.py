@@ -2,8 +2,9 @@
 common.py — Shared constants and confusion-matrix helpers for all backtest runners.
 
 Centrally defines:
-  MONTHS   : The canonical 12-month backtest window (Mar 2025 – Feb 2026)
-  SECTORS  : 5-sector, 10-ticker universe (50 tickers total)
+  MONTHS          : The canonical 12-month backtest window (Mar 2025 – Feb 2026)
+  SECTORS         : 5-sector, 10-ticker universe (50 tickers total) — LEGACY, includes non-halal
+  HALAL_SECTORS   : 12-sector halal universe from Musaffa (top 10 per sector by market cap)
   Confusion matrix helpers identical to those used in the orchestrator backtest
 
 Import this from any backtest runner to keep sector/period definitions in sync.
@@ -35,7 +36,8 @@ MONTHS: List[Tuple[date, date]] = [
 ]
 
 # ─────────────────────────────────────────────────────────────────────────────
-# 5-sector, 10-ticker universe (50 tickers × 12 months = 600 data points)
+# LEGACY: 5-sector, 10-ticker universe (50 tickers × 12 months = 600 data points)
+# ⚠️  Contains non-halal tickers. Use HALAL_SECTORS for Shariah-compliant runs.
 # ─────────────────────────────────────────────────────────────────────────────
 
 SECTORS: Dict[str, List[str]] = {
@@ -63,6 +65,15 @@ SECTORS: Dict[str, List[str]] = {
 
 # All tickers in a flat list (preserves sector order)
 ALL_TICKERS: List[str] = [t for tickers in SECTORS.values() for t in tickers]
+
+# ─────────────────────────────────────────────────────────────────────────────
+# HALAL UNIVERSE: Musaffa-verified Shariah-compliant, top 10 per sector by market cap
+# Source: data/halal_universe/ (1,236 US-listed halal stocks)
+# ─────────────────────────────────────────────────────────────────────────────
+
+from data.halal_universe import HALAL_SECTORS, load_sector_tickers, load_all_tickers
+
+HALAL_ALL_TICKERS: List[str] = [t for tickers in HALAL_SECTORS.values() for t in tickers]
 
 
 # ─────────────────────────────────────────────────────────────────────────────

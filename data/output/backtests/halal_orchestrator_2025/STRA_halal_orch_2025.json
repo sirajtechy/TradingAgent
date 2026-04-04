@@ -1,0 +1,3879 @@
+{
+  "ticker": "STRA",
+  "sector": "Consumer Discretionary",
+  "market_cap_tier": "small",
+  "periods": [
+    {
+      "month": "January 2025",
+      "signal_date": "2025-01-01",
+      "result_date": "2025-01-31",
+      "orchestrator_signal": "neutral",
+      "orchestrator_score": 48.8,
+      "final_confidence": 0.3,
+      "conflict_detected": true,
+      "conflict_resolution": "Conflict: TA bearish vs FA bullish with similar confidence \u2192 abstain",
+      "weights_applied": {
+        "tech": 0.5,
+        "fund": 0.5
+      },
+      "trade_setup": null,
+      "patterns_detected": [
+        {
+          "name": "Cup & Handle",
+          "direction": "bullish",
+          "confidence": 0.449,
+          "start_date": "2024-08-29",
+          "end_date": "2024-11-19",
+          "breakout_confirmed": false,
+          "volume_confirmation": false,
+          "description": "Cup depth 13.7%, rim ~$99.17, handle present"
+        },
+        {
+          "name": "Ascending Triangle",
+          "direction": "bullish",
+          "confidence": 0.444,
+          "start_date": "2024-11-06",
+          "end_date": "2024-12-16",
+          "breakout_confirmed": false,
+          "volume_confirmation": false,
+          "description": "Flat resistance ~$101.27 (4 touches), rising lows"
+        },
+        {
+          "name": "Bull Flag",
+          "direction": "bullish",
+          "confidence": 0.441,
+          "start_date": "2024-10-22",
+          "end_date": "2024-11-15",
+          "breakout_confirmed": false,
+          "volume_confirmation": false,
+          "description": "Pole +16.2% in 13 bars, flag range ratio 0.35"
+        },
+        {
+          "name": "Bull Flag",
+          "direction": "bullish",
+          "confidence": 0.44,
+          "start_date": "2024-10-28",
+          "end_date": "2024-11-15",
+          "breakout_confirmed": false,
+          "volume_confirmation": false,
+          "description": "Pole +15.2% in 9 bars, flag range ratio 0.36"
+        },
+        {
+          "name": "Bull Flag",
+          "direction": "bullish",
+          "confidence": 0.437,
+          "start_date": "2024-10-25",
+          "end_date": "2024-11-15",
+          "breakout_confirmed": false,
+          "volume_confirmation": false,
+          "description": "Pole +16.4% in 10 bars, flag range ratio 0.36"
+        },
+        {
+          "name": "Cup & Handle",
+          "direction": "bullish",
+          "confidence": 0.423,
+          "start_date": "2024-04-09",
+          "end_date": "2024-11-19",
+          "breakout_confirmed": false,
+          "volume_confirmation": false,
+          "description": "Cup depth 13.2%, rim ~$104.74, handle present"
+        },
+        {
+          "name": "Head & Shoulders",
+          "direction": "bearish",
+          "confidence": 0.383,
+          "start_date": "2024-02-12",
+          "end_date": "2024-03-28",
+          "breakout_confirmed": true,
+          "volume_confirmation": false,
+          "description": "LS=$97.66, Head=$105.44, RS=$103.41, neckline ~$98.06, breakdown confirmed"
+        },
+        {
+          "name": "Double Bottom",
+          "direction": "bullish",
+          "confidence": 0.244,
+          "start_date": "2024-08-05",
+          "end_date": "2024-09-11",
+          "breakout_confirmed": false,
+          "volume_confirmation": false,
+          "description": "Two lows at ~$94.45 & $92.43, neckline $96.74"
+        },
+        {
+          "name": "Inverse Head & Shoulders",
+          "direction": "bullish",
+          "confidence": 0.19,
+          "start_date": "2024-05-29",
+          "end_date": "2024-07-10",
+          "breakout_confirmed": false,
+          "volume_confirmation": false,
+          "description": "LS=$113.22, Head=$108.25, RS=$108.30, neckline ~$111.92"
+        },
+        {
+          "name": "Inverse Head & Shoulders",
+          "direction": "bullish",
+          "confidence": 0.099,
+          "start_date": "2024-02-05",
+          "end_date": "2024-03-15",
+          "breakout_confirmed": false,
+          "volume_confirmation": false,
+          "description": "LS=$95.46, Head=$94.50, RS=$101.62, neckline ~$101.55"
+        }
+      ],
+      "patterns_count": 10,
+      "tech_summary": {
+        "score": 32.4,
+        "band": "weak",
+        "confidence": "moderate",
+        "confidence_pct": 56.7,
+        "subscores": {
+          "ema_trend": 1.0,
+          "macd_system": 20.0,
+          "rsi_regime": 45.0,
+          "bollinger": 46.0,
+          "volume_obv": 22.0,
+          "adx_stochastic": 37.0,
+          "pattern_recognition": 59.8,
+          "ichimoku": 24.0,
+          "momentum": 40.0,
+          "supertrend": 61.0,
+          "volatility_squeeze": 45.0,
+          "entry_exit_rules": 28.3
+        },
+        "signal_alignment": {
+          "signal_count": 6,
+          "bullish_frameworks": 1,
+          "entry_rules_met": 5,
+          "confidence_pct": 56.7,
+          "confidence_label": "moderate"
+        },
+        "risk_management": {
+          "stop_loss": 88.7642,
+          "take_profit_1": 100.4037,
+          "take_profit_2": 102.7317,
+          "risk_per_share": 4.6558,
+          "reward_risk_ratio": 1.5,
+          "atr_pct": 2.49
+        },
+        "frameworks": {
+          "ema_trend": {
+            "applicable": true,
+            "score_pct": 1.0
+          },
+          "macd_system": {
+            "applicable": true,
+            "score_pct": 20.0
+          },
+          "rsi_regime": {
+            "applicable": true,
+            "score_pct": 45.0
+          },
+          "bollinger": {
+            "applicable": true,
+            "score_pct": 46.0
+          },
+          "volume_obv": {
+            "applicable": true,
+            "score_pct": 22.0
+          },
+          "adx_stochastic": {
+            "applicable": true,
+            "score_pct": 37.0
+          },
+          "pattern_recognition": {
+            "applicable": true,
+            "score_pct": 59.8
+          },
+          "ichimoku": {
+            "applicable": true,
+            "score_pct": 24.0
+          },
+          "momentum": {
+            "applicable": true,
+            "score_pct": 40.0
+          },
+          "supertrend": {
+            "applicable": true,
+            "score_pct": 61.0
+          },
+          "volatility_squeeze": {
+            "applicable": true,
+            "score_pct": 45.0
+          },
+          "entry_exit_rules": {
+            "applicable": true,
+            "score_pct": 28.3
+          }
+        },
+        "key_indicators": {
+          "close": 93.42,
+          "ema_9": 94.1484,
+          "ema_20": 95.5108,
+          "ema_21": 95.5566,
+          "ema_50": 95.4803,
+          "ema_200": 96.4346,
+          "rsi_14": 42.15,
+          "macd": -0.9718,
+          "macd_histogram": -0.7488,
+          "adx": 21.2,
+          "atr_14": 2.33,
+          "bb_pct_b": 0.225,
+          "obv_trend": "falling",
+          "ichimoku_tenkan": 96.22,
+          "ichimoku_kijun": 96.8775,
+          "roc_12": -6.66,
+          "cci_20": -81.72,
+          "cmf_20": -0.129,
+          "supertrend_direction": -1,
+          "supertrend_line": 99.1214,
+          "stoch_rsi_k": 9.83,
+          "stoch_rsi_d": 11.21,
+          "kc_upper": 100.0651,
+          "kc_lower": 90.9564,
+          "squeeze_on": false,
+          "fibonacci": {
+            "swing_high": 102.36,
+            "swing_low": 85.105,
+            "fib_236": 98.2878,
+            "fib_382": 95.7686,
+            "fib_500": 93.7325,
+            "fib_618": 91.6964,
+            "fib_786": 88.7976
+          },
+          "market_structure": "uptrend",
+          "vwap_20": 96.646,
+          "williams_r_14": -81.53
+        }
+      },
+      "fund_summary": {
+        "score": 65.1,
+        "band": "mixed_positive",
+        "confidence": "high",
+        "subscores": {
+          "financial_health": 79.3,
+          "valuation": 65.0,
+          "quality": 55.0,
+          "growth": 60.0
+        },
+        "data_quality": "high",
+        "coverage_ratio": 1.0,
+        "frameworks": {
+          "piotroski": {
+            "applicable": true,
+            "score_pct": 100.0
+          },
+          "altman": {
+            "applicable": true,
+            "score_pct": 58.6
+          },
+          "graham": {
+            "applicable": true,
+            "score_pct": 50.0
+          },
+          "greenblatt": {
+            "applicable": true,
+            "score_pct": 55.0
+          },
+          "lynch": {
+            "applicable": true,
+            "score_pct": 80.0
+          },
+          "growth_profile": {
+            "applicable": true,
+            "score_pct": 60.0
+          },
+          "shariah": {
+            "applicable": true,
+            "score_pct": null
+          }
+        },
+        "snapshot": {
+          "market_cap_proxy": 2237969520.0,
+          "revenue_current": 1132924000.0,
+          "eps_current": 2.91,
+          "eps_prior": 1.94,
+          "net_income_current": 69791000.0
+        }
+      },
+      "tech_error": null,
+      "fund_error": null,
+      "actual_outcome": {
+        "end_price": 98.23,
+        "end_price_date": "2025-01-31",
+        "price_return_pct": 5.15,
+        "actual_direction": "UP",
+        "signal_correct": null
+      },
+      "optimal_exit_analysis": null
+    },
+    {
+      "month": "February 2025",
+      "signal_date": "2025-02-01",
+      "result_date": "2025-02-28",
+      "orchestrator_signal": "bullish",
+      "orchestrator_score": 65.7,
+      "final_confidence": 0.29,
+      "conflict_detected": false,
+      "conflict_resolution": null,
+      "weights_applied": {
+        "tech": 0.45,
+        "fund": 0.55
+      },
+      "trade_setup": {
+        "direction": "LONG",
+        "entry_date": "2025-02-01",
+        "exit_date_est": "2025-02-23",
+        "result_date": "2025-02-28",
+        "entry_price": 98.23,
+        "target_price": 102.31,
+        "stop_loss": 95.17,
+        "expected_profit_pct": 4.15,
+        "risk_pct": 3.12,
+        "reward_risk_ratio": 1.33,
+        "confidence_score": 65.7,
+        "final_confidence": 0.29,
+        "profit_probability": 43.2,
+        "trade_duration_days": 16,
+        "atr_at_entry": 2.04,
+        "rsi_at_entry": 59.8,
+        "adx_at_entry": 16.49,
+        "transaction_cost_pct": 0.1,
+        "slippage_pct": 0.05,
+        "total_friction_pct": 0.2,
+        "net_expected_profit_pct": 3.95,
+        "signal_alignment": {
+          "signal_count": 16,
+          "bullish_frameworks": 7,
+          "entry_rules_met": 9,
+          "confidence_pct": 100.0,
+          "confidence_label": "high_conviction"
+        }
+      },
+      "patterns_detected": [
+        {
+          "name": "Cup & Handle",
+          "direction": "bullish",
+          "confidence": 0.437,
+          "start_date": "2024-08-29",
+          "end_date": "2024-11-19",
+          "breakout_confirmed": false,
+          "volume_confirmation": false,
+          "description": "Cup depth 13.7%, rim ~$99.17, handle present"
+        },
+        {
+          "name": "Double Bottom",
+          "direction": "bullish",
+          "confidence": 0.432,
+          "start_date": "2024-08-05",
+          "end_date": "2024-09-11",
+          "breakout_confirmed": true,
+          "volume_confirmation": false,
+          "description": "Two lows at ~$94.45 & $92.43, neckline $96.74, breakout confirmed"
+        },
+        {
+          "name": "Ascending Triangle",
+          "direction": "bullish",
+          "confidence": 0.432,
+          "start_date": "2024-11-06",
+          "end_date": "2024-12-16",
+          "breakout_confirmed": false,
+          "volume_confirmation": false,
+          "description": "Flat resistance ~$101.27 (4 touches), rising lows"
+        },
+        {
+          "name": "Bull Flag",
+          "direction": "bullish",
+          "confidence": 0.429,
+          "start_date": "2024-10-22",
+          "end_date": "2024-11-15",
+          "breakout_confirmed": false,
+          "volume_confirmation": false,
+          "description": "Pole +16.2% in 13 bars, flag range ratio 0.35"
+        },
+        {
+          "name": "Bull Flag",
+          "direction": "bullish",
+          "confidence": 0.428,
+          "start_date": "2024-10-28",
+          "end_date": "2024-11-15",
+          "breakout_confirmed": false,
+          "volume_confirmation": false,
+          "description": "Pole +15.2% in 9 bars, flag range ratio 0.36"
+        },
+        {
+          "name": "Bull Flag",
+          "direction": "bullish",
+          "confidence": 0.426,
+          "start_date": "2024-11-01",
+          "end_date": "2024-11-15",
+          "breakout_confirmed": false,
+          "volume_confirmation": false,
+          "description": "Pole +15.3% in 5 bars, flag range ratio 0.36"
+        },
+        {
+          "name": "Cup & Handle",
+          "direction": "bullish",
+          "confidence": 0.411,
+          "start_date": "2024-04-09",
+          "end_date": "2024-11-19",
+          "breakout_confirmed": false,
+          "volume_confirmation": false,
+          "description": "Cup depth 13.2%, rim ~$104.74, handle present"
+        },
+        {
+          "name": "Inverse Head & Shoulders",
+          "direction": "bullish",
+          "confidence": 0.178,
+          "start_date": "2024-05-29",
+          "end_date": "2024-07-10",
+          "breakout_confirmed": false,
+          "volume_confirmation": false,
+          "description": "LS=$113.22, Head=$108.25, RS=$108.30, neckline ~$111.92"
+        },
+        {
+          "name": "Head & Shoulders",
+          "direction": "bearish",
+          "confidence": 0.121,
+          "start_date": "2024-02-12",
+          "end_date": "2024-03-28",
+          "breakout_confirmed": false,
+          "volume_confirmation": false,
+          "description": "LS=$97.66, Head=$105.44, RS=$103.41, neckline ~$98.06"
+        }
+      ],
+      "patterns_count": 9,
+      "tech_summary": {
+        "score": 66.3,
+        "band": "good",
+        "confidence": "high_conviction",
+        "confidence_pct": 100.0,
+        "subscores": {
+          "ema_trend": 80.0,
+          "macd_system": 54.0,
+          "rsi_regime": 69.0,
+          "bollinger": 70.0,
+          "volume_obv": 36.0,
+          "adx_stochastic": 53.0,
+          "pattern_recognition": 64.5,
+          "ichimoku": 92.0,
+          "momentum": 60.0,
+          "supertrend": 67.0,
+          "volatility_squeeze": 55.0,
+          "entry_exit_rules": 78.3
+        },
+        "signal_alignment": {
+          "signal_count": 16,
+          "bullish_frameworks": 7,
+          "entry_rules_met": 9,
+          "confidence_pct": 100.0,
+          "confidence_label": "high_conviction"
+        },
+        "risk_management": {
+          "stop_loss": 94.1523,
+          "take_profit_1": 104.3466,
+          "take_profit_2": 106.3854,
+          "risk_per_share": 4.0777,
+          "reward_risk_ratio": 1.5,
+          "atr_pct": 2.08
+        },
+        "frameworks": {
+          "ema_trend": {
+            "applicable": true,
+            "score_pct": 80.0
+          },
+          "macd_system": {
+            "applicable": true,
+            "score_pct": 54.0
+          },
+          "rsi_regime": {
+            "applicable": true,
+            "score_pct": 69.0
+          },
+          "bollinger": {
+            "applicable": true,
+            "score_pct": 70.0
+          },
+          "volume_obv": {
+            "applicable": true,
+            "score_pct": 36.0
+          },
+          "adx_stochastic": {
+            "applicable": true,
+            "score_pct": 53.0
+          },
+          "pattern_recognition": {
+            "applicable": true,
+            "score_pct": 64.5
+          },
+          "ichimoku": {
+            "applicable": true,
+            "score_pct": 92.0
+          },
+          "momentum": {
+            "applicable": true,
+            "score_pct": 60.0
+          },
+          "supertrend": {
+            "applicable": true,
+            "score_pct": 67.0
+          },
+          "volatility_squeeze": {
+            "applicable": true,
+            "score_pct": 55.0
+          },
+          "entry_exit_rules": {
+            "applicable": true,
+            "score_pct": 78.3
+          }
+        },
+        "key_indicators": {
+          "close": 98.23,
+          "ema_9": 97.4265,
+          "ema_20": 96.4756,
+          "ema_21": 96.428,
+          "ema_50": 95.7523,
+          "ema_200": 97.0553,
+          "rsi_14": 59.8,
+          "macd": 0.8365,
+          "macd_histogram": 0.3796,
+          "adx": 16.49,
+          "atr_14": 2.04,
+          "bb_pct_b": 0.7846,
+          "obv_trend": "falling",
+          "ichimoku_tenkan": 97.6928,
+          "ichimoku_kijun": 94.3702,
+          "roc_12": 3.9,
+          "cci_20": 89.63,
+          "cmf_20": 0.1871,
+          "supertrend_direction": 1,
+          "supertrend_line": 92.5177,
+          "stoch_rsi_k": 92.55,
+          "stoch_rsi_d": 94.65,
+          "kc_upper": 100.4276,
+          "kc_lower": 92.5236,
+          "squeeze_on": false,
+          "fibonacci": {
+            "swing_high": 102.36,
+            "swing_low": 85.2,
+            "fib_236": 98.3102,
+            "fib_382": 95.8049,
+            "fib_500": 93.78,
+            "fib_618": 91.7551,
+            "fib_786": 88.8722
+          },
+          "market_structure": "uptrend",
+          "vwap_20": 95.3786,
+          "williams_r_14": -14.76
+        }
+      },
+      "fund_summary": {
+        "score": 65.2,
+        "band": "mixed_positive",
+        "confidence": "high",
+        "subscores": {
+          "financial_health": 79.7,
+          "valuation": 65.0,
+          "quality": 55.0,
+          "growth": 60.0
+        },
+        "data_quality": "high",
+        "coverage_ratio": 1.0,
+        "frameworks": {
+          "piotroski": {
+            "applicable": true,
+            "score_pct": 100.0
+          },
+          "altman": {
+            "applicable": true,
+            "score_pct": 59.4
+          },
+          "graham": {
+            "applicable": true,
+            "score_pct": 50.0
+          },
+          "greenblatt": {
+            "applicable": true,
+            "score_pct": 55.0
+          },
+          "lynch": {
+            "applicable": true,
+            "score_pct": 80.0
+          },
+          "growth_profile": {
+            "applicable": true,
+            "score_pct": 60.0
+          },
+          "shariah": {
+            "applicable": true,
+            "score_pct": null
+          }
+        },
+        "snapshot": {
+          "market_cap_proxy": 2353197880.0,
+          "revenue_current": 1132924000.0,
+          "eps_current": 2.91,
+          "eps_prior": 1.94,
+          "net_income_current": 69791000.0
+        }
+      },
+      "tech_error": null,
+      "fund_error": null,
+      "actual_outcome": {
+        "end_price": 80.53,
+        "end_price_date": "2025-02-28",
+        "price_return_pct": -18.02,
+        "actual_direction": "DOWN",
+        "signal_correct": false
+      },
+      "optimal_exit_analysis": {
+        "optimal_exit_date": "2025-02-20",
+        "optimal_holding_days": 19,
+        "peak_price": 103.46,
+        "peak_return_pct": 5.32,
+        "target_hit": true,
+        "target_hit_date": "2025-02-14",
+        "days_to_target": 13,
+        "stop_hit": true,
+        "stop_hit_date": "2025-02-27",
+        "days_to_stop": 26,
+        "max_drawdown_pct": -18.76
+      }
+    },
+    {
+      "month": "March 2025",
+      "signal_date": "2025-03-01",
+      "result_date": "2025-03-31",
+      "orchestrator_signal": "neutral",
+      "orchestrator_score": 50.0,
+      "final_confidence": 0.3,
+      "conflict_detected": true,
+      "conflict_resolution": "Conflict: TA bearish vs FA bullish with similar confidence \u2192 abstain",
+      "weights_applied": {
+        "tech": 0.5,
+        "fund": 0.5
+      },
+      "trade_setup": null,
+      "patterns_detected": [
+        {
+          "name": "Double Top",
+          "direction": "bearish",
+          "confidence": 0.703,
+          "start_date": "2024-12-17",
+          "end_date": "2025-02-19",
+          "breakout_confirmed": true,
+          "volume_confirmation": true,
+          "description": "Two peaks at ~$99.72 & $101.87, neckline $92.01, breakdown confirmed"
+        },
+        {
+          "name": "Cup & Handle",
+          "direction": "bullish",
+          "confidence": 0.426,
+          "start_date": "2024-08-29",
+          "end_date": "2024-11-19",
+          "breakout_confirmed": false,
+          "volume_confirmation": false,
+          "description": "Cup depth 13.7%, rim ~$99.17, handle present"
+        },
+        {
+          "name": "Ascending Triangle",
+          "direction": "bullish",
+          "confidence": 0.421,
+          "start_date": "2024-11-06",
+          "end_date": "2024-12-16",
+          "breakout_confirmed": false,
+          "volume_confirmation": false,
+          "description": "Flat resistance ~$101.27 (4 touches), rising lows"
+        },
+        {
+          "name": "Bull Flag",
+          "direction": "bullish",
+          "confidence": 0.417,
+          "start_date": "2024-10-22",
+          "end_date": "2024-11-15",
+          "breakout_confirmed": false,
+          "volume_confirmation": false,
+          "description": "Pole +16.2% in 13 bars, flag range ratio 0.35"
+        },
+        {
+          "name": "Bull Flag",
+          "direction": "bullish",
+          "confidence": 0.417,
+          "start_date": "2024-10-28",
+          "end_date": "2024-11-15",
+          "breakout_confirmed": false,
+          "volume_confirmation": false,
+          "description": "Pole +15.2% in 9 bars, flag range ratio 0.36"
+        },
+        {
+          "name": "Bull Flag",
+          "direction": "bullish",
+          "confidence": 0.414,
+          "start_date": "2024-10-25",
+          "end_date": "2024-11-15",
+          "breakout_confirmed": false,
+          "volume_confirmation": false,
+          "description": "Pole +16.4% in 10 bars, flag range ratio 0.36"
+        },
+        {
+          "name": "Cup & Handle",
+          "direction": "bullish",
+          "confidence": 0.4,
+          "start_date": "2024-04-09",
+          "end_date": "2024-11-19",
+          "breakout_confirmed": false,
+          "volume_confirmation": false,
+          "description": "Cup depth 13.2%, rim ~$104.74, handle present"
+        },
+        {
+          "name": "Double Bottom",
+          "direction": "bullish",
+          "confidence": 0.22,
+          "start_date": "2024-08-05",
+          "end_date": "2024-09-11",
+          "breakout_confirmed": false,
+          "volume_confirmation": false,
+          "description": "Two lows at ~$94.45 & $92.43, neckline $96.74"
+        },
+        {
+          "name": "Inverse Head & Shoulders",
+          "direction": "bullish",
+          "confidence": 0.167,
+          "start_date": "2024-05-29",
+          "end_date": "2024-07-10",
+          "breakout_confirmed": false,
+          "volume_confirmation": false,
+          "description": "LS=$113.22, Head=$108.25, RS=$108.30, neckline ~$111.92"
+        }
+      ],
+      "patterns_count": 9,
+      "tech_summary": {
+        "score": 30.7,
+        "band": "weak",
+        "confidence": "strong",
+        "confidence_pct": 65.0,
+        "subscores": {
+          "ema_trend": 0.0,
+          "macd_system": 13.0,
+          "rsi_regime": 18.0,
+          "bollinger": 56.0,
+          "volume_obv": 33.0,
+          "adx_stochastic": 42.0,
+          "pattern_recognition": 53.5,
+          "ichimoku": 18.0,
+          "momentum": 56.0,
+          "supertrend": 65.0,
+          "volatility_squeeze": 35.0,
+          "entry_exit_rules": 36.7
+        },
+        "signal_alignment": {
+          "signal_count": 7,
+          "bullish_frameworks": 1,
+          "entry_rules_met": 6,
+          "confidence_pct": 65.0,
+          "confidence_label": "strong"
+        },
+        "risk_management": {
+          "stop_loss": 74.0571,
+          "take_profit_1": 90.2394,
+          "take_profit_2": 93.4759,
+          "risk_per_share": 6.4729,
+          "reward_risk_ratio": 1.5,
+          "atr_pct": 4.02
+        },
+        "frameworks": {
+          "ema_trend": {
+            "applicable": true,
+            "score_pct": 0.0
+          },
+          "macd_system": {
+            "applicable": true,
+            "score_pct": 13.0
+          },
+          "rsi_regime": {
+            "applicable": true,
+            "score_pct": 18.0
+          },
+          "bollinger": {
+            "applicable": true,
+            "score_pct": 56.0
+          },
+          "volume_obv": {
+            "applicable": true,
+            "score_pct": 33.0
+          },
+          "adx_stochastic": {
+            "applicable": true,
+            "score_pct": 42.0
+          },
+          "pattern_recognition": {
+            "applicable": true,
+            "score_pct": 53.5
+          },
+          "ichimoku": {
+            "applicable": true,
+            "score_pct": 18.0
+          },
+          "momentum": {
+            "applicable": true,
+            "score_pct": 56.0
+          },
+          "supertrend": {
+            "applicable": true,
+            "score_pct": 65.0
+          },
+          "volatility_squeeze": {
+            "applicable": true,
+            "score_pct": 35.0
+          },
+          "entry_exit_rules": {
+            "applicable": true,
+            "score_pct": 36.7
+          }
+        },
+        "key_indicators": {
+          "close": 80.53,
+          "ema_9": 92.7735,
+          "ema_20": 96.1095,
+          "ema_21": 96.2132,
+          "ema_50": 96.6981,
+          "ema_200": 97.8789,
+          "rsi_14": 20.17,
+          "macd": -2.213,
+          "macd_histogram": -2.393,
+          "adx": 27.62,
+          "atr_14": 3.24,
+          "bb_pct_b": -0.2082,
+          "obv_trend": "falling",
+          "ichimoku_tenkan": 91.565,
+          "ichimoku_kijun": 91.565,
+          "roc_12": -19.94,
+          "cci_20": -346.47,
+          "cmf_20": 0.0344,
+          "supertrend_direction": -1,
+          "supertrend_line": 90.5751,
+          "stoch_rsi_k": 3.94,
+          "stoch_rsi_d": 3.09,
+          "kc_upper": 103.4129,
+          "kc_lower": 88.8061,
+          "squeeze_on": false,
+          "fibonacci": {
+            "swing_high": 104.51,
+            "swing_low": 78.62,
+            "fib_236": 98.4,
+            "fib_382": 94.62,
+            "fib_500": 91.565,
+            "fib_618": 88.51,
+            "fib_786": 84.1605
+          },
+          "market_structure": "uptrend",
+          "vwap_20": 95.7075,
+          "williams_r_14": -92.62
+        }
+      },
+      "fund_summary": {
+        "score": 69.3,
+        "band": "mixed_positive",
+        "confidence": "high",
+        "subscores": {
+          "financial_health": 67.7,
+          "valuation": 70.0,
+          "quality": 77.5,
+          "growth": 60.0
+        },
+        "data_quality": "high",
+        "coverage_ratio": 1.0,
+        "frameworks": {
+          "piotroski": {
+            "applicable": true,
+            "score_pct": 75.0
+          },
+          "altman": {
+            "applicable": true,
+            "score_pct": 60.3
+          },
+          "graham": {
+            "applicable": true,
+            "score_pct": 40.0
+          },
+          "greenblatt": {
+            "applicable": true,
+            "score_pct": 77.5
+          },
+          "lynch": {
+            "applicable": true,
+            "score_pct": 100.0
+          },
+          "growth_profile": {
+            "applicable": true,
+            "score_pct": 60.0
+          },
+          "shariah": {
+            "applicable": true,
+            "score_pct": null
+          }
+        },
+        "snapshot": {
+          "market_cap_proxy": 1943994200.0,
+          "revenue_current": 1219930000.0,
+          "eps_current": 4.67,
+          "eps_prior": 2.91,
+          "net_income_current": 112684000.0
+        }
+      },
+      "tech_error": null,
+      "fund_error": null,
+      "actual_outcome": {
+        "end_price": 83.96,
+        "end_price_date": "2025-03-31",
+        "price_return_pct": 4.26,
+        "actual_direction": "UP",
+        "signal_correct": null
+      },
+      "optimal_exit_analysis": null
+    },
+    {
+      "month": "April 2025",
+      "signal_date": "2025-04-01",
+      "result_date": "2025-04-30",
+      "orchestrator_signal": "bullish",
+      "orchestrator_score": 66.4,
+      "final_confidence": 0.022,
+      "conflict_detected": false,
+      "conflict_resolution": null,
+      "weights_applied": {
+        "tech": 0.15,
+        "fund": 0.85
+      },
+      "trade_setup": {
+        "direction": "LONG",
+        "entry_date": "2025-04-01",
+        "exit_date_est": "2025-04-15",
+        "result_date": "2025-04-30",
+        "entry_price": 84.82,
+        "target_price": 89.3,
+        "stop_loss": 81.46,
+        "expected_profit_pct": 5.28,
+        "risk_pct": 3.96,
+        "reward_risk_ratio": 1.33,
+        "confidence_score": 66.4,
+        "final_confidence": 0.022,
+        "profit_probability": 40.0,
+        "trade_duration_days": 10,
+        "atr_at_entry": 2.24,
+        "rsi_at_entry": 47.4,
+        "adx_at_entry": 29.43,
+        "transaction_cost_pct": 0.1,
+        "slippage_pct": 0.05,
+        "total_friction_pct": 0.2,
+        "net_expected_profit_pct": 5.08,
+        "signal_alignment": {
+          "signal_count": 10,
+          "bullish_frameworks": 3,
+          "entry_rules_met": 7,
+          "confidence_pct": 80.0,
+          "confidence_label": "high_conviction"
+        }
+      },
+      "patterns_detected": [
+        {
+          "name": "Double Top",
+          "direction": "bearish",
+          "confidence": 0.54,
+          "start_date": "2024-12-17",
+          "end_date": "2025-02-19",
+          "breakout_confirmed": true,
+          "volume_confirmation": false,
+          "description": "Two peaks at ~$99.72 & $101.87, neckline $92.01, breakdown confirmed"
+        },
+        {
+          "name": "Cup & Handle",
+          "direction": "bullish",
+          "confidence": 0.413,
+          "start_date": "2024-08-29",
+          "end_date": "2024-11-19",
+          "breakout_confirmed": false,
+          "volume_confirmation": false,
+          "description": "Cup depth 13.7%, rim ~$99.17, handle present"
+        },
+        {
+          "name": "Ascending Triangle",
+          "direction": "bullish",
+          "confidence": 0.408,
+          "start_date": "2024-11-06",
+          "end_date": "2024-12-16",
+          "breakout_confirmed": false,
+          "volume_confirmation": false,
+          "description": "Flat resistance ~$101.27 (4 touches), rising lows"
+        },
+        {
+          "name": "Bull Flag",
+          "direction": "bullish",
+          "confidence": 0.404,
+          "start_date": "2024-10-22",
+          "end_date": "2024-11-15",
+          "breakout_confirmed": false,
+          "volume_confirmation": false,
+          "description": "Pole +16.2% in 13 bars, flag range ratio 0.35"
+        },
+        {
+          "name": "Bull Flag",
+          "direction": "bullish",
+          "confidence": 0.404,
+          "start_date": "2024-10-28",
+          "end_date": "2024-11-15",
+          "breakout_confirmed": false,
+          "volume_confirmation": false,
+          "description": "Pole +15.2% in 9 bars, flag range ratio 0.36"
+        },
+        {
+          "name": "Bull Flag",
+          "direction": "bullish",
+          "confidence": 0.401,
+          "start_date": "2024-11-01",
+          "end_date": "2024-11-15",
+          "breakout_confirmed": false,
+          "volume_confirmation": false,
+          "description": "Pole +15.3% in 5 bars, flag range ratio 0.36"
+        },
+        {
+          "name": "Cup & Handle",
+          "direction": "bullish",
+          "confidence": 0.386,
+          "start_date": "2024-04-09",
+          "end_date": "2024-11-19",
+          "breakout_confirmed": false,
+          "volume_confirmation": false,
+          "description": "Cup depth 13.2%, rim ~$104.74, handle present"
+        },
+        {
+          "name": "Double Bottom",
+          "direction": "bullish",
+          "confidence": 0.207,
+          "start_date": "2024-08-05",
+          "end_date": "2024-09-11",
+          "breakout_confirmed": false,
+          "volume_confirmation": false,
+          "description": "Two lows at ~$94.45 & $92.43, neckline $96.74"
+        },
+        {
+          "name": "Inverse Head & Shoulders",
+          "direction": "bullish",
+          "confidence": 0.153,
+          "start_date": "2024-05-29",
+          "end_date": "2024-07-10",
+          "breakout_confirmed": false,
+          "volume_confirmation": false,
+          "description": "LS=$113.22, Head=$108.25, RS=$108.30, neckline ~$111.92"
+        }
+      ],
+      "patterns_count": 9,
+      "tech_summary": {
+        "score": 49.1,
+        "band": "mixed",
+        "confidence": "high_conviction",
+        "confidence_pct": 80.0,
+        "subscores": {
+          "ema_trend": 22.0,
+          "macd_system": 43.0,
+          "rsi_regime": 71.0,
+          "bollinger": 59.0,
+          "volume_obv": 89.0,
+          "adx_stochastic": 52.0,
+          "pattern_recognition": 56.2,
+          "ichimoku": 0.0,
+          "momentum": 75.0,
+          "supertrend": 45.0,
+          "volatility_squeeze": 55.0,
+          "entry_exit_rules": 55.0
+        },
+        "signal_alignment": {
+          "signal_count": 10,
+          "bullish_frameworks": 3,
+          "entry_rules_met": 7,
+          "confidence_pct": 80.0,
+          "confidence_label": "high_conviction"
+        },
+        "risk_management": {
+          "stop_loss": 80.3455,
+          "take_profit_1": 91.5317,
+          "take_profit_2": 93.7689,
+          "risk_per_share": 4.4745,
+          "reward_risk_ratio": 1.5,
+          "atr_pct": 2.64
+        },
+        "frameworks": {
+          "ema_trend": {
+            "applicable": true,
+            "score_pct": 22.0
+          },
+          "macd_system": {
+            "applicable": true,
+            "score_pct": 43.0
+          },
+          "rsi_regime": {
+            "applicable": true,
+            "score_pct": 71.0
+          },
+          "bollinger": {
+            "applicable": true,
+            "score_pct": 59.0
+          },
+          "volume_obv": {
+            "applicable": true,
+            "score_pct": 89.0
+          },
+          "adx_stochastic": {
+            "applicable": true,
+            "score_pct": 52.0
+          },
+          "pattern_recognition": {
+            "applicable": true,
+            "score_pct": 56.2
+          },
+          "ichimoku": {
+            "applicable": true,
+            "score_pct": 0.0
+          },
+          "momentum": {
+            "applicable": true,
+            "score_pct": 75.0
+          },
+          "supertrend": {
+            "applicable": true,
+            "score_pct": 45.0
+          },
+          "volatility_squeeze": {
+            "applicable": true,
+            "score_pct": 55.0
+          },
+          "entry_exit_rules": {
+            "applicable": true,
+            "score_pct": 55.0
+          }
+        },
+        "key_indicators": {
+          "close": 84.82,
+          "ema_9": 84.0439,
+          "ema_20": 84.5425,
+          "ema_21": 84.6787,
+          "ema_50": 88.4398,
+          "ema_200": 95.5407,
+          "rsi_14": 47.4,
+          "macd": -1.5118,
+          "macd_histogram": 1.0209,
+          "adx": 29.43,
+          "atr_14": 2.24,
+          "bb_pct_b": 0.7992,
+          "obv_trend": "rising",
+          "ichimoku_tenkan": 83.495,
+          "ichimoku_kijun": 88.7275,
+          "roc_12": 6.16,
+          "cci_20": 90.08,
+          "cmf_20": 0.0526,
+          "supertrend_direction": -1,
+          "supertrend_line": 88.0705,
+          "stoch_rsi_k": 83.54,
+          "stoch_rsi_d": 89.92,
+          "kc_upper": 88.8182,
+          "kc_lower": 80.2669,
+          "squeeze_on": false,
+          "fibonacci": {
+            "swing_high": 104.51,
+            "swing_low": 78.43,
+            "fib_236": 98.3551,
+            "fib_382": 94.5474,
+            "fib_500": 91.47,
+            "fib_618": 88.3926,
+            "fib_786": 84.0111
+          },
+          "market_structure": "uptrend",
+          "vwap_20": 82.2337,
+          "williams_r_14": -20.03
+        }
+      },
+      "fund_summary": {
+        "score": 69.4,
+        "band": "mixed_positive",
+        "confidence": "high",
+        "subscores": {
+          "financial_health": 68.0,
+          "valuation": 70.0,
+          "quality": 77.5,
+          "growth": 60.0
+        },
+        "data_quality": "high",
+        "coverage_ratio": 1.0,
+        "frameworks": {
+          "piotroski": {
+            "applicable": true,
+            "score_pct": 75.0
+          },
+          "altman": {
+            "applicable": true,
+            "score_pct": 61.1
+          },
+          "graham": {
+            "applicable": true,
+            "score_pct": 40.0
+          },
+          "greenblatt": {
+            "applicable": true,
+            "score_pct": 77.5
+          },
+          "lynch": {
+            "applicable": true,
+            "score_pct": 100.0
+          },
+          "growth_profile": {
+            "applicable": true,
+            "score_pct": 60.0
+          },
+          "shariah": {
+            "applicable": true,
+            "score_pct": null
+          }
+        },
+        "snapshot": {
+          "market_cap_proxy": 2047554800.0,
+          "revenue_current": 1219930000.0,
+          "eps_current": 4.67,
+          "eps_prior": 2.91,
+          "net_income_current": 112684000.0
+        }
+      },
+      "tech_error": null,
+      "fund_error": null,
+      "actual_outcome": {
+        "end_price": 81.58,
+        "end_price_date": "2025-04-30",
+        "price_return_pct": -3.82,
+        "actual_direction": "DOWN",
+        "signal_correct": false
+      },
+      "optimal_exit_analysis": {
+        "optimal_exit_date": "2025-04-02",
+        "optimal_holding_days": 1,
+        "peak_price": 85.52,
+        "peak_return_pct": 0.83,
+        "target_hit": false,
+        "target_hit_date": null,
+        "days_to_target": null,
+        "stop_hit": true,
+        "stop_hit_date": "2025-04-04",
+        "days_to_stop": 3,
+        "max_drawdown_pct": -9.11
+      }
+    },
+    {
+      "month": "May 2025",
+      "signal_date": "2025-05-01",
+      "result_date": "2025-05-31",
+      "orchestrator_signal": "bullish",
+      "orchestrator_score": 63.1,
+      "final_confidence": 0.207,
+      "conflict_detected": false,
+      "conflict_resolution": null,
+      "weights_applied": {
+        "tech": 0.45,
+        "fund": 0.55
+      },
+      "trade_setup": {
+        "direction": "LONG",
+        "entry_date": "2025-05-01",
+        "exit_date_est": "2025-05-15",
+        "result_date": "2025-05-31",
+        "entry_price": 81.29,
+        "target_price": 87.17,
+        "stop_loss": 76.88,
+        "expected_profit_pct": 7.23,
+        "risk_pct": 5.43,
+        "reward_risk_ratio": 1.33,
+        "confidence_score": 63.1,
+        "final_confidence": 0.207,
+        "profit_probability": 40.0,
+        "trade_duration_days": 10,
+        "atr_at_entry": 2.94,
+        "rsi_at_entry": 50.12,
+        "adx_at_entry": 29.02,
+        "transaction_cost_pct": 0.1,
+        "slippage_pct": 0.05,
+        "total_friction_pct": 0.2,
+        "net_expected_profit_pct": 7.03,
+        "signal_alignment": {
+          "signal_count": 12,
+          "bullish_frameworks": 6,
+          "entry_rules_met": 6,
+          "confidence_pct": 88.0,
+          "confidence_label": "high_conviction"
+        }
+      },
+      "patterns_detected": [
+        {
+          "name": "Double Top",
+          "direction": "bearish",
+          "confidence": 0.528,
+          "start_date": "2024-12-17",
+          "end_date": "2025-02-19",
+          "breakout_confirmed": true,
+          "volume_confirmation": false,
+          "description": "Two peaks at ~$99.72 & $101.87, neckline $92.01, breakdown confirmed"
+        },
+        {
+          "name": "Cup & Handle",
+          "direction": "bullish",
+          "confidence": 0.4,
+          "start_date": "2024-08-29",
+          "end_date": "2024-11-19",
+          "breakout_confirmed": false,
+          "volume_confirmation": false,
+          "description": "Cup depth 13.7%, rim ~$99.17, handle present"
+        },
+        {
+          "name": "Ascending Triangle",
+          "direction": "bullish",
+          "confidence": 0.395,
+          "start_date": "2024-11-06",
+          "end_date": "2024-12-16",
+          "breakout_confirmed": false,
+          "volume_confirmation": false,
+          "description": "Flat resistance ~$101.27 (4 touches), rising lows"
+        },
+        {
+          "name": "Bull Flag",
+          "direction": "bullish",
+          "confidence": 0.392,
+          "start_date": "2024-10-22",
+          "end_date": "2024-11-15",
+          "breakout_confirmed": false,
+          "volume_confirmation": false,
+          "description": "Pole +16.2% in 13 bars, flag range ratio 0.35"
+        },
+        {
+          "name": "Bull Flag",
+          "direction": "bullish",
+          "confidence": 0.391,
+          "start_date": "2024-10-28",
+          "end_date": "2024-11-15",
+          "breakout_confirmed": false,
+          "volume_confirmation": false,
+          "description": "Pole +15.2% in 9 bars, flag range ratio 0.36"
+        },
+        {
+          "name": "Bull Flag",
+          "direction": "bullish",
+          "confidence": 0.389,
+          "start_date": "2024-11-01",
+          "end_date": "2024-11-15",
+          "breakout_confirmed": false,
+          "volume_confirmation": false,
+          "description": "Pole +15.3% in 5 bars, flag range ratio 0.36"
+        },
+        {
+          "name": "Cup (no handle)",
+          "direction": "bullish",
+          "confidence": 0.337,
+          "start_date": "2024-12-16",
+          "end_date": "2025-02-21",
+          "breakout_confirmed": false,
+          "volume_confirmation": false,
+          "description": "Cup depth 12.8%, rim ~$102.36"
+        },
+        {
+          "name": "Double Bottom",
+          "direction": "bullish",
+          "confidence": 0.195,
+          "start_date": "2024-08-05",
+          "end_date": "2024-09-11",
+          "breakout_confirmed": false,
+          "volume_confirmation": false,
+          "description": "Two lows at ~$94.45 & $92.43, neckline $96.74"
+        },
+        {
+          "name": "Inverse Head & Shoulders",
+          "direction": "bullish",
+          "confidence": 0.141,
+          "start_date": "2024-05-29",
+          "end_date": "2024-07-10",
+          "breakout_confirmed": false,
+          "volume_confirmation": false,
+          "description": "LS=$113.22, Head=$108.25, RS=$108.30, neckline ~$111.92"
+        }
+      ],
+      "patterns_count": 9,
+      "tech_summary": {
+        "score": 55.5,
+        "band": "mixed_positive",
+        "confidence": "high_conviction",
+        "confidence_pct": 88.0,
+        "subscores": {
+          "ema_trend": 22.0,
+          "macd_system": 56.0,
+          "rsi_regime": 95.0,
+          "bollinger": 69.0,
+          "volume_obv": 67.0,
+          "adx_stochastic": 68.0,
+          "pattern_recognition": 55.7,
+          "ichimoku": 20.0,
+          "momentum": 75.0,
+          "supertrend": 45.0,
+          "volatility_squeeze": 70.0,
+          "entry_exit_rules": 46.7
+        },
+        "signal_alignment": {
+          "signal_count": 12,
+          "bullish_frameworks": 6,
+          "entry_rules_met": 6,
+          "confidence_pct": 88.0,
+          "confidence_label": "high_conviction"
+        },
+        "risk_management": {
+          "stop_loss": 75.4187,
+          "take_profit_1": 90.0969,
+          "take_profit_2": 93.0326,
+          "risk_per_share": 5.8713,
+          "reward_risk_ratio": 1.5,
+          "atr_pct": 3.61
+        },
+        "frameworks": {
+          "ema_trend": {
+            "applicable": true,
+            "score_pct": 22.0
+          },
+          "macd_system": {
+            "applicable": true,
+            "score_pct": 56.0
+          },
+          "rsi_regime": {
+            "applicable": true,
+            "score_pct": 95.0
+          },
+          "bollinger": {
+            "applicable": true,
+            "score_pct": 69.0
+          },
+          "volume_obv": {
+            "applicable": true,
+            "score_pct": 67.0
+          },
+          "adx_stochastic": {
+            "applicable": true,
+            "score_pct": 68.0
+          },
+          "pattern_recognition": {
+            "applicable": true,
+            "score_pct": 55.7
+          },
+          "ichimoku": {
+            "applicable": true,
+            "score_pct": 20.0
+          },
+          "momentum": {
+            "applicable": true,
+            "score_pct": 75.0
+          },
+          "supertrend": {
+            "applicable": true,
+            "score_pct": 45.0
+          },
+          "volatility_squeeze": {
+            "applicable": true,
+            "score_pct": 70.0
+          },
+          "entry_exit_rules": {
+            "applicable": true,
+            "score_pct": 46.7
+          }
+        },
+        "key_indicators": {
+          "close": 81.29,
+          "ema_9": 80.7045,
+          "ema_20": 80.7223,
+          "ema_21": 80.7816,
+          "ema_50": 83.649,
+          "ema_200": 93.1315,
+          "rsi_14": 50.12,
+          "macd": -0.6024,
+          "macd_histogram": 0.5989,
+          "adx": 29.02,
+          "atr_14": 2.94,
+          "bb_pct_b": 0.7434,
+          "obv_trend": "rising",
+          "ichimoku_tenkan": 82.505,
+          "ichimoku_kijun": 81.1375,
+          "roc_12": 5.22,
+          "cci_20": 89.4,
+          "cmf_20": -0.0391,
+          "supertrend_direction": -1,
+          "supertrend_line": 86.1106,
+          "stoch_rsi_k": 90.77,
+          "stoch_rsi_d": 93.97,
+          "kc_upper": 86.5798,
+          "kc_lower": 74.8647,
+          "squeeze_on": true,
+          "fibonacci": {
+            "swing_high": 104.51,
+            "swing_low": 74.275,
+            "fib_236": 97.3745,
+            "fib_382": 92.9602,
+            "fib_500": 89.3925,
+            "fib_618": 85.8248,
+            "fib_786": 80.7453
+          },
+          "market_structure": "uptrend",
+          "vwap_20": 79.7635,
+          "williams_r_14": -48.89
+        }
+      },
+      "fund_summary": {
+        "score": 69.3,
+        "band": "mixed_positive",
+        "confidence": "high",
+        "subscores": {
+          "financial_health": 67.7,
+          "valuation": 70.0,
+          "quality": 77.5,
+          "growth": 60.0
+        },
+        "data_quality": "high",
+        "coverage_ratio": 1.0,
+        "frameworks": {
+          "piotroski": {
+            "applicable": true,
+            "score_pct": 75.0
+          },
+          "altman": {
+            "applicable": true,
+            "score_pct": 60.4
+          },
+          "graham": {
+            "applicable": true,
+            "score_pct": 40.0
+          },
+          "greenblatt": {
+            "applicable": true,
+            "score_pct": 77.5
+          },
+          "lynch": {
+            "applicable": true,
+            "score_pct": 100.0
+          },
+          "growth_profile": {
+            "applicable": true,
+            "score_pct": 60.0
+          },
+          "shariah": {
+            "applicable": true,
+            "score_pct": null
+          }
+        },
+        "snapshot": {
+          "market_cap_proxy": 1962340600.0,
+          "revenue_current": 1219930000.0,
+          "eps_current": 4.67,
+          "eps_prior": 2.91,
+          "net_income_current": 112684000.0
+        }
+      },
+      "tech_error": null,
+      "fund_error": null,
+      "actual_outcome": {
+        "end_price": 91.23,
+        "end_price_date": "2025-05-30",
+        "price_return_pct": 12.23,
+        "actual_direction": "UP",
+        "signal_correct": true
+      },
+      "optimal_exit_analysis": {
+        "optimal_exit_date": "2025-05-30",
+        "optimal_holding_days": 29,
+        "peak_price": 91.23,
+        "peak_return_pct": 12.23,
+        "target_hit": true,
+        "target_hit_date": "2025-05-05",
+        "days_to_target": 4,
+        "stop_hit": false,
+        "stop_hit_date": null,
+        "days_to_stop": null,
+        "max_drawdown_pct": 0.0
+      }
+    },
+    {
+      "month": "June 2025",
+      "signal_date": "2025-06-01",
+      "result_date": "2025-06-30",
+      "orchestrator_signal": "bullish",
+      "orchestrator_score": 72.9,
+      "final_confidence": 0.097,
+      "conflict_detected": false,
+      "conflict_resolution": null,
+      "weights_applied": {
+        "tech": 0.45,
+        "fund": 0.55
+      },
+      "trade_setup": {
+        "direction": "LONG",
+        "entry_date": "2025-06-01",
+        "exit_date_est": "2025-06-16",
+        "result_date": "2025-06-30",
+        "entry_price": 91.23,
+        "target_price": 95.51,
+        "stop_loss": 88.02,
+        "expected_profit_pct": 4.69,
+        "risk_pct": 3.52,
+        "reward_risk_ratio": 1.33,
+        "confidence_score": 72.9,
+        "final_confidence": 0.097,
+        "profit_probability": 40.0,
+        "trade_duration_days": 11,
+        "atr_at_entry": 2.14,
+        "rsi_at_entry": 65.92,
+        "adx_at_entry": 36.07,
+        "transaction_cost_pct": 0.1,
+        "slippage_pct": 0.05,
+        "total_friction_pct": 0.2,
+        "net_expected_profit_pct": 4.49,
+        "signal_alignment": {
+          "signal_count": 18,
+          "bullish_frameworks": 8,
+          "entry_rules_met": 10,
+          "confidence_pct": 100.0,
+          "confidence_label": "high_conviction"
+        }
+      },
+      "patterns_detected": [
+        {
+          "name": "Cup (no handle)",
+          "direction": "bullish",
+          "confidence": 0.535,
+          "start_date": "2024-10-15",
+          "end_date": "2025-03-27",
+          "breakout_confirmed": true,
+          "volume_confirmation": false,
+          "description": "Cup depth 12.6%, rim ~$89.70, breakout confirmed"
+        },
+        {
+          "name": "Double Top",
+          "direction": "bearish",
+          "confidence": 0.516,
+          "start_date": "2024-12-17",
+          "end_date": "2025-02-19",
+          "breakout_confirmed": true,
+          "volume_confirmation": false,
+          "description": "Two peaks at ~$99.72 & $101.87, neckline $92.01, breakdown confirmed"
+        },
+        {
+          "name": "Cup & Handle",
+          "direction": "bullish",
+          "confidence": 0.467,
+          "start_date": "2025-01-02",
+          "end_date": "2025-05-14",
+          "breakout_confirmed": false,
+          "volume_confirmation": false,
+          "description": "Cup depth 17.0%, rim ~$94.50, handle present"
+        },
+        {
+          "name": "Bull Flag",
+          "direction": "bullish",
+          "confidence": 0.414,
+          "start_date": "2025-04-15",
+          "end_date": "2025-05-14",
+          "breakout_confirmed": false,
+          "volume_confirmation": false,
+          "description": "Pole +12.5% in 15 bars, flag range ratio 0.34"
+        },
+        {
+          "name": "Bull Flag",
+          "direction": "bullish",
+          "confidence": 0.397,
+          "start_date": "2025-04-14",
+          "end_date": "2025-05-13",
+          "breakout_confirmed": false,
+          "volume_confirmation": false,
+          "description": "Pole +13.7% in 15 bars, flag range ratio 0.43"
+        },
+        {
+          "name": "Bull Flag",
+          "direction": "bullish",
+          "confidence": 0.396,
+          "start_date": "2025-04-16",
+          "end_date": "2025-05-14",
+          "breakout_confirmed": false,
+          "volume_confirmation": false,
+          "description": "Pole +12.3% in 14 bars, flag range ratio 0.38"
+        },
+        {
+          "name": "Ascending Triangle",
+          "direction": "bullish",
+          "confidence": 0.383,
+          "start_date": "2024-11-06",
+          "end_date": "2024-12-16",
+          "breakout_confirmed": false,
+          "volume_confirmation": false,
+          "description": "Flat resistance ~$101.27 (4 touches), rising lows"
+        },
+        {
+          "name": "Double Bottom",
+          "direction": "bullish",
+          "confidence": 0.183,
+          "start_date": "2024-08-05",
+          "end_date": "2024-09-11",
+          "breakout_confirmed": false,
+          "volume_confirmation": false,
+          "description": "Two lows at ~$94.45 & $92.43, neckline $96.74"
+        }
+      ],
+      "patterns_count": 8,
+      "tech_summary": {
+        "score": 77.1,
+        "band": "strong",
+        "confidence": "high_conviction",
+        "confidence_pct": 100.0,
+        "subscores": {
+          "ema_trend": 50.0,
+          "macd_system": 100.0,
+          "rsi_regime": 95.0,
+          "bollinger": 59.0,
+          "volume_obv": 94.0,
+          "adx_stochastic": 68.0,
+          "pattern_recognition": 59.0,
+          "ichimoku": 100.0,
+          "momentum": 60.0,
+          "supertrend": 78.0,
+          "volatility_squeeze": 70.0,
+          "entry_exit_rules": 85.0
+        },
+        "signal_alignment": {
+          "signal_count": 18,
+          "bullish_frameworks": 8,
+          "entry_rules_met": 10,
+          "confidence_pct": 100.0,
+          "confidence_label": "high_conviction"
+        },
+        "risk_management": {
+          "stop_loss": 86.9462,
+          "take_profit_1": 97.6557,
+          "take_profit_2": 99.7976,
+          "risk_per_share": 4.2838,
+          "reward_risk_ratio": 1.5,
+          "atr_pct": 2.35
+        },
+        "frameworks": {
+          "ema_trend": {
+            "applicable": true,
+            "score_pct": 50.0
+          },
+          "macd_system": {
+            "applicable": true,
+            "score_pct": 100.0
+          },
+          "rsi_regime": {
+            "applicable": true,
+            "score_pct": 95.0
+          },
+          "bollinger": {
+            "applicable": true,
+            "score_pct": 59.0
+          },
+          "volume_obv": {
+            "applicable": true,
+            "score_pct": 94.0
+          },
+          "adx_stochastic": {
+            "applicable": true,
+            "score_pct": 68.0
+          },
+          "pattern_recognition": {
+            "applicable": true,
+            "score_pct": 59.0
+          },
+          "ichimoku": {
+            "applicable": true,
+            "score_pct": 100.0
+          },
+          "momentum": {
+            "applicable": true,
+            "score_pct": 60.0
+          },
+          "supertrend": {
+            "applicable": true,
+            "score_pct": 78.0
+          },
+          "volatility_squeeze": {
+            "applicable": true,
+            "score_pct": 70.0
+          },
+          "entry_exit_rules": {
+            "applicable": true,
+            "score_pct": 85.0
+          }
+        },
+        "key_indicators": {
+          "close": 91.23,
+          "ema_9": 89.5603,
+          "ema_20": 88.0962,
+          "ema_21": 87.9726,
+          "ema_50": 86.5788,
+          "ema_200": 92.5768,
+          "rsi_14": 65.92,
+          "macd": 1.7444,
+          "macd_histogram": 0.0163,
+          "adx": 36.07,
+          "atr_14": 2.14,
+          "bb_pct_b": 0.9025,
+          "obv_trend": "rising",
+          "ichimoku_tenkan": 88.865,
+          "ichimoku_kijun": 85.095,
+          "roc_12": 2.21,
+          "cci_20": 125.97,
+          "cmf_20": 0.2773,
+          "supertrend_direction": 1,
+          "supertrend_line": 84.5695,
+          "stoch_rsi_k": 64.93,
+          "stoch_rsi_d": 50.76,
+          "kc_upper": 92.0932,
+          "kc_lower": 84.0992,
+          "squeeze_on": true,
+          "fibonacci": {
+            "swing_high": 91.61,
+            "swing_low": 74.275,
+            "fib_236": 87.5189,
+            "fib_382": 84.988,
+            "fib_500": 82.9425,
+            "fib_618": 80.897,
+            "fib_786": 77.9847
+          },
+          "market_structure": "uptrend",
+          "vwap_20": 88.4566,
+          "williams_r_14": -6.92
+        }
+      },
+      "fund_summary": {
+        "score": 69.5,
+        "band": "mixed_positive",
+        "confidence": "high",
+        "subscores": {
+          "financial_health": 68.7,
+          "valuation": 70.0,
+          "quality": 77.5,
+          "growth": 60.0
+        },
+        "data_quality": "high",
+        "coverage_ratio": 1.0,
+        "frameworks": {
+          "piotroski": {
+            "applicable": true,
+            "score_pct": 75.0
+          },
+          "altman": {
+            "applicable": true,
+            "score_pct": 62.3
+          },
+          "graham": {
+            "applicable": true,
+            "score_pct": 40.0
+          },
+          "greenblatt": {
+            "applicable": true,
+            "score_pct": 77.5
+          },
+          "lynch": {
+            "applicable": true,
+            "score_pct": 100.0
+          },
+          "growth_profile": {
+            "applicable": true,
+            "score_pct": 60.0
+          },
+          "shariah": {
+            "applicable": true,
+            "score_pct": null
+          }
+        },
+        "snapshot": {
+          "market_cap_proxy": 2202292200.0,
+          "revenue_current": 1219930000.0,
+          "eps_current": 4.67,
+          "eps_prior": 2.91,
+          "net_income_current": 112684000.0
+        }
+      },
+      "tech_error": null,
+      "fund_error": null,
+      "actual_outcome": {
+        "end_price": 85.13,
+        "end_price_date": "2025-06-30",
+        "price_return_pct": -6.69,
+        "actual_direction": "DOWN",
+        "signal_correct": false
+      },
+      "optimal_exit_analysis": {
+        "optimal_exit_date": "2025-06-02",
+        "optimal_holding_days": 1,
+        "peak_price": 92.26,
+        "peak_return_pct": 1.13,
+        "target_hit": false,
+        "target_hit_date": null,
+        "days_to_target": null,
+        "stop_hit": true,
+        "stop_hit_date": "2025-06-09",
+        "days_to_stop": 8,
+        "max_drawdown_pct": -9.05
+      }
+    },
+    {
+      "month": "July 2025",
+      "signal_date": "2025-07-01",
+      "result_date": "2025-07-31",
+      "orchestrator_signal": "neutral",
+      "orchestrator_score": 52.0,
+      "final_confidence": 0.3,
+      "conflict_detected": true,
+      "conflict_resolution": "Conflict: TA bearish vs FA bullish with similar confidence \u2192 abstain",
+      "weights_applied": {
+        "tech": 0.5,
+        "fund": 0.5
+      },
+      "trade_setup": null,
+      "patterns_detected": [
+        {
+          "name": "Double Top",
+          "direction": "bearish",
+          "confidence": 0.503,
+          "start_date": "2024-12-17",
+          "end_date": "2025-02-19",
+          "breakout_confirmed": true,
+          "volume_confirmation": false,
+          "description": "Two peaks at ~$99.72 & $101.87, neckline $92.01, breakdown confirmed"
+        },
+        {
+          "name": "Cup & Handle",
+          "direction": "bullish",
+          "confidence": 0.454,
+          "start_date": "2025-01-02",
+          "end_date": "2025-05-14",
+          "breakout_confirmed": false,
+          "volume_confirmation": false,
+          "description": "Cup depth 17.0%, rim ~$94.50, handle present"
+        },
+        {
+          "name": "Bull Flag",
+          "direction": "bullish",
+          "confidence": 0.423,
+          "start_date": "2025-04-21",
+          "end_date": "2025-05-14",
+          "breakout_confirmed": false,
+          "volume_confirmation": false,
+          "description": "Pole +13.8% in 12 bars, flag range ratio 0.35"
+        },
+        {
+          "name": "Cup & Handle",
+          "direction": "bullish",
+          "confidence": 0.403,
+          "start_date": "2024-10-15",
+          "end_date": "2025-06-10",
+          "breakout_confirmed": false,
+          "volume_confirmation": false,
+          "description": "Cup depth 12.6%, rim ~$89.70, handle present"
+        },
+        {
+          "name": "Bull Flag",
+          "direction": "bullish",
+          "confidence": 0.402,
+          "start_date": "2025-04-15",
+          "end_date": "2025-05-14",
+          "breakout_confirmed": false,
+          "volume_confirmation": false,
+          "description": "Pole +12.5% in 15 bars, flag range ratio 0.34"
+        },
+        {
+          "name": "Bull Flag",
+          "direction": "bullish",
+          "confidence": 0.395,
+          "start_date": "2025-04-22",
+          "end_date": "2025-05-14",
+          "breakout_confirmed": false,
+          "volume_confirmation": false,
+          "description": "Pole +12.2% in 11 bars, flag range ratio 0.35"
+        },
+        {
+          "name": "Ascending Triangle",
+          "direction": "bullish",
+          "confidence": 0.371,
+          "start_date": "2024-11-06",
+          "end_date": "2024-12-16",
+          "breakout_confirmed": false,
+          "volume_confirmation": false,
+          "description": "Flat resistance ~$101.27 (4 touches), rising lows"
+        },
+        {
+          "name": "Double Bottom",
+          "direction": "bullish",
+          "confidence": 0.17,
+          "start_date": "2024-08-05",
+          "end_date": "2024-09-11",
+          "breakout_confirmed": false,
+          "volume_confirmation": false,
+          "description": "Two lows at ~$94.45 & $92.43, neckline $96.74"
+        }
+      ],
+      "patterns_count": 8,
+      "tech_summary": {
+        "score": 34.7,
+        "band": "weak",
+        "confidence": "moderate",
+        "confidence_pct": 40.0,
+        "subscores": {
+          "ema_trend": 5.0,
+          "macd_system": 33.0,
+          "rsi_regime": 38.0,
+          "bollinger": 35.0,
+          "volume_obv": 23.0,
+          "adx_stochastic": 43.0,
+          "pattern_recognition": 55.9,
+          "ichimoku": 39.0,
+          "momentum": 55.0,
+          "supertrend": 56.0,
+          "volatility_squeeze": 45.0,
+          "entry_exit_rules": 20.0
+        },
+        "signal_alignment": {
+          "signal_count": 4,
+          "bullish_frameworks": 0,
+          "entry_rules_met": 4,
+          "confidence_pct": 40.0,
+          "confidence_label": "moderate"
+        },
+        "risk_management": {
+          "stop_loss": 82.0059,
+          "take_profit_1": 92.2162,
+          "take_profit_2": 94.2582,
+          "risk_per_share": 4.0841,
+          "reward_risk_ratio": 1.5,
+          "atr_pct": 2.37
+        },
+        "frameworks": {
+          "ema_trend": {
+            "applicable": true,
+            "score_pct": 5.0
+          },
+          "macd_system": {
+            "applicable": true,
+            "score_pct": 33.0
+          },
+          "rsi_regime": {
+            "applicable": true,
+            "score_pct": 38.0
+          },
+          "bollinger": {
+            "applicable": true,
+            "score_pct": 35.0
+          },
+          "volume_obv": {
+            "applicable": true,
+            "score_pct": 23.0
+          },
+          "adx_stochastic": {
+            "applicable": true,
+            "score_pct": 43.0
+          },
+          "pattern_recognition": {
+            "applicable": true,
+            "score_pct": 55.9
+          },
+          "ichimoku": {
+            "applicable": true,
+            "score_pct": 39.0
+          },
+          "momentum": {
+            "applicable": true,
+            "score_pct": 55.0
+          },
+          "supertrend": {
+            "applicable": true,
+            "score_pct": 56.0
+          },
+          "volatility_squeeze": {
+            "applicable": true,
+            "score_pct": 45.0
+          },
+          "entry_exit_rules": {
+            "applicable": true,
+            "score_pct": 20.0
+          }
+        },
+        "key_indicators": {
+          "close": 86.09,
+          "ema_9": 85.7527,
+          "ema_20": 86.1353,
+          "ema_21": 86.1609,
+          "ema_50": 86.3345,
+          "ema_200": 91.5892,
+          "rsi_14": 49.34,
+          "macd": -0.4039,
+          "macd_histogram": -0.0017,
+          "adx": 17.19,
+          "atr_14": 2.04,
+          "bb_pct_b": 0.4919,
+          "obv_trend": "falling",
+          "ichimoku_tenkan": 85.955,
+          "ichimoku_kijun": 88.0203,
+          "roc_12": 2.0,
+          "cci_20": -15.96,
+          "cmf_20": -0.063,
+          "supertrend_direction": -1,
+          "supertrend_line": 89.9135,
+          "stoch_rsi_k": 73.27,
+          "stoch_rsi_d": 70.29,
+          "kc_upper": 90.1315,
+          "kc_lower": 82.139,
+          "squeeze_on": false,
+          "fibonacci": {
+            "swing_high": 93.4505,
+            "swing_low": 74.275,
+            "fib_236": 88.9251,
+            "fib_382": 86.1255,
+            "fib_500": 83.8628,
+            "fib_618": 81.6,
+            "fib_786": 78.3786
+          },
+          "market_structure": "uptrend",
+          "vwap_20": 86.1594,
+          "williams_r_14": -42.54
+        }
+      },
+      "fund_summary": {
+        "score": 69.4,
+        "band": "mixed_positive",
+        "confidence": "high",
+        "subscores": {
+          "financial_health": 68.2,
+          "valuation": 70.0,
+          "quality": 77.5,
+          "growth": 60.0
+        },
+        "data_quality": "high",
+        "coverage_ratio": 1.0,
+        "frameworks": {
+          "piotroski": {
+            "applicable": true,
+            "score_pct": 75.0
+          },
+          "altman": {
+            "applicable": true,
+            "score_pct": 61.3
+          },
+          "graham": {
+            "applicable": true,
+            "score_pct": 40.0
+          },
+          "greenblatt": {
+            "applicable": true,
+            "score_pct": 77.5
+          },
+          "lynch": {
+            "applicable": true,
+            "score_pct": 100.0
+          },
+          "growth_profile": {
+            "applicable": true,
+            "score_pct": 60.0
+          },
+          "shariah": {
+            "applicable": true,
+            "score_pct": null
+          }
+        },
+        "snapshot": {
+          "market_cap_proxy": 2078212600.0,
+          "revenue_current": 1219930000.0,
+          "eps_current": 4.67,
+          "eps_prior": 2.91,
+          "net_income_current": 112684000.0
+        }
+      },
+      "tech_error": null,
+      "fund_error": null,
+      "actual_outcome": {
+        "end_price": 74.14,
+        "end_price_date": "2025-07-31",
+        "price_return_pct": -13.88,
+        "actual_direction": "DOWN",
+        "signal_correct": null
+      },
+      "optimal_exit_analysis": null
+    },
+    {
+      "month": "August 2025",
+      "signal_date": "2025-08-01",
+      "result_date": "2025-08-31",
+      "orchestrator_signal": "bearish",
+      "orchestrator_score": 38.0,
+      "final_confidence": 0.291,
+      "conflict_detected": true,
+      "conflict_resolution": "Conflict: TA bearish (conf=0.42) overrides FA bullish (conf=0.03)",
+      "weights_applied": {
+        "tech": 0.7,
+        "fund": 0.3
+      },
+      "trade_setup": null,
+      "patterns_detected": [
+        {
+          "name": "Double Top",
+          "direction": "bearish",
+          "confidence": 0.49,
+          "start_date": "2024-12-17",
+          "end_date": "2025-02-19",
+          "breakout_confirmed": true,
+          "volume_confirmation": false,
+          "description": "Two peaks at ~$99.72 & $101.87, neckline $92.01, breakdown confirmed"
+        },
+        {
+          "name": "Cup & Handle",
+          "direction": "bullish",
+          "confidence": 0.441,
+          "start_date": "2025-01-02",
+          "end_date": "2025-05-14",
+          "breakout_confirmed": false,
+          "volume_confirmation": false,
+          "description": "Cup depth 17.0%, rim ~$94.50, handle present"
+        },
+        {
+          "name": "Bull Flag",
+          "direction": "bullish",
+          "confidence": 0.41,
+          "start_date": "2025-04-21",
+          "end_date": "2025-05-14",
+          "breakout_confirmed": false,
+          "volume_confirmation": false,
+          "description": "Pole +13.8% in 12 bars, flag range ratio 0.35"
+        },
+        {
+          "name": "Cup & Handle",
+          "direction": "bullish",
+          "confidence": 0.39,
+          "start_date": "2024-10-15",
+          "end_date": "2025-06-10",
+          "breakout_confirmed": false,
+          "volume_confirmation": false,
+          "description": "Cup depth 12.6%, rim ~$89.70, handle present"
+        },
+        {
+          "name": "Bull Flag",
+          "direction": "bullish",
+          "confidence": 0.389,
+          "start_date": "2025-04-15",
+          "end_date": "2025-05-14",
+          "breakout_confirmed": false,
+          "volume_confirmation": false,
+          "description": "Pole +12.5% in 15 bars, flag range ratio 0.34"
+        },
+        {
+          "name": "Bull Flag",
+          "direction": "bullish",
+          "confidence": 0.382,
+          "start_date": "2025-04-22",
+          "end_date": "2025-05-14",
+          "breakout_confirmed": false,
+          "volume_confirmation": false,
+          "description": "Pole +12.2% in 11 bars, flag range ratio 0.35"
+        },
+        {
+          "name": "Ascending Triangle",
+          "direction": "bullish",
+          "confidence": 0.358,
+          "start_date": "2024-11-06",
+          "end_date": "2024-12-16",
+          "breakout_confirmed": false,
+          "volume_confirmation": false,
+          "description": "Flat resistance ~$101.27 (4 touches), rising lows"
+        }
+      ],
+      "patterns_count": 7,
+      "tech_summary": {
+        "score": 24.6,
+        "band": "weak",
+        "confidence": "moderate",
+        "confidence_pct": 48.3,
+        "subscores": {
+          "ema_trend": 0.0,
+          "macd_system": 13.0,
+          "rsi_regime": 18.0,
+          "bollinger": 25.0,
+          "volume_obv": 52.0,
+          "adx_stochastic": 42.0,
+          "pattern_recognition": 54.9,
+          "ichimoku": 0.0,
+          "momentum": 25.0,
+          "supertrend": 65.0,
+          "volatility_squeeze": 30.0,
+          "entry_exit_rules": 20.0
+        },
+        "signal_alignment": {
+          "signal_count": 5,
+          "bullish_frameworks": 1,
+          "entry_rules_met": 4,
+          "confidence_pct": 48.3,
+          "confidence_label": "moderate"
+        },
+        "risk_management": {
+          "stop_loss": 70.5283,
+          "take_profit_1": 81.4076,
+          "take_profit_2": 83.5835,
+          "risk_per_share": 4.3517,
+          "reward_risk_ratio": 1.5,
+          "atr_pct": 2.91
+        },
+        "frameworks": {
+          "ema_trend": {
+            "applicable": true,
+            "score_pct": 0.0
+          },
+          "macd_system": {
+            "applicable": true,
+            "score_pct": 13.0
+          },
+          "rsi_regime": {
+            "applicable": true,
+            "score_pct": 18.0
+          },
+          "bollinger": {
+            "applicable": true,
+            "score_pct": 25.0
+          },
+          "volume_obv": {
+            "applicable": true,
+            "score_pct": 52.0
+          },
+          "adx_stochastic": {
+            "applicable": true,
+            "score_pct": 42.0
+          },
+          "pattern_recognition": {
+            "applicable": true,
+            "score_pct": 54.9
+          },
+          "ichimoku": {
+            "applicable": true,
+            "score_pct": 0.0
+          },
+          "momentum": {
+            "applicable": true,
+            "score_pct": 25.0
+          },
+          "supertrend": {
+            "applicable": true,
+            "score_pct": 65.0
+          },
+          "volatility_squeeze": {
+            "applicable": true,
+            "score_pct": 30.0
+          },
+          "entry_exit_rules": {
+            "applicable": true,
+            "score_pct": 20.0
+          }
+        },
+        "key_indicators": {
+          "close": 74.88,
+          "ema_9": 76.748,
+          "ema_20": 78.7214,
+          "ema_21": 78.875,
+          "ema_50": 81.778,
+          "ema_200": 88.8968,
+          "rsi_14": 30.69,
+          "macd": -2.2348,
+          "macd_histogram": -0.253,
+          "adx": 35.89,
+          "atr_14": 2.18,
+          "bb_pct_b": 0.0465,
+          "obv_trend": "rising",
+          "ichimoku_tenkan": 76.0645,
+          "ichimoku_kijun": 79.6446,
+          "roc_12": -5.65,
+          "cci_20": -172.88,
+          "cmf_20": -0.1334,
+          "supertrend_direction": -1,
+          "supertrend_line": 80.6324,
+          "stoch_rsi_k": 8.89,
+          "stoch_rsi_d": 36.3,
+          "kc_upper": 83.1721,
+          "kc_lower": 74.2707,
+          "squeeze_on": true,
+          "fibonacci": {
+            "swing_high": 93.4505,
+            "swing_low": 72.2491,
+            "fib_236": 88.447,
+            "fib_382": 85.3516,
+            "fib_500": 82.8498,
+            "fib_618": 80.348,
+            "fib_786": 76.7862
+          },
+          "market_structure": "uptrend",
+          "vwap_20": 78.4408,
+          "williams_r_14": -68.97
+        }
+      },
+      "fund_summary": {
+        "score": 69.2,
+        "band": "mixed_positive",
+        "confidence": "high",
+        "subscores": {
+          "financial_health": 67.2,
+          "valuation": 70.0,
+          "quality": 77.5,
+          "growth": 60.0
+        },
+        "data_quality": "high",
+        "coverage_ratio": 1.0,
+        "frameworks": {
+          "piotroski": {
+            "applicable": true,
+            "score_pct": 75.0
+          },
+          "altman": {
+            "applicable": true,
+            "score_pct": 59.3
+          },
+          "graham": {
+            "applicable": true,
+            "score_pct": 40.0
+          },
+          "greenblatt": {
+            "applicable": true,
+            "score_pct": 77.5
+          },
+          "lynch": {
+            "applicable": true,
+            "score_pct": 100.0
+          },
+          "growth_profile": {
+            "applicable": true,
+            "score_pct": 60.0
+          },
+          "shariah": {
+            "applicable": true,
+            "score_pct": null
+          }
+        },
+        "snapshot": {
+          "market_cap_proxy": 1807603200.0,
+          "revenue_current": 1219930000.0,
+          "eps_current": 4.67,
+          "eps_prior": 2.91,
+          "net_income_current": 112684000.0
+        }
+      },
+      "tech_error": null,
+      "fund_error": null,
+      "actual_outcome": {
+        "end_price": 81.35,
+        "end_price_date": "2025-08-29",
+        "price_return_pct": 8.64,
+        "actual_direction": "UP",
+        "signal_correct": null
+      },
+      "optimal_exit_analysis": null
+    },
+    {
+      "month": "September 2025",
+      "signal_date": "2025-09-01",
+      "result_date": "2025-09-30",
+      "orchestrator_signal": "bullish",
+      "orchestrator_score": 65.1,
+      "final_confidence": 0.032,
+      "conflict_detected": false,
+      "conflict_resolution": null,
+      "weights_applied": {
+        "tech": 0.45,
+        "fund": 0.55
+      },
+      "trade_setup": {
+        "direction": "LONG",
+        "entry_date": "2025-09-01",
+        "exit_date_est": "2025-09-23",
+        "result_date": "2025-09-30",
+        "entry_price": 81.35,
+        "target_price": 84.93,
+        "stop_loss": 78.66,
+        "expected_profit_pct": 4.4,
+        "risk_pct": 3.31,
+        "reward_risk_ratio": 1.33,
+        "confidence_score": 65.1,
+        "final_confidence": 0.032,
+        "profit_probability": 40.0,
+        "trade_duration_days": 16,
+        "atr_at_entry": 1.79,
+        "rsi_at_entry": 58.12,
+        "adx_at_entry": 22.74,
+        "transaction_cost_pct": 0.1,
+        "slippage_pct": 0.05,
+        "total_friction_pct": 0.2,
+        "net_expected_profit_pct": 4.2,
+        "signal_alignment": {
+          "signal_count": 14,
+          "bullish_frameworks": 6,
+          "entry_rules_met": 8,
+          "confidence_pct": 96.0,
+          "confidence_label": "high_conviction"
+        }
+      },
+      "patterns_detected": [
+        {
+          "name": "Double Top",
+          "direction": "bearish",
+          "confidence": 0.478,
+          "start_date": "2024-12-17",
+          "end_date": "2025-02-19",
+          "breakout_confirmed": true,
+          "volume_confirmation": false,
+          "description": "Two peaks at ~$99.72 & $101.87, neckline $92.01, breakdown confirmed"
+        },
+        {
+          "name": "Cup & Handle",
+          "direction": "bullish",
+          "confidence": 0.429,
+          "start_date": "2025-01-02",
+          "end_date": "2025-05-14",
+          "breakout_confirmed": false,
+          "volume_confirmation": false,
+          "description": "Cup depth 17.0%, rim ~$94.50, handle present"
+        },
+        {
+          "name": "Bull Flag",
+          "direction": "bullish",
+          "confidence": 0.398,
+          "start_date": "2025-04-21",
+          "end_date": "2025-05-14",
+          "breakout_confirmed": false,
+          "volume_confirmation": false,
+          "description": "Pole +13.8% in 12 bars, flag range ratio 0.35"
+        },
+        {
+          "name": "Cup & Handle",
+          "direction": "bullish",
+          "confidence": 0.378,
+          "start_date": "2024-10-15",
+          "end_date": "2025-06-10",
+          "breakout_confirmed": false,
+          "volume_confirmation": false,
+          "description": "Cup depth 12.6%, rim ~$89.70, handle present"
+        },
+        {
+          "name": "Bull Flag",
+          "direction": "bullish",
+          "confidence": 0.377,
+          "start_date": "2025-04-15",
+          "end_date": "2025-05-14",
+          "breakout_confirmed": false,
+          "volume_confirmation": false,
+          "description": "Pole +12.5% in 15 bars, flag range ratio 0.34"
+        },
+        {
+          "name": "Bull Flag",
+          "direction": "bullish",
+          "confidence": 0.37,
+          "start_date": "2025-04-22",
+          "end_date": "2025-05-14",
+          "breakout_confirmed": false,
+          "volume_confirmation": false,
+          "description": "Pole +12.2% in 11 bars, flag range ratio 0.35"
+        },
+        {
+          "name": "Ascending Triangle",
+          "direction": "bullish",
+          "confidence": 0.346,
+          "start_date": "2024-11-06",
+          "end_date": "2024-12-16",
+          "breakout_confirmed": false,
+          "volume_confirmation": false,
+          "description": "Flat resistance ~$101.27 (4 touches), rising lows"
+        }
+      ],
+      "patterns_count": 7,
+      "tech_summary": {
+        "score": 60.0,
+        "band": "mixed_positive",
+        "confidence": "high_conviction",
+        "confidence_pct": 96.0,
+        "subscores": {
+          "ema_trend": 43.0,
+          "macd_system": 54.0,
+          "rsi_regime": 62.0,
+          "bollinger": 70.0,
+          "volume_obv": 72.0,
+          "adx_stochastic": 63.0,
+          "pattern_recognition": 54.7,
+          "ichimoku": 76.0,
+          "momentum": 60.0,
+          "supertrend": 47.0,
+          "volatility_squeeze": 55.0,
+          "entry_exit_rules": 71.7
+        },
+        "signal_alignment": {
+          "signal_count": 14,
+          "bullish_frameworks": 6,
+          "entry_rules_met": 8,
+          "confidence_pct": 96.0,
+          "confidence_label": "high_conviction"
+        },
+        "risk_management": {
+          "stop_loss": 77.7674,
+          "take_profit_1": 86.7239,
+          "take_profit_2": 88.5152,
+          "risk_per_share": 3.5826,
+          "reward_risk_ratio": 1.5,
+          "atr_pct": 2.2
+        },
+        "frameworks": {
+          "ema_trend": {
+            "applicable": true,
+            "score_pct": 43.0
+          },
+          "macd_system": {
+            "applicable": true,
+            "score_pct": 54.0
+          },
+          "rsi_regime": {
+            "applicable": true,
+            "score_pct": 62.0
+          },
+          "bollinger": {
+            "applicable": true,
+            "score_pct": 70.0
+          },
+          "volume_obv": {
+            "applicable": true,
+            "score_pct": 72.0
+          },
+          "adx_stochastic": {
+            "applicable": true,
+            "score_pct": 63.0
+          },
+          "pattern_recognition": {
+            "applicable": true,
+            "score_pct": 54.7
+          },
+          "ichimoku": {
+            "applicable": true,
+            "score_pct": 76.0
+          },
+          "momentum": {
+            "applicable": true,
+            "score_pct": 60.0
+          },
+          "supertrend": {
+            "applicable": true,
+            "score_pct": 47.0
+          },
+          "volatility_squeeze": {
+            "applicable": true,
+            "score_pct": 55.0
+          },
+          "entry_exit_rules": {
+            "applicable": true,
+            "score_pct": 71.7
+          }
+        },
+        "key_indicators": {
+          "close": 81.35,
+          "ema_9": 80.8083,
+          "ema_20": 79.841,
+          "ema_21": 79.8077,
+          "ema_50": 80.4587,
+          "ema_200": 87.0326,
+          "rsi_14": 58.12,
+          "macd": 0.693,
+          "macd_histogram": 0.4926,
+          "adx": 22.74,
+          "atr_14": 1.79,
+          "bb_pct_b": 0.7664,
+          "obv_trend": "rising",
+          "ichimoku_tenkan": 80.6189,
+          "ichimoku_kijun": 77.3745,
+          "roc_12": 3.29,
+          "cci_20": 82.59,
+          "cmf_20": 0.2673,
+          "supertrend_direction": 1,
+          "supertrend_line": 76.5276,
+          "stoch_rsi_k": 81.04,
+          "stoch_rsi_d": 84.2,
+          "kc_upper": 83.2433,
+          "kc_lower": 76.4388,
+          "squeeze_on": false,
+          "fibonacci": {
+            "swing_high": 91.15,
+            "swing_low": 72.2491,
+            "fib_236": 86.6894,
+            "fib_382": 83.9299,
+            "fib_500": 81.6996,
+            "fib_618": 79.4692,
+            "fib_786": 76.2939
+          },
+          "market_structure": "downtrend",
+          "vwap_20": 78.4467,
+          "williams_r_14": -16.41
+        }
+      },
+      "fund_summary": {
+        "score": 69.3,
+        "band": "mixed_positive",
+        "confidence": "high",
+        "subscores": {
+          "financial_health": 67.8,
+          "valuation": 70.0,
+          "quality": 77.5,
+          "growth": 60.0
+        },
+        "data_quality": "high",
+        "coverage_ratio": 1.0,
+        "frameworks": {
+          "piotroski": {
+            "applicable": true,
+            "score_pct": 75.0
+          },
+          "altman": {
+            "applicable": true,
+            "score_pct": 60.5
+          },
+          "graham": {
+            "applicable": true,
+            "score_pct": 40.0
+          },
+          "greenblatt": {
+            "applicable": true,
+            "score_pct": 77.5
+          },
+          "lynch": {
+            "applicable": true,
+            "score_pct": 100.0
+          },
+          "growth_profile": {
+            "applicable": true,
+            "score_pct": 60.0
+          },
+          "shariah": {
+            "applicable": true,
+            "score_pct": null
+          }
+        },
+        "snapshot": {
+          "market_cap_proxy": 1963789000.0,
+          "revenue_current": 1219930000.0,
+          "eps_current": 4.67,
+          "eps_prior": 2.91,
+          "net_income_current": 112684000.0
+        }
+      },
+      "tech_error": null,
+      "fund_error": null,
+      "actual_outcome": {
+        "end_price": 86.01,
+        "end_price_date": "2025-09-30",
+        "price_return_pct": 5.73,
+        "actual_direction": "UP",
+        "signal_correct": true
+      },
+      "optimal_exit_analysis": {
+        "optimal_exit_date": "2025-09-30",
+        "optimal_holding_days": 29,
+        "peak_price": 86.01,
+        "peak_return_pct": 5.73,
+        "target_hit": true,
+        "target_hit_date": "2025-09-26",
+        "days_to_target": 25,
+        "stop_hit": false,
+        "stop_hit_date": null,
+        "days_to_stop": null,
+        "max_drawdown_pct": -0.3
+      }
+    },
+    {
+      "month": "October 2025",
+      "signal_date": "2025-10-01",
+      "result_date": "2025-10-31",
+      "orchestrator_signal": "bullish",
+      "orchestrator_score": 68.5,
+      "final_confidence": 0.336,
+      "conflict_detected": false,
+      "conflict_resolution": null,
+      "weights_applied": {
+        "tech": 0.45,
+        "fund": 0.55
+      },
+      "trade_setup": {
+        "direction": "LONG",
+        "entry_date": "2025-10-01",
+        "exit_date_est": "2025-10-23",
+        "result_date": "2025-10-31",
+        "entry_price": 85.75,
+        "target_price": 89.17,
+        "stop_loss": 83.19,
+        "expected_profit_pct": 3.99,
+        "risk_pct": 2.99,
+        "reward_risk_ratio": 1.33,
+        "confidence_score": 68.5,
+        "final_confidence": 0.336,
+        "profit_probability": 46.9,
+        "trade_duration_days": 16,
+        "atr_at_entry": 1.71,
+        "rsi_at_entry": 63.44,
+        "adx_at_entry": 19.25,
+        "transaction_cost_pct": 0.1,
+        "slippage_pct": 0.05,
+        "total_friction_pct": 0.2,
+        "net_expected_profit_pct": 3.79,
+        "signal_alignment": {
+          "signal_count": 14,
+          "bullish_frameworks": 7,
+          "entry_rules_met": 7,
+          "confidence_pct": 96.0,
+          "confidence_label": "high_conviction"
+        }
+      },
+      "patterns_detected": [
+        {
+          "name": "Bull Flag",
+          "direction": "bullish",
+          "confidence": 0.645,
+          "start_date": "2025-08-05",
+          "end_date": "2025-08-29",
+          "breakout_confirmed": true,
+          "volume_confirmation": false,
+          "description": "Pole +9.6% in 13 bars, flag range ratio 0.26, breakout confirmed"
+        },
+        {
+          "name": "Bull Flag",
+          "direction": "bullish",
+          "confidence": 0.641,
+          "start_date": "2025-08-01",
+          "end_date": "2025-08-29",
+          "breakout_confirmed": true,
+          "volume_confirmation": false,
+          "description": "Pole +9.6% in 15 bars, flag range ratio 0.26, breakout confirmed"
+        },
+        {
+          "name": "Bull Flag",
+          "direction": "bullish",
+          "confidence": 0.583,
+          "start_date": "2025-08-11",
+          "end_date": "2025-08-29",
+          "breakout_confirmed": true,
+          "volume_confirmation": false,
+          "description": "Pole +8.1% in 9 bars, flag range ratio 0.35, breakout confirmed"
+        },
+        {
+          "name": "Double Top",
+          "direction": "bearish",
+          "confidence": 0.465,
+          "start_date": "2024-12-17",
+          "end_date": "2025-02-19",
+          "breakout_confirmed": true,
+          "volume_confirmation": false,
+          "description": "Two peaks at ~$99.72 & $101.87, neckline $92.01, breakdown confirmed"
+        },
+        {
+          "name": "Cup & Handle",
+          "direction": "bullish",
+          "confidence": 0.453,
+          "start_date": "2025-03-27",
+          "end_date": "2025-08-29",
+          "breakout_confirmed": false,
+          "volume_confirmation": false,
+          "description": "Cup depth 14.0%, rim ~$86.35, handle present"
+        },
+        {
+          "name": "Cup & Handle",
+          "direction": "bullish",
+          "confidence": 0.448,
+          "start_date": "2025-04-24",
+          "end_date": "2025-09-16",
+          "breakout_confirmed": false,
+          "volume_confirmation": false,
+          "description": "Cup depth 17.9%, rim ~$88.00, handle present"
+        },
+        {
+          "name": "Ascending Triangle",
+          "direction": "bullish",
+          "confidence": 0.333,
+          "start_date": "2024-11-06",
+          "end_date": "2024-12-16",
+          "breakout_confirmed": false,
+          "volume_confirmation": false,
+          "description": "Flat resistance ~$101.27 (4 touches), rising lows"
+        }
+      ],
+      "patterns_count": 7,
+      "tech_summary": {
+        "score": 67.3,
+        "band": "good",
+        "confidence": "high_conviction",
+        "confidence_pct": 96.0,
+        "subscores": {
+          "ema_trend": 53.0,
+          "macd_system": 67.0,
+          "rsi_regime": 82.0,
+          "bollinger": 80.0,
+          "volume_obv": 77.0,
+          "adx_stochastic": 36.0,
+          "pattern_recognition": 59.6,
+          "ichimoku": 100.0,
+          "momentum": 60.0,
+          "supertrend": 39.0,
+          "volatility_squeeze": 70.0,
+          "entry_exit_rules": 65.0
+        },
+        "signal_alignment": {
+          "signal_count": 14,
+          "bullish_frameworks": 7,
+          "entry_rules_met": 7,
+          "confidence_pct": 96.0,
+          "confidence_label": "high_conviction"
+        },
+        "risk_management": {
+          "stop_loss": 82.3206,
+          "take_profit_1": 90.8942,
+          "take_profit_2": 92.6089,
+          "risk_per_share": 3.4294,
+          "reward_risk_ratio": 1.5,
+          "atr_pct": 2.0
+        },
+        "frameworks": {
+          "ema_trend": {
+            "applicable": true,
+            "score_pct": 53.0
+          },
+          "macd_system": {
+            "applicable": true,
+            "score_pct": 67.0
+          },
+          "rsi_regime": {
+            "applicable": true,
+            "score_pct": 82.0
+          },
+          "bollinger": {
+            "applicable": true,
+            "score_pct": 80.0
+          },
+          "volume_obv": {
+            "applicable": true,
+            "score_pct": 77.0
+          },
+          "adx_stochastic": {
+            "applicable": true,
+            "score_pct": 36.0
+          },
+          "pattern_recognition": {
+            "applicable": true,
+            "score_pct": 59.6
+          },
+          "ichimoku": {
+            "applicable": true,
+            "score_pct": 100.0
+          },
+          "momentum": {
+            "applicable": true,
+            "score_pct": 60.0
+          },
+          "supertrend": {
+            "applicable": true,
+            "score_pct": 39.0
+          },
+          "volatility_squeeze": {
+            "applicable": true,
+            "score_pct": 70.0
+          },
+          "entry_exit_rules": {
+            "applicable": true,
+            "score_pct": 65.0
+          }
+        },
+        "key_indicators": {
+          "close": 85.75,
+          "ema_9": 84.6358,
+          "ema_20": 83.4692,
+          "ema_21": 83.3861,
+          "ema_50": 82.2406,
+          "ema_200": 86.3245,
+          "rsi_14": 63.44,
+          "macd": 1.2385,
+          "macd_histogram": 0.2453,
+          "adx": 19.25,
+          "atr_14": 1.71,
+          "bb_pct_b": 0.9157,
+          "obv_trend": "rising",
+          "ichimoku_tenkan": 84.0375,
+          "ichimoku_kijun": 83.1025,
+          "roc_12": 5.73,
+          "cci_20": 153.54,
+          "cmf_20": 0.0081,
+          "supertrend_direction": 1,
+          "supertrend_line": 80.6322,
+          "stoch_rsi_k": 96.71,
+          "stoch_rsi_d": 93.37,
+          "kc_upper": 86.7511,
+          "kc_lower": 80.1874,
+          "squeeze_on": true,
+          "fibonacci": {
+            "swing_high": 86.335,
+            "swing_low": 72.2491,
+            "fib_236": 83.0107,
+            "fib_382": 80.9542,
+            "fib_500": 79.292,
+            "fib_618": 77.6299,
+            "fib_786": 75.2635
+          },
+          "market_structure": "downtrend",
+          "vwap_20": 83.0305,
+          "williams_r_14": -9.05
+        }
+      },
+      "fund_summary": {
+        "score": 69.4,
+        "band": "mixed_positive",
+        "confidence": "high",
+        "subscores": {
+          "financial_health": 68.2,
+          "valuation": 70.0,
+          "quality": 77.5,
+          "growth": 60.0
+        },
+        "data_quality": "high",
+        "coverage_ratio": 1.0,
+        "frameworks": {
+          "piotroski": {
+            "applicable": true,
+            "score_pct": 75.0
+          },
+          "altman": {
+            "applicable": true,
+            "score_pct": 61.3
+          },
+          "graham": {
+            "applicable": true,
+            "score_pct": 40.0
+          },
+          "greenblatt": {
+            "applicable": true,
+            "score_pct": 77.5
+          },
+          "lynch": {
+            "applicable": true,
+            "score_pct": 100.0
+          },
+          "growth_profile": {
+            "applicable": true,
+            "score_pct": 60.0
+          },
+          "shariah": {
+            "applicable": true,
+            "score_pct": null
+          }
+        },
+        "snapshot": {
+          "market_cap_proxy": 2070005000.0,
+          "revenue_current": 1219930000.0,
+          "eps_current": 4.67,
+          "eps_prior": 2.91,
+          "net_income_current": 112684000.0
+        }
+      },
+      "tech_error": null,
+      "fund_error": null,
+      "actual_outcome": {
+        "end_price": 75.98,
+        "end_price_date": "2025-10-31",
+        "price_return_pct": -11.39,
+        "actual_direction": "DOWN",
+        "signal_correct": false
+      },
+      "optimal_exit_analysis": {
+        "optimal_exit_date": "2025-10-02",
+        "optimal_holding_days": 1,
+        "peak_price": 86.09,
+        "peak_return_pct": 0.4,
+        "target_hit": false,
+        "target_hit_date": null,
+        "days_to_target": null,
+        "stop_hit": true,
+        "stop_hit_date": "2025-10-07",
+        "days_to_stop": 6,
+        "max_drawdown_pct": -11.39
+      }
+    },
+    {
+      "month": "November 2025",
+      "signal_date": "2025-11-01",
+      "result_date": "2025-11-30",
+      "orchestrator_signal": "bearish",
+      "orchestrator_score": 37.0,
+      "final_confidence": 0.33,
+      "conflict_detected": true,
+      "conflict_resolution": "Conflict: TA bearish (conf=0.47) overrides FA bullish (conf=0.03)",
+      "weights_applied": {
+        "tech": 0.7,
+        "fund": 0.3
+      },
+      "trade_setup": null,
+      "patterns_detected": [
+        {
+          "name": "Double Top",
+          "direction": "bearish",
+          "confidence": 0.452,
+          "start_date": "2024-12-17",
+          "end_date": "2025-02-19",
+          "breakout_confirmed": true,
+          "volume_confirmation": false,
+          "description": "Two peaks at ~$99.72 & $101.87, neckline $92.01, breakdown confirmed"
+        },
+        {
+          "name": "Cup & Handle",
+          "direction": "bullish",
+          "confidence": 0.44,
+          "start_date": "2025-03-27",
+          "end_date": "2025-08-29",
+          "breakout_confirmed": false,
+          "volume_confirmation": false,
+          "description": "Cup depth 14.0%, rim ~$86.35, handle present"
+        },
+        {
+          "name": "Cup & Handle",
+          "direction": "bullish",
+          "confidence": 0.434,
+          "start_date": "2025-04-24",
+          "end_date": "2025-09-16",
+          "breakout_confirmed": false,
+          "volume_confirmation": false,
+          "description": "Cup depth 17.9%, rim ~$88.00, handle present"
+        },
+        {
+          "name": "Bull Flag",
+          "direction": "bullish",
+          "confidence": 0.382,
+          "start_date": "2025-08-05",
+          "end_date": "2025-08-29",
+          "breakout_confirmed": false,
+          "volume_confirmation": false,
+          "description": "Pole +9.6% in 13 bars, flag range ratio 0.26"
+        },
+        {
+          "name": "Bull Flag",
+          "direction": "bullish",
+          "confidence": 0.377,
+          "start_date": "2025-08-01",
+          "end_date": "2025-08-29",
+          "breakout_confirmed": false,
+          "volume_confirmation": false,
+          "description": "Pole +9.6% in 15 bars, flag range ratio 0.26"
+        },
+        {
+          "name": "Bull Flag",
+          "direction": "bullish",
+          "confidence": 0.372,
+          "start_date": "2025-04-21",
+          "end_date": "2025-05-14",
+          "breakout_confirmed": false,
+          "volume_confirmation": false,
+          "description": "Pole +13.8% in 12 bars, flag range ratio 0.35"
+        },
+        {
+          "name": "Ascending Triangle",
+          "direction": "bullish",
+          "confidence": 0.32,
+          "start_date": "2024-11-06",
+          "end_date": "2024-12-16",
+          "breakout_confirmed": false,
+          "volume_confirmation": false,
+          "description": "Flat resistance ~$101.27 (4 touches), rising lows"
+        },
+        {
+          "name": "Double Bottom",
+          "direction": "bullish",
+          "confidence": 0.239,
+          "start_date": "2025-09-16",
+          "end_date": "2025-10-14",
+          "breakout_confirmed": false,
+          "volume_confirmation": false,
+          "description": "Two lows at ~$81.97 & $79.69, neckline $85.06"
+        }
+      ],
+      "patterns_count": 8,
+      "tech_summary": {
+        "score": 23.2,
+        "band": "weak",
+        "confidence": "weak",
+        "confidence_pct": 33.3,
+        "subscores": {
+          "ema_trend": 0.0,
+          "macd_system": 13.0,
+          "rsi_regime": 18.0,
+          "bollinger": 25.0,
+          "volume_obv": 30.0,
+          "adx_stochastic": 37.0,
+          "pattern_recognition": 56.2,
+          "ichimoku": 8.0,
+          "momentum": 40.0,
+          "supertrend": 41.0,
+          "volatility_squeeze": 40.0,
+          "entry_exit_rules": 13.3
+        },
+        "signal_alignment": {
+          "signal_count": 3,
+          "bullish_frameworks": 0,
+          "entry_rules_met": 3,
+          "confidence_pct": 33.3,
+          "confidence_label": "weak"
+        },
+        "risk_management": {
+          "stop_loss": 71.4872,
+          "take_profit_1": 82.7192,
+          "take_profit_2": 84.9656,
+          "risk_per_share": 4.4928,
+          "reward_risk_ratio": 1.5,
+          "atr_pct": 2.96
+        },
+        "frameworks": {
+          "ema_trend": {
+            "applicable": true,
+            "score_pct": 0.0
+          },
+          "macd_system": {
+            "applicable": true,
+            "score_pct": 13.0
+          },
+          "rsi_regime": {
+            "applicable": true,
+            "score_pct": 18.0
+          },
+          "bollinger": {
+            "applicable": true,
+            "score_pct": 25.0
+          },
+          "volume_obv": {
+            "applicable": true,
+            "score_pct": 30.0
+          },
+          "adx_stochastic": {
+            "applicable": true,
+            "score_pct": 37.0
+          },
+          "pattern_recognition": {
+            "applicable": true,
+            "score_pct": 56.2
+          },
+          "ichimoku": {
+            "applicable": true,
+            "score_pct": 8.0
+          },
+          "momentum": {
+            "applicable": true,
+            "score_pct": 40.0
+          },
+          "supertrend": {
+            "applicable": true,
+            "score_pct": 41.0
+          },
+          "volatility_squeeze": {
+            "applicable": true,
+            "score_pct": 40.0
+          },
+          "entry_exit_rules": {
+            "applicable": true,
+            "score_pct": 13.3
+          }
+        },
+        "key_indicators": {
+          "close": 75.98,
+          "ema_9": 80.3334,
+          "ema_20": 81.1903,
+          "ema_21": 81.2285,
+          "ema_50": 81.5942,
+          "ema_200": 84.8968,
+          "rsi_14": 33.36,
+          "macd": -0.676,
+          "macd_histogram": -0.4744,
+          "adx": 22.58,
+          "atr_14": 2.25,
+          "bb_pct_b": -0.0146,
+          "obv_trend": "falling",
+          "ichimoku_tenkan": 79.84,
+          "ichimoku_kijun": 80.87,
+          "roc_12": -4.69,
+          "cci_20": -157.79,
+          "cmf_20": -0.1651,
+          "supertrend_direction": -1,
+          "supertrend_line": 83.9972,
+          "stoch_rsi_k": 10.99,
+          "stoch_rsi_d": 40.36,
+          "kc_upper": 85.9701,
+          "kc_lower": 76.4105,
+          "squeeze_on": false,
+          "fibonacci": {
+            "swing_high": 86.715,
+            "swing_low": 75.025,
+            "fib_236": 83.9562,
+            "fib_382": 82.2494,
+            "fib_500": 80.87,
+            "fib_618": 79.4906,
+            "fib_786": 77.5267
+          },
+          "market_structure": "downtrend",
+          "vwap_20": 80.6621,
+          "williams_r_14": -90.08
+        }
+      },
+      "fund_summary": {
+        "score": 69.2,
+        "band": "mixed_positive",
+        "confidence": "high",
+        "subscores": {
+          "financial_health": 67.2,
+          "valuation": 70.0,
+          "quality": 77.5,
+          "growth": 60.0
+        },
+        "data_quality": "high",
+        "coverage_ratio": 1.0,
+        "frameworks": {
+          "piotroski": {
+            "applicable": true,
+            "score_pct": 75.0
+          },
+          "altman": {
+            "applicable": true,
+            "score_pct": 59.5
+          },
+          "graham": {
+            "applicable": true,
+            "score_pct": 40.0
+          },
+          "greenblatt": {
+            "applicable": true,
+            "score_pct": 77.5
+          },
+          "lynch": {
+            "applicable": true,
+            "score_pct": 100.0
+          },
+          "growth_profile": {
+            "applicable": true,
+            "score_pct": 60.0
+          },
+          "shariah": {
+            "applicable": true,
+            "score_pct": null
+          }
+        },
+        "snapshot": {
+          "market_cap_proxy": 1834157200.0,
+          "revenue_current": 1219930000.0,
+          "eps_current": 4.67,
+          "eps_prior": 2.91,
+          "net_income_current": 112684000.0
+        }
+      },
+      "tech_error": null,
+      "fund_error": null,
+      "actual_outcome": {
+        "end_price": 78.02,
+        "end_price_date": "2025-11-28",
+        "price_return_pct": 2.68,
+        "actual_direction": "UP",
+        "signal_correct": null
+      },
+      "optimal_exit_analysis": null
+    },
+    {
+      "month": "December 2025",
+      "signal_date": "2025-12-01",
+      "result_date": "2025-12-31",
+      "orchestrator_signal": "bullish",
+      "orchestrator_score": 65.7,
+      "final_confidence": 0.029,
+      "conflict_detected": false,
+      "conflict_resolution": null,
+      "weights_applied": {
+        "tech": 0.15,
+        "fund": 0.85
+      },
+      "trade_setup": {
+        "direction": "LONG",
+        "entry_date": "2025-12-01",
+        "exit_date_est": "2025-12-22",
+        "result_date": "2025-12-31",
+        "entry_price": 78.25,
+        "target_price": 82.83,
+        "stop_loss": 74.81,
+        "expected_profit_pct": 5.85,
+        "risk_pct": 4.4,
+        "reward_risk_ratio": 1.33,
+        "confidence_score": 65.7,
+        "final_confidence": 0.029,
+        "profit_probability": 40.0,
+        "trade_duration_days": 15,
+        "atr_at_entry": 2.29,
+        "rsi_at_entry": 48.81,
+        "adx_at_entry": 13.69,
+        "transaction_cost_pct": 0.1,
+        "slippage_pct": 0.05,
+        "total_friction_pct": 0.2,
+        "net_expected_profit_pct": 5.65,
+        "signal_alignment": {
+          "signal_count": 10,
+          "bullish_frameworks": 4,
+          "entry_rules_met": 6,
+          "confidence_pct": 80.0,
+          "confidence_label": "high_conviction"
+        }
+      },
+      "patterns_detected": [
+        {
+          "name": "Head & Shoulders",
+          "direction": "bearish",
+          "confidence": 0.646,
+          "start_date": "2025-09-12",
+          "end_date": "2025-10-27",
+          "breakout_confirmed": true,
+          "volume_confirmation": false,
+          "description": "LS=$82.80, Head=$85.06, RS=$83.28, neckline ~$80.83, breakdown confirmed"
+        },
+        {
+          "name": "Double Top",
+          "direction": "bearish",
+          "confidence": 0.44,
+          "start_date": "2024-12-17",
+          "end_date": "2025-02-19",
+          "breakout_confirmed": true,
+          "volume_confirmation": false,
+          "description": "Two peaks at ~$99.72 & $101.87, neckline $92.01, breakdown confirmed"
+        },
+        {
+          "name": "Cup & Handle",
+          "direction": "bullish",
+          "confidence": 0.428,
+          "start_date": "2025-03-27",
+          "end_date": "2025-08-29",
+          "breakout_confirmed": false,
+          "volume_confirmation": false,
+          "description": "Cup depth 14.0%, rim ~$86.35, handle present"
+        },
+        {
+          "name": "Cup & Handle",
+          "direction": "bullish",
+          "confidence": 0.423,
+          "start_date": "2025-04-24",
+          "end_date": "2025-09-16",
+          "breakout_confirmed": false,
+          "volume_confirmation": false,
+          "description": "Cup depth 17.9%, rim ~$88.00, handle present"
+        },
+        {
+          "name": "Bull Flag",
+          "direction": "bullish",
+          "confidence": 0.37,
+          "start_date": "2025-08-05",
+          "end_date": "2025-08-29",
+          "breakout_confirmed": false,
+          "volume_confirmation": false,
+          "description": "Pole +9.6% in 13 bars, flag range ratio 0.26"
+        },
+        {
+          "name": "Bull Flag",
+          "direction": "bullish",
+          "confidence": 0.366,
+          "start_date": "2025-08-01",
+          "end_date": "2025-08-29",
+          "breakout_confirmed": false,
+          "volume_confirmation": false,
+          "description": "Pole +9.6% in 15 bars, flag range ratio 0.26"
+        },
+        {
+          "name": "Bull Flag",
+          "direction": "bullish",
+          "confidence": 0.36,
+          "start_date": "2025-04-21",
+          "end_date": "2025-05-14",
+          "breakout_confirmed": false,
+          "volume_confirmation": false,
+          "description": "Pole +13.8% in 12 bars, flag range ratio 0.35"
+        },
+        {
+          "name": "Double Bottom",
+          "direction": "bullish",
+          "confidence": 0.227,
+          "start_date": "2025-09-16",
+          "end_date": "2025-10-14",
+          "breakout_confirmed": false,
+          "volume_confirmation": false,
+          "description": "Two lows at ~$81.97 & $79.69, neckline $85.06"
+        }
+      ],
+      "patterns_count": 8,
+      "tech_summary": {
+        "score": 45.7,
+        "band": "mixed",
+        "confidence": "high_conviction",
+        "confidence_pct": 80.0,
+        "subscores": {
+          "ema_trend": 8.0,
+          "macd_system": 63.0,
+          "rsi_regime": 58.0,
+          "bollinger": 69.0,
+          "volume_obv": 79.0,
+          "adx_stochastic": 27.0,
+          "pattern_recognition": 47.1,
+          "ichimoku": 8.0,
+          "momentum": 45.0,
+          "supertrend": 60.0,
+          "volatility_squeeze": 70.0,
+          "entry_exit_rules": 46.7
+        },
+        "signal_alignment": {
+          "signal_count": 10,
+          "bullish_frameworks": 4,
+          "entry_rules_met": 6,
+          "confidence_pct": 80.0,
+          "confidence_label": "high_conviction"
+        },
+        "risk_management": {
+          "stop_loss": 73.665,
+          "take_profit_1": 85.1275,
+          "take_profit_2": 87.42,
+          "risk_per_share": 4.585,
+          "reward_risk_ratio": 1.5,
+          "atr_pct": 2.93
+        },
+        "frameworks": {
+          "ema_trend": {
+            "applicable": true,
+            "score_pct": 8.0
+          },
+          "macd_system": {
+            "applicable": true,
+            "score_pct": 63.0
+          },
+          "rsi_regime": {
+            "applicable": true,
+            "score_pct": 58.0
+          },
+          "bollinger": {
+            "applicable": true,
+            "score_pct": 69.0
+          },
+          "volume_obv": {
+            "applicable": true,
+            "score_pct": 79.0
+          },
+          "adx_stochastic": {
+            "applicable": true,
+            "score_pct": 27.0
+          },
+          "pattern_recognition": {
+            "applicable": true,
+            "score_pct": 47.1
+          },
+          "ichimoku": {
+            "applicable": true,
+            "score_pct": 8.0
+          },
+          "momentum": {
+            "applicable": true,
+            "score_pct": 45.0
+          },
+          "supertrend": {
+            "applicable": true,
+            "score_pct": 60.0
+          },
+          "volatility_squeeze": {
+            "applicable": true,
+            "score_pct": 70.0
+          },
+          "entry_exit_rules": {
+            "applicable": true,
+            "score_pct": 46.7
+          }
+        },
+        "key_indicators": {
+          "close": 78.25,
+          "ema_9": 77.8367,
+          "ema_20": 78.2238,
+          "ema_21": 78.2715,
+          "ema_50": 79.427,
+          "ema_200": 83.5379,
+          "rsi_14": 48.81,
+          "macd": -0.6108,
+          "macd_histogram": 0.1456,
+          "adx": 13.69,
+          "atr_14": 2.29,
+          "bb_pct_b": 0.6001,
+          "obv_trend": "rising",
+          "ichimoku_tenkan": 77.5375,
+          "ichimoku_kijun": 79.1525,
+          "roc_12": -2.04,
+          "cci_20": 17.46,
+          "cmf_20": -0.0383,
+          "supertrend_direction": -1,
+          "supertrend_line": 81.6716,
+          "stoch_rsi_k": 58.06,
+          "stoch_rsi_d": 56.09,
+          "kc_upper": 82.7558,
+          "kc_lower": 73.6918,
+          "squeeze_on": true,
+          "fibonacci": {
+            "swing_high": 86.715,
+            "swing_low": 73.65,
+            "fib_236": 83.6317,
+            "fib_382": 81.7242,
+            "fib_500": 80.1825,
+            "fib_618": 78.6408,
+            "fib_786": 76.4459
+          },
+          "market_structure": "uptrend",
+          "vwap_20": 77.333,
+          "williams_r_14": -51.32
+        }
+      },
+      "fund_summary": {
+        "score": 69.2,
+        "band": "mixed_positive",
+        "confidence": "high",
+        "subscores": {
+          "financial_health": 67.5,
+          "valuation": 70.0,
+          "quality": 77.5,
+          "growth": 60.0
+        },
+        "data_quality": "high",
+        "coverage_ratio": 1.0,
+        "frameworks": {
+          "piotroski": {
+            "applicable": true,
+            "score_pct": 75.0
+          },
+          "altman": {
+            "applicable": true,
+            "score_pct": 59.9
+          },
+          "graham": {
+            "applicable": true,
+            "score_pct": 40.0
+          },
+          "greenblatt": {
+            "applicable": true,
+            "score_pct": 77.5
+          },
+          "lynch": {
+            "applicable": true,
+            "score_pct": 100.0
+          },
+          "growth_profile": {
+            "applicable": true,
+            "score_pct": 60.0
+          },
+          "shariah": {
+            "applicable": true,
+            "score_pct": null
+          }
+        },
+        "snapshot": {
+          "market_cap_proxy": 1888955000.0,
+          "revenue_current": 1219930000.0,
+          "eps_current": 4.67,
+          "eps_prior": 2.91,
+          "net_income_current": 112684000.0
+        }
+      },
+      "tech_error": null,
+      "fund_error": null,
+      "actual_outcome": {
+        "end_price": 80.2,
+        "end_price_date": "2025-12-31",
+        "price_return_pct": 2.49,
+        "actual_direction": "UP",
+        "signal_correct": true
+      },
+      "optimal_exit_analysis": {
+        "optimal_exit_date": "2025-12-18",
+        "optimal_holding_days": 17,
+        "peak_price": 83.0,
+        "peak_return_pct": 6.07,
+        "target_hit": true,
+        "target_hit_date": "2025-12-18",
+        "days_to_target": 17,
+        "stop_hit": false,
+        "stop_hit_date": null,
+        "days_to_stop": null,
+        "max_drawdown_pct": -2.1
+      }
+    }
+  ],
+  "summary": {
+    "total_months": 12,
+    "long_signals": 7,
+    "correct_signals": 3,
+    "accuracy_pct": 42.9,
+    "avg_expected_profit_pct": 5.08,
+    "avg_confidence_score": 66.77,
+    "avg_final_confidence": 0.14,
+    "avg_profit_probability": 41.44,
+    "avg_trade_duration_days": 13.43,
+    "total_patterns_detected": 99,
+    "bullish_patterns": 86,
+    "bearish_patterns": 13,
+    "conflict_months": 5
+  },
+  "learned_profile": {
+    "total_months": 12,
+    "total_long_trades": 7,
+    "win_rate_pct": 42.9,
+    "avg_optimal_holding_days": 13.9,
+    "median_optimal_holding_days": 17,
+    "avg_predicted_holding_days": 13.4,
+    "duration_prediction_error_days": 0.5,
+    "target_hit_rate_pct": 57.1,
+    "stop_hit_rate_pct": 57.1,
+    "avg_actual_return_pct": -2.8,
+    "avg_peak_return_pct": 4.5,
+    "avg_max_drawdown_pct": -7.2,
+    "winning_months": [
+      "2025-05",
+      "2025-09",
+      "2025-12"
+    ],
+    "losing_months": [
+      "2025-02",
+      "2025-04",
+      "2025-06",
+      "2025-10"
+    ],
+    "pattern_performance": {
+      "Cup & Handle": {
+        "appearances": 12,
+        "bullish_count": 12,
+        "avg_return_when_present": -3.71
+      },
+      "Double Bottom": {
+        "appearances": 5,
+        "bullish_count": 5,
+        "avg_return_when_present": -2.76
+      },
+      "Ascending Triangle": {
+        "appearances": 6,
+        "bullish_count": 6,
+        "avg_return_when_present": -3.66
+      },
+      "Bull Flag": {
+        "appearances": 21,
+        "bullish_count": 21,
+        "avg_return_when_present": -2.78
+      },
+      "Inverse Head & Shoulders": {
+        "appearances": 3,
+        "bullish_count": 3,
+        "avg_return_when_present": -3.2
+      },
+      "Head & Shoulders": {
+        "appearances": 2,
+        "bullish_count": 0,
+        "avg_return_when_present": -7.76
+      },
+      "Double Top": {
+        "appearances": 6,
+        "bullish_count": 0,
+        "avg_return_when_present": -0.24
+      },
+      "Cup (no handle)": {
+        "appearances": 2,
+        "bullish_count": 2,
+        "avg_return_when_present": 2.77
+      }
+    },
+    "best_pattern": "Cup (no handle)",
+    "best_pattern_avg_return_pct": 2.77,
+    "learned_optimal_duration": 13.9
+  },
+  "forward_predictions": [
+    {
+      "month": "January 2026",
+      "predicted_entry_date": "2026-01-01",
+      "predicted_exit_date": "2026-01-20",
+      "predicted_holding_days": 14,
+      "bullish_probability_pct": 58.3,
+      "expected_return_pct": -2.8,
+      "expected_peak_return_pct": 4.5,
+      "target_hit_probability_pct": 57.1,
+      "max_historical_drawdown_pct": -7.2,
+      "seasonal_match": false,
+      "conviction": "MODERATE",
+      "historical_win_rate_pct": 42.9
+    },
+    {
+      "month": "February 2026",
+      "predicted_entry_date": "2026-02-01",
+      "predicted_exit_date": "2026-02-20",
+      "predicted_holding_days": 14,
+      "bullish_probability_pct": 58.3,
+      "expected_return_pct": -2.8,
+      "expected_peak_return_pct": 4.5,
+      "target_hit_probability_pct": 57.1,
+      "max_historical_drawdown_pct": -7.2,
+      "seasonal_match": false,
+      "conviction": "MODERATE",
+      "historical_win_rate_pct": 42.9
+    },
+    {
+      "month": "March 2026",
+      "predicted_entry_date": "2026-03-01",
+      "predicted_exit_date": "2026-03-20",
+      "predicted_holding_days": 14,
+      "bullish_probability_pct": 58.3,
+      "expected_return_pct": -2.8,
+      "expected_peak_return_pct": 4.5,
+      "target_hit_probability_pct": 57.1,
+      "max_historical_drawdown_pct": -7.2,
+      "seasonal_match": false,
+      "conviction": "MODERATE",
+      "historical_win_rate_pct": 42.9
+    },
+    {
+      "month": "April 2026",
+      "predicted_entry_date": "2026-04-01",
+      "predicted_exit_date": "2026-04-20",
+      "predicted_holding_days": 14,
+      "bullish_probability_pct": 58.3,
+      "expected_return_pct": -2.8,
+      "expected_peak_return_pct": 4.5,
+      "target_hit_probability_pct": 57.1,
+      "max_historical_drawdown_pct": -7.2,
+      "seasonal_match": false,
+      "conviction": "MODERATE",
+      "historical_win_rate_pct": 42.9
+    },
+    {
+      "month": "May 2026",
+      "predicted_entry_date": "2026-05-01",
+      "predicted_exit_date": "2026-05-20",
+      "predicted_holding_days": 14,
+      "bullish_probability_pct": 58.3,
+      "expected_return_pct": -2.8,
+      "expected_peak_return_pct": 4.5,
+      "target_hit_probability_pct": 57.1,
+      "max_historical_drawdown_pct": -7.2,
+      "seasonal_match": true,
+      "conviction": "MODERATE",
+      "historical_win_rate_pct": 42.9
+    },
+    {
+      "month": "June 2026",
+      "predicted_entry_date": "2026-06-01",
+      "predicted_exit_date": "2026-06-20",
+      "predicted_holding_days": 14,
+      "bullish_probability_pct": 58.3,
+      "expected_return_pct": -2.8,
+      "expected_peak_return_pct": 4.5,
+      "target_hit_probability_pct": 57.1,
+      "max_historical_drawdown_pct": -7.2,
+      "seasonal_match": false,
+      "conviction": "MODERATE",
+      "historical_win_rate_pct": 42.9
+    }
+  ]
+}

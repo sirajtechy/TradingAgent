@@ -1,0 +1,52 @@
+{
+  "ticker": "NVDA",
+  "analysis_date": null,
+  "final_signal": "neutral",
+  "final_confidence": 0.7,
+  "orchestrator_score": 52.9,
+  "conflict_detected": false,
+  "conflict_resolution": null,
+  "weights_applied": {
+    "tech": 0.5,
+    "fund": 0.5
+  },
+  "tech_output": {
+    "signal": "neutral",
+    "score": 49.0,
+    "band": "mixed",
+    "confidence": "medium",
+    "computed_confidence": 0.04,
+    "subscores": {
+      "ema_trend": 59.0,
+      "macd_system": 76.0,
+      "rsi_regime": 58.0,
+      "bollinger": 46.0,
+      "volume_obv": 34.0,
+      "adx_stochastic": 37.0,
+      "pattern_recognition": 51.0,
+      "ichimoku": 23.0,
+      "momentum": 35.0
+    },
+    "data_quality": null,
+    "adx_confidence": null
+  },
+  "fund_output": {
+    "signal": "neutral",
+    "score": 56.8,
+    "band": "mixed",
+    "confidence": "high",
+    "computed_confidence": 0.2080000000000001,
+    "subscores": {
+      "financial_health": 57.2,
+      "valuation": 45.0,
+      "quality": 57.5,
+      "growth": 73.3
+    },
+    "data_quality": "good",
+    "adx_confidence": null
+  },
+  "tech_error": null,
+  "fund_error": null,
+  "note": null,
+  "text_report": "ORCHESTRATOR REPORT  \u2014  NVDA\n================================================================\nAnalysis date : latest\n\n  SIGNAL      : \u2014 NEUTRAL\n  SCORE       : 52.9 / 100\n  CONFIDENCE  : 70%\n\n  Weights     : Tech 50%  |  Fund 50%\n  Conflict    : No\n\n\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\nTECHNICAL AGENT\n  Signal      : \u2014 NEUTRAL\n  Score       : 49.0 / 100  [mixed]\n  Confidence  : medium  (computed: 0.04)\n  Subscores   : ema_trend: 59% | macd_system: 76% | rsi_regime: 58% | bollinger: 46% | volume_obv: 34% | adx_stochastic: 37% | pattern_recognition: 51% | ichimoku: 23% | momentum: 35%\n\n\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\nFUNDAMENTAL AGENT\n  Signal      : \u2014 NEUTRAL\n  Score       : 56.8 / 100  [mixed]\n  Confidence  : high  (computed: 0.21)\n  Data quality: good\n  Subscores   : financial_health: 57% | valuation: 45% | quality: 58% | growth: 73%\n\n================================================================"
+}

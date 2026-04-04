@@ -1,0 +1,147 @@
+{
+  "ticker": "ANET",
+  "status": "ok",
+  "setup": {
+    "ticker": "ANET",
+    "direction": "SHORT",
+    "entry_date": "2026-03-03",
+    "entry_price": 124.6,
+    "target_price": 105.18,
+    "stop_loss": 137.54,
+    "exit_date_est": "2026-03-07",
+    "expected_return_pct": 15.59,
+    "risk_pct": 10.39,
+    "reward_risk_ratio": 1.5,
+    "confidence": 61.5,
+    "holding_days_est": 3,
+    "rsi": 40.4,
+    "atr": 6.47,
+    "daily_bias": "BEARISH",
+    "daily_bias_pct": 0.0,
+    "weekly_bias": "NEUTRAL",
+    "weekly_bias_pct": 47.0,
+    "total_signals": 11,
+    "bullish_signals": 4,
+    "bearish_signals": 6,
+    "key_patterns": [
+      "Gap Down (unfilled)",
+      "Evening Star",
+      "Three Black Crows",
+      "Three Black Crows",
+      "Evening Star"
+    ],
+    "all_signals": [
+      {
+        "pattern": "Gap Down (unfilled)",
+        "signal": "bearish",
+        "confidence": 0.65,
+        "desc": "2026-03-03: -1.5% gap down from $127.26 to $125.33 \u2014 unfilled",
+        "category": "gap"
+      },
+      {
+        "pattern": "Evening Star",
+        "signal": "bearish",
+        "confidence": 0.72,
+        "desc": "",
+        "category": "candlestick"
+      },
+      {
+        "pattern": "Three Black Crows",
+        "signal": "bearish",
+        "confidence": 0.75,
+        "desc": "",
+        "category": "candlestick"
+      },
+      {
+        "pattern": "Three Black Crows",
+        "signal": "bearish",
+        "confidence": 0.75,
+        "desc": "",
+        "category": "candlestick"
+      },
+      {
+        "pattern": "Hammer",
+        "signal": "bullish",
+        "confidence": 0.65,
+        "desc": "",
+        "category": "candlestick"
+      },
+      {
+        "pattern": "Morning Star",
+        "signal": "bullish",
+        "confidence": 0.72,
+        "desc": "",
+        "category": "candlestick"
+      },
+      {
+        "pattern": "Bullish Engulfing",
+        "signal": "bullish",
+        "confidence": 0.7,
+        "desc": "",
+        "category": "candlestick"
+      },
+      {
+        "pattern": "Evening Star",
+        "signal": "bearish",
+        "confidence": 0.72,
+        "desc": "",
+        "category": "candlestick"
+      },
+      {
+        "pattern": "Bearish MACD Divergence",
+        "signal": "bearish",
+        "confidence": 0.7,
+        "desc": "Price made higher high but MACD made lower high \u2014 momentum fading",
+        "category": "divergence"
+      },
+      {
+        "pattern": "Bollinger Squeeze",
+        "signal": "neutral",
+        "confidence": 0.75,
+        "desc": "BB width at 28.07% \u2014 lowest in 20 bars (avg: 52.82%). Breakout imminent.",
+        "category": "volatility"
+      },
+      {
+        "pattern": "Outside Bar",
+        "signal": "bullish",
+        "confidence": 0.62,
+        "desc": "Range engulfs prior bar \u2014 bullish expansion",
+        "category": "range"
+      }
+    ]
+  },
+  "error": null,
+  "data_bars_daily": 501,
+  "data_bars_weekly": 105,
+  "deep_daily": {
+    "timeframe": "daily",
+    "total_signals": 1,
+    "bullish_count": 0,
+    "bearish_count": 1,
+    "neutral_count": 0,
+    "bull_confidence": 0,
+    "bear_confidence": 0.65,
+    "bias_pct": 0.0,
+    "bias": "BEARISH",
+    "categories": [
+      "gap"
+    ]
+  },
+  "deep_weekly": {
+    "timeframe": "weekly",
+    "total_signals": 3,
+    "bullish_count": 1,
+    "bearish_count": 1,
+    "neutral_count": 1,
+    "bull_confidence": 0.62,
+    "bear_confidence": 0.7,
+    "bias_pct": 47.0,
+    "bias": "NEUTRAL",
+    "categories": [
+      "range",
+      "divergence",
+      "volatility"
+    ]
+  },
+  "elapsed_sec": 0.9
+}

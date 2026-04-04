@@ -1,0 +1,102 @@
+{
+  "ticker": "GOOGL",
+  "status": "ok",
+  "setup": {
+    "ticker": "GOOGL",
+    "direction": "SHORT",
+    "entry_date": "2026-03-03",
+    "entry_price": 303.58,
+    "target_price": 276.18,
+    "stop_loss": 321.85,
+    "exit_date_est": "2026-03-07",
+    "expected_return_pct": 9.03,
+    "risk_pct": 6.02,
+    "reward_risk_ratio": 1.5,
+    "confidence": 100.0,
+    "holding_days_est": 3,
+    "rsi": 38.7,
+    "atr": 9.13,
+    "daily_bias": "NEUTRAL",
+    "daily_bias_pct": 50.0,
+    "weekly_bias": "BEARISH",
+    "weekly_bias_pct": 0.0,
+    "total_signals": 5,
+    "bullish_signals": 0,
+    "bearish_signals": 4,
+    "key_patterns": [
+      "Evening Star",
+      "Bearish RSI Divergence",
+      "Bearish MACD Divergence",
+      "Overextended Above SMA50"
+    ],
+    "all_signals": [
+      {
+        "pattern": "Evening Star",
+        "signal": "bearish",
+        "confidence": 0.72,
+        "desc": "",
+        "category": "candlestick"
+      },
+      {
+        "pattern": "Bearish RSI Divergence",
+        "signal": "bearish",
+        "confidence": 0.72,
+        "desc": "Price made higher high but RSI made lower high (80 vs 83)",
+        "category": "divergence"
+      },
+      {
+        "pattern": "Bearish MACD Divergence",
+        "signal": "bearish",
+        "confidence": 0.7,
+        "desc": "Price made higher high but MACD made lower high \u2014 momentum fading",
+        "category": "divergence"
+      },
+      {
+        "pattern": "Overextended Above SMA50",
+        "signal": "bearish",
+        "confidence": 0.7,
+        "desc": "Price +25.3% above SMA50 ($238.23) \u2014 extended, pullback risk high",
+        "category": "mean_reversion"
+      },
+      {
+        "pattern": "NR7 (Narrowest Range 7)",
+        "signal": "neutral",
+        "confidence": 0.7,
+        "desc": "Today's range is narrowest of last 7 bars \u2014 expansion/breakout expected",
+        "category": "range"
+      }
+    ]
+  },
+  "error": null,
+  "data_bars_daily": 501,
+  "data_bars_weekly": 105,
+  "deep_daily": {
+    "timeframe": "daily",
+    "total_signals": 0,
+    "bullish_count": 0,
+    "bearish_count": 0,
+    "neutral_count": 0,
+    "bull_confidence": 0,
+    "bear_confidence": 0,
+    "bias_pct": 50.0,
+    "bias": "NEUTRAL",
+    "categories": []
+  },
+  "deep_weekly": {
+    "timeframe": "weekly",
+    "total_signals": 4,
+    "bullish_count": 0,
+    "bearish_count": 3,
+    "neutral_count": 1,
+    "bull_confidence": 0,
+    "bear_confidence": 2.12,
+    "bias_pct": 0.0,
+    "bias": "BEARISH",
+    "categories": [
+      "mean_reversion",
+      "range",
+      "divergence"
+    ]
+  },
+  "elapsed_sec": 1.7
+}

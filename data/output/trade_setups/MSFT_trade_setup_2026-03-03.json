@@ -1,0 +1,85 @@
+{
+  "ticker": "MSFT",
+  "status": "ok",
+  "setup": {
+    "ticker": "MSFT",
+    "direction": "LONG",
+    "entry_date": "2026-03-03",
+    "entry_price": 403.93,
+    "target_price": 437.43,
+    "stop_loss": 381.6,
+    "exit_date_est": "2026-03-07",
+    "expected_return_pct": 8.29,
+    "risk_pct": 5.53,
+    "reward_risk_ratio": 1.5,
+    "confidence": 85.0,
+    "holding_days_est": 3,
+    "rsi": 44.0,
+    "atr": 11.17,
+    "daily_bias": "NEUTRAL",
+    "daily_bias_pct": 50.0,
+    "weekly_bias": "BULLISH",
+    "weekly_bias_pct": 100.0,
+    "total_signals": 3,
+    "bullish_signals": 2,
+    "bearish_signals": 0,
+    "key_patterns": [
+      "Three White Soldiers",
+      "Overextended Below SMA20"
+    ],
+    "all_signals": [
+      {
+        "pattern": "Three White Soldiers",
+        "signal": "bullish",
+        "confidence": 0.75,
+        "desc": "",
+        "category": "candlestick"
+      },
+      {
+        "pattern": "Overextended Below SMA20",
+        "signal": "bullish",
+        "confidence": 0.65,
+        "desc": "Price -11.6% below SMA20 ($462.88) \u2014 mean reversion bounce likely",
+        "category": "mean_reversion"
+      },
+      {
+        "pattern": "Strong Trend (ADX>40)",
+        "signal": "neutral",
+        "confidence": 0.6,
+        "desc": "ADX=63 \u2014 very strong trend, potential exhaustion if overbought",
+        "category": "trend"
+      }
+    ]
+  },
+  "error": null,
+  "data_bars_daily": 501,
+  "data_bars_weekly": 105,
+  "deep_daily": {
+    "timeframe": "daily",
+    "total_signals": 0,
+    "bullish_count": 0,
+    "bearish_count": 0,
+    "neutral_count": 0,
+    "bull_confidence": 0,
+    "bear_confidence": 0,
+    "bias_pct": 50.0,
+    "bias": "NEUTRAL",
+    "categories": []
+  },
+  "deep_weekly": {
+    "timeframe": "weekly",
+    "total_signals": 2,
+    "bullish_count": 1,
+    "bearish_count": 0,
+    "neutral_count": 1,
+    "bull_confidence": 0.65,
+    "bear_confidence": 0,
+    "bias_pct": 100.0,
+    "bias": "BULLISH",
+    "categories": [
+      "mean_reversion",
+      "trend"
+    ]
+  },
+  "elapsed_sec": 1.7
+}
