@@ -19,6 +19,7 @@ Resilience features:
 
 from datetime import date, timedelta
 import logging
+import threading
 import time
 from typing import Any, Dict, List, Optional
 
@@ -30,8 +31,13 @@ from .models import OHLCVBar, RawTechnicalSnapshot, TechnicalRequest
 
 logger = logging.getLogger(__name__)
 
-# How many calendar days to request so we end up with ~300 trading bars.
-_CALENDAR_LOOKBACK_DAYS = 450
+# yfinance is not thread-safe — serialize all downloads with a module-level lock
+_YF_DOWNLOAD_LOCK = threading.Lock()
+
+# How many calendar days to request — pull as much as Polygon allows.
+# 5 years ≈ 1825 calendar days ≈ 1260 trading bars.  Polygon paid tier
+# goes back to IPO; free tier ~2 years.  More data = better patterns.
+_CALENDAR_LOOKBACK_DAYS = 1825
 # Absolute minimum number of bars required for the 200-day EMA warm-up.
 _MIN_BARS_REQUIRED = 200
 
@@ -186,21 +192,11 @@ class PolygonTechnicalClient:
                 if profile.get("company_name") != ticker:
                     return profile
             except Exception as exc:
-                logger.warning("Polygon profile failed for %s: %s", ticker, exc)
+                logger.debug("Polygon profile failed for %s: %s", ticker, exc)
 
-        # yfinance fallback
-        try:
-            import yfinance as yf
-            info = yf.Ticker(ticker).info or {}
-            return {
-                "company_name": str(info.get("longName") or info.get("shortName") or ticker),
-                "sector": str(info.get("sector") or "Unknown"),
-                "industry": str(info.get("industry") or "Unknown"),
-            }
-        except Exception as exc:
-            logger.warning("yfinance profile also failed for %s: %s", ticker, exc)
-            warnings_list.append(f"Profile data unavailable for {ticker}. Defaults used.")
-            return {"company_name": ticker, "sector": "Unknown", "industry": "Unknown"}
+        # Silent default — no yfinance fallback (causes 401 noise at scale)
+        warnings_list.append(f"Profile data unavailable for {ticker}. Defaults used.")
+        return {"company_name": ticker, "sector": "Unknown", "industry": "Unknown"}
 
     # ------------------------------------------------------------------ #
     # Private — yfinance fallback download                                 #
@@ -208,7 +204,11 @@ class PolygonTechnicalClient:
 
     @staticmethod
     def _yf_download(ticker: str, start: date, end: date) -> Optional[pd.DataFrame]:
-        """Emergency yfinance fallback with retry."""
+        """Emergency yfinance fallback with retry — stderr suppressed.
+
+        Serialized with _YF_DOWNLOAD_LOCK because yfinance is not thread-safe:
+        concurrent downloads for different tickers can mix up cached responses.
+        """
         try:
             import yfinance as yf
         except ImportError:
@@ -216,17 +216,18 @@ class PolygonTechnicalClient:
 
         for attempt in range(3):
             try:
-                df = yf.download(
-                    ticker,
-                    start=start.isoformat(),
-                    end=end.isoformat(),
-                    auto_adjust=True,
-                    progress=False,
-                )
+                with _YF_DOWNLOAD_LOCK:
+                    df = yf.download(
+                        ticker,
+                        start=start.isoformat(),
+                        end=end.isoformat(),
+                        auto_adjust=True,
+                        progress=False,
+                    )
                 if df is not None and not df.empty:
                     return df
             except Exception as exc:
-                logger.warning("yfinance fallback attempt %d for %s: %s", attempt + 1, ticker, exc)
+                logger.debug("yfinance fallback attempt %d for %s: %s", attempt + 1, ticker, exc)
                 time.sleep(1.0 * (2 ** attempt))
         return None
 

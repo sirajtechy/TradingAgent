@@ -132,11 +132,16 @@ export default function OverviewPage({ dashboard, predictions, onTickerClick }: 
     }));
   }, [sectorSummaries]);
 
-  // High confidence setups
-  const highConf = predList
-    .filter((p) => p.confidence >= 0.7)
-    .sort((a, b) => b.confidence - a.confidence)
-    .slice(0, 8);
+  // High confidence setups — deduplicated by ticker (keep highest confidence per ticker)
+  const highConf = (() => {
+    const seen = new Map<string, typeof predList[0]>();
+    for (const p of predList) {
+      if (p.confidence < 0.7) continue;
+      const existing = seen.get(p.ticker);
+      if (!existing || p.confidence > existing.confidence) seen.set(p.ticker, p);
+    }
+    return [...seen.values()].sort((a, b) => b.confidence - a.confidence).slice(0, 8);
+  })();
 
   const totalSignals = signals.length;
   const totalTrades = signals.filter((s) => s.signal !== "HOLD").length;

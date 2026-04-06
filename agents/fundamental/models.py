@@ -67,3 +67,6 @@ class RawFundamentalSnapshot:
     cashflow_statements: List[StatementEntry]
     dividend_events: List[DividendEvent]
     warnings: List[str]
+    quarterly_income: List[StatementEntry] = None
+    quarterly_balance: List[StatementEntry] = None
+    quarterly_cashflow: List[StatementEntry] = None

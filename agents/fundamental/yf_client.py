@@ -8,16 +8,25 @@ Data source priority for PRICES:
 
 Financial statements (income, balance, cashflow, dividends) still use
 yfinance because Polygon.io does not serve fundamental data.
+Yahoo Finance's free API now returns 401 for many calls; errors are
+suppressed silently and empty statements are returned as graceful degradation.
 """
 from datetime import date, timedelta
 from typing import Any, Dict, List, Optional
+import contextlib
 import logging
+import os
 import warnings
 
 warnings.filterwarnings("ignore", category=FutureWarning)
 warnings.filterwarnings("ignore", category=DeprecationWarning)
 
 import yfinance as yf
+
+# Silence yfinance's own logger (401/HTTP noise). yfinance 1.x uses logging.
+for _yf_log in ("yfinance", "yfinance.base", "yfinance.utils",
+                 "yfinance.ticker", "yfinance.financials"):
+    logging.getLogger(_yf_log).setLevel(logging.CRITICAL)
 
 from agents.polygon_data import PolygonClient, PolygonDataError
 from .exceptions import DataUnavailableError
@@ -34,6 +43,24 @@ logger = logging.getLogger(__name__)
 _polygon = PolygonClient()
 
 
+@contextlib.contextmanager
+def _suppress_yf_output():
+    """Redirect fd 1/2 to /dev/null during yfinance calls — thread-safe."""
+    devnull_fd = os.open(os.devnull, os.O_WRONLY)
+    saved_out = os.dup(1)
+    saved_err = os.dup(2)
+    try:
+        os.dup2(devnull_fd, 1)
+        os.dup2(devnull_fd, 2)
+        yield
+    finally:
+        os.dup2(saved_out, 1)
+        os.dup2(saved_err, 2)
+        os.close(saved_out)
+        os.close(saved_err)
+        os.close(devnull_fd)
+
+
 class YFinanceClient:
     """
     Fetches data from Yahoo Finance via yfinance.
@@ -47,13 +74,17 @@ class YFinanceClient:
     """
 
     def build_snapshot(self, request: AnalysisRequest) -> RawFundamentalSnapshot:
-        ticker_obj = yf.Ticker(request.ticker)
-        info = self._safe_info(ticker_obj, request.ticker)
+        with _suppress_yf_output():
+            ticker_obj = yf.Ticker(request.ticker)
+            info = self._safe_info(ticker_obj, request.ticker)
 
         profile = self._build_profile(request.ticker, info)
         income_statements = self._build_income_statements(ticker_obj, request.as_of_date)
         balance_statements = self._build_balance_statements(ticker_obj, request.as_of_date)
         cashflow_statements = self._build_cashflow_statements(ticker_obj, request.as_of_date)
+        quarterly_income = self._build_quarterly_income(ticker_obj, request.as_of_date)
+        quarterly_balance = self._build_quarterly_balance(ticker_obj, request.as_of_date)
+        quarterly_cashflow = self._build_quarterly_cashflow(ticker_obj, request.as_of_date)
         dividend_events = self._build_dividend_events(ticker_obj, request.as_of_date)
         price_point = self._build_price_point(ticker_obj, request.ticker, request.as_of_date)
 
@@ -73,6 +104,9 @@ class YFinanceClient:
             income_statements=income_statements,
             balance_statements=balance_statements,
             cashflow_statements=cashflow_statements,
+            quarterly_income=quarterly_income,
+            quarterly_balance=quarterly_balance,
+            quarterly_cashflow=quarterly_cashflow,
             dividend_events=dividend_events,
             warnings=warnings_list,
         )
@@ -204,26 +238,53 @@ class YFinanceClient:
 
     def _build_income_statements(self, ticker_obj: yf.Ticker, as_of_date: date) -> List[StatementEntry]:
         try:
-            df = ticker_obj.financials  # annual income statement
+            with _suppress_yf_output():
+                df = ticker_obj.financials
         except Exception:
             return []
         return self._df_to_statements(df, as_of_date, "income")
 
     def _build_balance_statements(self, ticker_obj: yf.Ticker, as_of_date: date) -> List[StatementEntry]:
         try:
-            df = ticker_obj.balance_sheet
+            with _suppress_yf_output():
+                df = ticker_obj.balance_sheet
         except Exception:
             return []
         return self._df_to_statements(df, as_of_date, "balance")
 
     def _build_cashflow_statements(self, ticker_obj: yf.Ticker, as_of_date: date) -> List[StatementEntry]:
         try:
-            df = ticker_obj.cashflow
+            with _suppress_yf_output():
+                df = ticker_obj.cashflow
         except Exception:
             return []
         return self._df_to_statements(df, as_of_date, "cashflow")
 
-    def _df_to_statements(self, df: Any, as_of_date: date, kind: str) -> List[StatementEntry]:
+    def _build_quarterly_income(self, ticker_obj: yf.Ticker, as_of_date: date) -> List[StatementEntry]:
+        try:
+            with _suppress_yf_output():
+                df = ticker_obj.quarterly_financials
+        except Exception:
+            return []
+        return self._df_to_statements(df, as_of_date, "income", period="Q")
+
+    def _build_quarterly_balance(self, ticker_obj: yf.Ticker, as_of_date: date) -> List[StatementEntry]:
+        try:
+            with _suppress_yf_output():
+                df = ticker_obj.quarterly_balance_sheet
+        except Exception:
+            return []
+        return self._df_to_statements(df, as_of_date, "balance", period="Q")
+
+    def _build_quarterly_cashflow(self, ticker_obj: yf.Ticker, as_of_date: date) -> List[StatementEntry]:
+        try:
+            with _suppress_yf_output():
+                df = ticker_obj.quarterly_cashflow
+        except Exception:
+            return []
+        return self._df_to_statements(df, as_of_date, "cashflow", period="Q")
+
+    def _df_to_statements(self, df: Any, as_of_date: date, kind: str, period: str = "FY") -> List[StatementEntry]:
         if df is None or df.empty:
             return []
 
@@ -243,7 +304,7 @@ class YFinanceClient:
             except Exception:
                 continue
 
-            # Approximate: assume filed ~45 days after fiscal year-end
+            # Approximate: quarterly reports filed ~45 days after quarter-end; annual ~45 days after FY-end
             filing_date = period_end + timedelta(days=45)
             if filing_date > as_of_date:
                 continue
@@ -262,7 +323,7 @@ class YFinanceClient:
                     report_date=period_end,
                     filing_date=filing_date,
                     fiscal_year=str(period_end.year),
-                    period="FY",
+                    period=period,
                     values=values,
                 )
             )
@@ -276,7 +337,8 @@ class YFinanceClient:
 
     def _build_dividend_events(self, ticker_obj: yf.Ticker, as_of_date: date) -> List[DividendEvent]:
         try:
-            divs = ticker_obj.dividends
+            with _suppress_yf_output():
+                divs = ticker_obj.dividends
         except Exception:
             return []
         if divs is None or divs.empty:
@@ -334,6 +396,10 @@ def _get_field_map(kind: str) -> Dict[str, str]:
             "Basic Average Shares": "weightedAverageShsOut",
             "Interest Income": "interestIncome",
             "Net Interest Income": "netInterestIncome",
+            "EBITDA": "ebitda",
+            "Research And Development": "rdExpense",
+            "Income Before Tax": "incomeBeforeTax",
+            "Cost Of Revenue": "costOfRevenue",
         }
     if kind == "balance":
         return {
@@ -348,10 +414,16 @@ def _get_field_map(kind: str) -> Dict[str, str]:
             "Cash And Cash Equivalents": "cashAndCashEquivalents",
             "Other Short Term Investments": "shortTermInvestments",
             "Net PPE": "propertyPlantEquipmentNet",
+            "Inventory": "inventory",
+            "Accounts Receivable": "accountsReceivable",
         }
     if kind == "cashflow":
         return {
             "Operating Cash Flow": "operatingCashFlow",
             "Cash Flow From Continuing Operating Activities": "operatingCashFlow",
+            "Capital Expenditure": "capitalExpenditure",
+            "Free Cash Flow": "freeCashFlow",
+            "Repurchase Of Capital Stock": "stockRepurchased",
+            "Common Stock Repurchase": "stockRepurchased",
         }
     return {}

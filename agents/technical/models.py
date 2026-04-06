@@ -56,6 +56,14 @@ class PatternSignal:
         breakout_confirmed:  True if price broke past the key level.
         volume_confirmation: True if breakout bar volume > 1.5× 20-day avg.
         description:         One-line human-readable summary.
+        breakout_price:      The structural price level the pattern breaks
+                             (neckline, resistance, flag high, rim, etc.).
+                             None for bearish patterns or unconfirmed breaks.
+        breakout_date:       The bar date on which the breakout was confirmed.
+                             None if not yet confirmed.
+        pattern_target:      Measured-move price target derived from pattern
+                             geometry (e.g. neckline + pattern height).
+                             None for bearish patterns.
     """
 
     pattern_name: str
@@ -66,6 +74,9 @@ class PatternSignal:
     breakout_confirmed: bool
     volume_confirmation: bool
     description: str
+    breakout_price: Optional[float] = None
+    breakout_date: Optional[date] = None
+    pattern_target: Optional[float] = None
 
 
 # ----------------------------------------------------------------------- #

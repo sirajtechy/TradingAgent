@@ -119,6 +119,81 @@ def dividend_streak_years(dividends: List[DividendEvent], as_of_date: date) -> i
     return streak
 
 
+def _compute_ttm_ebit(snapshot: RawFundamentalSnapshot) -> Optional[float]:
+    """Sum EBIT from the most recent 4 quarters to get trailing-twelve-month EBIT."""
+    quarters = snapshot.quarterly_income
+    if not quarters or len(quarters) < 4:
+        return None
+    total = 0.0
+    for q in quarters[:4]:
+        val = first_value(q, "ebit", "operatingIncome")
+        if val is None:
+            return None
+        total += val
+    return total
+
+
+def _eps_momentum_score(snapshot: RawFundamentalSnapshot) -> Optional[float]:
+    """Score quarterly EPS acceleration: Q/Q improvement trend over recent quarters."""
+    quarters = snapshot.quarterly_income
+    if not quarters or len(quarters) < 3:
+        return None
+    eps_values = []
+    for q in quarters[:6]:  # up to 6 quarters
+        val = first_value(q, "epsDiluted", "eps")
+        if val is None:
+            break
+        eps_values.append(val)
+    if len(eps_values) < 3:
+        return None
+    # Count how many consecutive quarters show Q/Q EPS improvement (newest first)
+    improving = 0
+    for i in range(len(eps_values) - 1):
+        if eps_values[i] > eps_values[i + 1]:
+            improving += 1
+        else:
+            break
+    if improving >= 4:
+        return 100.0
+    if improving >= 3:
+        return 80.0
+    if improving >= 2:
+        return 60.0
+    if improving >= 1:
+        return 40.0
+    return 20.0
+
+
+def _fcf_quality_score(snapshot: RawFundamentalSnapshot) -> Optional[float]:
+    """Score free-cash-flow quality: FCF margin and FCF yield."""
+    current_cash = snapshot.cashflow_statements[0] if snapshot.cashflow_statements else None
+    current_income = snapshot.income_statements[0] if snapshot.income_statements else None
+    if not current_cash or not current_income:
+        return None
+    ocf = operating_cash_flow(current_cash)
+    capex = first_value(current_cash, "capitalExpenditure")
+    if ocf is None:
+        return None
+    # capex is often reported as negative in yfinance; take absolute value
+    capex_abs = abs(capex) if capex is not None else 0.0
+    fcf = ocf - capex_abs
+    revenue = first_value(current_income, "revenue")
+    fcf_margin = safe_div(fcf, revenue)
+    fcf_margin_pct = None if fcf_margin is None else fcf_margin * 100.0
+    market_cap = compute_market_cap(snapshot)
+    fcf_yield = safe_div(fcf, market_cap)
+    fcf_yield_pct = None if fcf_yield is None else fcf_yield * 100.0
+    margin_score = bucket_score(
+        fcf_margin_pct,
+        [(0.0, 15.0), (5.0, 35.0), (10.0, 55.0), (20.0, 75.0), (float("inf"), 100.0)],
+    )
+    yield_score = bucket_score(
+        fcf_yield_pct,
+        [(0.0, 15.0), (2.0, 35.0), (5.0, 55.0), (8.0, 75.0), (float("inf"), 100.0)],
+    )
+    return average([margin_score, yield_score])
+
+
 def evaluate_snapshot(snapshot: RawFundamentalSnapshot, include_experimental_score: bool = True) -> Dict[str, Any]:
     piotroski = evaluate_piotroski(snapshot)
     altman = evaluate_altman(snapshot)
@@ -159,6 +234,8 @@ def evaluate_snapshot(snapshot: RawFundamentalSnapshot, include_experimental_sco
     }
 
     if include_experimental_score:
+        eps_momentum = _eps_momentum_score(snapshot)
+        fcf_quality = _fcf_quality_score(snapshot)
         result["experimental_score"] = build_experimental_score(
             piotroski=piotroski,
             altman=altman,
@@ -166,6 +243,8 @@ def evaluate_snapshot(snapshot: RawFundamentalSnapshot, include_experimental_sco
             greenblatt=greenblatt,
             lynch=lynch,
             growth_profile=growth_profile,
+            eps_momentum=eps_momentum,
+            fcf_quality=fcf_quality,
         )
     return result
 
@@ -440,7 +519,9 @@ def evaluate_greenblatt(snapshot: RawFundamentalSnapshot) -> Dict[str, Any]:
     if not current_income or not current_balance:
         return {"applicable": False, "notes": ["Insufficient annual statements for Greenblatt metrics."]}
 
-    ebit = first_value(current_income, "ebit", "operatingIncome")
+    # v4: Prefer TTM EBIT from quarterly data for more current earnings picture
+    ttm_ebit = _compute_ttm_ebit(snapshot)
+    ebit = ttm_ebit if ttm_ebit is not None else first_value(current_income, "ebit", "operatingIncome")
     market_cap = compute_market_cap(snapshot)
     total_debt = first_value(current_balance, "totalDebt")
     cash = first_value(current_balance, "cashAndCashEquivalents")
@@ -636,8 +717,11 @@ def build_experimental_score(
     greenblatt: Dict[str, Any],
     lynch: Dict[str, Any],
     growth_profile: Dict[str, Any],
+    eps_momentum: Optional[float] = None,
+    fcf_quality: Optional[float] = None,
 ) -> Dict[str, Any]:
-    financial_health = average([piotroski.get("score_pct"), altman.get("score_pct")])
+    # v4: Include FCF quality in financial health subscore
+    financial_health = average([piotroski.get("score_pct"), altman.get("score_pct"), fcf_quality])
     graham_score = graham.get("score_pct")
     lynch_score = lynch.get("score_pct")
 
@@ -652,19 +736,21 @@ def build_experimental_score(
         valuation = valuation * 0.90
 
     quality = greenblatt.get("score_pct")
-    growth = growth_profile.get("score_pct")
+    # v4: Include EPS momentum in growth subscore
+    growth = average([growth_profile.get("score_pct"), eps_momentum])
 
-    # v2: rebalanced — shifted 10% from financial_health to valuation
-    # so overvalued stocks get penalised more heavily.
+    # v4: rebalanced — growth 20→30% (now includes EPS momentum),
+    # financial_health 25→20% (now includes FCF quality),
+    # valuation 30→25%, quality 25→25% unchanged.
     weighted_values = []
     if financial_health is not None:
-        weighted_values.append((financial_health, 0.25))
+        weighted_values.append((financial_health, 0.20))
     if valuation is not None:
-        weighted_values.append((valuation, 0.30))
+        weighted_values.append((valuation, 0.25))
     if quality is not None:
         weighted_values.append((quality, 0.25))
     if growth is not None:
-        weighted_values.append((growth, 0.20))
+        weighted_values.append((growth, 0.30))
 
     if not weighted_values:
         return {
@@ -732,6 +818,8 @@ def build_experimental_score(
             "valuation": round(valuation, 1) if valuation is not None else None,
             "quality": round(quality, 1) if quality is not None else None,
             "growth": round(growth, 1) if growth is not None else None,
+            "eps_momentum": round(eps_momentum, 1) if eps_momentum is not None else None,
+            "fcf_quality": round(fcf_quality, 1) if fcf_quality is not None else None,
         },
         "warning": "Experimental score is intended for backtesting and ranking experiments, not as a proven production trading signal.",
     }

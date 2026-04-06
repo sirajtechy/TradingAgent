@@ -45,8 +45,50 @@ if _env_path.exists():
 POLYGON_API_KEY: str = os.environ.get("POLYGON_API_KEY", "")
 BASE_URL = "https://api.polygon.io"
 
-_MAX_RETRIES = 3
-_RETRY_SLEEP = 1.5  # seconds, doubled per attempt
+_MAX_RETRIES = 4
+_RETRY_SLEEP = 2.0  # seconds, doubled per attempt
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+# Thread-safe token-bucket rate limiter
+# ─────────────────────────────────────────────────────────────────────────────
+
+import threading
+
+# Default: 5 requests/second (300/min) — safe for Polygon paid plans.
+# Override with env var POLYGON_REQUESTS_PER_SECOND if needed.
+_RATE_LIMIT_RPS: float = float(os.environ.get("POLYGON_REQUESTS_PER_SECOND", "5"))
+
+
+class _TokenBucket:
+    """Thread-safe token bucket for rate limiting API calls."""
+
+    def __init__(self, rate_per_second: float) -> None:
+        self._rate = rate_per_second          # tokens added per second
+        self._capacity = max(rate_per_second, 1.0)
+        self._tokens = self._capacity
+        self._last = time.monotonic()
+        self._lock = threading.Lock()
+
+    def acquire(self) -> None:
+        """Block until a token is available, then consume one."""
+        while True:
+            with self._lock:
+                now = time.monotonic()
+                elapsed = now - self._last
+                self._tokens = min(
+                    self._capacity,
+                    self._tokens + elapsed * self._rate,
+                )
+                self._last = now
+                if self._tokens >= 1.0:
+                    self._tokens -= 1.0
+                    return
+                wait = (1.0 - self._tokens) / self._rate
+            time.sleep(wait)
+
+
+_rate_limiter = _TokenBucket(_RATE_LIMIT_RPS)
 
 
 # ─────────────────────────────────────────────────────────────────────────────
@@ -73,15 +115,18 @@ def _session() -> requests.Session:
 
 
 def _get(path: str, params: Optional[Dict] = None, retries: int = _MAX_RETRIES) -> Optional[Dict]:
-    """HTTP GET with retry / rate-limit back-off.  Returns None on soft failure."""
+    """HTTP GET with token-bucket rate limiting and retry / back-off on 429."""
     url = f"{BASE_URL}{path}"
     for attempt in range(retries):
+        _rate_limiter.acquire()          # throttle before every request
         try:
             r = _session().get(url, params=params or {}, timeout=15)
             if r.status_code == 403:
                 raise PolygonDataError(f"Polygon auth error (403) for {url}. Check POLYGON_API_KEY.")
             if r.status_code == 429:
-                time.sleep(_RETRY_SLEEP * (2 ** attempt))
+                # Respect Retry-After header if present, otherwise exponential back-off
+                retry_after = float(r.headers.get("Retry-After", _RETRY_SLEEP * (2 ** attempt)))
+                time.sleep(retry_after)
                 continue
             r.raise_for_status()
             return r.json()

@@ -15,12 +15,12 @@ from typing import List
 class FusionWeights:
     """Weight pairs (tech, fund) for each scenario."""
 
-    agreement: tuple = (0.45, 0.55)
-    agreement_neutral: tuple = (0.50, 0.50)
-    tech_only: tuple = (0.85, 0.15)
-    fund_only: tuple = (0.15, 0.85)
-    conflict_dominant: tuple = (0.30, 0.70)   # loser, winner
-    conflict_equal: tuple = (0.50, 0.50)
+    agreement: tuple = (0.90, 0.10)
+    agreement_neutral: tuple = (0.90, 0.10)
+    tech_only: tuple = (0.90, 0.10)
+    fund_only: tuple = (0.90, 0.10)
+    conflict_dominant: tuple = (0.10, 0.90)   # loser, winner
+    conflict_equal: tuple = (0.90, 0.10)
 
 
 @dataclasses.dataclass(frozen=True)

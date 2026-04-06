@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { Fragment, useMemo, useState } from "react";
 import type { PredictionData, Prediction } from "../lib/types";
 import { ChevronDown, ChevronUp, Filter, Search } from "lucide-react";
 
@@ -324,9 +324,8 @@ export default function PredictionsTable({ predictions, sectors, onTickerClick }
                     ? "text-red-400"
                     : "text-[var(--text-dim)]";
                 return (
-                  <>
+                  <Fragment key={rowKey}>
                     <tr
-                      key={rowKey}
                       onClick={() =>
                         setExpandedTicker(isExpanded ? null : rowKey)
                       }
@@ -369,9 +368,9 @@ export default function PredictionsTable({ predictions, sectors, onTickerClick }
                       </td>
                     </tr>
                     {isExpanded && (
-                      <ExpandedRow key={`${rowKey}-exp`} p={p} onTickerClick={onTickerClick} />
+                      <ExpandedRow p={p} onTickerClick={onTickerClick} />
                     )}
-                  </>
+                  </Fragment>
                 );
               })}
             </tbody>

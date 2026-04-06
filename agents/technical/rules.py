@@ -718,6 +718,9 @@ def evaluate_patterns(
             "breakout_confirmed": p.breakout_confirmed,
             "volume_confirmation": p.volume_confirmation,
             "description": p.description,
+            "breakout_price": p.breakout_price,
+            "breakout_date": p.breakout_date.isoformat() if p.breakout_date else None,
+            "pattern_target": p.pattern_target,
         }
         for p in patterns
     ]
@@ -1631,6 +1634,9 @@ def evaluate_snapshot(
             "breakout_confirmed": p.breakout_confirmed,
             "volume_confirmation": p.volume_confirmation,
             "description": p.description,
+            "breakout_price": p.breakout_price,
+            "breakout_date": p.breakout_date.isoformat() if p.breakout_date else None,
+            "pattern_target": p.pattern_target,
         }
         for p in patterns
     ]

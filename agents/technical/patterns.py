@@ -192,6 +192,11 @@ def _detect_double_bottom(
         conf += _recency_bonus(idx2, n)
         conf = min(round(conf, 3), 1.0)
 
+        # Measured move: neckline + (neckline - avg trough)
+        avg_trough = (val1 + val2) / 2.0
+        _pat_target = round(neckline_val + (neckline_val - avg_trough), 2) if breakout else None
+        _breakout_date = dates[n - 1] if breakout else None
+
         results.append(PatternSignal(
             pattern_name="Double Bottom",
             direction="bullish",
@@ -205,6 +210,9 @@ def _detect_double_bottom(
                 f"neckline ${neckline_val:.2f}"
                 f"{', breakout confirmed' if breakout else ''}"
             ),
+            breakout_price=round(neckline_val, 2) if breakout else None,
+            breakout_date=_breakout_date,
+            pattern_target=_pat_target,
         ))
 
     return results
@@ -394,6 +402,10 @@ def _detect_inverse_head_and_shoulders(
         conf += _recency_bonus(rs_idx, n)
         conf = min(round(conf, 3), 1.0)
 
+        # Measured move: neckline + (neckline - head)
+        _pat_target = round(neckline + (neckline - h_val), 2) if breakout else None
+        _breakout_date = dates[n - 1] if breakout else None
+
         results.append(PatternSignal(
             pattern_name="Inverse Head & Shoulders",
             direction="bullish",
@@ -407,6 +419,9 @@ def _detect_inverse_head_and_shoulders(
                 f"neckline ~${neckline:.2f}"
                 f"{', breakout confirmed' if breakout else ''}"
             ),
+            breakout_price=round(neckline, 2) if breakout else None,
+            breakout_date=_breakout_date,
+            pattern_target=_pat_target,
         ))
 
     return results
@@ -484,6 +499,11 @@ def _detect_bull_flag(
             conf += _recency_bonus(best_flag_end, n)
             conf = min(round(conf, 3), 1.0)
 
+            # Measured move: flag_high + pole height
+            pole_height = closes[pole_end] - closes[pole_start]
+            _pat_target = round(flag_high + pole_height, 2) if breakout else None
+            _breakout_date = dates[n - 1] if breakout else None
+
             results.append(PatternSignal(
                 pattern_name="Bull Flag",
                 direction="bullish",
@@ -497,6 +517,9 @@ def _detect_bull_flag(
                     f"flag range ratio {best_range_ratio:.2f}"
                     f"{', breakout confirmed' if breakout else ''}"
                 ),
+                breakout_price=round(flag_high, 2) if breakout else None,
+                breakout_date=_breakout_date,
+                pattern_target=_pat_target,
             ))
 
             # Only keep the best flag per pole — skip further pole_starts
@@ -575,6 +598,12 @@ def _detect_ascending_triangle(
         conf += _recency_bonus(end_idx, n)
         conf = min(round(conf, 3), 1.0)
 
+        # Measured move: resistance + triangle height (resistance - lowest low in window)
+        window_low_vals = [vx for ix, vx in minima if start_idx <= ix <= end_idx]
+        _tri_height = (resistance - min(window_low_vals)) if window_low_vals else 0.0
+        _pat_target = round(resistance + _tri_height, 2) if breakout else None
+        _breakout_date = dates[n - 1] if breakout else None
+
         results.append(PatternSignal(
             pattern_name="Ascending Triangle",
             direction="bullish",
@@ -588,6 +617,9 @@ def _detect_ascending_triangle(
                 f"rising lows"
                 f"{', breakout confirmed' if breakout else ''}"
             ),
+            breakout_price=round(resistance, 2) if breakout else None,
+            breakout_date=_breakout_date,
+            pattern_target=_pat_target,
         ))
 
     # Keep best
@@ -754,6 +786,11 @@ def _detect_cup_and_handle(
                 conf += _recency_bonus(handle_end if handle_found else rr_idx, n)
                 conf = min(round(conf, 3), 1.0)
 
+                # Measured move: rim + cup depth (rim - trough)
+                _cup_depth = rim_val - tr_val
+                _pat_target = round(actual_rim + _cup_depth, 2) if breakout else None
+                _breakout_date = dates[n - 1] if breakout else None
+
                 results.append(PatternSignal(
                     pattern_name="Cup & Handle" if handle_found else "Cup (no handle)",
                     direction="bullish",
@@ -767,6 +804,9 @@ def _detect_cup_and_handle(
                         f"{', handle present' if handle_found else ''}"
                         f"{', breakout confirmed' if breakout else ''}"
                     ),
+                    breakout_price=round(actual_rim, 2) if breakout else None,
+                    breakout_date=_breakout_date,
+                    pattern_target=_pat_target,
                 ))
 
                 break  # only best recovery per trough

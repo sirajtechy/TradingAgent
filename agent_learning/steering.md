@@ -66,4 +66,50 @@
 
 ---
 
-*Created: 2026-03-31 | Updated: 2026-07-11*
+## Prediction System — Hard Rules
+
+> These rules govern the `predict_trade()` pipeline. Non-negotiable.
+
+### 1. Always Route Through Orchestrator
+- **NEVER** predict using only the technical agent or only the fundamental agent in isolation.
+- Every prediction MUST go through the orchestrator agent, which internally runs BOTH the technical agent (12-framework scoring) AND the fundamental agent (6-evaluator scoring), then fuses them via CWAF.
+- The orchestrator's `final_signal`, `final_confidence`, and `orchestrator_score` are the basis for ALL prediction decisions — not individual agent scores.
+
+### 2. Data Lookback — No Artificial Cap
+- Pull as much historical data as the Polygon API can provide. Do NOT hardcode a calendar-day lookback limit.
+- The only hard requirement is ≥ 200 bars for 200-day EMA warm-up. Beyond that, more data = better pattern detection and longer-term trend context.
+- If Polygon returns 2+ years of data, USE it. The agent benefits from deeper history.
+
+### 3. Cutoff Date
+- If the user provides a cutoff date: use it. All data up to (not beyond) that date.
+- If the user does NOT provide a cutoff date: default to **today's date**.
+- The cutoff date is the analysis boundary. No future data leakage.
+
+### 4. Target Days — Window, Not Duration
+- `target_days` is the **maximum prediction window** (valid range: > 2 and ≤ 30 trading days).
+- Within that window, the system must find the optimal entry and exit points.
+- If the system finds a trade setup, signal it with entry/exit dates within the window.
+- If no valid setup exists within the window, return no-trade with reason.
+- Target days is NOT the holding duration — it's the search window for a viable trade.
+
+### 5. Long-Only Trade Direction
+- All predictions are LONG trades only (buy low, sell high).
+- If the orchestrator signals bearish or neutral → return the prediction with sentiment but no trade setup.
+
+### 6. Prediction Output — Required Fields
+Every prediction must return ALL of these:
+- `trade_entry_date` — future date (next trading day after cutoff, or within window)
+- `trade_exit_date` — within the target_days window
+- `confidence_score` — from orchestrator (0–100)
+- `sentiment` — bullish / bearish / neutral (from orchestrator's final_signal)
+- `trade_entry_price` — close price as of cutoff date
+- `trade_exit_price` — ATR-based target, adjusted for exhaustion
+- `trade_profit_pct` — net after friction costs
+- `patterns_formed` — technical patterns detected for this ticker
+- `stop_loss_price` — ATR-based (entry − 1.5 × ATR)
+- `exhaustion_date` — when uptrend shows signs of dying (or null)
+- Full orchestrator context: tech_score, fund_score, fusion weights, conflict info
+
+---
+
+*Created: 2026-03-31 | Updated: 2026-04-05*
