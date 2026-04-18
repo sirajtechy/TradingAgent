@@ -32,12 +32,13 @@ SECTOR_TICKERS = [
 SECTOR_TICKERS = list(dict.fromkeys(SECTOR_TICKERS))[:50]
 
 
-def _build_monthly_windows(n_months: int = 12) -> list:
+def _build_monthly_windows(n_months: int = 12, horizon_days: int = 30) -> list:
     windows = []
     today = date.today()
     for i in range(n_months, 0, -1):
         first = (today - relativedelta(months=i)).replace(day=1)
-        last  = (first + relativedelta(months=1)) - __import__("datetime").timedelta(days=1)
+        # result_date is exactly horizon_days after the signal date
+        last  = first + __import__("datetime").timedelta(days=horizon_days)
         windows.append((first, last))
     return windows
 
@@ -75,7 +76,7 @@ def run_workstream_a() -> None:
 # Workstream B
 # ─────────────────────────────────────────────────────────────────────────────
 
-def run_workstream_b(tickers: list = None, n_months: int = 6) -> None:
+def run_workstream_b(tickers: list = None, n_months: int = 6, horizon_days: int = 30) -> None:
     print("\n" + "█" * 70)
     print("█  WORKSTREAM B — TICKER + DATE PREDICTION ENGINE")
     print("█" * 70)
@@ -83,14 +84,15 @@ def run_workstream_b(tickers: list = None, n_months: int = 6) -> None:
     from agents.prediction.backtester import run_prediction_backtest, print_summary
 
     use_tickers = tickers or SECTOR_TICKERS[:20]  # default: first 20 for speed
-    windows = _build_monthly_windows(n_months)
+    windows = _build_monthly_windows(n_months, horizon_days=horizon_days)
 
     print(f"Running prediction backtest: {len(use_tickers)} tickers × {len(windows)} months")
+    print(f"Horizon: {horizon_days} days per window")
     print("Strategies: EMA Crossover, MACD+RSI, Bollinger Squeeze, Supertrend,")
     print("            OBV Divergence, S/R Breakout, RSI Divergence, Mean Reversion,")
     print("            Ichimoku Cloud, ML Meta-Learner\n")
 
-    summary = run_prediction_backtest(use_tickers, windows)
+    summary = run_prediction_backtest(use_tickers, windows, horizon_days=horizon_days)
     print_summary(summary)
 
 
@@ -151,6 +153,8 @@ def main() -> None:
                         help="Single ticker prediction (skips full backtest)")
     parser.add_argument("--months", type=int, default=6,
                         help="Number of months for Workstream B backtest")
+    parser.add_argument("--horizon", type=int, default=30,
+                        help="Holding-period horizon in calendar days (default 30)")
     parser.add_argument("--tickers", type=str, default=None,
                         help="Comma-separated tickers for Workstream B")
     args = parser.parse_args()
@@ -165,7 +169,7 @@ def main() -> None:
         run_workstream_a()
 
     if args.workstream in ("b", "both"):
-        run_workstream_b(tickers=tickers, n_months=args.months)
+        run_workstream_b(tickers=tickers, n_months=args.months, horizon_days=args.horizon)
 
     print("\n✓ All workstreams complete.")
 

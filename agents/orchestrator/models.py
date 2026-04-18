@@ -78,3 +78,5 @@ class FusionResult:
     tech_error: Optional[str] = None
     fund_error: Optional[str] = None
     note: Optional[str] = None
+    # STR-3: Post-fusion trade quality gate result (None when OHLCV not supplied)
+    trade_quality: Optional[Dict[str, Any]] = None

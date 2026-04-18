@@ -10,6 +10,7 @@ import {
   Brain,
   ChevronLeft,
   ChevronRight,
+  Zap,
 } from "lucide-react";
 import { getDashboardData, getPredictionData, getAllSectors, getAllTickers, getAllMonths } from "./lib/data";
 import OverviewPage from "./components/OverviewPage";
@@ -80,6 +81,16 @@ export default function Home() {
               {!collapsed && <span className="truncate">{item.label}</span>}
             </button>
           ))}
+          {/* External link to swing backtest */}
+          <a
+            href="/swing"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="w-full flex items-center gap-3 px-4 py-2.5 text-sm transition-colors text-[var(--text-dim)] hover:text-[var(--text)] hover:bg-white/5"
+          >
+            <span className="shrink-0"><Zap size={18} /></span>
+            {!collapsed && <span className="truncate">Swing 2026 ↗</span>}
+          </a>
         </nav>
 
         {/* Collapse toggle */}

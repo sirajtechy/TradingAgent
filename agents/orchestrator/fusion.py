@@ -15,6 +15,7 @@ from typing import Any, Dict, List, Optional
 
 from .config import OrchestratorSettings
 from .models import AgentOutput, BAND_TO_SIGNAL, FusionResult
+from .trade_filter import evaluate_trade_quality
 
 
 # ---------------------------------------------------------------------------
@@ -126,12 +127,25 @@ def fuse_signals(
     fund_result: Optional[Dict[str, Any]] = None,
     fund_error: Optional[str] = None,
     settings: Optional[OrchestratorSettings] = None,
+    # STR-3: Optional OHLCV data for post-fusion trade quality gate
+    ohlcv_closes: Optional[List[float]] = None,
+    ohlcv_highs: Optional[List[float]] = None,
+    ohlcv_lows: Optional[List[float]] = None,
+    ohlcv_volumes: Optional[List[float]] = None,
+    spy_closes: Optional[List[float]] = None,
 ) -> FusionResult:
     """
     CWAF fusion — combine technical and fundamental signals.
 
     Implements the complete decision tree from ORCHESTRATOR_DESIGN.md §4.2
     plus anti-bullish guardrails from §4.4.
+
+    Optional OHLCV arguments enable the STR-3 post-fusion trade quality gate.
+    When ohlcv_closes/highs/lows/volumes are supplied, bullish signals are
+    validated against 5 structural checks (tightness, volume contraction,
+    liquidity, relative strength, trend alignment) before being passed to
+    the caller.  Veto does NOT change the directional signal — it only sets
+    ``trade_quality.trade_allowed = False`` so the caller can decide.
     """
     cfg = settings or OrchestratorSettings()
     w = cfg.weights
@@ -163,7 +177,7 @@ def fuse_signals(
     # Single-agent fallbacks when one errored
     if tech_error:
         assert fund_out is not None
-        return FusionResult(
+        result = FusionResult(
             final_signal=fund_out.signal,
             final_confidence=fund_out.computed_confidence,
             orchestrator_score=fund_out.score,
@@ -174,10 +188,12 @@ def fuse_signals(
             tech_error=tech_error,
             note="Tech agent failed; FA only",
         )
+        return _apply_trade_filter(result, ohlcv_closes, ohlcv_highs, ohlcv_lows,
+                                   ohlcv_volumes, spy_closes)
 
     if fund_error:
         assert tech_out is not None
-        return FusionResult(
+        result = FusionResult(
             final_signal=tech_out.signal,
             final_confidence=tech_out.computed_confidence,
             orchestrator_score=tech_out.score,
@@ -188,6 +204,8 @@ def fuse_signals(
             fund_error=fund_error,
             note="Fund agent failed; TA only",
         )
+        return _apply_trade_filter(result, ohlcv_closes, ohlcv_highs, ohlcv_lows,
+                                   ohlcv_volumes, spy_closes)
 
     # Both agents produced results
     assert tech_out is not None and fund_out is not None
@@ -196,27 +214,67 @@ def fuse_signals(
     # ── LAYER 1: Agreement cases ─────────────────────────────────────────
     if ts == fs:
         if ts == "bullish":
-            return _agreement_bull(tech_out, fund_out, cfg, w)
+            result = _agreement_bull(tech_out, fund_out, cfg, w)
         elif ts == "bearish":
-            return _agreement_bear(tech_out, fund_out, cfg, w)
+            result = _agreement_bear(tech_out, fund_out, cfg, w)
         else:
-            return _agreement_neutral(tech_out, fund_out, cfg, w)
+            result = _agreement_neutral(tech_out, fund_out, cfg, w)
+        return _apply_trade_filter(result, ohlcv_closes, ohlcv_highs, ohlcv_lows,
+                                   ohlcv_volumes, spy_closes)
 
     # ── LAYER 2: Single-agent directional (other is neutral) ─────────────
     if fs == "neutral":
         if ts == "bullish":
-            return _tech_only_bull(tech_out, fund_out, cfg, w)
+            result = _tech_only_bull(tech_out, fund_out, cfg, w)
         else:
-            return _tech_only_bear(tech_out, fund_out, cfg, w)
+            result = _tech_only_bear(tech_out, fund_out, cfg, w)
+        return _apply_trade_filter(result, ohlcv_closes, ohlcv_highs, ohlcv_lows,
+                                   ohlcv_volumes, spy_closes)
 
     if ts == "neutral":
         if fs == "bullish":
-            return _fund_only_bull(tech_out, fund_out, cfg, w)
+            result = _fund_only_bull(tech_out, fund_out, cfg, w)
         else:
-            return _fund_only_bear(tech_out, fund_out, cfg, w)
+            result = _fund_only_bear(tech_out, fund_out, cfg, w)
+        return _apply_trade_filter(result, ohlcv_closes, ohlcv_highs, ohlcv_lows,
+                                   ohlcv_volumes, spy_closes)
 
     # ── LAYER 3: Conflict (both directional, opposite directions) ────────
-    return _conflict(tech_out, fund_out, cfg, w)
+    result = _conflict(tech_out, fund_out, cfg, w)
+    return _apply_trade_filter(result, ohlcv_closes, ohlcv_highs, ohlcv_lows,
+                               ohlcv_volumes, spy_closes)
+
+
+def _apply_trade_filter(
+    result: FusionResult,
+    closes: Optional[List[float]],
+    highs: Optional[List[float]],
+    lows: Optional[List[float]],
+    volumes: Optional[List[float]],
+    spy_closes: Optional[List[float]],
+) -> FusionResult:
+    """
+    Attach trade quality evaluation to *result*.
+
+    If OHLCV data is not provided, the filter is skipped and
+    ``result.trade_quality`` will be None (backwards compatible).
+    """
+    # Only run when caller supplies OHLCV data
+    if closes is None or highs is None or lows is None or volumes is None:
+        return result
+
+    tq = evaluate_trade_quality(
+        signal=result.final_signal,
+        closes=closes,
+        highs=highs,
+        lows=lows,
+        volumes=volumes,
+        spy_closes=spy_closes,
+    )
+    # Attach trade_quality to the FusionResult.
+    # FusionResult is a frozen dataclass — replace produces a new instance.
+    import dataclasses
+    return dataclasses.replace(result, trade_quality=tq)
 
 
 # ---------------------------------------------------------------------------
@@ -379,18 +437,21 @@ def _conflict(
     tech: AgentOutput, fund: AgentOutput,
     cfg: OrchestratorSettings, w: Any,
 ) -> FusionResult:
-    """Resolve Tech=B/Fund=R or Tech=R/Fund=B conflicts."""
+    """Resolve Tech=B/Fund=R or Tech=R/Fund=B conflicts.
+
+    Score blending is winner-sensitive:
+    - TA wins: (0.70, 0.30) — winner's score dominates so orchestrator score
+      lands in the correct directional band.
+    - FA wins: (0.30, 0.70) — same logic for fund-dominant conflict.
+    - Abstain:  (0.50, 0.50) — balanced mix; score lands in neutral zone.
+    """
     gap = cfg.conflict_confidence_gap
     tc = tech.computed_confidence
     fc = fund.computed_confidence
 
-    # v4: Always use fixed tech-dominant weights for score blending.
-    # The confidence winner still determines the signal direction,
-    # but the orchestrator score is always 90% tech / 10% fund.
-    wt, wf = 0.90, 0.10
-
     if fc > tc + gap:
         # Fund has higher confidence — adopt fund's signal direction
+        wt, wf = w.conflict_fa_wins
         score = wt * tech.score + wf * fund.score
         conf = fc * cfg.conflict_winner_discount_fa
         signal = fund.signal
@@ -400,6 +461,7 @@ def _conflict(
         )
     elif tc > fc + gap:
         # Tech has higher confidence — adopt tech's signal direction
+        wt, wf = w.conflict_ta_wins
         score = wt * tech.score + wf * fund.score
         conf = tc * cfg.conflict_winner_discount_ta
         signal = tech.signal
@@ -409,6 +471,7 @@ def _conflict(
         )
     else:
         # Near-equal → abstain
+        wt, wf = w.conflict_equal
         score = wt * tech.score + wf * fund.score
         conf = cfg.conflict_abstain_confidence
         signal = "neutral"

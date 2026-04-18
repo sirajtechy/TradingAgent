@@ -16,7 +16,7 @@ from typing import Any, Dict, Optional
 from .data_client import PolygonTechnicalClient
 from .graph import build_graph
 from .models import TechnicalRequest
-from .predictor import build_trade_prediction
+from .predictor import build_trade_prediction, _prev_trading_day
 
 
 def build_request(
@@ -102,16 +102,29 @@ def predict_trade(
         resolved = datetime.strptime(cutoff_date, "%Y-%m-%d").date()
     else:
         resolved = date.today()
-    cutoff_str = resolved.isoformat()
+
+    # DATA boundary: last trading day STRICTLY BEFORE the cutoff.
+    # All agents see only history prior to the cutoff — no look-ahead.
+    # e.g. cutoff=2026-01-01 → data_date=2025-12-31
+    #      cutoff=2026-01-02 → data_date=2025-12-31 (same, Jan 1 is holiday)
+    data_date = _prev_trading_day(resolved)
+    data_str  = data_date.isoformat()
+
+    # ENTRY boundary: first trading day ON or AFTER the cutoff.
+    # predictor.py Gate 4 re-anchors entry to this if the breakout bar
+    # falls inside the historical (data_date) window.
+    # cutoff_date passed to build_trade_prediction stays as `resolved` so
+    # the entry is always >= the cutoff, never in the past.
 
     # Step 1: Run ORCHESTRATOR — it internally runs both TA + FA, fuses via CWAF
+    # Both agents receive data_str so they analyse history UP TO data_date.
     from agents.orchestrator.service import analyze_ticker as orchestrator_analyze
-    orch_result = orchestrator_analyze(ticker=ticker, as_of_date=cutoff_str)
+    orch_result = orchestrator_analyze(ticker=ticker, as_of_date=data_str)
 
     # Step 2: Run the technical graph directly so we can extract BOTH the
     # full evaluation dict AND the raw bars (snapshot.bars) needed for
     # walk-forward exit simulation.  analyze_ticker() discards the snapshot.
-    request = build_request(ticker=ticker, as_of_date=cutoff_str)
+    request = build_request(ticker=ticker, as_of_date=data_str)
     client = PolygonTechnicalClient()
     graph = build_graph(client)
     state = graph.invoke({"request": request})
@@ -122,10 +135,18 @@ def predict_trade(
     prediction = build_trade_prediction(
         orchestrator_result=orch_result,
         tech_evaluation=tech_evaluation,
-        cutoff_date=resolved,
+        cutoff_date=resolved,       # entry boundary — Gate 4 anchors from here
         target_days=target_days,
         bars=bars,
     )
+
+    # Surface the data snapshot date so callers know exactly what history was used
+    prediction["data_snapshot_date"] = data_str
+
+    # Attach ticker
+    prediction["ticker"] = ticker.upper()
+
+    return prediction
 
     # Attach ticker
     prediction["ticker"] = ticker.upper()

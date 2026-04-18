@@ -405,7 +405,10 @@ class TestComputeAll:
         assert not missing, f"Missing keys: {missing}"
 
     def test_output_lengths_match_input(self):
-        """Every indicator list should have the same length as input."""
+        """Every indicator list should have the same length as input.
+        Exceptions:
+          - 'fibonacci': returns a dict of price levels, not a time-series list.
+        """
         n = 250
         closes = [float(100 + i * 0.1) for i in range(n)]
         highs = [c + 1.0 for c in closes]
@@ -414,8 +417,16 @@ class TestComputeAll:
 
         result = compute_all_indicators(closes, highs, lows, volumes)
 
+        # Keys that intentionally return non-series outputs (dicts of scalar levels)
+        _DICT_OUTPUTS = {"fibonacci", "market_structure"}
+
         for key, values in result.items():
-            assert len(values) == n, f"{key} has length {len(values)}, expected {n}"
+            if key in _DICT_OUTPUTS:
+                assert isinstance(values, dict), (
+                    f"{key} expected a dict of levels, got {type(values)}"
+                )
+            else:
+                assert len(values) == n, f"{key} has length {len(values)}, expected {n}"
 
 
 # ====================================================================== #

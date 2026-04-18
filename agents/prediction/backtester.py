@@ -107,9 +107,18 @@ def _evaluate_period(
     ticker: str,
     signal_date: date,
     result_date: date,
+    horizon_days: int = 30,
 ) -> Optional[Dict[str, Any]]:
     """
     Evaluate all strategies for a single (signal_date → result_date) window.
+
+    Args:
+        ticker:       Ticker symbol.
+        signal_date:  Date strategies are evaluated on.
+        result_date:  Date actual outcome is measured.  Derived from
+                      signal_date + horizon_days by the caller.
+        horizon_days: Holding period in days used for the prediction
+                      engine  (passed through to build_prediction).
 
     Returns None if data is unavailable.
     """
@@ -134,7 +143,7 @@ def _evaluate_period(
             df=df,
             strategy_signals=signals,
             entry_date=signal_date,
-            holding_period_days=30,
+            holding_period_days=horizon_days,
         )
     except Exception:
         return None
@@ -201,8 +210,21 @@ def run_prediction_backtest(
     tickers: List[str],
     months: List[Tuple[date, date]],
     output_dir: str = str(paths.PRED_BACKTEST),
+    horizon_days: int = 30,
 ) -> Dict[str, Any]:
-    """Run the full prediction backtest across all tickers and months."""
+    """
+    Run the full prediction backtest across all tickers and months.
+
+    Args:
+        tickers:     List of ticker symbols to backtest.
+        months:      List of (signal_date, result_date) tuples.  Each
+                     result_date should be signal_date + horizon_days.
+        output_dir:  Directory to write per-ticker and summary JSON files.
+        horizon_days: Holding-period horizon in calendar days.  Controls
+                     both the outcome measurement window and the prediction
+                     engine's internal holding-period estimate.
+                     Default 30 (original behaviour preserved).
+    """
     os.makedirs(output_dir, exist_ok=True)
 
     all_results = []
@@ -217,7 +239,7 @@ def run_prediction_backtest(
             done += 1
             print(f"  [{done}/{total}] {ticker} {signal_date.isoformat()}", end="\r", flush=True)
 
-            period = _evaluate_period(ticker, signal_date, result_date)
+            period = _evaluate_period(ticker, signal_date, result_date, horizon_days)
             if period is None:
                 continue
 
@@ -257,6 +279,7 @@ def run_prediction_backtest(
     )
 
     summary = {
+        "horizon_days": horizon_days,
         "total_evaluated": len(all_results),
         "directional_signals": len(directional),
         "correct_signals": len(correct),

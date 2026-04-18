@@ -33,7 +33,7 @@ LONG-only.  Bearish / neutral orchestrator signals → NO TRADE always.
 from __future__ import annotations
 
 from datetime import date, timedelta
-from typing import Any, Dict, List, Optional, Tuple
+from typing import Any, Dict, FrozenSet, List, Optional, Set, Tuple
 
 from .models import OHLCVBar
 
@@ -49,35 +49,158 @@ ATR_STOP_MULT   = 2.0   # entry - 2×ATR
 MIN_TARGET_DAYS = 2
 MAX_TARGET_DAYS = 30
 
-# Staleness: how many trading days old a breakout can be before we skip it
-_STALE_DAYS_THRESHOLD = 10
 # Staleness: if this fraction of the measured move is already consumed → skip
 _STALE_MOVE_CONSUMED = 0.60
+
+
+def _stale_days_threshold(target_days: int) -> int:
+    """Compute horizon-aware staleness threshold.
+
+    A breakout is stale when it is older than 1/3 of the prediction
+    horizon.  This prevents aggressive rejection of valid setups for
+    longer horizons while keeping tight gates for short-term plays.
+
+    Examples:
+        target_days=5  → 3   (minimum floor)
+        target_days=15 → 5
+        target_days=30 → 10  (same as the old hard-coded constant)
+        target_days=60 → 20  (proportionally relaxed)
+    """
+    return max(3, target_days // 3)
 
 # Transaction friction (round-trip: commission + slippage)
 _FRICTION_PCT = 0.20
 
 
 # ---------------------------------------------------------------------------
-# Helpers: trading-day calendar
+# Helpers: NYSE trading-day calendar (holiday-aware)
 # ---------------------------------------------------------------------------
 
+def _build_nyse_holidays() -> FrozenSet[date]:
+    """
+    Build a frozen set of NYSE market-closed dates spanning 2018-2035.
+
+    Covers all ten recurring NYSE holidays with correct observance rules:
+    - When the holiday falls on Saturday  → previous Friday observed
+    - When the holiday falls on Sunday    → following Monday observed
+    - Juneteenth included from 2022 onwards (signed into law Jun 2021)
+
+    This implementation is fully self-contained (no external dependencies)
+    and covers any date range used in historical backtesting.
+    """
+    import bisect
+
+    def _observe(d: date) -> date:
+        """Apply Saturday→Friday / Sunday→Monday shift."""
+        if d.weekday() == 5:  # Saturday
+            return d - timedelta(days=1)
+        if d.weekday() == 6:  # Sunday
+            return d + timedelta(days=1)
+        return d
+
+    def _easter(year: int) -> date:
+        """Compute Easter Sunday (Anonymous Gregorian algorithm)."""
+        a = year % 19
+        b, c = divmod(year, 100)
+        d_val, e = divmod(b, 4)
+        f = (b + 8) // 25
+        g = (b - f + 1) // 3
+        h = (19 * a + b - d_val - g + 15) % 30
+        i, k = divmod(c, 4)
+        l_val = (32 + 2 * e + 2 * i - h - k) % 7
+        m = (a + 11 * h + 22 * l_val) // 451
+        month = (h + l_val - 7 * m + 114) // 31
+        day = ((h + l_val - 7 * m + 114) % 31) + 1
+        return date(year, month, day)
+
+    def _nth_weekday(year: int, month: int, n: int, weekday: int) -> date:
+        """Return the n-th occurrence of weekday in (year, month). n is 1-based."""
+        first = date(year, month, 1)
+        delta = (weekday - first.weekday()) % 7
+        return first + timedelta(days=delta + (n - 1) * 7)
+
+    def _last_weekday(year: int, month: int, weekday: int) -> date:
+        """Return the last occurrence of weekday in (year, month)."""
+        # find first of next month, then minus 1 day, then back up to weekday
+        if month == 12:
+            first_next = date(year + 1, 1, 1)
+        else:
+            first_next = date(year, month + 1, 1)
+        last_day = first_next - timedelta(days=1)
+        delta = (last_day.weekday() - weekday) % 7
+        return last_day - timedelta(days=delta)
+
+    holidays: Set[date] = set()
+    for year in range(2018, 2036):
+        # 1. New Year's Day
+        holidays.add(_observe(date(year, 1, 1)))
+        # Early close / observe for Jan 1 falling on Saturday means Dec 31
+        # prior year closes early but is NOT a full holiday. No adjustment needed.
+
+        # 2. Martin Luther King Jr. Day — 3rd Monday of January
+        holidays.add(_nth_weekday(year, 1, 3, 0))
+
+        # 3. Presidents' Day (Washington's Birthday) — 3rd Monday of February
+        holidays.add(_nth_weekday(year, 2, 3, 0))
+
+        # 4. Good Friday — 2 days before Easter Sunday
+        holidays.add(_easter(year) - timedelta(days=2))
+
+        # 5. Memorial Day — last Monday of May
+        holidays.add(_last_weekday(year, 5, 0))
+
+        # 6. Juneteenth National Independence Day — June 19 (from 2022)
+        if year >= 2022:
+            holidays.add(_observe(date(year, 6, 19)))
+
+        # 7. Independence Day — July 4
+        holidays.add(_observe(date(year, 7, 4)))
+
+        # 8. Labor Day — 1st Monday of September
+        holidays.add(_nth_weekday(year, 9, 1, 0))
+
+        # 9. Thanksgiving Day — 4th Thursday of November
+        holidays.add(_nth_weekday(year, 11, 4, 3))
+
+        # 10. Christmas Day — December 25
+        holidays.add(_observe(date(year, 12, 25)))
+
+    return frozenset(holidays)
+
+
+# Computed once at module load — O(1) membership tests at runtime
+_NYSE_HOLIDAYS: FrozenSet[date] = _build_nyse_holidays()
+
+
+def _is_trading_day(d: date) -> bool:
+    """True if d is a NYSE trading day (weekday and not a market holiday)."""
+    return d.weekday() < 5 and d not in _NYSE_HOLIDAYS
+
+
 def _next_trading_day(d: date) -> date:
-    """Advance to the next weekday (Mon–Fri). Skips weekends only."""
+    """Advance to the next NYSE trading day, skipping weekends AND holidays."""
     nxt = d + timedelta(days=1)
-    while nxt.weekday() >= 5:   # 5=Sat, 6=Sun
+    while not _is_trading_day(nxt):
         nxt += timedelta(days=1)
     return nxt
 
 
+def _prev_trading_day(d: date) -> date:
+    """Return the most recent NYSE trading day strictly before d."""
+    prev = d - timedelta(days=1)
+    while not _is_trading_day(prev):
+        prev -= timedelta(days=1)
+    return prev
+
+
 def _count_trading_days_between(start: date, end: date) -> int:
-    """Count weekdays strictly between start and end (exclusive on both ends)."""
+    """Count NYSE trading days strictly between start and end (exclusive on both ends)."""
     if end <= start:
         return 0
     count = 0
     cur = start + timedelta(days=1)
     while cur < end:
-        if cur.weekday() < 5:
+        if _is_trading_day(cur):
             count += 1
         cur += timedelta(days=1)
     return count
@@ -374,10 +497,19 @@ def build_trade_prediction(
         true_breakout_idx = _find_true_breakout_bar_idx(
             bars, breakout_price, after_date=pattern_end_date
         )
-    # Fallback: scan from the very beginning if end_date is unavailable
+    # Fallback: only scan bars AFTER the pattern end date to prevent
+    # look-ahead bias (a bar from before the pattern formed must not be
+    # selected as the "breakout" bar).
     if true_breakout_idx is None:
-        for i, b in enumerate(bars):
-            if b.close > breakout_price:
+        # Determine the earliest safe scan index
+        fallback_start = 0
+        if pattern_end_date is not None:
+            for _fi, _fb in enumerate(bars):
+                if _fb.bar_date > pattern_end_date:
+                    fallback_start = _fi
+                    break
+        for i in range(fallback_start, len(bars)):
+            if bars[i].close > breakout_price:
                 true_breakout_idx = i
                 break
 
@@ -389,8 +521,9 @@ def build_trade_prediction(
 
     # ── Gate 3b: staleness check ──────────────────────────────────────────
     days_since_breakout = _count_trading_days_between(true_breakout_date, cutoff_date)
+    stale_threshold = _stale_days_threshold(target_days)
 
-    if days_since_breakout > _STALE_DAYS_THRESHOLD:
+    if days_since_breakout > stale_threshold:
         if pattern_target is not None and pattern_target > breakout_price:
             full_move = pattern_target - breakout_price
             consumed  = (current_price - breakout_price) / full_move
@@ -504,6 +637,7 @@ def build_trade_prediction(
         "rsi_at_entry":     rsi,
         "true_breakout_date": true_breakout_date.isoformat(),
         "days_since_breakout": days_since_breakout,
+        "stale_threshold_days": stale_threshold,
         "friction_pct":     _FRICTION_PCT,
         "estimated_days_to_target": est_mid,
         "estimated_target_window":  f"{est_low}–{est_high} trading days",

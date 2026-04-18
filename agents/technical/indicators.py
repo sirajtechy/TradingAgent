@@ -1058,14 +1058,14 @@ def stochastic_rsi(
     stoch_k_vals = sma(
         [v if v is not None else 0.0 for v in raw_stoch], k_smooth
     )
-    # Fix None for warmup
-    for i in range(warmup + k_smooth - 1):
+    # Fix None for warmup — clamp to list length to avoid IndexError on short inputs
+    for i in range(min(warmup + k_smooth - 1, len(stoch_k_vals))):
         stoch_k_vals[i] = None
 
     stoch_d_vals = sma(
         [v if v is not None else 0.0 for v in stoch_k_vals], d_smooth
     )
-    for i in range(warmup + k_smooth + d_smooth - 2):
+    for i in range(min(warmup + k_smooth + d_smooth - 2, len(stoch_d_vals))):
         stoch_d_vals[i] = None
 
     return stoch_k_vals, stoch_d_vals

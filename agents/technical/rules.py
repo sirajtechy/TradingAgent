@@ -1411,10 +1411,27 @@ def build_composite_score(
     else:
         band = "weak"
 
+    # ── STR-2: ADX hard gate ────────────────────────────────────────────
+    # When ADX < 17 the market is trendless/choppy.  A bullish composite
+    # score in these conditions is unreliable — it reflects oscillator noise
+    # rather than directional momentum.  Downgrade mixed_positive → mixed
+    # so the orchestrator cannot generate a bullish signal from a no-trend
+    # environment.  "strong" and "good" bands are intentionally left
+    # unchanged because they indicate very high technical conviction.
+    adx_gate_applied = False
+    if adx_value is not None and adx_value < 17.0:
+        if band == "mixed_positive":
+            band = "mixed"
+            adx_gate_applied = True
+
     # v3: Signal alignment confidence (preferred) or ADX fallback
     if signal_alignment is not None:
         confidence = signal_alignment["confidence_label"]
         confidence_pct = signal_alignment["confidence_pct"]
+        # ADX gate further degrades confidence when no trend
+        if adx_gate_applied:
+            confidence = "low"
+            confidence_pct = min(confidence_pct, 25.0)
     elif adx_value is not None:
         if adx_value >= 40:
             confidence = "high"
@@ -1422,9 +1439,13 @@ def build_composite_score(
         elif adx_value >= 20:
             confidence = "medium"
             confidence_pct = 55.0
-        else:
+        elif adx_value >= 17:
             confidence = "low"
-            confidence_pct = 25.0
+            confidence_pct = 35.0
+        else:
+            # Sub-17: trendless — hard low
+            confidence = "low"
+            confidence_pct = 15.0
     else:
         confidence = "medium" if total_weight >= 0.65 else "low"
         confidence_pct = 50.0 if total_weight >= 0.65 else 25.0
@@ -1441,6 +1462,7 @@ def build_composite_score(
         "band": band,
         "confidence": confidence,
         "confidence_pct": round(confidence_pct, 1),
+        "adx_gate_applied": adx_gate_applied,
         "total_weight": round(total_weight, 3),
         "subscores": subscores,
         "signal_alignment": signal_alignment,

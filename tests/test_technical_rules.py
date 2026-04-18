@@ -412,7 +412,8 @@ class TestEvaluateSnapshot:
         expected_frameworks = {
             "ema_trend", "macd_system", "rsi_regime", "bollinger",
             "volume_obv", "adx_stochastic", "pattern_recognition",
-            "ichimoku", "momentum",
+            "ichimoku", "momentum", "supertrend", "volatility_squeeze",
+            "entry_exit_rules",
         }
         assert expected_frameworks == set(result["frameworks"].keys())
 

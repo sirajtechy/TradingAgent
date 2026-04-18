@@ -13,14 +13,33 @@ from typing import List
 
 @dataclasses.dataclass(frozen=True)
 class FusionWeights:
-    """Weight pairs (tech, fund) for each scenario."""
+    """Weight pairs (tech, fund) for each fusion scenario.
 
-    agreement: tuple = (0.90, 0.10)
-    agreement_neutral: tuple = (0.90, 0.10)
-    tech_only: tuple = (0.90, 0.10)
-    fund_only: tuple = (0.90, 0.10)
-    conflict_dominant: tuple = (0.10, 0.90)   # loser, winner
-    conflict_equal: tuple = (0.90, 0.10)
+    Design rationale (v2 — post-FA-accuracy improvement):
+    - FA now achieves 59.3% real accuracy vs TA at 54.9%.
+    - When both agree, FA's fundamental signal deserves equal or greater
+      weight than TA's technical signal.
+    - When only FA fires, the score must reflect FA's signal (flip to FA-dominant).
+    - When only TA fires, TA still leads but FA adds a meaningful hedge.
+    - In conflicts, the winning agent determines direction; the score is
+      computed with winner-heavy weights so the orchestrator score lands in
+      the correct band (not washed out by the losing agent).
+    """
+
+    # Both agents agree on direction — FA slightly leads (better long-term accuracy)
+    agreement: tuple = (0.45, 0.55)
+    # Both agents neutral — equal weight
+    agreement_neutral: tuple = (0.50, 0.50)
+    # Only TA is directional — TA leads but FA provides a 15% hedge
+    tech_only: tuple = (0.85, 0.15)
+    # Only FA is directional — FA leads; TA neutral score (≈50) must not drown FA signal
+    fund_only: tuple = (0.15, 0.85)
+    # Conflict: tech wins over fund — score blends 70/30 so winner's band is reached
+    conflict_ta_wins: tuple = (0.70, 0.30)
+    # Conflict: fund wins over tech — score blends 30/70 so winner's band is reached
+    conflict_fa_wins: tuple = (0.30, 0.70)
+    # Conflict: near-equal confidence — abstain with balanced score
+    conflict_equal: tuple = (0.50, 0.50)
 
 
 @dataclasses.dataclass(frozen=True)
