@@ -67,5 +67,5 @@ class OrchestratorSettings:
     # Weight tables
     weights: FusionWeights = dataclasses.field(default_factory=FusionWeights)
 
-    # Fundamental agent data_source for backtest
+    # Fundamental agent data_source — "yfinance" (free, no API key) or "fmp" (paid)
     fund_data_source: str = "yfinance"

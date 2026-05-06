@@ -49,8 +49,11 @@ ATR_STOP_MULT   = 2.0   # entry - 2×ATR
 MIN_TARGET_DAYS = 2
 MAX_TARGET_DAYS = 30
 
-# Staleness: how many trading days old a breakout can be before we skip it
+# Staleness: how many trading days old a breakout can be before we check consumed%
 _STALE_DAYS_THRESHOLD = 10
+# Staleness: ABSOLUTE maximum — any breakout older than this is ALWAYS rejected,
+# regardless of how much of the measured move remains.  45 trading days ≈ 9 weeks.
+_STALE_DAYS_ABSOLUTE_MAX = 45
 # Staleness: if this fraction of the measured move is already consumed → skip
 _STALE_MOVE_CONSUMED = 0.60
 
@@ -62,10 +65,92 @@ _FRICTION_PCT = 0.20
 # Helpers: trading-day calendar
 # ---------------------------------------------------------------------------
 
+# US market holidays (fixed-date and nearest-weekday observed rules).
+# Extended through 2030 — add years as needed.
+_US_MARKET_HOLIDAYS: set = set()
+
+def _build_us_holidays() -> set:
+    """Build a set of US market holiday dates from 2020 through 2030."""
+    holidays: set = set()
+    for year in range(2020, 2031):
+        # New Year's Day (Jan 1, observed nearest weekday)
+        holidays.add(_observed(date(year, 1, 1)))
+        # MLK Day (3rd Monday of January)
+        holidays.add(_nth_weekday(year, 1, 0, 3))
+        # Presidents' Day (3rd Monday of February)
+        holidays.add(_nth_weekday(year, 2, 0, 3))
+        # Good Friday — computed from Easter
+        holidays.add(_good_friday(year))
+        # Memorial Day (last Monday of May)
+        holidays.add(_last_weekday(year, 5, 0))
+        # Juneteenth (Jun 19, observed nearest weekday)
+        holidays.add(_observed(date(year, 6, 19)))
+        # Independence Day (Jul 4, observed nearest weekday)
+        holidays.add(_observed(date(year, 7, 4)))
+        # Labor Day (1st Monday of September)
+        holidays.add(_nth_weekday(year, 9, 0, 1))
+        # Thanksgiving (4th Thursday of November)
+        holidays.add(_nth_weekday(year, 11, 3, 4))
+        # Christmas (Dec 25, observed nearest weekday)
+        holidays.add(_observed(date(year, 12, 25)))
+    return holidays
+
+
+def _observed(d: date) -> date:
+    """Return the observed market holiday date for a fixed calendar date."""
+    # Saturday → Friday; Sunday → Monday
+    if d.weekday() == 5:   # Saturday
+        return d - timedelta(days=1)
+    if d.weekday() == 6:   # Sunday
+        return d + timedelta(days=1)
+    return d
+
+
+def _nth_weekday(year: int, month: int, weekday: int, n: int) -> date:
+    """Return the n-th occurrence (1-based) of *weekday* (Mon=0) in month."""
+    first = date(year, month, 1)
+    delta = (weekday - first.weekday()) % 7
+    first_match = first + timedelta(days=delta)
+    return first_match + timedelta(weeks=n - 1)
+
+
+def _last_weekday(year: int, month: int, weekday: int) -> date:
+    """Return the last occurrence of *weekday* (Mon=0) in month."""
+    # Go to first day of next month, then step back
+    if month == 12:
+        next_month = date(year + 1, 1, 1)
+    else:
+        next_month = date(year, month + 1, 1)
+    last_day = next_month - timedelta(days=1)
+    delta = (last_day.weekday() - weekday) % 7
+    return last_day - timedelta(days=delta)
+
+
+def _good_friday(year: int) -> date:
+    """Compute Good Friday (2 days before Easter Sunday) using the anonymous Gregorian algorithm."""
+    a = year % 19
+    b, c = divmod(year, 100)
+    d, e = divmod(b, 4)
+    f = (b + 8) // 25
+    g = (b - f + 1) // 3
+    h = (19 * a + b - d - g + 15) % 30
+    i, k = divmod(c, 4)
+    l = (32 + 2 * e + 2 * i - h - k) % 7
+    m = (a + 11 * h + 22 * l) // 451
+    month = (h + l - 7 * m + 114) // 31
+    day = ((h + l - 7 * m + 114) % 31) + 1
+    easter = date(year, month, day)
+    return easter - timedelta(days=2)
+
+
+# Initialise once at import time
+_US_MARKET_HOLIDAYS = _build_us_holidays()
+
+
 def _next_trading_day(d: date) -> date:
-    """Advance to the next weekday (Mon–Fri). Skips weekends only."""
+    """Advance to the next weekday (Mon–Fri) that is not a US market holiday."""
     nxt = d + timedelta(days=1)
-    while nxt.weekday() >= 5:   # 5=Sat, 6=Sun
+    while nxt.weekday() >= 5 or nxt in _US_MARKET_HOLIDAYS:
         nxt += timedelta(days=1)
     return nxt
 
@@ -271,6 +356,47 @@ def _parse_date(val: Any) -> Optional[date]:
 
 
 # ---------------------------------------------------------------------------
+# Entry conviction classifier
+# ---------------------------------------------------------------------------
+
+def _entry_conviction(
+    current_price: float,
+    breakout_price: float,
+    days_since_breakout: int,
+) -> Tuple[str, float]:
+    """
+    Classify the entry regime based on how extended price is from the
+    breakout level as of the cutoff date.
+
+    Returns (conviction_label, price_extension_pct).
+
+    Regimes
+    ───────
+    IMMEDIATE       Extension < 3%  AND  stale ≤ 3 days
+                    Price hasn't run — enter Jan 2 on open.
+
+    RETEST_ENTRY    Extension 3–8%  OR  stale 4–10 days
+                    Moderate extension — wait for a pullback into the
+                    retest zone (breakout ± 0.5×ATR) before entering.
+
+    WAIT_FOR_RETEST Extension > 8%  OR  stale > 10 days
+                    Price has already moved significantly — only enter
+                    if/when price fully retests the breakout level.
+    """
+    if breakout_price <= 0:
+        return "IMMEDIATE", 0.0
+
+    extension_pct = (current_price - breakout_price) / breakout_price * 100.0
+
+    if extension_pct < 3.0 and days_since_breakout <= 3:
+        return "IMMEDIATE", extension_pct
+    elif extension_pct > 8.0 or days_since_breakout > 10:
+        return "WAIT_FOR_RETEST", extension_pct
+    else:
+        return "RETEST_ENTRY", extension_pct
+
+
+# ---------------------------------------------------------------------------
 # Main prediction function
 # ---------------------------------------------------------------------------
 
@@ -341,6 +467,9 @@ def build_trade_prediction(
         signal_alignment    = signal_alignment,
         orchestrator_score  = round(orch_score, 1),
         orchestrator_confidence = round(orch_confidence, 3),
+        # Raw indicators included so SKIP rows can still show projected
+        # entry/target/stop without a second API call.
+        key_indicators      = key_ind,
     )
 
     # ── Gate 1: orchestrator must be bullish ──────────────────────────────
@@ -359,12 +488,21 @@ def build_trade_prediction(
     pattern_target   = best.get("pattern_target")
     pattern_target   = float(pattern_target) if pattern_target is not None else None
 
+    # ── Price as-of the analysis cutoff ──────────────────────────────────
+    # bars may include forward bars (after cutoff) for walk-forward simulation.
+    # Gates 3a and 3b must use the price AT the cutoff, not today's price.
+    cutoff_bar_idx = len(bars) - 1
+    for _i in range(len(bars) - 1, -1, -1):
+        if bars[_i].bar_date <= cutoff_date:
+            cutoff_bar_idx = _i
+            break
+    current_price = bars[cutoff_bar_idx].close if bars else breakout_price
+
     # ── Gate 3a: failed breakout — price has reversed below breakout level ─
-    current_price = bars[-1].close if bars else breakout_price
     if current_price < breakout_price:
         return {**_base, "trade": None,
                 "no_trade_reason": (
-                    f"Failed breakout — current price {current_price:.2f} is below "
+                    f"Failed breakout — price at cutoff {current_price:.2f} is below "
                     f"breakout level {breakout_price:.2f}; pattern has reversed"
                 )}
 
@@ -390,6 +528,16 @@ def build_trade_prediction(
     # ── Gate 3b: staleness check ──────────────────────────────────────────
     days_since_breakout = _count_trading_days_between(true_breakout_date, cutoff_date)
 
+    # Hard cap: breakouts older than _STALE_DAYS_ABSOLUTE_MAX are always rejected.
+    # This prevents ancient signals (months-old breakouts) from being surfaced as
+    # fresh entry opportunities regardless of how much measured move remains.
+    if days_since_breakout > _STALE_DAYS_ABSOLUTE_MAX:
+        return {**_base, "trade": None,
+                "no_trade_reason": (
+                    f"Pattern breakout is too old ({days_since_breakout} trading days ago, "
+                    f"max allowed: {_STALE_DAYS_ABSOLUTE_MAX} days)"
+                )}
+
     if days_since_breakout > _STALE_DAYS_THRESHOLD:
         if pattern_target is not None and pattern_target > breakout_price:
             full_move = pattern_target - breakout_price
@@ -408,40 +556,40 @@ def build_trade_prediction(
                         f"and no measured-move target to verify remaining upside"
                     )}
 
-    # ── Entry: next trading day after the breakout bar ────────────────────
-    entry_date = _next_trading_day(true_breakout_date)
-
-    # Find entry bar in bars array (first bar on or after entry_date)
-    entry_bar_idx = _bar_index_on_or_after(bars, entry_date)
-    if entry_bar_idx is None:
-        # Entry date is beyond available bars (breakout on last bar)
-        entry_bar_idx = len(bars) - 1
-        entry_price   = round(bars[-1].close, 2)
-        entry_date    = _next_trading_day(bars[-1].bar_date)
-    else:
-        entry_price = round(bars[entry_bar_idx].open, 2)
-        entry_date  = bars[entry_bar_idx].bar_date
-
-    # ── Gate 4: live prediction anchor ───────────────────────────────────
-    # If the computed entry is before the cutoff, we would have had to enter
-    # in the past. Re-anchor to the next tradeable day after cutoff.
-    if entry_date < cutoff_date:
-        entry_date    = _next_trading_day(cutoff_date)
-        new_bar_idx   = _bar_index_on_or_after(bars, entry_date)
-        if new_bar_idx is not None:
-            entry_bar_idx = new_bar_idx
-            entry_price   = round(bars[entry_bar_idx].open, 2)
-            entry_date    = bars[entry_bar_idx].bar_date
-        else:
-            # Entry is in the future — no bar yet (normal for live predictions)
-            entry_bar_idx = len(bars) - 1
-            entry_price   = round(bars[-1].close, 2)  # last close as best estimate
+    # ── Entry: first trading day AFTER the analysis cutoff ────────────────
+    # The signal is generated as-of `cutoff_date`. The earliest possible
+    # entry is always the next trading day after cutoff — never before.
+    # Bars are strictly bounded by cutoff_date (no post-cutoff data fetched).
+    # entry_price is estimated from the last available bar (Dec 31 close)
+    # since forward bars are intentionally not fetched.
+    entry_earliest = _next_trading_day(cutoff_date)
+    entry_date     = entry_earliest
+    entry_bar_idx  = len(bars) - 1
+    entry_price    = round(bars[-1].close, 2)  # Dec 31 close — estimate for Jan 2 open
 
     # ── ATR from indicators ───────────────────────────────────────────────
     atr = key_ind.get("atr_14")
     atr = float(atr) if atr is not None else entry_price * 0.02  # fallback 2%
     adx = key_ind.get("adx")
     rsi = key_ind.get("rsi_14")
+
+    # ── Entry conviction: classify entry regime ───────────────────────────
+    # Based on how extended price already is from the breakout level as of
+    # cutoff_date. Determines whether a trader should:
+    #   IMMEDIATE      — act on Jan 2 open (price hasn't run yet)
+    #   RETEST_ENTRY   — moderate extension, wait for a pullback to retest zone
+    #   WAIT_FOR_RETEST — significant extension, only enter on full retest
+    conviction, price_extension_pct = _entry_conviction(
+        current_price       = entry_price,
+        breakout_price      = breakout_price,
+        days_since_breakout = days_since_breakout,
+    )
+
+    # For retest regimes: recommended entry is at the retest zone midpoint
+    retest_zone_low  = round(breakout_price - 0.5 * atr, 2)
+    retest_zone_high = round(breakout_price + 0.5 * atr, 2)
+    if conviction in ("RETEST_ENTRY", "WAIT_FOR_RETEST"):
+        entry_price = round(breakout_price + 0.5 * atr, 2)  # zone midpoint
 
     # ── Stop and target ───────────────────────────────────────────────────
     stop_price   = round(entry_price - ATR_STOP_MULT * atr, 2)
@@ -487,7 +635,13 @@ def build_trade_prediction(
     trade = {
         "entry_date":       entry_date.isoformat(),
         "entry_price":      entry_price,
+        "entry_price_note": "Estimated from Dec 31 close" if conviction == "IMMEDIATE" else "Retest zone midpoint (breakout + 0.5×ATR)",
         "entry_source":     f"pattern:{best.get('name', 'unknown')}",
+        "entry_earliest":   entry_earliest.isoformat(),
+        "entry_conviction": conviction,
+        "price_extension_pct": round(price_extension_pct, 2),
+        "retest_zone_low":  retest_zone_low,
+        "retest_zone_high": retest_zone_high,
         "exit_date":        exit_date.isoformat(),
         "exit_price":       exit_price,
         "exit_outcome":     exit_outcome,
@@ -502,9 +656,13 @@ def build_trade_prediction(
         "atr_at_entry":     round(atr, 2),
         "adx_at_entry":     adx,
         "rsi_at_entry":     rsi,
-        "true_breakout_date": true_breakout_date.isoformat(),
-        "days_since_breakout": days_since_breakout,
-        "friction_pct":     _FRICTION_PCT,
+        "true_breakout_date":   true_breakout_date.isoformat(),
+        "days_since_breakout":  days_since_breakout,
+        "pattern_name":         best.get("name", ""),
+        "pattern_start":        best.get("start_date"),
+        "pattern_end":          best.get("end_date"),
+        "pattern_breakout_price": breakout_price,
+        "friction_pct":         _FRICTION_PCT,
         "estimated_days_to_target": est_mid,
         "estimated_target_window":  f"{est_low}–{est_high} trading days",
         "estimated_target_date":    est_target_date.isoformat(),

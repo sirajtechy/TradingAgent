@@ -5,7 +5,6 @@ from .config import load_settings
 from .fmp_client import FMPClient
 from .graph import build_graph
 from .models import AnalysisRequest
-from .yf_client import YFinanceClient
 
 
 def build_request(
@@ -38,6 +37,7 @@ def analyze_ticker(
         include_experimental_score=include_experimental_score,
     )
     if data_source == "yfinance":
+        from .yf_client import YFinanceClient
         client = YFinanceClient()
     else:
         settings = load_settings(api_key=api_key)

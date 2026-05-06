@@ -1356,15 +1356,15 @@ _FRAMEWORK_WEIGHTS = {
     "ema_trend":           0.14,
     "macd_system":         0.11,
     "rsi_regime":          0.11,
-    "bollinger":           0.08,
+    "bollinger":           0.06,   # -0.02 (redundant with squeeze)
     "volume_obv":          0.08,
-    "adx_stochastic":      0.06,
-    "pattern_recognition":  0.07,
+    "adx_stochastic":      0.05,   # -0.01
+    "pattern_recognition": 0.12,   # +0.05 (flat base + pocket pivot now tracked)
     "ichimoku":            0.10,
     "momentum":            0.07,
     "supertrend":          0.06,
-    "volatility_squeeze":  0.06,
-    "entry_exit_rules":    0.06,
+    "volatility_squeeze":  0.05,   # -0.01
+    "entry_exit_rules":    0.05,   # -0.01
 }
 
 

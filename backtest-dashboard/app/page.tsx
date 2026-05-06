@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import {
   BarChart3,
   LineChart,
@@ -10,6 +11,7 @@ import {
   Brain,
   ChevronLeft,
   ChevronRight,
+  Zap,
 } from "lucide-react";
 import { getDashboardData, getPredictionData, getAllSectors, getAllTickers, getAllMonths } from "./lib/data";
 import OverviewPage from "./components/OverviewPage";
@@ -81,6 +83,17 @@ export default function Home() {
             </button>
           ))}
         </nav>
+
+        {/* Sector Signals — separate page link */}
+        <div className="px-2 pb-1 border-t border-[var(--border)] pt-1">
+          <Link
+            href="/sectors"
+            className="flex items-center gap-3 px-3 py-2.5 text-sm rounded-lg transition-colors text-[var(--text-dim)] hover:text-yellow-300 hover:bg-yellow-500/5"
+          >
+            <span className="shrink-0 text-yellow-400"><Zap size={18} /></span>
+            {!collapsed && <span className="truncate font-medium text-yellow-300">Sector Signals</span>}
+          </Link>
+        </div>
 
         {/* Collapse toggle */}
         <button

@@ -821,6 +821,212 @@ def _detect_cup_and_handle(
 
 
 # ====================================================================== #
+# FLAT BASE BREAKOUT  (O'Neil / Minervini Stage-2 breakout from base)      #
+# ====================================================================== #
+
+def _detect_flat_base_breakout(
+    closes: List[float],
+    highs: List[float],
+    lows: List[float],
+    volumes: List[float],
+    dates: List[date],
+) -> List[PatternSignal]:
+    """
+    Flat Base Breakout — multi-week consolidation in a tight price range,
+    followed by a close above the base high on elevated volume.
+
+    This captures the pattern in the chart shared by the user:
+      Dec 2025 – Apr 2026 tight base → explosive May 2026 breakout.
+
+    Detection rules:
+        1. Scan 40–120 bar windows ending at bar N-1 (just before the last bar).
+        2. The base range must be tight: (base_high - base_low) / base_low <= 0.25
+           (i.e., the stock traded within a 25% band during the base — Stage 2 base).
+        3. The last close must break ABOVE the base high (the breakout bar).
+        4. Volume on the last bar must be >= 1.5× the 20-bar average before it.
+        5. Confidence rises with: tighter base, longer base, volume surge, recency.
+
+    References: O'Neil CANSLIM (1988), Minervini *Trade Like a Stock Market Wizard* (2013).
+    """
+    results: List[PatternSignal] = []
+    n = len(closes)
+    if n < 45:
+        return results
+
+    last_close = closes[-1]
+    last_vol = volumes[-1]
+
+    for base_len in range(40, min(121, n - 1)):
+        base_start = n - 1 - base_len
+        if base_start < 0:
+            break
+
+        base_highs = highs[base_start: n - 1]
+        base_lows = lows[base_start: n - 1]
+
+        base_high = max(base_highs)
+        base_low = min(base_lows)
+
+        if base_low <= 0:
+            continue
+
+        # Rule 2: tight range check
+        range_pct = (base_high - base_low) / base_low
+        if range_pct > 0.25:
+            continue
+
+        # Rule 3: last close must break above base high
+        if last_close <= base_high:
+            continue
+
+        # Rule 4: volume confirmation
+        avg_vol = _avg_volume(volumes, n - 2)  # avg before breakout bar
+        vol_conf = (avg_vol > 0) and (last_vol >= avg_vol * _VOLUME_SURGE_MULTIPLE)
+
+        # Tightness: tighter base → higher score (0.0 – 1.0)
+        tightness = max(0.0, 1.0 - range_pct / 0.25)
+
+        # Length bonus: longer base = more meaningful breakout (normalize at 80 bars)
+        length_bonus = min(base_len / 80.0, 1.0) * 0.10
+
+        # Volume surge magnitude bonus (up to 0.15)
+        vol_surge_bonus = 0.0
+        if avg_vol > 0:
+            surge_ratio = min(last_vol / avg_vol, 5.0)  # cap at 5× for scoring
+            vol_surge_bonus = min((surge_ratio - 1.0) / 4.0, 0.15) if surge_ratio > 1.0 else 0.0
+
+        conf = 0.25 * tightness + length_bonus
+        conf += 0.25 if last_close > base_high else 0.0   # price breakout (always true here)
+        conf += 0.15 if vol_conf else 0.0
+        conf += vol_surge_bonus
+        conf += _recency_bonus(n - 1, n)
+        conf = min(round(conf, 3), 1.0)
+
+        # Measured move: breakout above base high + full base height projected up
+        base_height = base_high - base_low
+        pat_target = round(base_high + base_height, 2)
+
+        results.append(PatternSignal(
+            pattern_name="Flat Base Breakout",
+            direction="bullish",
+            confidence=conf,
+            start_date=dates[base_start],
+            end_date=dates[n - 1],
+            breakout_confirmed=True,
+            volume_confirmation=vol_conf,
+            description=(
+                f"Base {base_len} bars, range {range_pct*100:.1f}% "
+                f"(${base_low:.2f}–${base_high:.2f}), "
+                f"breakout close ${last_close:.2f}"
+                f"{', vol confirmed' if vol_conf else ''}"
+            ),
+            breakout_price=round(base_high, 2),
+            breakout_date=dates[n - 1],
+            pattern_target=pat_target,
+        ))
+
+    # Return the best base length (highest confidence) only — avoid duplicates
+    if results:
+        results.sort(key=lambda p: p.confidence, reverse=True)
+        results = results[:1]
+
+    return results
+
+
+# ====================================================================== #
+# POCKET PIVOT  (Minervini / O'Neil volume-at-support signal)              #
+# ====================================================================== #
+
+def _detect_pocket_pivot(
+    closes: List[float],
+    highs: List[float],
+    lows: List[float],
+    volumes: List[float],
+    dates: List[date],
+) -> List[PatternSignal]:
+    """
+    Pocket Pivot — an early breakout signal that fires *before* or *during*
+    a base breakout.  Identifies a day where:
+
+        1. Price closes UP from the prior day (constructive action).
+        2. Volume on the up-day exceeds the highest volume of any DOWN day
+           in the prior 10 sessions.
+        3. Price is within 10% of its 52-week high (in a position of strength).
+
+    This catches the momentum surge that precedes the chart's explosive move.
+
+    Reference: Chris Kacher & Gil Morales, *Trade Like an O'Neil Disciple* (2010).
+    """
+    results: List[PatternSignal] = []
+    n = len(closes)
+    if n < 15:
+        return results
+
+    # Only check the last bar (most recent signal)
+    last_close = closes[-1]
+    prev_close = closes[-2]
+
+    # Rule 1: must be an up day
+    if last_close <= prev_close:
+        return results
+
+    last_vol = volumes[-1]
+
+    # Highest volume among down days in the prior 10 sessions
+    lookback_start = max(0, n - 11)
+    down_day_vols = [
+        volumes[i]
+        for i in range(lookback_start, n - 1)
+        if closes[i] < closes[i - 1]
+    ]
+    if not down_day_vols:
+        return results
+
+    max_down_vol = max(down_day_vols)
+
+    # Rule 2: up-day volume must exceed the highest down-day volume
+    if last_vol <= max_down_vol:
+        return results
+
+    # Rule 3: within 10% of 52-week high
+    lookback_52w = min(252, n)
+    high_52w = max(highs[n - lookback_52w:])
+    dist_from_high = (high_52w - last_close) / high_52w if high_52w > 0 else 1.0
+    if dist_from_high > 0.10:
+        return results
+
+    # Confidence: volume surge ratio and proximity to 52-week high
+    vol_ratio = min(last_vol / max_down_vol, 5.0)
+    vol_conf_score = min((vol_ratio - 1.0) / 4.0, 0.30)
+    proximity_score = (0.10 - dist_from_high) / 0.10 * 0.20  # closer = better
+
+    conf = 0.30 + vol_conf_score + proximity_score
+    conf += _recency_bonus(n - 1, n)
+    conf = min(round(conf, 3), 1.0)
+
+    vol_conf = last_vol >= _avg_volume(volumes, n - 2) * _VOLUME_SURGE_MULTIPLE
+
+    results.append(PatternSignal(
+        pattern_name="Pocket Pivot",
+        direction="bullish",
+        confidence=conf,
+        start_date=dates[max(0, n - 11)],
+        end_date=dates[n - 1],
+        breakout_confirmed=True,
+        volume_confirmation=vol_conf,
+        description=(
+            f"Up-day vol {last_vol:,.0f} > max down-day vol {max_down_vol:,.0f} "
+            f"({vol_ratio:.1f}×), {dist_from_high*100:.1f}% from 52w high"
+        ),
+        breakout_price=round(last_close, 2),
+        breakout_date=dates[n - 1],
+        pattern_target=None,
+    ))
+
+    return results
+
+
+# ====================================================================== #
 # MAIN ENTRY POINT                                                          #
 # ====================================================================== #
 
@@ -874,6 +1080,8 @@ def detect_all_patterns(
         ("Ascending Triangle", _detect_ascending_triangle),
         ("Descending Triangle", _detect_descending_triangle),
         ("Cup & Handle", _detect_cup_and_handle),
+        ("Flat Base Breakout", _detect_flat_base_breakout),
+        ("Pocket Pivot", _detect_pocket_pivot),
     ]
 
     for name, detector_fn in detectors:
