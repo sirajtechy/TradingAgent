@@ -59,6 +59,7 @@ input[type=range]{accent-color:#6366f1}
       <a href="#charts"   class="nav-link">Charts</a>
       <a href="#sectors"  class="nav-link">Sectors</a>
       <a href="#tickers"  class="nav-link">Tickers</a>
+      <a href="#phoenix"  class="nav-link" style="color:#10b981;font-weight:800">Phoenix IT</a>
     </nav>
     <div class="flex gap-2">
       <button onclick="downloadExcel()"
@@ -172,9 +173,167 @@ input[type=range]{accent-color:#6366f1}
   </div>
 </div>
 
+<!-- ══════════════════════════════════════════════════════════════════════
+     PHOENIX IT SECTOR SIGNAL SCAN — 2026-02-01
+     30 large-cap halal IT tickers | strategy: Phoenix Trader
+     Data pulled via Polygon/yfinance through Feb 1, 2026
+     ══════════════════════════════════════════════════════════════════════ -->
+<section id="phoenix" class="mt-8">
+  <div class="flex items-center gap-3 mb-4">
+    <div>
+      <p class="text-xs font-bold uppercase tracking-widest text-gray-400">Phoenix Trader &middot; IT Sector Signal Scan &middot; 2026-02-01</p>
+      <p class="text-xs text-gray-400 mt-0.5">30 large-cap halal IT tickers &middot; Data through Feb 1 2026 &middot; Forward predictions for manual verification</p>
+    </div>
+  </div>
+
+  <!-- KPI strip -->
+  <div class="grid grid-cols-2 sm:grid-cols-5 gap-3 mb-6">
+    <div class="kpi-card"><div class="kpi-value text-green-600">1</div><div class="kpi-label">BUY signals</div></div>
+    <div class="kpi-card"><div class="kpi-value text-amber-500">5</div><div class="kpi-label">WATCH (entry set)</div></div>
+    <div class="kpi-card"><div class="kpi-value text-slate-500">4</div><div class="kpi-label">WATCH (accumulating)</div></div>
+    <div class="kpi-card"><div class="kpi-value text-red-500">4</div><div class="kpi-label">AVOID – Stage 3</div></div>
+    <div class="kpi-card"><div class="kpi-value text-red-700">16</div><div class="kpi-label">AVOID – Stage 4</div></div>
+  </div>
+
+  <!-- BUY signal highlight -->
+  <div class="section-card border-l-4 border-green-500 mb-4">
+    <div class="flex flex-wrap items-center gap-3 mb-3">
+      <span class="text-lg font-extrabold text-gray-800">STX</span>
+      <span class="badge badge-green">BUY</span>
+      <span class="badge badge-blue">Stage 2 – Momentum</span>
+      <span class="badge badge-green">Shakeout – CONFIRMED</span>
+      <span class="badge badge-gray">Score: 78.3 / 100</span>
+    </div>
+    <div class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-3 text-center text-sm">
+      <div class="bg-gray-50 rounded-lg p-2"><div class="font-bold text-gray-800">$406.98</div><div class="text-xs text-gray-400">Entry Price</div></div>
+      <div class="bg-red-50 rounded-lg p-2"><div class="font-bold text-red-700">$396.24</div><div class="text-xs text-gray-400">Stop Loss (2.6%)</div></div>
+      <div class="bg-green-50 rounded-lg p-2"><div class="font-bold text-green-700">$524.95</div><div class="text-xs text-gray-400">Target 1 (+29%)</div></div>
+      <div class="bg-green-50 rounded-lg p-2"><div class="font-bold text-green-700">$583.93</div><div class="text-xs text-gray-400">Target 2 (+43%)</div></div>
+      <div class="bg-indigo-50 rounded-lg p-2"><div class="font-bold text-indigo-700">10.99x</div><div class="text-xs text-gray-400">Reward:Risk</div></div>
+      <div class="bg-gray-50 rounded-lg p-2"><div class="font-bold text-gray-800">93 shares</div><div class="text-xs text-gray-400">Pos. Size (1% risk)</div></div>
+      <div class="bg-gray-50 rounded-lg p-2"><div class="font-bold text-gray-800">71.3%</div><div class="text-xs text-gray-400">Pattern Confidence</div></div>
+      <div class="bg-gray-50 rounded-lg p-2"><div class="font-bold text-gray-800">shakeout</div><div class="text-xs text-gray-400">Entry Type</div></div>
+    </div>
+    <p class="text-xs text-gray-500 mt-3">Verify: Did STX break above $406.98 after Feb 1? Did it hold $396.24 stop? Did it reach $524.95 (Target 1)?</p>
+  </div>
+
+  <!-- WATCH setups with entry plans -->
+  <div class="section-card mb-4">
+    <p class="text-sm font-bold text-gray-700 mb-3">WATCH — Stage 2 Setups (Entry Set, Pattern Unconfirmed)</p>
+    <p class="text-xs text-gray-400 mb-3">Do not enter until pattern confirms above pivot on breakout day. Verify: did price break the pivot after Feb 1?</p>
+    <div class="overflow-x-auto">
+      <table class="w-full text-sm border-collapse">
+        <thead>
+          <tr class="bg-gray-50 text-xs uppercase tracking-wide text-gray-500">
+            <th class="p-2 text-left border-b">Ticker</th>
+            <th class="p-2 text-center border-b">Score</th>
+            <th class="p-2 text-left border-b">Pattern</th>
+            <th class="p-2 text-center border-b">Confidence</th>
+            <th class="p-2 text-center border-b">Entry</th>
+            <th class="p-2 text-center border-b">Stop (% below)</th>
+            <th class="p-2 text-center border-b">Target 1</th>
+            <th class="p-2 text-center border-b">Target 2</th>
+            <th class="p-2 text-center border-b">R:R</th>
+            <th class="p-2 text-center border-b">Verdict</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="border-b hover:bg-green-50">
+            <td class="p-2 font-bold">AMD</td>
+            <td class="p-2 text-center">54.1</td>
+            <td class="p-2">VCP</td>
+            <td class="p-2 text-center">86.7%</td>
+            <td class="p-2 text-center font-mono">$266.96</td>
+            <td class="p-2 text-center font-mono text-red-600">$234.32 (12.2%)</td>
+            <td class="p-2 text-center font-mono text-green-700">$335.89</td>
+            <td class="p-2 text-center font-mono text-green-700">$370.35</td>
+            <td class="p-2 text-center font-bold text-green-700">2.11x</td>
+            <td class="p-2 text-center"><span class="badge badge-green">VALID &ge;2x</span></td>
+          </tr>
+          <tr class="border-b hover:bg-amber-50">
+            <td class="p-2 font-bold">MPWR</td>
+            <td class="p-2 text-center">59.8</td>
+            <td class="p-2">Tight Flag</td>
+            <td class="p-2 text-center">50.1%</td>
+            <td class="p-2 text-center font-mono">$1,182.69</td>
+            <td class="p-2 text-center font-mono text-red-600">$1,110.51 (6.1%)</td>
+            <td class="p-2 text-center font-mono text-green-700">$1,218.17</td>
+            <td class="p-2 text-center font-mono text-green-700">$1,235.91</td>
+            <td class="p-2 text-center text-amber-600">0.49x</td>
+            <td class="p-2 text-center"><span class="badge badge-red">TOO LOW</span></td>
+          </tr>
+          <tr class="border-b hover:bg-amber-50">
+            <td class="p-2 font-bold">WDC</td>
+            <td class="p-2 text-center">58.4</td>
+            <td class="p-2">Tight Flag</td>
+            <td class="p-2 text-center">50.8%</td>
+            <td class="p-2 text-center font-mono">$285.28</td>
+            <td class="p-2 text-center font-mono text-red-600">$237.23 (16.8%)</td>
+            <td class="p-2 text-center font-mono text-green-700">$298.24</td>
+            <td class="p-2 text-center font-mono text-green-700">$304.71</td>
+            <td class="p-2 text-center text-amber-600">0.27x</td>
+            <td class="p-2 text-center"><span class="badge badge-red">TOO LOW</span></td>
+          </tr>
+          <tr class="border-b hover:bg-amber-50">
+            <td class="p-2 font-bold">MU</td>
+            <td class="p-2 text-center">57.1</td>
+            <td class="p-2">Tight Flag</td>
+            <td class="p-2 text-center">52.5%</td>
+            <td class="p-2 text-center font-mono">$444.52</td>
+            <td class="p-2 text-center font-mono text-red-600">$406.55 (8.5%)</td>
+            <td class="p-2 text-center font-mono text-green-700">$458.17</td>
+            <td class="p-2 text-center font-mono text-green-700">$464.99</td>
+            <td class="p-2 text-center text-amber-600">0.36x</td>
+            <td class="p-2 text-center"><span class="badge badge-red">TOO LOW</span></td>
+          </tr>
+          <tr class="border-b hover:bg-amber-50">
+            <td class="p-2 font-bold">AMAT</td>
+            <td class="p-2 text-center">55.4</td>
+            <td class="p-2">Tight Flag</td>
+            <td class="p-2 text-center">54.3%</td>
+            <td class="p-2 text-center font-mono">$344.17</td>
+            <td class="p-2 text-center font-mono text-red-600">$320.82 (6.8%)</td>
+            <td class="p-2 text-center font-mono text-green-700">$354.50</td>
+            <td class="p-2 text-center font-mono text-green-700">$359.66</td>
+            <td class="p-2 text-center text-amber-600">0.44x</td>
+            <td class="p-2 text-center"><span class="badge badge-red">TOO LOW</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Full 30-ticker results table -->
+  <div class="section-card">
+    <p class="text-sm font-bold text-gray-700 mb-3">All 30 Tickers — Phoenix Signal Summary</p>
+    <div class="overflow-x-auto">
+      <table class="w-full text-sm border-collapse" id="phoenixTable">
+        <thead>
+          <tr class="bg-gray-50 text-xs uppercase tracking-wide text-gray-500">
+            <th class="p-2 text-left border-b">Ticker</th>
+            <th class="p-2 text-center border-b">Signal</th>
+            <th class="p-2 text-center border-b">Score</th>
+            <th class="p-2 text-center border-b">Stage</th>
+            <th class="p-2 text-left border-b">Pattern</th>
+            <th class="p-2 text-center border-b">Confirmed</th>
+            <th class="p-2 text-center border-b">Entry</th>
+            <th class="p-2 text-center border-b">Stop</th>
+            <th class="p-2 text-center border-b">Target 1</th>
+            <th class="p-2 text-center border-b">Target 2</th>
+            <th class="p-2 text-center border-b">R:R</th>
+            <th class="p-2 text-left border-b">Filter / Note</th>
+          </tr>
+        </thead>
+        <tbody id="phoenixBody"></tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
 <!-- FOOTER -->
-<footer class="text-center text-xs text-gray-400 py-6 border-t border-gray-200">
+<footer class="text-center text-xs text-gray-400 py-6 border-t border-gray-200 mt-8">
   Fundamental Backtest Agent &middot; Deterministic scoring &middot; Data via yfinance &middot; Generated 31 Mar 2026, 00:11
+  &nbsp;&bull;&nbsp; Phoenix IT Sector Scan added 6 May 2026 &middot; Signal date 2026-02-01 &middot; 30 large caps
 </footer>
 </main>
 
@@ -465,6 +624,69 @@ new Chart(document.getElementById('abstentionChart'),{
   }]},
   options:{indexAxis:'y',responsive:true,maintainAspectRatio:false,
     plugins:{legend:{display:false}},scales:{x:{min:0,max:100,ticks:{callback:v=>v+'%'}}}}
+});
+
+// ── Phoenix IT Sector scan data (2026-02-01) ─────────────────────────────────
+const PHOENIX_ROWS = [
+  {t:"NVDA",  sig:"AVOID", score:36.7,  stage:3, stageLabel:"Exhaustion",  pat:"None",          conf:false, entry:null,      stop:null,      t1:null,      t2:null,     rr:null,  note:"Stage 3 — SMA20 flattening"},
+  {t:"AAPL",  sig:"AVOID", score:37.4,  stage:3, stageLabel:"Exhaustion",  pat:"None",          conf:false, entry:null,      stop:null,      t1:null,      t2:null,     rr:null,  note:"Stage 3 — MA alignment broken"},
+  {t:"AVGO",  sig:"AVOID", score:32.1,  stage:3, stageLabel:"Exhaustion",  pat:"None",          conf:false, entry:null,      stop:null,      t1:null,      t2:null,     rr:null,  note:"Stage 3 — structure weakening"},
+  {t:"ORCL",  sig:"AVOID", score:0,     stage:4, stageLabel:"Decline",     pat:"None",          conf:false, entry:null,      stop:null,      t1:null,      t2:null,     rr:null,  note:"FAIL: $164 is 24.8% below 200DMA"},
+  {t:"AMD",   sig:"WATCH", score:54.1,  stage:2, stageLabel:"Momentum",    pat:"VCP",           conf:false, entry:266.96,    stop:234.32,    t1:335.89,    t2:370.35,   rr:2.11,  note:"86.7% confidence. R:R valid (2.11x)"},
+  {t:"MU",    sig:"WATCH", score:57.1,  stage:2, stageLabel:"Momentum",    pat:"Tight Flag",    conf:false, entry:444.52,    stop:406.55,    t1:458.17,    t2:464.99,   rr:0.36,  note:"R:R 0.36 — too low to trade"},
+  {t:"CRM",   sig:"AVOID", score:0,     stage:4, stageLabel:"Decline",     pat:"None",          conf:false, entry:null,      stop:null,      t1:null,      t2:null,     rr:null,  note:"FAIL: $211 is 16.3% below 200DMA"},
+  {t:"LRCX",  sig:"WATCH", score:40.7,  stage:1, stageLabel:"Accumulation",pat:"None",          conf:false, entry:null,      stop:null,      t1:null,      t2:null,     rr:null,  note:"Stage 1 — no entry yet"},
+  {t:"AMAT",  sig:"WATCH", score:55.4,  stage:2, stageLabel:"Momentum",    pat:"Tight Flag",    conf:false, entry:344.17,    stop:320.82,    t1:354.50,    t2:359.66,   rr:0.44,  note:"R:R 0.44 — too low to trade"},
+  {t:"QCOM",  sig:"AVOID", score:0,     stage:4, stageLabel:"Decline",     pat:"None",          conf:false, entry:null,      stop:null,      t1:null,      t2:null,     rr:null,  note:"FAIL: $150 is 5.0% below 200DMA"},
+  {t:"KLAC",  sig:"WATCH", score:45.6,  stage:1, stageLabel:"Accumulation",pat:"None",          conf:false, entry:null,      stop:null,      t1:null,      t2:null,     rr:null,  note:"Stage 1 — base building"},
+  {t:"NOW",   sig:"AVOID", score:0,     stage:4, stageLabel:"Decline",     pat:"None",          conf:false, entry:null,      stop:null,      t1:null,      t2:null,     rr:null,  note:"FAIL: $105 is 23.5% below 200DMA"},
+  {t:"TXN",   sig:"WATCH", score:34.5,  stage:1, stageLabel:"Accumulation",pat:"None",          conf:false, entry:null,      stop:null,      t1:null,      t2:null,     rr:null,  note:"Stage 1 — no setup yet"},
+  {t:"ADBE",  sig:"AVOID", score:0,     stage:4, stageLabel:"Decline",     pat:"None",          conf:false, entry:null,      stop:null,      t1:null,      t2:null,     rr:null,  note:"FAIL: below 200DMA"},
+  {t:"PANW",  sig:"AVOID", score:0,     stage:4, stageLabel:"Decline",     pat:"None",          conf:false, entry:null,      stop:null,      t1:null,      t2:null,     rr:null,  note:"FAIL: below 200DMA"},
+  {t:"CRWD",  sig:"AVOID", score:0,     stage:4, stageLabel:"Decline",     pat:"None",          conf:false, entry:null,      stop:null,      t1:null,      t2:null,     rr:null,  note:"FAIL: below 200DMA"},
+  {t:"ARM",   sig:"AVOID", score:0,     stage:4, stageLabel:"Decline",     pat:"None",          conf:false, entry:null,      stop:null,      t1:null,      t2:null,     rr:null,  note:"FAIL: below 200DMA"},
+  {t:"SNPS",  sig:"AVOID", score:0,     stage:4, stageLabel:"Decline",     pat:"None",          conf:false, entry:null,      stop:null,      t1:null,      t2:null,     rr:null,  note:"FAIL: $465 is 6.5% below 200DMA"},
+  {t:"CDNS",  sig:"AVOID", score:0,     stage:4, stageLabel:"Decline",     pat:"None",          conf:false, entry:null,      stop:null,      t1:null,      t2:null,     rr:null,  note:"FAIL: $296 is 8.4% below 200DMA"},
+  {t:"SNOW",  sig:"AVOID", score:0,     stage:4, stageLabel:"Decline",     pat:"None",          conf:false, entry:null,      stop:null,      t1:null,      t2:null,     rr:null,  note:"FAIL: $192 is 11.2% below 200DMA"},
+  {t:"MRVL",  sig:"AVOID", score:30.3,  stage:3, stageLabel:"Exhaustion",  pat:"None",          conf:false, entry:null,      stop:null,      t1:null,      t2:null,     rr:null,  note:"Stage 3 — MA alignment broken"},
+  {t:"ADSK",  sig:"AVOID", score:0,     stage:4, stageLabel:"Decline",     pat:"None",          conf:false, entry:null,      stop:null,      t1:null,      t2:null,     rr:null,  note:"FAIL: $252 is 14.7% below 200DMA"},
+  {t:"WDC",   sig:"WATCH", score:58.4,  stage:2, stageLabel:"Momentum",    pat:"Tight Flag",    conf:false, entry:285.28,    stop:237.23,    t1:298.24,    t2:304.71,   rr:0.27,  note:"R:R 0.27 — too low to trade"},
+  {t:"FTNT",  sig:"AVOID", score:0,     stage:4, stageLabel:"Decline",     pat:"None",          conf:false, entry:null,      stop:null,      t1:null,      t2:null,     rr:null,  note:"FAIL: $81 is 9.3% below 200DMA"},
+  {t:"STX",   sig:"BUY",   score:78.3,  stage:2, stageLabel:"Momentum",    pat:"Shakeout",      conf:true,  entry:406.98,    stop:396.24,    t1:524.95,    t2:583.93,   rr:10.99, note:"CONFIRMED. R:R 10.99x. Tight 2.6% stop."},
+  {t:"NXPI",  sig:"WATCH", score:36.6,  stage:1, stageLabel:"Accumulation",pat:"None",          conf:false, entry:null,      stop:null,      t1:null,      t2:null,     rr:null,  note:"Stage 1 — base consolidating"},
+  {t:"MPWR",  sig:"WATCH", score:59.8,  stage:2, stageLabel:"Momentum",    pat:"Tight Flag",    conf:false, entry:1182.69,   stop:1110.51,   t1:1218.17,   t2:1235.91,  rr:0.49,  note:"R:R 0.49 — too low to trade"},
+  {t:"TEAM",  sig:"AVOID", score:0,     stage:4, stageLabel:"Decline",     pat:"None",          conf:false, entry:null,      stop:null,      t1:null,      t2:null,     rr:null,  note:"FAIL: $118 is 33.0% below 200DMA"},
+  {t:"FICO",  sig:"AVOID", score:0,     stage:4, stageLabel:"Decline",     pat:"None",          conf:false, entry:null,      stop:null,      t1:null,      t2:null,     rr:null,  note:"FAIL: $1,463 is 12.9% below 200DMA"},
+  {t:"ZS",    sig:"AVOID", score:0,     stage:4, stageLabel:"Decline",     pat:"None",          conf:false, entry:null,      stop:null,      t1:null,      t2:null,     rr:null,  note:"FAIL: $200 is 26.1% below 200DMA"},
+];
+
+function fmt$(v){ return v!=null ? '$'+v.toFixed(2) : '—'; }
+function fmtRR(v){ return v!=null ? v.toFixed(2)+'x' : '—'; }
+const sigBadge = {
+  BUY:   '<span class="badge badge-green">BUY</span>',
+  WATCH: '<span class="badge badge-blue">WATCH</span>',
+  AVOID: '<span class="badge badge-red">AVOID</span>',
+};
+const stageColor = {1:'text-slate-500',2:'text-indigo-600 font-bold',3:'text-amber-600',4:'text-red-600'};
+const pb = document.getElementById('phoenixBody');
+PHOENIX_ROWS.forEach(r=>{
+  const rrCell = r.rr!=null
+    ? `<span class="${r.rr>=2?'text-green-700 font-bold':'text-amber-600'}">${fmtRR(r.rr)}</span>`
+    : '—';
+  pb.innerHTML += `<tr class="border-b hover:bg-gray-50">
+    <td class="p-2 font-bold">${r.t}</td>
+    <td class="p-2 text-center">${sigBadge[r.sig]||r.sig}</td>
+    <td class="p-2 text-center">${r.score||'—'}</td>
+    <td class="p-2 text-center ${stageColor[r.stage]||''}">Stage ${r.stage} <span class="text-gray-400 font-normal text-xs">${r.stageLabel}</span></td>
+    <td class="p-2">${r.pat}</td>
+    <td class="p-2 text-center">${r.conf?'<span class="badge badge-green">YES</span>':'<span class="badge badge-gray">No</span>'}</td>
+    <td class="p-2 text-center font-mono text-xs">${fmt$(r.entry)}</td>
+    <td class="p-2 text-center font-mono text-xs text-red-600">${fmt$(r.stop)}</td>
+    <td class="p-2 text-center font-mono text-xs text-green-700">${fmt$(r.t1)}</td>
+    <td class="p-2 text-center font-mono text-xs text-green-700">${fmt$(r.t2)}</td>
+    <td class="p-2 text-center">${rrCell}</td>
+    <td class="p-2 text-xs text-gray-500 max-w-xs">${r.note}</td>
+  </tr>`;
 });
 
 new Chart(document.getElementById('scatterChart'),{

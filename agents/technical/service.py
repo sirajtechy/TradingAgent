@@ -11,11 +11,11 @@ prediction.
 """
 
 from datetime import date, datetime
-from typing import Any, Dict, Optional
+from typing import Any, Dict, List, Optional
 
 from .data_client import PolygonTechnicalClient
 from .graph import build_graph
-from .models import TechnicalRequest
+from .models import OHLCVBar, TechnicalRequest
 from .predictor import build_trade_prediction
 
 
@@ -116,7 +116,9 @@ def predict_trade(
     graph = build_graph(client)
     state = graph.invoke({"request": request})
     tech_evaluation = state["evaluation"]
-    bars = state["snapshot"].bars  # List[OHLCVBar], sorted oldest-first
+    bars: List[OHLCVBar] = list(state["snapshot"].bars)  # sorted oldest-first, up to cutoff
+    # Bars are strictly bounded by cutoff_date — no post-cutoff data is fetched.
+    # Walk-forward exit simulation runs only on these historical bars.
 
     # Step 3: Build pattern-driven prediction with walk-forward exit simulation
     prediction = build_trade_prediction(
