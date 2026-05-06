@@ -95,6 +95,17 @@ export default function Home() {
           </Link>
         </div>
 
+        {/* Phoenix Sector Scans — separate page link */}
+        <div className="px-2 pb-1">
+          <Link
+            href="/phoenix-scans"
+            className="flex items-center gap-3 px-3 py-2.5 text-sm rounded-lg transition-colors text-[var(--text-dim)] hover:text-indigo-300 hover:bg-indigo-500/5"
+          >
+            <span className="shrink-0 text-indigo-400"><TrendingUp size={18} /></span>
+            {!collapsed && <span className="truncate font-medium text-indigo-200">Phoenix Scans</span>}
+          </Link>
+        </div>
+
         {/* Collapse toggle */}
         <button
           onClick={() => setCollapsed(!collapsed)}

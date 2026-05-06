@@ -16,6 +16,7 @@ retries, and auth.
 from __future__ import annotations
 
 import logging
+import os
 import threading
 import time
 from datetime import date, timedelta
@@ -38,6 +39,10 @@ _polygon = PolygonClient()
 
 # yfinance is not thread-safe — serialise all downloads
 _YF_DOWNLOAD_LOCK = threading.Lock()
+
+# If set, Phoenix will never use yfinance fallback.
+# This guarantees OHLCV data provenance is Polygon-only.
+_POLYGON_ONLY = os.environ.get("PHOENIX_POLYGON_ONLY", "").strip().lower() in {"1", "true", "yes", "y"}
 
 
 # ─────────────────────────────────────────────────────────────────────────────
@@ -193,6 +198,12 @@ class PhoenixDataClient:
     ) -> List[OHLCVBar]:
         df: Optional[pd.DataFrame] = None
 
+        if _POLYGON_ONLY and not _polygon.is_available():
+            raise DataUnavailableError(
+                "PHOENIX_POLYGON_ONLY is set but POLYGON_API_KEY is missing. "
+                "Set POLYGON_API_KEY (and ensure Polygon has access) to run."
+            )
+
         # Polygon primary
         if _polygon.is_available():
             try:
@@ -200,11 +211,15 @@ class PhoenixDataClient:
                 if df is not None and not df.empty:
                     warnings.append("Data sourced from Polygon.io (split-adjusted).")
             except PolygonDataError as exc:
+                if _POLYGON_ONLY:
+                    raise DataUnavailableError(
+                        f"{ticker}: Polygon failed and PHOENIX_POLYGON_ONLY is enabled: {exc}"
+                    ) from exc
                 logger.warning("Polygon failed for %s: %s — falling back to yfinance", ticker, exc)
                 df = None
 
         # yfinance fallback
-        if df is None or df.empty:
+        if (df is None or df.empty) and not _POLYGON_ONLY:
             logger.info("Falling back to yfinance for %s", ticker)
             start = as_of - timedelta(days=_CALENDAR_LOOKBACK_DAYS)
             df = self._yf_download(ticker, start, as_of)
@@ -215,7 +230,7 @@ class PhoenixDataClient:
         if df is None or df.empty:
             raise DataUnavailableError(
                 f"No OHLCV data for {ticker} on or before {as_of.isoformat()} "
-                "from Polygon or Yahoo Finance."
+                + ("from Polygon (POLYGON_ONLY)." if _POLYGON_ONLY else "from Polygon or Yahoo Finance.")
             )
 
         # Drop rows without Close
