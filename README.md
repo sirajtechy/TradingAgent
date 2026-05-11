@@ -1,159 +1,184 @@
 # MyTradingSpace — Multi-Agent Stock Analysis Platform
 
-A deterministic, rule-based multi-agent system for analyzing stocks using both fundamental and technical analysis. Three specialized agents work independently and can be fused via an Orchestrator to produce higher-confidence trade signals. Designed for backtesting, halal-universe screening, and live prediction workflows.
+A **deterministic, rule-based** multi-agent stack for point-in-time stock analysis, halal-universe screening, Phoenix-style pattern scoring, and **Confidence-Weighted Asymmetric Fusion (CWAF)** across agents. Outputs feed **JSON run bundles**, **backtests**, and a **Next.js backtest dashboard**. No LLM influences numeric scores or pass/fail gates.
 
 ---
 
-## What This Application Does
+## What This Repository Does
 
-Given a **ticker**, a **cutoff date**, and a **target holding period**, the platform:
+For a **ticker**, **as-of date**, and optional **holding window**, the system can:
 
-1. Runs a **Fundamental Agent** to score the company's financial health, valuation, quality, and growth using six established frameworks
-2. Runs a **Technical Agent** to score price action across nine momentum and trend-following frameworks
-3. Optionally fuses both signals via an **Orchestrator** using Confidence-Weighted Asymmetric Fusion (CWAF)
-4. Returns a structured trade recommendation (BUY / SELL / HOLD) with entry price, stop-loss, target, and exit outcome
-5. Exports results to Excel and JSON for analysis and dashboard rendering
+1. Run the **Fundamental** agent (FMP-backed frameworks) for financial health, valuation, quality, and growth.
+2. Run the **Technical** agent (Polygon OHLCV) across momentum, trend, and pattern-style rule sets.
+3. Run the **Phoenix** agent for stage/pattern/risk scoring and trade-level hints used in Phoenix-only or fused flows.
+4. **Fuse** agents through the **Orchestrator** — e.g. **TA+FA** (`fuse_signals`) or **Phoenix+FA** (`fuse_signals_phoenix` / `FusionMode.PHOENIX_FUND`, default **90% / 10%** Phoenix vs fundamental weights).
+5. Emit structured **BUY / SELL / HOLD** (and related) recommendations, **run_bundle.json** aggregates, confusion-style evaluation when labels exist, and exports for Excel/JSON and the dashboard.
 
-All scoring is **100% deterministic and rule-based** — no LLM influences any score or pass/fail decision.
+Canonical entry points and module boundaries are summarized in **`MODULE_MAP.md`** (start there when navigating or extending the codebase).
 
 ---
 
-## Architecture Overview
+## Top-Level Layout
 
 ```
 MyTradingSpace/
-├── agents/
-│   ├── fundamental/       # Fundamental Agent v3 — 6 scoring frameworks
-│   ├── technical/         # Technical Agent v2 — 9 scoring frameworks
-│   ├── orchestrator/      # CWAF Orchestrator — fuses both agents
-│   ├── oneil/             # O'Neil-style stage analysis (breakout patterns)
-│   └── polygon_data/      # Shared Polygon.io OHLCV data client
-├── backtests/             # Backtest runners per agent
-├── scripts/               # Batch prediction and backtest scripts
-├── backtest-dashboard/    # Next.js dashboard for visualizing results
+├── agents/                    # Bounded agent packages (import from agents.*)
+│   ├── fundamental/           # FMP-based fundamental scoring + graph/service
+│   ├── technical/             # Polygon TA rules, indicators, predictor, graph
+│   ├── phoenix/               # Phoenix agent: scoring, filters, stage, reporting
+│   │   ├── patterns/          # Split pattern detectors (VCP, pullback, flag, …)
+│   │   └── pattern_helpers.py
+│   ├── orchestrator/          # Fusion, LangGraph-style graph, CWAF, Phoenix fusion
+│   │   ├── fusion.py          # TA+FA fusion
+│   │   ├── fusion_phoenix.py  # Phoenix+FA fusion
+│   │   ├── modes.py           # FusionMode dispatcher (ta-fa vs phoenix-fa, …)
+│   │   ├── agent_envelope.py  # Normalized multi-agent envelopes
+│   │   ├── graph.py / service.py / backtest*.py
+│   │   └── config.py          # OrchestratorSettings (incl. phoenix_fund_weights)
+│   ├── polygon_data/          # Shared Polygon OHLCV access
+│   ├── oneil/                 # O’Neil-style stage / breakout helpers
+│   └── prediction/            # Strategy formatting / backtester utilities
+├── backtests/                 # Long-form Python backtest drivers (per engine)
+├── backtest-dashboard/        # Next.js (App Router) UI + API routes → see its README
+├── scripts/
+│   ├── run_trading.py         # **Canonical CLI**: analyze | backtest | compare
+│   ├── lib/                   # Shared helpers (e.g. run_bundle aggregation)
+│   ├── backtests/             # Thin runners / pilots (halal sector month, …)
+│   ├── run_halal_predictions.py
+│   ├── run_orchestrator_tickers.py   # Shim → run_trading.py analyze (legacy flags)
+│   └── analysis/ | dashboard/ | polygon/ | workstreams/   # Ad-hoc pipelines
+├── tests/                     # Pytest suite
+│   ├── phoenix/               # Phoenix unit / synthetic tests
+│   └── orchestrator/          # Modes + envelope tests
 ├── data/
-│   ├── input/             # Halal universe lists, sector tickers
-│   └── output/            # Backtest Excel files, JSON results, reports
-└── agent_learning/        # Steering docs, analytical memory, brain notes
+│   ├── input/                 # Universe files, caches, master dumps
+│   ├── halal_universe/        # Halal lists / loaders
+│   └── output/                # Generated artifacts (see .gitignore for some trees)
+│       ├── trading_runs/      # run_bundle.json, master_pilot.json, pilots
+│       ├── orchestrator_runs/ # Sample per-ticker JSON (when committed)
+│       ├── predictions/       # Ignored: generated predictions
+│       └── backtests/         # Ignored: heavy backtest exports
+├── docs/                      # Playbooks, contracts, implementation notes
+├── prompts/                   # Agent steering / prompt assets
+├── agent_learning/            # Human-written steering per agent area
+├── trading-strategies/        # Strategy notes / configs (as used in-repo)
+├── CHANGELOG.md               # Keep a Changelog–style history
+├── MODULE_MAP.md              # Feature → spec → module → tests → scripts
+└── ORCHESTRATOR_MODES.md      # Fusion modes and CLI guidance
 ```
 
 ---
 
-## The Three Agents
+## Modularity (How Pieces Fit)
 
-### 1. Fundamental Agent (v3)
-
-Evaluates a company's financials using six academically-sourced frameworks. All data is fetched point-in-time from Financial Modeling Prep (FMP).
-
-| Framework | Category | Weight |
-|-----------|----------|--------|
-| Piotroski F-Score | Financial Health | 12.5% |
-| Altman Z-Score | Financial Health | 12.5% |
-| Graham / Buffett | Valuation | 15% |
-| Lynch Fair Value (PEG) | Valuation | 15% |
-| Greenblatt Magic Formula | Quality | 25% |
-| Growth Profile (CAGR) | Growth | 20% |
-
-**Signal mapping:** Composite score ≥70 → Bullish · 40–69 → Neutral · <40 → Bearish  
-**12-month backtest (60 tickers):** 57.1% win rate · 74% abstention rate · Precision 60.6%
+| Layer | Role |
+| --- | --- |
+| **`agents/*`** | Each agent owns its **data clients**, **rules/scoring**, **graph** (where applicable), and **reporting**. Keep new logic inside the right package; expose narrow public APIs. |
+| **`agents/orchestrator`** | **Single place** for combining agent outputs: TA+FA and Phoenix+FA paths, **modes**, **envelopes**, and **backtest** glue. Prefer extending `modes.py` / fusion modules over duplicating fusion in scripts. |
+| **`scripts/run_trading.py`** | **Preferred CLI** for `analyze`, `backtest --engine <alias>`, and `compare`. New batch behavior should extend flags or registered engines, not fork one-off CLIs (see `MODULE_MAP.md`). |
+| **`scripts/lib/`** | Non–agent-specific building blocks (bundle JSON, shared pilot helpers) used by CLI and backtests. |
+| **`backtest-dashboard/`** | Read-only visualization over committed or mounted JSON under `data/output/`; API routes under `app/api/` proxy the filesystem for local QA. |
+| **`tests/`** | Mirrors critical packages (`phoenix/`, `orchestrator/`) plus integration-style tests at repo root. |
 
 ---
 
-### 2. Technical Agent (v2)
+## Documentation Map
 
-Evaluates price action using nine indicator frameworks sourced from Polygon.io OHLCV data.
-
-| Framework | Weight |
-|-----------|--------|
-| EMA Trend Alignment | 17% |
-| MACD System | 14% |
-| RSI Regime | 14% |
-| Ichimoku Cloud | 12% |
-| Bollinger Bands | 10% |
-| Volume (OBV + CMF) | 10% |
-| Pattern Recognition | 8% |
-| Momentum Composite (ROC + Williams %R + CCI) | 8% |
-| ADX + Stochastic | 7% |
-
-**Signal mapping:** Score ≥60 → Bullish · 35–59 → Mixed · <35 → Bearish  
-**12-month backtest (Tech + Energy sectors):** 57.0% win rate · 19.6% abstention · Precision 60.6%
+| Document | Contents |
+| --- | --- |
+| `MODULE_MAP.md` | Feature areas, specs, modules, tests, and scripts in one table |
+| `ORCHESTRATOR_MODES.md` | `FusionMode`, `phoenix-fa` vs `ta-fa`, weights |
+| `docs/BACKTEST_PLAYBOOK.md` | Engines, outputs, `run_bundle` usage |
+| `docs/MULTI_AGENT_CONTRACT.md` | How future agents plug into the same envelope pattern |
+| `docs/PHOENIX_AGENT_IMPLEMENTATION.md` | Phoenix implementation detail |
+| `CHANGELOG.md` | Notable changes (including dated integration notes) |
 
 ---
 
-### 3. Orchestrator — CWAF (Confidence-Weighted Asymmetric Fusion)
+## Key Scripts (Current)
 
-Combines both agents using their confidence levels to resolve agreement, conflict, and edge cases. The Fundamental Agent is conservative (74% abstention); the Technical Agent is more aggressive (19.6% abstention). CWAF preserves each agent's confidence signal rather than simple majority voting.
+| Path | Purpose |
+| --- | --- |
+| **`python scripts/run_trading.py analyze`** | Point-in-time analysis: `--fusion phoenix-fa` (default Phoenix+FA), `ta-fa`, `phoenix`, `compare`; halal flags (`--halal-universe`, `--halal-sector`, …) per `MODULE_MAP.md` |
+| **`python scripts/run_trading.py backtest --engine …`** | Delegates to registered long-form backtest engines |
+| **`python scripts/run_trading.py compare`** | Run-vs-run deltas for QA |
+| **`scripts/backtests/run_halal_sector_month_pilot.py`** | Sector (or ticker list) pilot: **`--signal-date`**, optional **`--single-master-json`** / `master_pilot.json` for dashboard bundles |
+| **`scripts/run_halal_predictions.py`** | Batch halal predictions (Excel + JSON) |
+| **`scripts/run_orchestrator_tickers.py`** | **Shim** to `run_trading.py analyze` (legacy entry; defaults TA+FA if fusion omitted) |
+| **`backtests/run_*.py`** | Standalone engine drivers where still used |
 
-**12-month backtest (5 sectors, 600 periods):** 52.0% win rate · Financials sector: 71.1% win rate · Agent agreement rate: 49.3%
-
----
-
-## Covered Universe
-
-60 tickers across 5 sectors used for backtesting:
-
-| Sector | Tickers |
-|--------|---------|
-| Technology | AAPL, MSFT, NVDA, GOOGL, META, AMZN, TSLA, ORCL, ANET, CRM, AMD, INTC |
-| Healthcare | JNJ, UNH, LLY, ABBV, MRK, PFE, BMY, CVS, CI, MDT, ABT, HUM |
-| Financials | JPM, BAC, WFC, GS, MS, V, MA, AXP, BLK, C, USB, PNC |
-| Consumer Staples | PEP, KO, PG, WMT, COST, MCD, PM, MO, GIS, K, CL, CLX |
-| Energy | XOM, CVX, COP, SLB, OXY, PSX, VLO, MPC, EOG, HAL, BKR, DVN |
-
-A separate **halal universe** is also maintained for Shariah-compliant screening.
+Heavy generated trees under `data/output/predictions/` and `data/output/backtests/` are **gitignored**; **`data/output/trading_runs/`** may contain committed sample bundles for the dashboard (see repo state).
 
 ---
 
-## Key Scripts
+## Backtest Dashboard (`backtest-dashboard/`)
 
-| Script | Purpose |
-|--------|---------|
-| `scripts/run_halal_predictions.py` | Primary batch prediction runner — outputs Excel + JSON |
-| `scripts/run_backtest_excel.py` | Runs full backtest and exports to Excel |
-| `scripts/run_live_predictions.py` | Live prediction mode using today's data |
-| `backtests/run_fundamental.py` | Standalone fundamental agent backtest |
-| `backtests/run_technical.py` | Standalone technical agent backtest |
-| `backtests/run_orchestrator.py` | Full orchestrator CWAF backtest |
+Next.js **App Router** app. Main **routes**:
 
----
+| Route | Purpose |
+| --- | --- |
+| `/` | Home / navigation hub |
+| `/halal` | Halal prediction views |
+| `/sectors` | Sector-oriented views |
+| `/phoenix-scans` | Phoenix scan listings and drill-down |
+| **`/trading-runs`** | Lists `data/output/trading_runs/**`; bundle compare, confusion columns when evaluations exist |
+| **`/phoenix-watch-buy`** | Sector **`master_pilot.json`** via **`/api/trading-runs/bundle`**; BUY+WATCH vs all tickers; sortable table + Excel export |
 
-## Backtest Dashboard
+**API (selected):** `app/api/trading-runs/`, `app/api/phoenix-scans/`, `app/api/halal-predictions/`, `app/api/sectors-predictions/`.
 
-A Next.js web dashboard (`backtest-dashboard/`) visualizes backtest results, trade logs, sector breakdowns, and confusion matrices. Deployed to Vercel.
+```bash
+cd backtest-dashboard
+npm install
+npm run dev          # default dev port 3000
+# production
+npm run build && npm run start   # set PORT=3055 (or any) as needed
+```
+
+See **`backtest-dashboard/README.md`** for dashboard-focused setup.
 
 ---
 
 ## Environment Setup
 
 ```bash
-# Python dependencies (from workspace venv)
-source /path/to/.venv/bin/activate
+# Python: use a project venv at repo root or your preferred path
+python -m venv .venv && source .venv/bin/activate
+pip install -r requirements.txt
+# Optional: long / pinned backtest stacks
+pip install -r requirements-backtest.txt
 
-# Required API keys
-export FMP_API_KEY=your_fmp_key        # Financial Modeling Prep (fundamental agent)
-export POLYGON_API_KEY=your_poly_key   # Polygon.io (technical agent + OHLCV data)
+# API keys (Fundamental + Polygon)
+export FMP_API_KEY=your_fmp_key
+export POLYGON_API_KEY=your_polygon_key
 ```
 
 ---
 
-## Running Predictions
+## Running Tests
 
 ```bash
-# Batch prediction — halal sector universe, cutoff date, 20-day target
-python scripts/run_halal_predictions.py --universe sectors --date 2025-12-31 --target-days 20 --workers 4
-
-# Full backtest export to Excel
-python scripts/run_backtest_excel.py --date 2025-12-31 --workers 4 --target-days 20
-
-# Run tests
 python -m pytest -q
+# Targeted:
+python -m pytest -q tests/phoenix tests/orchestrator
 ```
+
+---
+
+## The Three “Classic” Agents (Plus Phoenix)
+
+The original README tables for **Fundamental (v3)** and **Technical (v2)** framework weights still apply conceptually; orchestrator headline metrics were historically quoted for **TA+FA CWAF**. **Phoenix** adds a separate scoring path and **Phoenix+FA** fusion — see `ORCHESTRATOR_MODES.md` and Phoenix docs for weights and behavior.
 
 ---
 
 ## Important Limitations
 
-- Scores are labeled **experimental** — designed for backtesting research, not proven live trading signals.
-- The Shariah purity screen uses `interestIncome / revenue` as a proxy — not a full business-segmentation model.
-- Historical sector/industry metadata is pulled from current FMP profile endpoints (no point-in-time snapshot available).
-- Forward analyst estimates are excluded from Lynch calculations to preserve point-in-time reproducibility.
+- Scores and labels are **research / backtest oriented**, not a guarantee of live performance.
+- Shariah screening uses pragmatic proxies (e.g. interest income ratio); not a full fiqh board–grade classification.
+- Point-in-time constraints: some metadata (e.g. sector/industry) may come from endpoints without full historical snapshots; estimates may be excluded where documented.
+- Dashboard APIs read local JSON; secure or authenticate before exposing beyond localhost.
+
+---
+
+## License / Contact
+
+Project-specific license and maintainer notes live with the upstream **`TradingAgent`** repository settings on GitHub.
