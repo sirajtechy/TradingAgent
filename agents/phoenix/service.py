@@ -136,6 +136,25 @@ def _signal_to_dict(sig: PhoenixSignal) -> Dict[str, Any]:
             "trail_stop_ma":        sig.risk.trail_stop_ma,
         }
 
+    # Stable, UI-friendly snapshot (entry / targets / pattern). exit_price is unknown until a position closes.
+    pat_name = (
+        sig.pattern.pattern_name
+        if sig.pattern
+        else "None"
+    )
+    trade_levels = {
+        "entry_price":    entry_dict.get("entry_price") if entry_dict else None,
+        "target_1":       risk_dict.get("target_1") if risk_dict else None,
+        "target_2":       risk_dict.get("target_2") if risk_dict else None,
+        "stop_price":     risk_dict.get("stop_price") if risk_dict else None,
+        "exit_price":     None,
+        "pattern_name":   pat_name,
+        "pattern_breakout": bool(sig.pattern.confirmed) if sig.pattern else False,
+        "notes": (
+            "exit_price is null for screening runs; populate after backtest or execution merge."
+        ),
+    }
+
     return {
         "ticker":              sig.ticker,
         "as_of_date":          sig.as_of_date.isoformat(),
@@ -146,6 +165,7 @@ def _signal_to_dict(sig: PhoenixSignal) -> Dict[str, Any]:
         "pattern":             pattern_dict,
         "entry":               entry_dict,
         "risk":                risk_dict,
+        "trade_levels":        trade_levels,
         "hard_filter_passed":  sig.hard_filter_passed,
         "hard_filter_reason":  sig.hard_filter_reason,
         "report":              sig.report,
@@ -164,6 +184,16 @@ def _error_result(ticker: str, as_of: date, error_msg: str) -> Dict[str, Any]:
         "pattern":            None,
         "entry":              None,
         "risk":               None,
+        "trade_levels":       {
+            "entry_price": None,
+            "target_1": None,
+            "target_2": None,
+            "stop_price": None,
+            "exit_price": None,
+            "pattern_name": "None",
+            "pattern_breakout": False,
+            "notes": error_msg,
+        },
         "hard_filter_passed": False,
         "hard_filter_reason": error_msg,
         "report":             f"Phoenix Agent error for {ticker}: {error_msg}",

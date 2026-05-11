@@ -415,6 +415,9 @@ class TestComputeAll:
         result = compute_all_indicators(closes, highs, lows, volumes)
 
         for key, values in result.items():
+            # e.g. fibonacci returns level dict, not bar-aligned series
+            if not isinstance(values, list):
+                continue
             assert len(values) == n, f"{key} has length {len(values)}, expected {n}"
 
 

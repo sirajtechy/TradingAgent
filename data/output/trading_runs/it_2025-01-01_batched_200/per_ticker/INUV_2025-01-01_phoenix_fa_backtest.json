@@ -1,0 +1,64 @@
+{
+  "ticker": "INUV",
+  "periods": [
+    {
+      "month": "January 2025",
+      "signal_date": "2025-01-01",
+      "result_date": "2025-01-31",
+      "start_price": 6.46,
+      "start_price_date": "2024-12-31",
+      "start_price_source": "polygon",
+      "exit_reference_price": 4.9,
+      "exit_reference_date": "2025-01-31",
+      "trade_levels": {
+        "entry_price": 5.7958,
+        "target_1": 6.27,
+        "target_2": 6.5071,
+        "stop_price": 5.5115,
+        "exit_price": null,
+        "pattern_name": "Tight Flag",
+        "pattern_breakout": true,
+        "notes": "exit_price is null for screening runs; populate after backtest or execution merge.",
+        "exit_reference_price": 4.9,
+        "exit_reference_date": "2025-01-31"
+      },
+      "target_price": 6.27,
+      "target_hit": true,
+      "target_hit_date": "2025-01-02",
+      "target_eval_error": null,
+      "target_data_source": "polygon",
+      "orchestrator_score": 77.6,
+      "signal": "bullish",
+      "signal_correct": true,
+      "phoenix_signal": "bullish",
+      "signal_correct_phoenix": true,
+      "confidence": 0.3,
+      "conflict_detected": true,
+      "conflict_resolution": "Conflict: TA bullish vs FA bearish with similar confidence \u2192 abstain",
+      "weights_applied": {
+        "tech": 0.9,
+        "fund": 0.1
+      },
+      "phoenix_score": 83.09,
+      "fund_score": 28.2,
+      "phoenix_error": null,
+      "fund_error": null
+    }
+  ],
+  "summary": {
+    "total_periods": 1,
+    "directional_signals": 1,
+    "correct_signals": 1,
+    "accuracy_pct": 100.0,
+    "warning": "This covers 1 month on one stock. 1 data point is not statistically significant \u2014 use this to understand the signal behaviour, not to validate it.",
+    "basis": "orchestrator_fusion_signal_vs_target_hit"
+  },
+  "summary_phoenix": {
+    "total_periods": 1,
+    "directional_signals": 1,
+    "correct_signals": 1,
+    "accuracy_pct": 100.0,
+    "warning": "This covers 1 month on one stock. 1 data point is not statistically significant \u2014 use this to understand the signal behaviour, not to validate it.",
+    "basis": "phoenix_signal_vs_target_hit"
+  }
+}

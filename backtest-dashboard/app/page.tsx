@@ -106,6 +106,16 @@ export default function Home() {
           </Link>
         </div>
 
+        <div className="px-2 pb-2">
+          <Link
+            href="/trading-runs"
+            className="flex items-center gap-3 px-3 py-2.5 text-sm rounded-lg transition-colors text-[var(--text-dim)] hover:text-emerald-300 hover:bg-emerald-500/5"
+          >
+            <span className="shrink-0 text-emerald-400"><Table2 size={18} /></span>
+            {!collapsed && <span className="truncate font-medium text-emerald-200">Trading Runs</span>}
+          </Link>
+        </div>
+
         {/* Collapse toggle */}
         <button
           onClick={() => setCollapsed(!collapsed)}

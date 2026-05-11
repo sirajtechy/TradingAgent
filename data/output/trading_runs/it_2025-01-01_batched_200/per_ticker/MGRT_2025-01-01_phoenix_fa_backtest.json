@@ -1,0 +1,46 @@
+{
+  "ticker": "MGRT",
+  "periods": [
+    {
+      "month": "January 2025",
+      "signal_date": "2025-01-01",
+      "result_date": "2025-01-31",
+      "error": "Polygon start price unavailable \u2014 check POLYGON_API_KEY / listing / date.",
+      "signal": "bearish",
+      "signal_correct": null,
+      "phoenix_signal": "bearish",
+      "signal_correct_phoenix": null,
+      "start_price_source": "polygon",
+      "trade_levels": {
+        "entry_price": null,
+        "target_1": null,
+        "target_2": null,
+        "stop_price": null,
+        "exit_price": null,
+        "pattern_name": "None",
+        "pattern_breakout": false,
+        "notes": "exit_price is null for screening runs; populate after backtest or execution merge."
+      },
+      "exit_reference_price": null,
+      "exit_reference_date": null,
+      "phoenix_error": null,
+      "fund_error": "No historical price data available for MGRT on or before 2025-01-01"
+    }
+  ],
+  "summary": {
+    "total_periods": 1,
+    "directional_signals": 0,
+    "correct_signals": 0,
+    "accuracy_pct": null,
+    "warning": "This covers 1 month on one stock. 1 data point is not statistically significant \u2014 use this to understand the signal behaviour, not to validate it.",
+    "basis": "orchestrator_fusion_signal_vs_target_hit"
+  },
+  "summary_phoenix": {
+    "total_periods": 1,
+    "directional_signals": 0,
+    "correct_signals": 0,
+    "accuracy_pct": null,
+    "warning": "This covers 1 month on one stock. 1 data point is not statistically significant \u2014 use this to understand the signal behaviour, not to validate it.",
+    "basis": "phoenix_signal_vs_target_hit"
+  }
+}

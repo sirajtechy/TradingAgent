@@ -1,0 +1,3239 @@
+{
+  "batch_index": 3,
+  "tickers": [
+    "INTA",
+    "FRSH",
+    "SPSC",
+    "BL",
+    "ASAN",
+    "VERX",
+    "BLKB",
+    "SIMO",
+    "AMBA",
+    "SYNA",
+    "TDC",
+    "TENB",
+    "ACLS",
+    "CMPO",
+    "KLIC",
+    "DIOD",
+    "EVCM",
+    "POWI",
+    "CXM",
+    "RAMP",
+    "SEMR",
+    "VECO",
+    "SEDG",
+    "AMPL",
+    "FIVN",
+    "MXL",
+    "FSLY",
+    "KARO",
+    "NABL",
+    "MGIC",
+    "PD",
+    "PDFS",
+    "COHU",
+    "YEXT",
+    "IIIV",
+    "RDVT",
+    "WYFI",
+    "AIP",
+    "CGNT",
+    "SPT",
+    "ICHR",
+    "CRSR",
+    "SMWB",
+    "AEHR",
+    "AOSL",
+    "WEAV",
+    "HCKT",
+    "OSPN",
+    "LAW",
+    "FUFU"
+  ],
+  "results": {
+    "INTA": {
+      "ticker": "INTA",
+      "periods": [
+        {
+          "month": "January 2025",
+          "signal_date": "2025-01-01",
+          "result_date": "2025-01-31",
+          "start_price": 64.09,
+          "start_price_date": "2024-12-31",
+          "start_price_source": "polygon",
+          "exit_reference_price": 71.29,
+          "exit_reference_date": "2025-01-31",
+          "trade_levels": {
+            "entry_price": null,
+            "target_1": null,
+            "target_2": null,
+            "stop_price": null,
+            "exit_price": null,
+            "pattern_name": "None",
+            "pattern_breakout": false,
+            "notes": "exit_price is null for screening runs; populate after backtest or execution merge.",
+            "exit_reference_price": 71.29,
+            "exit_reference_date": "2025-01-31"
+          },
+          "target_price": 67.29,
+          "target_hit": true,
+          "target_hit_date": "2025-01-10",
+          "target_eval_error": null,
+          "target_data_source": "polygon",
+          "orchestrator_score": 33.72,
+          "signal": "neutral",
+          "signal_correct": null,
+          "phoenix_signal": "neutral",
+          "signal_correct_phoenix": null,
+          "confidence": 0.7,
+          "conflict_detected": false,
+          "conflict_resolution": null,
+          "weights_applied": {
+            "tech": 0.9,
+            "fund": 0.1
+          },
+          "phoenix_score": 32.84,
+          "fund_score": 41.6,
+          "phoenix_error": null,
+          "fund_error": null
+        }
+      ],
+      "summary": {
+        "total_periods": 1,
+        "directional_signals": 0,
+        "correct_signals": 0,
+        "accuracy_pct": null,
+        "warning": "This covers 1 month on one stock. 1 data point is not statistically significant \u2014 use this to understand the signal behaviour, not to validate it.",
+        "basis": "orchestrator_fusion_signal_vs_target_hit"
+      },
+      "summary_phoenix": {
+        "total_periods": 1,
+        "directional_signals": 0,
+        "correct_signals": 0,
+        "accuracy_pct": null,
+        "warning": "This covers 1 month on one stock. 1 data point is not statistically significant \u2014 use this to understand the signal behaviour, not to validate it.",
+        "basis": "phoenix_signal_vs_target_hit"
+      }
+    },
+    "FRSH": {
+      "ticker": "FRSH",
+      "periods": [
+        {
+          "month": "January 2025",
+          "signal_date": "2025-01-01",
+          "result_date": "2025-01-31",
+          "start_price": 16.17,
+          "start_price_date": "2024-12-31",
+          "start_price_source": "polygon",
+          "exit_reference_price": 18.6,
+          "exit_reference_date": "2025-01-31",
+          "trade_levels": {
+            "entry_price": null,
+            "target_1": null,
+            "target_2": null,
+            "stop_price": null,
+            "exit_price": null,
+            "pattern_name": "None",
+            "pattern_breakout": false,
+            "notes": "exit_price is null for screening runs; populate after backtest or execution merge.",
+            "exit_reference_price": 18.6,
+            "exit_reference_date": "2025-01-31"
+          },
+          "target_price": 16.98,
+          "target_hit": true,
+          "target_hit_date": "2025-01-16",
+          "target_eval_error": null,
+          "target_data_source": "polygon",
+          "orchestrator_score": 5.83,
+          "signal": "bearish",
+          "signal_correct": false,
+          "phoenix_signal": "bearish",
+          "signal_correct_phoenix": false,
+          "confidence": 0.85,
+          "conflict_detected": false,
+          "conflict_resolution": null,
+          "weights_applied": {
+            "tech": 0.9,
+            "fund": 0.1
+          },
+          "phoenix_score": 0.0,
+          "fund_score": 58.3,
+          "phoenix_error": null,
+          "fund_error": null
+        }
+      ],
+      "summary": {
+        "total_periods": 1,
+        "directional_signals": 1,
+        "correct_signals": 0,
+        "accuracy_pct": 0.0,
+        "warning": "This covers 1 month on one stock. 1 data point is not statistically significant \u2014 use this to understand the signal behaviour, not to validate it.",
+        "basis": "orchestrator_fusion_signal_vs_target_hit"
+      },
+      "summary_phoenix": {
+        "total_periods": 1,
+        "directional_signals": 1,
+        "correct_signals": 0,
+        "accuracy_pct": 0.0,
+        "warning": "This covers 1 month on one stock. 1 data point is not statistically significant \u2014 use this to understand the signal behaviour, not to validate it.",
+        "basis": "phoenix_signal_vs_target_hit"
+      }
+    },
+    "SPSC": {
+      "ticker": "SPSC",
+      "periods": [
+        {
+          "month": "January 2025",
+          "signal_date": "2025-01-01",
+          "result_date": "2025-01-31",
+          "start_price": 183.99,
+          "start_price_date": "2024-12-31",
+          "start_price_source": "polygon",
+          "exit_reference_price": 184.68,
+          "exit_reference_date": "2025-01-31",
+          "trade_levels": {
+            "entry_price": null,
+            "target_1": null,
+            "target_2": null,
+            "stop_price": null,
+            "exit_price": null,
+            "pattern_name": "None",
+            "pattern_breakout": false,
+            "notes": "exit_price is null for screening runs; populate after backtest or execution merge.",
+            "exit_reference_price": 184.68,
+            "exit_reference_date": "2025-01-31"
+          },
+          "target_price": 193.19,
+          "target_hit": true,
+          "target_hit_date": "2025-01-17",
+          "target_eval_error": null,
+          "target_data_source": "polygon",
+          "orchestrator_score": 4.93,
+          "signal": "bearish",
+          "signal_correct": false,
+          "phoenix_signal": "bearish",
+          "signal_correct_phoenix": false,
+          "confidence": 0.85,
+          "conflict_detected": false,
+          "conflict_resolution": null,
+          "weights_applied": {
+            "tech": 0.9,
+            "fund": 0.1
+          },
+          "phoenix_score": 0.0,
+          "fund_score": 49.3,
+          "phoenix_error": null,
+          "fund_error": null
+        }
+      ],
+      "summary": {
+        "total_periods": 1,
+        "directional_signals": 1,
+        "correct_signals": 0,
+        "accuracy_pct": 0.0,
+        "warning": "This covers 1 month on one stock. 1 data point is not statistically significant \u2014 use this to understand the signal behaviour, not to validate it.",
+        "basis": "orchestrator_fusion_signal_vs_target_hit"
+      },
+      "summary_phoenix": {
+        "total_periods": 1,
+        "directional_signals": 1,
+        "correct_signals": 0,
+        "accuracy_pct": 0.0,
+        "warning": "This covers 1 month on one stock. 1 data point is not statistically significant \u2014 use this to understand the signal behaviour, not to validate it.",
+        "basis": "phoenix_signal_vs_target_hit"
+      }
+    },
+    "BL": {
+      "ticker": "BL",
+      "periods": [
+        {
+          "month": "January 2025",
+          "signal_date": "2025-01-01",
+          "result_date": "2025-01-31",
+          "start_price": 60.76,
+          "start_price_date": "2024-12-31",
+          "start_price_source": "polygon",
+          "exit_reference_price": 63.85,
+          "exit_reference_date": "2025-01-31",
+          "trade_levels": {
+            "entry_price": null,
+            "target_1": null,
+            "target_2": null,
+            "stop_price": null,
+            "exit_price": null,
+            "pattern_name": "None",
+            "pattern_breakout": false,
+            "notes": "exit_price is null for screening runs; populate after backtest or execution merge.",
+            "exit_reference_price": 63.85,
+            "exit_reference_date": "2025-01-31"
+          },
+          "target_price": 63.8,
+          "target_hit": true,
+          "target_hit_date": "2025-01-28",
+          "target_eval_error": null,
+          "target_data_source": "polygon",
+          "orchestrator_score": 4.19,
+          "signal": "bearish",
+          "signal_correct": false,
+          "phoenix_signal": "bearish",
+          "signal_correct_phoenix": false,
+          "confidence": 0.85,
+          "conflict_detected": false,
+          "conflict_resolution": null,
+          "weights_applied": {
+            "tech": 0.9,
+            "fund": 0.1
+          },
+          "phoenix_score": 0.0,
+          "fund_score": 41.9,
+          "phoenix_error": null,
+          "fund_error": null
+        }
+      ],
+      "summary": {
+        "total_periods": 1,
+        "directional_signals": 1,
+        "correct_signals": 0,
+        "accuracy_pct": 0.0,
+        "warning": "This covers 1 month on one stock. 1 data point is not statistically significant \u2014 use this to understand the signal behaviour, not to validate it.",
+        "basis": "orchestrator_fusion_signal_vs_target_hit"
+      },
+      "summary_phoenix": {
+        "total_periods": 1,
+        "directional_signals": 1,
+        "correct_signals": 0,
+        "accuracy_pct": 0.0,
+        "warning": "This covers 1 month on one stock. 1 data point is not statistically significant \u2014 use this to understand the signal behaviour, not to validate it.",
+        "basis": "phoenix_signal_vs_target_hit"
+      }
+    },
+    "ASAN": {
+      "ticker": "ASAN",
+      "periods": [
+        {
+          "month": "January 2025",
+          "signal_date": "2025-01-01",
+          "result_date": "2025-01-31",
+          "start_price": 20.27,
+          "start_price_date": "2024-12-31",
+          "start_price_source": "polygon",
+          "exit_reference_price": 21.34,
+          "exit_reference_date": "2025-01-31",
+          "trade_levels": {
+            "entry_price": null,
+            "target_1": null,
+            "target_2": null,
+            "stop_price": null,
+            "exit_price": null,
+            "pattern_name": "None",
+            "pattern_breakout": false,
+            "notes": "exit_price is null for screening runs; populate after backtest or execution merge.",
+            "exit_reference_price": 21.34,
+            "exit_reference_date": "2025-01-31"
+          },
+          "target_price": 21.28,
+          "target_hit": true,
+          "target_hit_date": "2025-01-06",
+          "target_eval_error": null,
+          "target_data_source": "polygon",
+          "orchestrator_score": 27.66,
+          "signal": "neutral",
+          "signal_correct": null,
+          "phoenix_signal": "neutral",
+          "signal_correct_phoenix": null,
+          "confidence": 0.7,
+          "conflict_detected": false,
+          "conflict_resolution": null,
+          "weights_applied": {
+            "tech": 0.9,
+            "fund": 0.1
+          },
+          "phoenix_score": 25.42,
+          "fund_score": 47.8,
+          "phoenix_error": null,
+          "fund_error": null
+        }
+      ],
+      "summary": {
+        "total_periods": 1,
+        "directional_signals": 0,
+        "correct_signals": 0,
+        "accuracy_pct": null,
+        "warning": "This covers 1 month on one stock. 1 data point is not statistically significant \u2014 use this to understand the signal behaviour, not to validate it.",
+        "basis": "orchestrator_fusion_signal_vs_target_hit"
+      },
+      "summary_phoenix": {
+        "total_periods": 1,
+        "directional_signals": 0,
+        "correct_signals": 0,
+        "accuracy_pct": null,
+        "warning": "This covers 1 month on one stock. 1 data point is not statistically significant \u2014 use this to understand the signal behaviour, not to validate it.",
+        "basis": "phoenix_signal_vs_target_hit"
+      }
+    },
+    "VERX": {
+      "ticker": "VERX",
+      "periods": [
+        {
+          "month": "January 2025",
+          "signal_date": "2025-01-01",
+          "result_date": "2025-01-31",
+          "start_price": 53.35,
+          "start_price_date": "2024-12-31",
+          "start_price_source": "polygon",
+          "exit_reference_price": 57.75,
+          "exit_reference_date": "2025-01-31",
+          "trade_levels": {
+            "entry_price": null,
+            "target_1": null,
+            "target_2": null,
+            "stop_price": null,
+            "exit_price": null,
+            "pattern_name": "None",
+            "pattern_breakout": false,
+            "notes": "exit_price is null for screening runs; populate after backtest or execution merge.",
+            "exit_reference_price": 57.75,
+            "exit_reference_date": "2025-01-31"
+          },
+          "target_price": 56.02,
+          "target_hit": true,
+          "target_hit_date": "2025-01-16",
+          "target_eval_error": null,
+          "target_data_source": "polygon",
+          "orchestrator_score": 34.13,
+          "signal": "bearish",
+          "signal_correct": false,
+          "phoenix_signal": "bearish",
+          "signal_correct_phoenix": false,
+          "confidence": 0.0741,
+          "conflict_detected": false,
+          "conflict_resolution": null,
+          "weights_applied": {
+            "tech": 0.9,
+            "fund": 0.1
+          },
+          "phoenix_score": 32.82,
+          "fund_score": 45.9,
+          "phoenix_error": null,
+          "fund_error": null
+        }
+      ],
+      "summary": {
+        "total_periods": 1,
+        "directional_signals": 1,
+        "correct_signals": 0,
+        "accuracy_pct": 0.0,
+        "warning": "This covers 1 month on one stock. 1 data point is not statistically significant \u2014 use this to understand the signal behaviour, not to validate it.",
+        "basis": "orchestrator_fusion_signal_vs_target_hit"
+      },
+      "summary_phoenix": {
+        "total_periods": 1,
+        "directional_signals": 1,
+        "correct_signals": 0,
+        "accuracy_pct": 0.0,
+        "warning": "This covers 1 month on one stock. 1 data point is not statistically significant \u2014 use this to understand the signal behaviour, not to validate it.",
+        "basis": "phoenix_signal_vs_target_hit"
+      }
+    },
+    "BLKB": {
+      "ticker": "BLKB",
+      "periods": [
+        {
+          "month": "January 2025",
+          "signal_date": "2025-01-01",
+          "result_date": "2025-01-31",
+          "start_price": 73.92,
+          "start_price_date": "2024-12-31",
+          "start_price_source": "polygon",
+          "exit_reference_price": 77.15,
+          "exit_reference_date": "2025-01-31",
+          "trade_levels": {
+            "entry_price": null,
+            "target_1": null,
+            "target_2": null,
+            "stop_price": null,
+            "exit_price": null,
+            "pattern_name": "None",
+            "pattern_breakout": false,
+            "notes": "exit_price is null for screening runs; populate after backtest or execution merge.",
+            "exit_reference_price": 77.15,
+            "exit_reference_date": "2025-01-31"
+          },
+          "target_price": 77.62,
+          "target_hit": true,
+          "target_hit_date": "2025-01-16",
+          "target_eval_error": null,
+          "target_data_source": "polygon",
+          "orchestrator_score": 4.2,
+          "signal": "bearish",
+          "signal_correct": false,
+          "phoenix_signal": "bearish",
+          "signal_correct_phoenix": false,
+          "confidence": 0.85,
+          "conflict_detected": false,
+          "conflict_resolution": null,
+          "weights_applied": {
+            "tech": 0.9,
+            "fund": 0.1
+          },
+          "phoenix_score": 0.0,
+          "fund_score": 42.0,
+          "phoenix_error": null,
+          "fund_error": null
+        }
+      ],
+      "summary": {
+        "total_periods": 1,
+        "directional_signals": 1,
+        "correct_signals": 0,
+        "accuracy_pct": 0.0,
+        "warning": "This covers 1 month on one stock. 1 data point is not statistically significant \u2014 use this to understand the signal behaviour, not to validate it.",
+        "basis": "orchestrator_fusion_signal_vs_target_hit"
+      },
+      "summary_phoenix": {
+        "total_periods": 1,
+        "directional_signals": 1,
+        "correct_signals": 0,
+        "accuracy_pct": 0.0,
+        "warning": "This covers 1 month on one stock. 1 data point is not statistically significant \u2014 use this to understand the signal behaviour, not to validate it.",
+        "basis": "phoenix_signal_vs_target_hit"
+      }
+    },
+    "SIMO": {
+      "ticker": "SIMO",
+      "periods": [
+        {
+          "month": "January 2025",
+          "signal_date": "2025-01-01",
+          "result_date": "2025-01-31",
+          "start_price": 54.05,
+          "start_price_date": "2024-12-31",
+          "start_price_source": "polygon",
+          "exit_reference_price": 54.61,
+          "exit_reference_date": "2025-01-31",
+          "trade_levels": {
+            "entry_price": null,
+            "target_1": null,
+            "target_2": null,
+            "stop_price": null,
+            "exit_price": null,
+            "pattern_name": "None",
+            "pattern_breakout": false,
+            "notes": "exit_price is null for screening runs; populate after backtest or execution merge.",
+            "exit_reference_price": 54.61,
+            "exit_reference_date": "2025-01-31"
+          },
+          "target_price": 56.75,
+          "target_hit": true,
+          "target_hit_date": "2025-01-06",
+          "target_eval_error": null,
+          "target_data_source": "polygon",
+          "orchestrator_score": 3.34,
+          "signal": "bearish",
+          "signal_correct": false,
+          "phoenix_signal": "bearish",
+          "signal_correct_phoenix": false,
+          "confidence": 1.0,
+          "conflict_detected": false,
+          "conflict_resolution": null,
+          "weights_applied": {
+            "tech": 0.9,
+            "fund": 0.1
+          },
+          "phoenix_score": 0.0,
+          "fund_score": 33.4,
+          "phoenix_error": null,
+          "fund_error": null
+        }
+      ],
+      "summary": {
+        "total_periods": 1,
+        "directional_signals": 1,
+        "correct_signals": 0,
+        "accuracy_pct": 0.0,
+        "warning": "This covers 1 month on one stock. 1 data point is not statistically significant \u2014 use this to understand the signal behaviour, not to validate it.",
+        "basis": "orchestrator_fusion_signal_vs_target_hit"
+      },
+      "summary_phoenix": {
+        "total_periods": 1,
+        "directional_signals": 1,
+        "correct_signals": 0,
+        "accuracy_pct": 0.0,
+        "warning": "This covers 1 month on one stock. 1 data point is not statistically significant \u2014 use this to understand the signal behaviour, not to validate it.",
+        "basis": "phoenix_signal_vs_target_hit"
+      }
+    },
+    "AMBA": {
+      "ticker": "AMBA",
+      "periods": [
+        {
+          "month": "January 2025",
+          "signal_date": "2025-01-01",
+          "result_date": "2025-01-31",
+          "start_price": 72.74,
+          "start_price_date": "2024-12-31",
+          "start_price_source": "polygon",
+          "exit_reference_price": 76.72,
+          "exit_reference_date": "2025-01-31",
+          "trade_levels": {
+            "entry_price": null,
+            "target_1": null,
+            "target_2": null,
+            "stop_price": null,
+            "exit_price": null,
+            "pattern_name": "None",
+            "pattern_breakout": false,
+            "notes": "exit_price is null for screening runs; populate after backtest or execution merge.",
+            "exit_reference_price": 76.72,
+            "exit_reference_date": "2025-01-31"
+          },
+          "target_price": 76.38,
+          "target_hit": true,
+          "target_hit_date": "2025-01-03",
+          "target_eval_error": null,
+          "target_data_source": "polygon",
+          "orchestrator_score": 33.77,
+          "signal": "bearish",
+          "signal_correct": false,
+          "phoenix_signal": "neutral",
+          "signal_correct_phoenix": null,
+          "confidence": 0.2376,
+          "conflict_detected": false,
+          "conflict_resolution": null,
+          "weights_applied": {
+            "tech": 0.1,
+            "fund": 0.9
+          },
+          "phoenix_score": 37.08,
+          "fund_score": 33.4,
+          "phoenix_error": null,
+          "fund_error": null
+        }
+      ],
+      "summary": {
+        "total_periods": 1,
+        "directional_signals": 1,
+        "correct_signals": 0,
+        "accuracy_pct": 0.0,
+        "warning": "This covers 1 month on one stock. 1 data point is not statistically significant \u2014 use this to understand the signal behaviour, not to validate it.",
+        "basis": "orchestrator_fusion_signal_vs_target_hit"
+      },
+      "summary_phoenix": {
+        "total_periods": 1,
+        "directional_signals": 0,
+        "correct_signals": 0,
+        "accuracy_pct": null,
+        "warning": "This covers 1 month on one stock. 1 data point is not statistically significant \u2014 use this to understand the signal behaviour, not to validate it.",
+        "basis": "phoenix_signal_vs_target_hit"
+      }
+    },
+    "SYNA": {
+      "ticker": "SYNA",
+      "periods": [
+        {
+          "month": "January 2025",
+          "signal_date": "2025-01-01",
+          "result_date": "2025-01-31",
+          "start_price": 76.32,
+          "start_price_date": "2024-12-31",
+          "start_price_source": "polygon",
+          "exit_reference_price": 84.9,
+          "exit_reference_date": "2025-01-31",
+          "trade_levels": {
+            "entry_price": null,
+            "target_1": null,
+            "target_2": null,
+            "stop_price": null,
+            "exit_price": null,
+            "pattern_name": "None",
+            "pattern_breakout": false,
+            "notes": "exit_price is null for screening runs; populate after backtest or execution merge.",
+            "exit_reference_price": 84.9,
+            "exit_reference_date": "2025-01-31"
+          },
+          "target_price": 80.14,
+          "target_hit": true,
+          "target_hit_date": "2025-01-02",
+          "target_eval_error": null,
+          "target_data_source": "polygon",
+          "orchestrator_score": 3.53,
+          "signal": "bearish",
+          "signal_correct": false,
+          "phoenix_signal": "bearish",
+          "signal_correct_phoenix": false,
+          "confidence": 1.0,
+          "conflict_detected": false,
+          "conflict_resolution": null,
+          "weights_applied": {
+            "tech": 0.9,
+            "fund": 0.1
+          },
+          "phoenix_score": 0.0,
+          "fund_score": 35.3,
+          "phoenix_error": null,
+          "fund_error": null
+        }
+      ],
+      "summary": {
+        "total_periods": 1,
+        "directional_signals": 1,
+        "correct_signals": 0,
+        "accuracy_pct": 0.0,
+        "warning": "This covers 1 month on one stock. 1 data point is not statistically significant \u2014 use this to understand the signal behaviour, not to validate it.",
+        "basis": "orchestrator_fusion_signal_vs_target_hit"
+      },
+      "summary_phoenix": {
+        "total_periods": 1,
+        "directional_signals": 1,
+        "correct_signals": 0,
+        "accuracy_pct": 0.0,
+        "warning": "This covers 1 month on one stock. 1 data point is not statistically significant \u2014 use this to understand the signal behaviour, not to validate it.",
+        "basis": "phoenix_signal_vs_target_hit"
+      }
+    },
+    "TDC": {
+      "ticker": "TDC",
+      "periods": [
+        {
+          "month": "January 2025",
+          "signal_date": "2025-01-01",
+          "result_date": "2025-01-31",
+          "start_price": 31.15,
+          "start_price_date": "2024-12-31",
+          "start_price_source": "polygon",
+          "exit_reference_price": 31.91,
+          "exit_reference_date": "2025-01-31",
+          "trade_levels": {
+            "entry_price": null,
+            "target_1": null,
+            "target_2": null,
+            "stop_price": null,
+            "exit_price": null,
+            "pattern_name": "None",
+            "pattern_breakout": false,
+            "notes": "exit_price is null for screening runs; populate after backtest or execution merge.",
+            "exit_reference_price": 31.91,
+            "exit_reference_date": "2025-01-31"
+          },
+          "target_price": 32.71,
+          "target_hit": true,
+          "target_hit_date": "2025-01-28",
+          "target_eval_error": null,
+          "target_data_source": "polygon",
+          "orchestrator_score": 5.71,
+          "signal": "bearish",
+          "signal_correct": false,
+          "phoenix_signal": "bearish",
+          "signal_correct_phoenix": false,
+          "confidence": 0.85,
+          "conflict_detected": false,
+          "conflict_resolution": null,
+          "weights_applied": {
+            "tech": 0.9,
+            "fund": 0.1
+          },
+          "phoenix_score": 0.0,
+          "fund_score": 57.1,
+          "phoenix_error": null,
+          "fund_error": null
+        }
+      ],
+      "summary": {
+        "total_periods": 1,
+        "directional_signals": 1,
+        "correct_signals": 0,
+        "accuracy_pct": 0.0,
+        "warning": "This covers 1 month on one stock. 1 data point is not statistically significant \u2014 use this to understand the signal behaviour, not to validate it.",
+        "basis": "orchestrator_fusion_signal_vs_target_hit"
+      },
+      "summary_phoenix": {
+        "total_periods": 1,
+        "directional_signals": 1,
+        "correct_signals": 0,
+        "accuracy_pct": 0.0,
+        "warning": "This covers 1 month on one stock. 1 data point is not statistically significant \u2014 use this to understand the signal behaviour, not to validate it.",
+        "basis": "phoenix_signal_vs_target_hit"
+      }
+    },
+    "TENB": {
+      "ticker": "TENB",
+      "periods": [
+        {
+          "month": "January 2025",
+          "signal_date": "2025-01-01",
+          "result_date": "2025-01-31",
+          "start_price": 39.38,
+          "start_price_date": "2024-12-31",
+          "start_price_source": "polygon",
+          "exit_reference_price": 43.09,
+          "exit_reference_date": "2025-01-31",
+          "trade_levels": {
+            "entry_price": null,
+            "target_1": null,
+            "target_2": null,
+            "stop_price": null,
+            "exit_price": null,
+            "pattern_name": "None",
+            "pattern_breakout": false,
+            "notes": "exit_price is null for screening runs; populate after backtest or execution merge.",
+            "exit_reference_price": 43.09,
+            "exit_reference_date": "2025-01-31"
+          },
+          "target_price": 41.35,
+          "target_hit": true,
+          "target_hit_date": "2025-01-16",
+          "target_eval_error": null,
+          "target_data_source": "polygon",
+          "orchestrator_score": 4.12,
+          "signal": "bearish",
+          "signal_correct": false,
+          "phoenix_signal": "bearish",
+          "signal_correct_phoenix": false,
+          "confidence": 0.85,
+          "conflict_detected": false,
+          "conflict_resolution": null,
+          "weights_applied": {
+            "tech": 0.9,
+            "fund": 0.1
+          },
+          "phoenix_score": 0.0,
+          "fund_score": 41.2,
+          "phoenix_error": null,
+          "fund_error": null
+        }
+      ],
+      "summary": {
+        "total_periods": 1,
+        "directional_signals": 1,
+        "correct_signals": 0,
+        "accuracy_pct": 0.0,
+        "warning": "This covers 1 month on one stock. 1 data point is not statistically significant \u2014 use this to understand the signal behaviour, not to validate it.",
+        "basis": "orchestrator_fusion_signal_vs_target_hit"
+      },
+      "summary_phoenix": {
+        "total_periods": 1,
+        "directional_signals": 1,
+        "correct_signals": 0,
+        "accuracy_pct": 0.0,
+        "warning": "This covers 1 month on one stock. 1 data point is not statistically significant \u2014 use this to understand the signal behaviour, not to validate it.",
+        "basis": "phoenix_signal_vs_target_hit"
+      }
+    },
+    "ACLS": {
+      "ticker": "ACLS",
+      "periods": [
+        {
+          "month": "January 2025",
+          "signal_date": "2025-01-01",
+          "result_date": "2025-01-31",
+          "start_price": 69.87,
+          "start_price_date": "2024-12-31",
+          "start_price_source": "polygon",
+          "exit_reference_price": 68.0,
+          "exit_reference_date": "2025-01-31",
+          "trade_levels": {
+            "entry_price": null,
+            "target_1": null,
+            "target_2": null,
+            "stop_price": null,
+            "exit_price": null,
+            "pattern_name": "None",
+            "pattern_breakout": false,
+            "notes": "exit_price is null for screening runs; populate after backtest or execution merge.",
+            "exit_reference_price": 68.0,
+            "exit_reference_date": "2025-01-31"
+          },
+          "target_price": 73.36,
+          "target_hit": true,
+          "target_hit_date": "2025-01-02",
+          "target_eval_error": null,
+          "target_data_source": "polygon",
+          "orchestrator_score": 7.45,
+          "signal": "bearish",
+          "signal_correct": false,
+          "phoenix_signal": "bearish",
+          "signal_correct_phoenix": false,
+          "confidence": 0.7,
+          "conflict_detected": true,
+          "conflict_resolution": "Conflict: TA bearish (conf=1.00) overrides FA bullish (conf=0.18)",
+          "weights_applied": {
+            "tech": 0.9,
+            "fund": 0.1
+          },
+          "phoenix_score": 0.0,
+          "fund_score": 74.5,
+          "phoenix_error": null,
+          "fund_error": null
+        }
+      ],
+      "summary": {
+        "total_periods": 1,
+        "directional_signals": 1,
+        "correct_signals": 0,
+        "accuracy_pct": 0.0,
+        "warning": "This covers 1 month on one stock. 1 data point is not statistically significant \u2014 use this to understand the signal behaviour, not to validate it.",
+        "basis": "orchestrator_fusion_signal_vs_target_hit"
+      },
+      "summary_phoenix": {
+        "total_periods": 1,
+        "directional_signals": 1,
+        "correct_signals": 0,
+        "accuracy_pct": 0.0,
+        "warning": "This covers 1 month on one stock. 1 data point is not statistically significant \u2014 use this to understand the signal behaviour, not to validate it.",
+        "basis": "phoenix_signal_vs_target_hit"
+      }
+    },
+    "CMPO": {
+      "ticker": "CMPO",
+      "periods": [
+        {
+          "month": "January 2025",
+          "signal_date": "2025-01-01",
+          "result_date": "2025-01-31",
+          "start_price": 15.33,
+          "start_price_date": "2024-12-31",
+          "start_price_source": "polygon",
+          "exit_reference_price": 15.94,
+          "exit_reference_date": "2025-01-31",
+          "trade_levels": {
+            "entry_price": null,
+            "target_1": null,
+            "target_2": null,
+            "stop_price": null,
+            "exit_price": null,
+            "pattern_name": "None",
+            "pattern_breakout": false,
+            "notes": "exit_price is null for screening runs; populate after backtest or execution merge.",
+            "exit_reference_price": 15.94,
+            "exit_reference_date": "2025-01-31"
+          },
+          "target_price": 16.1,
+          "target_hit": true,
+          "target_hit_date": "2025-01-30",
+          "target_eval_error": null,
+          "target_data_source": "polygon",
+          "orchestrator_score": 43.52,
+          "signal": "neutral",
+          "signal_correct": null,
+          "phoenix_signal": "bearish",
+          "signal_correct_phoenix": false,
+          "confidence": 0.2448,
+          "conflict_detected": false,
+          "conflict_resolution": null,
+          "weights_applied": {
+            "tech": 0.9,
+            "fund": 0.1
+          },
+          "phoenix_score": 42.8,
+          "fund_score": 50.0,
+          "phoenix_error": null,
+          "fund_error": null
+        }
+      ],
+      "summary": {
+        "total_periods": 1,
+        "directional_signals": 0,
+        "correct_signals": 0,
+        "accuracy_pct": null,
+        "warning": "This covers 1 month on one stock. 1 data point is not statistically significant \u2014 use this to understand the signal behaviour, not to validate it.",
+        "basis": "orchestrator_fusion_signal_vs_target_hit"
+      },
+      "summary_phoenix": {
+        "total_periods": 1,
+        "directional_signals": 1,
+        "correct_signals": 0,
+        "accuracy_pct": 0.0,
+        "warning": "This covers 1 month on one stock. 1 data point is not statistically significant \u2014 use this to understand the signal behaviour, not to validate it.",
+        "basis": "phoenix_signal_vs_target_hit"
+      }
+    },
+    "KLIC": {
+      "ticker": "KLIC",
+      "periods": [
+        {
+          "month": "January 2025",
+          "signal_date": "2025-01-01",
+          "result_date": "2025-01-31",
+          "start_price": 46.66,
+          "start_price_date": "2024-12-31",
+          "start_price_source": "polygon",
+          "exit_reference_price": 44.35,
+          "exit_reference_date": "2025-01-31",
+          "trade_levels": {
+            "entry_price": null,
+            "target_1": null,
+            "target_2": null,
+            "stop_price": null,
+            "exit_price": null,
+            "pattern_name": "None",
+            "pattern_breakout": false,
+            "notes": "exit_price is null for screening runs; populate after backtest or execution merge.",
+            "exit_reference_price": 44.35,
+            "exit_reference_date": "2025-01-31"
+          },
+          "target_price": 48.99,
+          "target_hit": true,
+          "target_hit_date": "2025-01-07",
+          "target_eval_error": null,
+          "target_data_source": "polygon",
+          "orchestrator_score": 3.81,
+          "signal": "bearish",
+          "signal_correct": false,
+          "phoenix_signal": "bearish",
+          "signal_correct_phoenix": false,
+          "confidence": 1.0,
+          "conflict_detected": false,
+          "conflict_resolution": null,
+          "weights_applied": {
+            "tech": 0.9,
+            "fund": 0.1
+          },
+          "phoenix_score": 0.0,
+          "fund_score": 38.1,
+          "phoenix_error": null,
+          "fund_error": null
+        }
+      ],
+      "summary": {
+        "total_periods": 1,
+        "directional_signals": 1,
+        "correct_signals": 0,
+        "accuracy_pct": 0.0,
+        "warning": "This covers 1 month on one stock. 1 data point is not statistically significant \u2014 use this to understand the signal behaviour, not to validate it.",
+        "basis": "orchestrator_fusion_signal_vs_target_hit"
+      },
+      "summary_phoenix": {
+        "total_periods": 1,
+        "directional_signals": 1,
+        "correct_signals": 0,
+        "accuracy_pct": 0.0,
+        "warning": "This covers 1 month on one stock. 1 data point is not statistically significant \u2014 use this to understand the signal behaviour, not to validate it.",
+        "basis": "phoenix_signal_vs_target_hit"
+      }
+    },
+    "DIOD": {
+      "ticker": "DIOD",
+      "periods": [
+        {
+          "month": "January 2025",
+          "signal_date": "2025-01-01",
+          "result_date": "2025-01-31",
+          "start_price": 61.67,
+          "start_price_date": "2024-12-31",
+          "start_price_source": "polygon",
+          "exit_reference_price": 58.98,
+          "exit_reference_date": "2025-01-31",
+          "trade_levels": {
+            "entry_price": null,
+            "target_1": null,
+            "target_2": null,
+            "stop_price": null,
+            "exit_price": null,
+            "pattern_name": "None",
+            "pattern_breakout": false,
+            "notes": "exit_price is null for screening runs; populate after backtest or execution merge.",
+            "exit_reference_price": 58.98,
+            "exit_reference_date": "2025-01-31"
+          },
+          "target_price": 64.75,
+          "target_hit": true,
+          "target_hit_date": "2025-01-06",
+          "target_eval_error": null,
+          "target_data_source": "polygon",
+          "orchestrator_score": 5.41,
+          "signal": "bearish",
+          "signal_correct": false,
+          "phoenix_signal": "bearish",
+          "signal_correct_phoenix": false,
+          "confidence": 0.85,
+          "conflict_detected": false,
+          "conflict_resolution": null,
+          "weights_applied": {
+            "tech": 0.9,
+            "fund": 0.1
+          },
+          "phoenix_score": 0.0,
+          "fund_score": 54.1,
+          "phoenix_error": null,
+          "fund_error": null
+        }
+      ],
+      "summary": {
+        "total_periods": 1,
+        "directional_signals": 1,
+        "correct_signals": 0,
+        "accuracy_pct": 0.0,
+        "warning": "This covers 1 month on one stock. 1 data point is not statistically significant \u2014 use this to understand the signal behaviour, not to validate it.",
+        "basis": "orchestrator_fusion_signal_vs_target_hit"
+      },
+      "summary_phoenix": {
+        "total_periods": 1,
+        "directional_signals": 1,
+        "correct_signals": 0,
+        "accuracy_pct": 0.0,
+        "warning": "This covers 1 month on one stock. 1 data point is not statistically significant \u2014 use this to understand the signal behaviour, not to validate it.",
+        "basis": "phoenix_signal_vs_target_hit"
+      }
+    },
+    "EVCM": {
+      "ticker": "EVCM",
+      "periods": [
+        {
+          "month": "January 2025",
+          "signal_date": "2025-01-01",
+          "result_date": "2025-01-31",
+          "start_price": 11.01,
+          "start_price_date": "2024-12-31",
+          "start_price_source": "polygon",
+          "exit_reference_price": 10.14,
+          "exit_reference_date": "2025-01-31",
+          "trade_levels": {
+            "entry_price": null,
+            "target_1": null,
+            "target_2": null,
+            "stop_price": null,
+            "exit_price": null,
+            "pattern_name": "None",
+            "pattern_breakout": false,
+            "notes": "exit_price is null for screening runs; populate after backtest or execution merge.",
+            "exit_reference_price": 10.14,
+            "exit_reference_date": "2025-01-31"
+          },
+          "target_price": 11.56,
+          "target_hit": false,
+          "target_hit_date": null,
+          "target_eval_error": null,
+          "target_data_source": "polygon",
+          "orchestrator_score": 28.51,
+          "signal": "bearish",
+          "signal_correct": true,
+          "phoenix_signal": "bearish",
+          "signal_correct_phoenix": true,
+          "confidence": 0.34991999999999995,
+          "conflict_detected": false,
+          "conflict_resolution": null,
+          "weights_applied": {
+            "tech": 0.9,
+            "fund": 0.1
+          },
+          "phoenix_score": 27.71,
+          "fund_score": 35.7,
+          "phoenix_error": null,
+          "fund_error": null
+        }
+      ],
+      "summary": {
+        "total_periods": 1,
+        "directional_signals": 1,
+        "correct_signals": 1,
+        "accuracy_pct": 100.0,
+        "warning": "This covers 1 month on one stock. 1 data point is not statistically significant \u2014 use this to understand the signal behaviour, not to validate it.",
+        "basis": "orchestrator_fusion_signal_vs_target_hit"
+      },
+      "summary_phoenix": {
+        "total_periods": 1,
+        "directional_signals": 1,
+        "correct_signals": 1,
+        "accuracy_pct": 100.0,
+        "warning": "This covers 1 month on one stock. 1 data point is not statistically significant \u2014 use this to understand the signal behaviour, not to validate it.",
+        "basis": "phoenix_signal_vs_target_hit"
+      }
+    },
+    "POWI": {
+      "ticker": "POWI",
+      "periods": [
+        {
+          "month": "January 2025",
+          "signal_date": "2025-01-01",
+          "result_date": "2025-01-31",
+          "start_price": 61.7,
+          "start_price_date": "2024-12-31",
+          "start_price_source": "polygon",
+          "exit_reference_price": 62.32,
+          "exit_reference_date": "2025-01-31",
+          "trade_levels": {
+            "entry_price": null,
+            "target_1": null,
+            "target_2": null,
+            "stop_price": null,
+            "exit_price": null,
+            "pattern_name": "None",
+            "pattern_breakout": false,
+            "notes": "exit_price is null for screening runs; populate after backtest or execution merge.",
+            "exit_reference_price": 62.32,
+            "exit_reference_date": "2025-01-31"
+          },
+          "target_price": 64.79,
+          "target_hit": true,
+          "target_hit_date": "2025-01-06",
+          "target_eval_error": null,
+          "target_data_source": "polygon",
+          "orchestrator_score": 4.2,
+          "signal": "bearish",
+          "signal_correct": false,
+          "phoenix_signal": "bearish",
+          "signal_correct_phoenix": false,
+          "confidence": 0.85,
+          "conflict_detected": false,
+          "conflict_resolution": null,
+          "weights_applied": {
+            "tech": 0.9,
+            "fund": 0.1
+          },
+          "phoenix_score": 0.0,
+          "fund_score": 42.0,
+          "phoenix_error": null,
+          "fund_error": null
+        }
+      ],
+      "summary": {
+        "total_periods": 1,
+        "directional_signals": 1,
+        "correct_signals": 0,
+        "accuracy_pct": 0.0,
+        "warning": "This covers 1 month on one stock. 1 data point is not statistically significant \u2014 use this to understand the signal behaviour, not to validate it.",
+        "basis": "orchestrator_fusion_signal_vs_target_hit"
+      },
+      "summary_phoenix": {
+        "total_periods": 1,
+        "directional_signals": 1,
+        "correct_signals": 0,
+        "accuracy_pct": 0.0,
+        "warning": "This covers 1 month on one stock. 1 data point is not statistically significant \u2014 use this to understand the signal behaviour, not to validate it.",
+        "basis": "phoenix_signal_vs_target_hit"
+      }
+    },
+    "CXM": {
+      "ticker": "CXM",
+      "periods": [
+        {
+          "month": "January 2025",
+          "signal_date": "2025-01-01",
+          "result_date": "2025-01-31",
+          "start_price": 8.45,
+          "start_price_date": "2024-12-31",
+          "start_price_source": "polygon",
+          "exit_reference_price": 8.91,
+          "exit_reference_date": "2025-01-31",
+          "trade_levels": {
+            "entry_price": null,
+            "target_1": null,
+            "target_2": null,
+            "stop_price": null,
+            "exit_price": null,
+            "pattern_name": "None",
+            "pattern_breakout": false,
+            "notes": "exit_price is null for screening runs; populate after backtest or execution merge.",
+            "exit_reference_price": 8.91,
+            "exit_reference_date": "2025-01-31"
+          },
+          "target_price": 8.87,
+          "target_hit": true,
+          "target_hit_date": "2025-01-06",
+          "target_eval_error": null,
+          "target_data_source": "polygon",
+          "orchestrator_score": 4.2,
+          "signal": "bearish",
+          "signal_correct": false,
+          "phoenix_signal": "bearish",
+          "signal_correct_phoenix": false,
+          "confidence": 0.85,
+          "conflict_detected": false,
+          "conflict_resolution": null,
+          "weights_applied": {
+            "tech": 0.9,
+            "fund": 0.1
+          },
+          "phoenix_score": 0.0,
+          "fund_score": 42.0,
+          "phoenix_error": null,
+          "fund_error": null
+        }
+      ],
+      "summary": {
+        "total_periods": 1,
+        "directional_signals": 1,
+        "correct_signals": 0,
+        "accuracy_pct": 0.0,
+        "warning": "This covers 1 month on one stock. 1 data point is not statistically significant \u2014 use this to understand the signal behaviour, not to validate it.",
+        "basis": "orchestrator_fusion_signal_vs_target_hit"
+      },
+      "summary_phoenix": {
+        "total_periods": 1,
+        "directional_signals": 1,
+        "correct_signals": 0,
+        "accuracy_pct": 0.0,
+        "warning": "This covers 1 month on one stock. 1 data point is not statistically significant \u2014 use this to understand the signal behaviour, not to validate it.",
+        "basis": "phoenix_signal_vs_target_hit"
+      }
+    },
+    "RAMP": {
+      "ticker": "RAMP",
+      "periods": [
+        {
+          "month": "January 2025",
+          "signal_date": "2025-01-01",
+          "result_date": "2025-01-31",
+          "start_price": 30.37,
+          "start_price_date": "2024-12-31",
+          "start_price_source": "polygon",
+          "exit_reference_price": 34.0,
+          "exit_reference_date": "2025-01-31",
+          "trade_levels": {
+            "entry_price": null,
+            "target_1": null,
+            "target_2": null,
+            "stop_price": null,
+            "exit_price": null,
+            "pattern_name": "None",
+            "pattern_breakout": false,
+            "notes": "exit_price is null for screening runs; populate after backtest or execution merge.",
+            "exit_reference_price": 34.0,
+            "exit_reference_date": "2025-01-31"
+          },
+          "target_price": 31.89,
+          "target_hit": true,
+          "target_hit_date": "2025-01-15",
+          "target_eval_error": null,
+          "target_data_source": "polygon",
+          "orchestrator_score": 4.46,
+          "signal": "bearish",
+          "signal_correct": false,
+          "phoenix_signal": "bearish",
+          "signal_correct_phoenix": false,
+          "confidence": 0.85,
+          "conflict_detected": false,
+          "conflict_resolution": null,
+          "weights_applied": {
+            "tech": 0.9,
+            "fund": 0.1
+          },
+          "phoenix_score": 0.0,
+          "fund_score": 44.6,
+          "phoenix_error": null,
+          "fund_error": null
+        }
+      ],
+      "summary": {
+        "total_periods": 1,
+        "directional_signals": 1,
+        "correct_signals": 0,
+        "accuracy_pct": 0.0,
+        "warning": "This covers 1 month on one stock. 1 data point is not statistically significant \u2014 use this to understand the signal behaviour, not to validate it.",
+        "basis": "orchestrator_fusion_signal_vs_target_hit"
+      },
+      "summary_phoenix": {
+        "total_periods": 1,
+        "directional_signals": 1,
+        "correct_signals": 0,
+        "accuracy_pct": 0.0,
+        "warning": "This covers 1 month on one stock. 1 data point is not statistically significant \u2014 use this to understand the signal behaviour, not to validate it.",
+        "basis": "phoenix_signal_vs_target_hit"
+      }
+    },
+    "SEMR": {
+      "ticker": "SEMR",
+      "periods": [
+        {
+          "month": "January 2025",
+          "signal_date": "2025-01-01",
+          "result_date": "2025-01-31",
+          "start_price": 11.88,
+          "start_price_date": "2024-12-31",
+          "start_price_source": "polygon",
+          "exit_reference_price": 17.44,
+          "exit_reference_date": "2025-01-31",
+          "trade_levels": {
+            "entry_price": null,
+            "target_1": null,
+            "target_2": null,
+            "stop_price": null,
+            "exit_price": null,
+            "pattern_name": "None",
+            "pattern_breakout": false,
+            "notes": "exit_price is null for screening runs; populate after backtest or execution merge.",
+            "exit_reference_price": 17.44,
+            "exit_reference_date": "2025-01-31"
+          },
+          "target_price": 12.47,
+          "target_hit": true,
+          "target_hit_date": "2025-01-13",
+          "target_eval_error": null,
+          "target_data_source": "polygon",
+          "orchestrator_score": 4.2,
+          "signal": "bearish",
+          "signal_correct": false,
+          "phoenix_signal": "bearish",
+          "signal_correct_phoenix": false,
+          "confidence": 0.85,
+          "conflict_detected": false,
+          "conflict_resolution": null,
+          "weights_applied": {
+            "tech": 0.9,
+            "fund": 0.1
+          },
+          "phoenix_score": 0.0,
+          "fund_score": 42.0,
+          "phoenix_error": null,
+          "fund_error": null
+        }
+      ],
+      "summary": {
+        "total_periods": 1,
+        "directional_signals": 1,
+        "correct_signals": 0,
+        "accuracy_pct": 0.0,
+        "warning": "This covers 1 month on one stock. 1 data point is not statistically significant \u2014 use this to understand the signal behaviour, not to validate it.",
+        "basis": "orchestrator_fusion_signal_vs_target_hit"
+      },
+      "summary_phoenix": {
+        "total_periods": 1,
+        "directional_signals": 1,
+        "correct_signals": 0,
+        "accuracy_pct": 0.0,
+        "warning": "This covers 1 month on one stock. 1 data point is not statistically significant \u2014 use this to understand the signal behaviour, not to validate it.",
+        "basis": "phoenix_signal_vs_target_hit"
+      }
+    },
+    "VECO": {
+      "ticker": "VECO",
+      "periods": [
+        {
+          "month": "January 2025",
+          "signal_date": "2025-01-01",
+          "result_date": "2025-01-31",
+          "start_price": 26.8,
+          "start_price_date": "2024-12-31",
+          "start_price_source": "polygon",
+          "exit_reference_price": 25.38,
+          "exit_reference_date": "2025-01-31",
+          "trade_levels": {
+            "entry_price": null,
+            "target_1": null,
+            "target_2": null,
+            "stop_price": null,
+            "exit_price": null,
+            "pattern_name": "None",
+            "pattern_breakout": false,
+            "notes": "exit_price is null for screening runs; populate after backtest or execution merge.",
+            "exit_reference_price": 25.38,
+            "exit_reference_date": "2025-01-31"
+          },
+          "target_price": 28.14,
+          "target_hit": true,
+          "target_hit_date": "2025-01-06",
+          "target_eval_error": null,
+          "target_data_source": "polygon",
+          "orchestrator_score": 4.99,
+          "signal": "bearish",
+          "signal_correct": false,
+          "phoenix_signal": "bearish",
+          "signal_correct_phoenix": false,
+          "confidence": 0.85,
+          "conflict_detected": false,
+          "conflict_resolution": null,
+          "weights_applied": {
+            "tech": 0.9,
+            "fund": 0.1
+          },
+          "phoenix_score": 0.0,
+          "fund_score": 49.9,
+          "phoenix_error": null,
+          "fund_error": null
+        }
+      ],
+      "summary": {
+        "total_periods": 1,
+        "directional_signals": 1,
+        "correct_signals": 0,
+        "accuracy_pct": 0.0,
+        "warning": "This covers 1 month on one stock. 1 data point is not statistically significant \u2014 use this to understand the signal behaviour, not to validate it.",
+        "basis": "orchestrator_fusion_signal_vs_target_hit"
+      },
+      "summary_phoenix": {
+        "total_periods": 1,
+        "directional_signals": 1,
+        "correct_signals": 0,
+        "accuracy_pct": 0.0,
+        "warning": "This covers 1 month on one stock. 1 data point is not statistically significant \u2014 use this to understand the signal behaviour, not to validate it.",
+        "basis": "phoenix_signal_vs_target_hit"
+      }
+    },
+    "SEDG": {
+      "ticker": "SEDG",
+      "periods": [
+        {
+          "month": "January 2025",
+          "signal_date": "2025-01-01",
+          "result_date": "2025-01-31",
+          "start_price": 13.6,
+          "start_price_date": "2024-12-31",
+          "start_price_source": "polygon",
+          "exit_reference_price": 13.1,
+          "exit_reference_date": "2025-01-31",
+          "trade_levels": {
+            "entry_price": null,
+            "target_1": null,
+            "target_2": null,
+            "stop_price": null,
+            "exit_price": null,
+            "pattern_name": "None",
+            "pattern_breakout": false,
+            "notes": "exit_price is null for screening runs; populate after backtest or execution merge.",
+            "exit_reference_price": 13.1,
+            "exit_reference_date": "2025-01-31"
+          },
+          "target_price": 14.28,
+          "target_hit": true,
+          "target_hit_date": "2025-01-02",
+          "target_eval_error": null,
+          "target_data_source": "polygon",
+          "orchestrator_score": 4.11,
+          "signal": "bearish",
+          "signal_correct": false,
+          "phoenix_signal": "bearish",
+          "signal_correct_phoenix": false,
+          "confidence": 0.85,
+          "conflict_detected": false,
+          "conflict_resolution": null,
+          "weights_applied": {
+            "tech": 0.9,
+            "fund": 0.1
+          },
+          "phoenix_score": 0.0,
+          "fund_score": 41.1,
+          "phoenix_error": null,
+          "fund_error": null
+        }
+      ],
+      "summary": {
+        "total_periods": 1,
+        "directional_signals": 1,
+        "correct_signals": 0,
+        "accuracy_pct": 0.0,
+        "warning": "This covers 1 month on one stock. 1 data point is not statistically significant \u2014 use this to understand the signal behaviour, not to validate it.",
+        "basis": "orchestrator_fusion_signal_vs_target_hit"
+      },
+      "summary_phoenix": {
+        "total_periods": 1,
+        "directional_signals": 1,
+        "correct_signals": 0,
+        "accuracy_pct": 0.0,
+        "warning": "This covers 1 month on one stock. 1 data point is not statistically significant \u2014 use this to understand the signal behaviour, not to validate it.",
+        "basis": "phoenix_signal_vs_target_hit"
+      }
+    },
+    "AMPL": {
+      "ticker": "AMPL",
+      "periods": [
+        {
+          "month": "January 2025",
+          "signal_date": "2025-01-01",
+          "result_date": "2025-01-31",
+          "start_price": 10.55,
+          "start_price_date": "2024-12-31",
+          "start_price_source": "polygon",
+          "exit_reference_price": 12.18,
+          "exit_reference_date": "2025-01-31",
+          "trade_levels": {
+            "entry_price": null,
+            "target_1": null,
+            "target_2": null,
+            "stop_price": null,
+            "exit_price": null,
+            "pattern_name": "None",
+            "pattern_breakout": false,
+            "notes": "exit_price is null for screening runs; populate after backtest or execution merge.",
+            "exit_reference_price": 12.18,
+            "exit_reference_date": "2025-01-31"
+          },
+          "target_price": 11.08,
+          "target_hit": true,
+          "target_hit_date": "2025-01-06",
+          "target_eval_error": null,
+          "target_data_source": "polygon",
+          "orchestrator_score": 4.5,
+          "signal": "bearish",
+          "signal_correct": false,
+          "phoenix_signal": "bearish",
+          "signal_correct_phoenix": false,
+          "confidence": 0.85,
+          "conflict_detected": false,
+          "conflict_resolution": null,
+          "weights_applied": {
+            "tech": 0.9,
+            "fund": 0.1
+          },
+          "phoenix_score": 0.0,
+          "fund_score": 45.0,
+          "phoenix_error": null,
+          "fund_error": null
+        }
+      ],
+      "summary": {
+        "total_periods": 1,
+        "directional_signals": 1,
+        "correct_signals": 0,
+        "accuracy_pct": 0.0,
+        "warning": "This covers 1 month on one stock. 1 data point is not statistically significant \u2014 use this to understand the signal behaviour, not to validate it.",
+        "basis": "orchestrator_fusion_signal_vs_target_hit"
+      },
+      "summary_phoenix": {
+        "total_periods": 1,
+        "directional_signals": 1,
+        "correct_signals": 0,
+        "accuracy_pct": 0.0,
+        "warning": "This covers 1 month on one stock. 1 data point is not statistically significant \u2014 use this to understand the signal behaviour, not to validate it.",
+        "basis": "phoenix_signal_vs_target_hit"
+      }
+    },
+    "FIVN": {
+      "ticker": "FIVN",
+      "periods": [
+        {
+          "month": "January 2025",
+          "signal_date": "2025-01-01",
+          "result_date": "2025-01-31",
+          "start_price": 40.64,
+          "start_price_date": "2024-12-31",
+          "start_price_source": "polygon",
+          "exit_reference_price": 40.99,
+          "exit_reference_date": "2025-01-31",
+          "trade_levels": {
+            "entry_price": null,
+            "target_1": null,
+            "target_2": null,
+            "stop_price": null,
+            "exit_price": null,
+            "pattern_name": "None",
+            "pattern_breakout": false,
+            "notes": "exit_price is null for screening runs; populate after backtest or execution merge.",
+            "exit_reference_price": 40.99,
+            "exit_reference_date": "2025-01-31"
+          },
+          "target_price": 42.67,
+          "target_hit": true,
+          "target_hit_date": "2025-01-31",
+          "target_eval_error": null,
+          "target_data_source": "polygon",
+          "orchestrator_score": 5.25,
+          "signal": "bearish",
+          "signal_correct": false,
+          "phoenix_signal": "bearish",
+          "signal_correct_phoenix": false,
+          "confidence": 0.85,
+          "conflict_detected": false,
+          "conflict_resolution": null,
+          "weights_applied": {
+            "tech": 0.9,
+            "fund": 0.1
+          },
+          "phoenix_score": 0.0,
+          "fund_score": 52.5,
+          "phoenix_error": null,
+          "fund_error": null
+        }
+      ],
+      "summary": {
+        "total_periods": 1,
+        "directional_signals": 1,
+        "correct_signals": 0,
+        "accuracy_pct": 0.0,
+        "warning": "This covers 1 month on one stock. 1 data point is not statistically significant \u2014 use this to understand the signal behaviour, not to validate it.",
+        "basis": "orchestrator_fusion_signal_vs_target_hit"
+      },
+      "summary_phoenix": {
+        "total_periods": 1,
+        "directional_signals": 1,
+        "correct_signals": 0,
+        "accuracy_pct": 0.0,
+        "warning": "This covers 1 month on one stock. 1 data point is not statistically significant \u2014 use this to understand the signal behaviour, not to validate it.",
+        "basis": "phoenix_signal_vs_target_hit"
+      }
+    },
+    "MXL": {
+      "ticker": "MXL",
+      "periods": [
+        {
+          "month": "January 2025",
+          "signal_date": "2025-01-01",
+          "result_date": "2025-01-31",
+          "start_price": 19.78,
+          "start_price_date": "2024-12-31",
+          "start_price_source": "polygon",
+          "exit_reference_price": 17.86,
+          "exit_reference_date": "2025-01-31",
+          "trade_levels": {
+            "entry_price": null,
+            "target_1": null,
+            "target_2": null,
+            "stop_price": null,
+            "exit_price": null,
+            "pattern_name": "None",
+            "pattern_breakout": false,
+            "notes": "exit_price is null for screening runs; populate after backtest or execution merge.",
+            "exit_reference_price": 17.86,
+            "exit_reference_date": "2025-01-31"
+          },
+          "target_price": 20.77,
+          "target_hit": true,
+          "target_hit_date": "2025-01-06",
+          "target_eval_error": null,
+          "target_data_source": "polygon",
+          "orchestrator_score": 29.91,
+          "signal": "neutral",
+          "signal_correct": null,
+          "phoenix_signal": "neutral",
+          "signal_correct_phoenix": null,
+          "confidence": 0.7,
+          "conflict_detected": false,
+          "conflict_resolution": null,
+          "weights_applied": {
+            "tech": 0.9,
+            "fund": 0.1
+          },
+          "phoenix_score": 28.64,
+          "fund_score": 41.3,
+          "phoenix_error": null,
+          "fund_error": null
+        }
+      ],
+      "summary": {
+        "total_periods": 1,
+        "directional_signals": 0,
+        "correct_signals": 0,
+        "accuracy_pct": null,
+        "warning": "This covers 1 month on one stock. 1 data point is not statistically significant \u2014 use this to understand the signal behaviour, not to validate it.",
+        "basis": "orchestrator_fusion_signal_vs_target_hit"
+      },
+      "summary_phoenix": {
+        "total_periods": 1,
+        "directional_signals": 0,
+        "correct_signals": 0,
+        "accuracy_pct": null,
+        "warning": "This covers 1 month on one stock. 1 data point is not statistically significant \u2014 use this to understand the signal behaviour, not to validate it.",
+        "basis": "phoenix_signal_vs_target_hit"
+      }
+    },
+    "FSLY": {
+      "ticker": "FSLY",
+      "periods": [
+        {
+          "month": "January 2025",
+          "signal_date": "2025-01-01",
+          "result_date": "2025-01-31",
+          "start_price": 9.44,
+          "start_price_date": "2024-12-31",
+          "start_price_source": "polygon",
+          "exit_reference_price": 10.47,
+          "exit_reference_date": "2025-01-31",
+          "trade_levels": {
+            "entry_price": null,
+            "target_1": null,
+            "target_2": null,
+            "stop_price": null,
+            "exit_price": null,
+            "pattern_name": "None",
+            "pattern_breakout": false,
+            "notes": "exit_price is null for screening runs; populate after backtest or execution merge.",
+            "exit_reference_price": 10.47,
+            "exit_reference_date": "2025-01-31"
+          },
+          "target_price": 9.91,
+          "target_hit": true,
+          "target_hit_date": "2025-01-06",
+          "target_eval_error": null,
+          "target_data_source": "polygon",
+          "orchestrator_score": 26.12,
+          "signal": "bearish",
+          "signal_correct": false,
+          "phoenix_signal": "bearish",
+          "signal_correct_phoenix": false,
+          "confidence": 0.3798,
+          "conflict_detected": false,
+          "conflict_resolution": null,
+          "weights_applied": {
+            "tech": 0.9,
+            "fund": 0.1
+          },
+          "phoenix_score": 23.83,
+          "fund_score": 46.7,
+          "phoenix_error": null,
+          "fund_error": null
+        }
+      ],
+      "summary": {
+        "total_periods": 1,
+        "directional_signals": 1,
+        "correct_signals": 0,
+        "accuracy_pct": 0.0,
+        "warning": "This covers 1 month on one stock. 1 data point is not statistically significant \u2014 use this to understand the signal behaviour, not to validate it.",
+        "basis": "orchestrator_fusion_signal_vs_target_hit"
+      },
+      "summary_phoenix": {
+        "total_periods": 1,
+        "directional_signals": 1,
+        "correct_signals": 0,
+        "accuracy_pct": 0.0,
+        "warning": "This covers 1 month on one stock. 1 data point is not statistically significant \u2014 use this to understand the signal behaviour, not to validate it.",
+        "basis": "phoenix_signal_vs_target_hit"
+      }
+    },
+    "KARO": {
+      "ticker": "KARO",
+      "periods": [
+        {
+          "month": "January 2025",
+          "signal_date": "2025-01-01",
+          "result_date": "2025-01-31",
+          "start_price": 45.15,
+          "start_price_date": "2024-12-31",
+          "start_price_source": "polygon",
+          "exit_reference_price": 46.16,
+          "exit_reference_date": "2025-01-31",
+          "trade_levels": {
+            "entry_price": null,
+            "target_1": null,
+            "target_2": null,
+            "stop_price": null,
+            "exit_price": null,
+            "pattern_name": "None",
+            "pattern_breakout": false,
+            "notes": "exit_price is null for screening runs; populate after backtest or execution merge.",
+            "exit_reference_price": 46.16,
+            "exit_reference_date": "2025-01-31"
+          },
+          "target_price": 47.41,
+          "target_hit": true,
+          "target_hit_date": "2025-01-03",
+          "target_eval_error": null,
+          "target_data_source": "polygon",
+          "orchestrator_score": 70.54,
+          "signal": "bullish",
+          "signal_correct": true,
+          "phoenix_signal": "neutral",
+          "signal_correct_phoenix": null,
+          "confidence": 0.1836,
+          "conflict_detected": false,
+          "conflict_resolution": null,
+          "weights_applied": {
+            "tech": 0.1,
+            "fund": 0.9
+          },
+          "phoenix_score": 29.46,
+          "fund_score": 75.1,
+          "phoenix_error": null,
+          "fund_error": null
+        }
+      ],
+      "summary": {
+        "total_periods": 1,
+        "directional_signals": 1,
+        "correct_signals": 1,
+        "accuracy_pct": 100.0,
+        "warning": "This covers 1 month on one stock. 1 data point is not statistically significant \u2014 use this to understand the signal behaviour, not to validate it.",
+        "basis": "orchestrator_fusion_signal_vs_target_hit"
+      },
+      "summary_phoenix": {
+        "total_periods": 1,
+        "directional_signals": 0,
+        "correct_signals": 0,
+        "accuracy_pct": null,
+        "warning": "This covers 1 month on one stock. 1 data point is not statistically significant \u2014 use this to understand the signal behaviour, not to validate it.",
+        "basis": "phoenix_signal_vs_target_hit"
+      }
+    },
+    "NABL": {
+      "ticker": "NABL",
+      "periods": [
+        {
+          "month": "January 2025",
+          "signal_date": "2025-01-01",
+          "result_date": "2025-01-31",
+          "start_price": 9.34,
+          "start_price_date": "2024-12-31",
+          "start_price_source": "polygon",
+          "exit_reference_price": 9.69,
+          "exit_reference_date": "2025-01-31",
+          "trade_levels": {
+            "entry_price": null,
+            "target_1": null,
+            "target_2": null,
+            "stop_price": null,
+            "exit_price": null,
+            "pattern_name": "None",
+            "pattern_breakout": false,
+            "notes": "exit_price is null for screening runs; populate after backtest or execution merge.",
+            "exit_reference_price": 9.69,
+            "exit_reference_date": "2025-01-31"
+          },
+          "target_price": 9.81,
+          "target_hit": true,
+          "target_hit_date": "2025-01-27",
+          "target_eval_error": null,
+          "target_data_source": "polygon",
+          "orchestrator_score": 4.96,
+          "signal": "bearish",
+          "signal_correct": false,
+          "phoenix_signal": "bearish",
+          "signal_correct_phoenix": false,
+          "confidence": 0.85,
+          "conflict_detected": false,
+          "conflict_resolution": null,
+          "weights_applied": {
+            "tech": 0.9,
+            "fund": 0.1
+          },
+          "phoenix_score": 0.0,
+          "fund_score": 49.6,
+          "phoenix_error": null,
+          "fund_error": null
+        }
+      ],
+      "summary": {
+        "total_periods": 1,
+        "directional_signals": 1,
+        "correct_signals": 0,
+        "accuracy_pct": 0.0,
+        "warning": "This covers 1 month on one stock. 1 data point is not statistically significant \u2014 use this to understand the signal behaviour, not to validate it.",
+        "basis": "orchestrator_fusion_signal_vs_target_hit"
+      },
+      "summary_phoenix": {
+        "total_periods": 1,
+        "directional_signals": 1,
+        "correct_signals": 0,
+        "accuracy_pct": 0.0,
+        "warning": "This covers 1 month on one stock. 1 data point is not statistically significant \u2014 use this to understand the signal behaviour, not to validate it.",
+        "basis": "phoenix_signal_vs_target_hit"
+      }
+    },
+    "MGIC": {
+      "ticker": "MGIC",
+      "periods": [
+        {
+          "month": "January 2025",
+          "signal_date": "2025-01-01",
+          "result_date": "2025-01-31",
+          "start_price": 12.03,
+          "start_price_date": "2024-12-31",
+          "start_price_source": "polygon",
+          "exit_reference_price": 12.68,
+          "exit_reference_date": "2025-01-31",
+          "trade_levels": {
+            "entry_price": null,
+            "target_1": null,
+            "target_2": null,
+            "stop_price": null,
+            "exit_price": null,
+            "pattern_name": "None",
+            "pattern_breakout": false,
+            "notes": "exit_price is null for screening runs; populate after backtest or execution merge.",
+            "exit_reference_price": 12.68,
+            "exit_reference_date": "2025-01-31"
+          },
+          "target_price": 12.63,
+          "target_hit": true,
+          "target_hit_date": "2025-01-15",
+          "target_eval_error": null,
+          "target_data_source": "polygon",
+          "orchestrator_score": 5.0,
+          "signal": "bearish",
+          "signal_correct": false,
+          "phoenix_signal": "bearish",
+          "signal_correct_phoenix": false,
+          "confidence": 0.85,
+          "conflict_detected": false,
+          "conflict_resolution": null,
+          "weights_applied": {
+            "tech": 0.9,
+            "fund": 0.1
+          },
+          "phoenix_score": 0.0,
+          "fund_score": 50.0,
+          "phoenix_error": null,
+          "fund_error": null
+        }
+      ],
+      "summary": {
+        "total_periods": 1,
+        "directional_signals": 1,
+        "correct_signals": 0,
+        "accuracy_pct": 0.0,
+        "warning": "This covers 1 month on one stock. 1 data point is not statistically significant \u2014 use this to understand the signal behaviour, not to validate it.",
+        "basis": "orchestrator_fusion_signal_vs_target_hit"
+      },
+      "summary_phoenix": {
+        "total_periods": 1,
+        "directional_signals": 1,
+        "correct_signals": 0,
+        "accuracy_pct": 0.0,
+        "warning": "This covers 1 month on one stock. 1 data point is not statistically significant \u2014 use this to understand the signal behaviour, not to validate it.",
+        "basis": "phoenix_signal_vs_target_hit"
+      }
+    },
+    "PD": {
+      "ticker": "PD",
+      "periods": [
+        {
+          "month": "January 2025",
+          "signal_date": "2025-01-01",
+          "result_date": "2025-01-31",
+          "start_price": 18.26,
+          "start_price_date": "2024-12-31",
+          "start_price_source": "polygon",
+          "exit_reference_price": 18.52,
+          "exit_reference_date": "2025-01-31",
+          "trade_levels": {
+            "entry_price": null,
+            "target_1": null,
+            "target_2": null,
+            "stop_price": null,
+            "exit_price": null,
+            "pattern_name": "None",
+            "pattern_breakout": false,
+            "notes": "exit_price is null for screening runs; populate after backtest or execution merge.",
+            "exit_reference_price": 18.52,
+            "exit_reference_date": "2025-01-31"
+          },
+          "target_price": 19.17,
+          "target_hit": true,
+          "target_hit_date": "2025-01-27",
+          "target_eval_error": null,
+          "target_data_source": "polygon",
+          "orchestrator_score": 4.45,
+          "signal": "bearish",
+          "signal_correct": false,
+          "phoenix_signal": "bearish",
+          "signal_correct_phoenix": false,
+          "confidence": 0.85,
+          "conflict_detected": false,
+          "conflict_resolution": null,
+          "weights_applied": {
+            "tech": 0.9,
+            "fund": 0.1
+          },
+          "phoenix_score": 0.0,
+          "fund_score": 44.5,
+          "phoenix_error": null,
+          "fund_error": null
+        }
+      ],
+      "summary": {
+        "total_periods": 1,
+        "directional_signals": 1,
+        "correct_signals": 0,
+        "accuracy_pct": 0.0,
+        "warning": "This covers 1 month on one stock. 1 data point is not statistically significant \u2014 use this to understand the signal behaviour, not to validate it.",
+        "basis": "orchestrator_fusion_signal_vs_target_hit"
+      },
+      "summary_phoenix": {
+        "total_periods": 1,
+        "directional_signals": 1,
+        "correct_signals": 0,
+        "accuracy_pct": 0.0,
+        "warning": "This covers 1 month on one stock. 1 data point is not statistically significant \u2014 use this to understand the signal behaviour, not to validate it.",
+        "basis": "phoenix_signal_vs_target_hit"
+      }
+    },
+    "PDFS": {
+      "ticker": "PDFS",
+      "periods": [
+        {
+          "month": "January 2025",
+          "signal_date": "2025-01-01",
+          "result_date": "2025-01-31",
+          "start_price": 27.08,
+          "start_price_date": "2024-12-31",
+          "start_price_source": "polygon",
+          "exit_reference_price": 27.86,
+          "exit_reference_date": "2025-01-31",
+          "trade_levels": {
+            "entry_price": null,
+            "target_1": null,
+            "target_2": null,
+            "stop_price": null,
+            "exit_price": null,
+            "pattern_name": "None",
+            "pattern_breakout": false,
+            "notes": "exit_price is null for screening runs; populate after backtest or execution merge.",
+            "exit_reference_price": 27.86,
+            "exit_reference_date": "2025-01-31"
+          },
+          "target_price": 28.43,
+          "target_hit": true,
+          "target_hit_date": "2025-01-06",
+          "target_eval_error": null,
+          "target_data_source": "polygon",
+          "orchestrator_score": 4.2,
+          "signal": "bearish",
+          "signal_correct": false,
+          "phoenix_signal": "bearish",
+          "signal_correct_phoenix": false,
+          "confidence": 0.85,
+          "conflict_detected": false,
+          "conflict_resolution": null,
+          "weights_applied": {
+            "tech": 0.9,
+            "fund": 0.1
+          },
+          "phoenix_score": 0.0,
+          "fund_score": 42.0,
+          "phoenix_error": null,
+          "fund_error": null
+        }
+      ],
+      "summary": {
+        "total_periods": 1,
+        "directional_signals": 1,
+        "correct_signals": 0,
+        "accuracy_pct": 0.0,
+        "warning": "This covers 1 month on one stock. 1 data point is not statistically significant \u2014 use this to understand the signal behaviour, not to validate it.",
+        "basis": "orchestrator_fusion_signal_vs_target_hit"
+      },
+      "summary_phoenix": {
+        "total_periods": 1,
+        "directional_signals": 1,
+        "correct_signals": 0,
+        "accuracy_pct": 0.0,
+        "warning": "This covers 1 month on one stock. 1 data point is not statistically significant \u2014 use this to understand the signal behaviour, not to validate it.",
+        "basis": "phoenix_signal_vs_target_hit"
+      }
+    },
+    "COHU": {
+      "ticker": "COHU",
+      "periods": [
+        {
+          "month": "January 2025",
+          "signal_date": "2025-01-01",
+          "result_date": "2025-01-31",
+          "start_price": 26.7,
+          "start_price_date": "2024-12-31",
+          "start_price_source": "polygon",
+          "exit_reference_price": 22.91,
+          "exit_reference_date": "2025-01-31",
+          "trade_levels": {
+            "entry_price": null,
+            "target_1": null,
+            "target_2": null,
+            "stop_price": null,
+            "exit_price": null,
+            "pattern_name": "None",
+            "pattern_breakout": false,
+            "notes": "exit_price is null for screening runs; populate after backtest or execution merge.",
+            "exit_reference_price": 22.91,
+            "exit_reference_date": "2025-01-31"
+          },
+          "target_price": 28.04,
+          "target_hit": false,
+          "target_hit_date": null,
+          "target_eval_error": null,
+          "target_data_source": "polygon",
+          "orchestrator_score": 4.44,
+          "signal": "bearish",
+          "signal_correct": true,
+          "phoenix_signal": "bearish",
+          "signal_correct_phoenix": true,
+          "confidence": 0.85,
+          "conflict_detected": false,
+          "conflict_resolution": null,
+          "weights_applied": {
+            "tech": 0.9,
+            "fund": 0.1
+          },
+          "phoenix_score": 0.0,
+          "fund_score": 44.4,
+          "phoenix_error": null,
+          "fund_error": null
+        }
+      ],
+      "summary": {
+        "total_periods": 1,
+        "directional_signals": 1,
+        "correct_signals": 1,
+        "accuracy_pct": 100.0,
+        "warning": "This covers 1 month on one stock. 1 data point is not statistically significant \u2014 use this to understand the signal behaviour, not to validate it.",
+        "basis": "orchestrator_fusion_signal_vs_target_hit"
+      },
+      "summary_phoenix": {
+        "total_periods": 1,
+        "directional_signals": 1,
+        "correct_signals": 1,
+        "accuracy_pct": 100.0,
+        "warning": "This covers 1 month on one stock. 1 data point is not statistically significant \u2014 use this to understand the signal behaviour, not to validate it.",
+        "basis": "phoenix_signal_vs_target_hit"
+      }
+    },
+    "YEXT": {
+      "ticker": "YEXT",
+      "periods": [
+        {
+          "month": "January 2025",
+          "signal_date": "2025-01-01",
+          "result_date": "2025-01-31",
+          "start_price": 6.36,
+          "start_price_date": "2024-12-31",
+          "start_price_source": "polygon",
+          "exit_reference_price": 6.58,
+          "exit_reference_date": "2025-01-31",
+          "trade_levels": {
+            "entry_price": null,
+            "target_1": null,
+            "target_2": null,
+            "stop_price": null,
+            "exit_price": null,
+            "pattern_name": "None",
+            "pattern_breakout": false,
+            "notes": "exit_price is null for screening runs; populate after backtest or execution merge.",
+            "exit_reference_price": 6.58,
+            "exit_reference_date": "2025-01-31"
+          },
+          "target_price": 6.68,
+          "target_hit": true,
+          "target_hit_date": "2025-01-02",
+          "target_eval_error": null,
+          "target_data_source": "polygon",
+          "orchestrator_score": 3.87,
+          "signal": "bearish",
+          "signal_correct": false,
+          "phoenix_signal": "bearish",
+          "signal_correct_phoenix": false,
+          "confidence": 1.0,
+          "conflict_detected": false,
+          "conflict_resolution": null,
+          "weights_applied": {
+            "tech": 0.9,
+            "fund": 0.1
+          },
+          "phoenix_score": 0.0,
+          "fund_score": 38.7,
+          "phoenix_error": null,
+          "fund_error": null
+        }
+      ],
+      "summary": {
+        "total_periods": 1,
+        "directional_signals": 1,
+        "correct_signals": 0,
+        "accuracy_pct": 0.0,
+        "warning": "This covers 1 month on one stock. 1 data point is not statistically significant \u2014 use this to understand the signal behaviour, not to validate it.",
+        "basis": "orchestrator_fusion_signal_vs_target_hit"
+      },
+      "summary_phoenix": {
+        "total_periods": 1,
+        "directional_signals": 1,
+        "correct_signals": 0,
+        "accuracy_pct": 0.0,
+        "warning": "This covers 1 month on one stock. 1 data point is not statistically significant \u2014 use this to understand the signal behaviour, not to validate it.",
+        "basis": "phoenix_signal_vs_target_hit"
+      }
+    },
+    "IIIV": {
+      "ticker": "IIIV",
+      "periods": [
+        {
+          "month": "January 2025",
+          "signal_date": "2025-01-01",
+          "result_date": "2025-01-31",
+          "start_price": 23.04,
+          "start_price_date": "2024-12-31",
+          "start_price_source": "polygon",
+          "exit_reference_price": 24.89,
+          "exit_reference_date": "2025-01-31",
+          "trade_levels": {
+            "entry_price": null,
+            "target_1": null,
+            "target_2": null,
+            "stop_price": null,
+            "exit_price": null,
+            "pattern_name": "None",
+            "pattern_breakout": false,
+            "notes": "exit_price is null for screening runs; populate after backtest or execution merge.",
+            "exit_reference_price": 24.89,
+            "exit_reference_date": "2025-01-31"
+          },
+          "target_price": 24.19,
+          "target_hit": true,
+          "target_hit_date": "2025-01-15",
+          "target_eval_error": null,
+          "target_data_source": "polygon",
+          "orchestrator_score": 5.39,
+          "signal": "bearish",
+          "signal_correct": false,
+          "phoenix_signal": "bearish",
+          "signal_correct_phoenix": false,
+          "confidence": 0.85,
+          "conflict_detected": false,
+          "conflict_resolution": null,
+          "weights_applied": {
+            "tech": 0.9,
+            "fund": 0.1
+          },
+          "phoenix_score": 0.0,
+          "fund_score": 53.9,
+          "phoenix_error": null,
+          "fund_error": null
+        }
+      ],
+      "summary": {
+        "total_periods": 1,
+        "directional_signals": 1,
+        "correct_signals": 0,
+        "accuracy_pct": 0.0,
+        "warning": "This covers 1 month on one stock. 1 data point is not statistically significant \u2014 use this to understand the signal behaviour, not to validate it.",
+        "basis": "orchestrator_fusion_signal_vs_target_hit"
+      },
+      "summary_phoenix": {
+        "total_periods": 1,
+        "directional_signals": 1,
+        "correct_signals": 0,
+        "accuracy_pct": 0.0,
+        "warning": "This covers 1 month on one stock. 1 data point is not statistically significant \u2014 use this to understand the signal behaviour, not to validate it.",
+        "basis": "phoenix_signal_vs_target_hit"
+      }
+    },
+    "RDVT": {
+      "ticker": "RDVT",
+      "periods": [
+        {
+          "month": "January 2025",
+          "signal_date": "2025-01-01",
+          "result_date": "2025-01-31",
+          "start_price": 36.2,
+          "start_price_date": "2024-12-31",
+          "start_price_source": "polygon",
+          "exit_reference_price": 36.4,
+          "exit_reference_date": "2025-01-31",
+          "trade_levels": {
+            "entry_price": null,
+            "target_1": null,
+            "target_2": null,
+            "stop_price": null,
+            "exit_price": null,
+            "pattern_name": "None",
+            "pattern_breakout": false,
+            "notes": "exit_price is null for screening runs; populate after backtest or execution merge.",
+            "exit_reference_price": 36.4,
+            "exit_reference_date": "2025-01-31"
+          },
+          "target_price": 38.01,
+          "target_hit": false,
+          "target_hit_date": null,
+          "target_eval_error": null,
+          "target_data_source": "polygon",
+          "orchestrator_score": 30.11,
+          "signal": "bearish",
+          "signal_correct": true,
+          "phoenix_signal": "bearish",
+          "signal_correct_phoenix": true,
+          "confidence": 0.2111,
+          "conflict_detected": false,
+          "conflict_resolution": null,
+          "weights_applied": {
+            "tech": 0.9,
+            "fund": 0.1
+          },
+          "phoenix_score": 28.79,
+          "fund_score": 42.0,
+          "phoenix_error": null,
+          "fund_error": null
+        }
+      ],
+      "summary": {
+        "total_periods": 1,
+        "directional_signals": 1,
+        "correct_signals": 1,
+        "accuracy_pct": 100.0,
+        "warning": "This covers 1 month on one stock. 1 data point is not statistically significant \u2014 use this to understand the signal behaviour, not to validate it.",
+        "basis": "orchestrator_fusion_signal_vs_target_hit"
+      },
+      "summary_phoenix": {
+        "total_periods": 1,
+        "directional_signals": 1,
+        "correct_signals": 1,
+        "accuracy_pct": 100.0,
+        "warning": "This covers 1 month on one stock. 1 data point is not statistically significant \u2014 use this to understand the signal behaviour, not to validate it.",
+        "basis": "phoenix_signal_vs_target_hit"
+      }
+    },
+    "WYFI": {
+      "ticker": "WYFI",
+      "periods": [
+        {
+          "month": "January 2025",
+          "signal_date": "2025-01-01",
+          "result_date": "2025-01-31",
+          "error": "Polygon start price unavailable \u2014 check POLYGON_API_KEY / listing / date.",
+          "signal": "bearish",
+          "signal_correct": null,
+          "phoenix_signal": "bearish",
+          "signal_correct_phoenix": null,
+          "start_price_source": "polygon",
+          "trade_levels": {
+            "entry_price": null,
+            "target_1": null,
+            "target_2": null,
+            "stop_price": null,
+            "exit_price": null,
+            "pattern_name": "None",
+            "pattern_breakout": false,
+            "notes": "exit_price is null for screening runs; populate after backtest or execution merge."
+          },
+          "exit_reference_price": null,
+          "exit_reference_date": null,
+          "phoenix_error": null,
+          "fund_error": "No historical price data available for WYFI on or before 2025-01-01"
+        }
+      ],
+      "summary": {
+        "total_periods": 1,
+        "directional_signals": 0,
+        "correct_signals": 0,
+        "accuracy_pct": null,
+        "warning": "This covers 1 month on one stock. 1 data point is not statistically significant \u2014 use this to understand the signal behaviour, not to validate it.",
+        "basis": "orchestrator_fusion_signal_vs_target_hit"
+      },
+      "summary_phoenix": {
+        "total_periods": 1,
+        "directional_signals": 0,
+        "correct_signals": 0,
+        "accuracy_pct": null,
+        "warning": "This covers 1 month on one stock. 1 data point is not statistically significant \u2014 use this to understand the signal behaviour, not to validate it.",
+        "basis": "phoenix_signal_vs_target_hit"
+      }
+    },
+    "AIP": {
+      "ticker": "AIP",
+      "periods": [
+        {
+          "month": "January 2025",
+          "signal_date": "2025-01-01",
+          "result_date": "2025-01-31",
+          "start_price": 10.19,
+          "start_price_date": "2024-12-31",
+          "start_price_source": "polygon",
+          "exit_reference_price": 10.62,
+          "exit_reference_date": "2025-01-31",
+          "trade_levels": {
+            "entry_price": null,
+            "target_1": null,
+            "target_2": null,
+            "stop_price": null,
+            "exit_price": null,
+            "pattern_name": "None",
+            "pattern_breakout": false,
+            "notes": "exit_price is null for screening runs; populate after backtest or execution merge.",
+            "exit_reference_price": 10.62,
+            "exit_reference_date": "2025-01-31"
+          },
+          "target_price": 10.7,
+          "target_hit": true,
+          "target_hit_date": "2025-01-02",
+          "target_eval_error": null,
+          "target_data_source": "polygon",
+          "orchestrator_score": 28.85,
+          "signal": "bearish",
+          "signal_correct": false,
+          "phoenix_signal": "neutral",
+          "signal_correct_phoenix": null,
+          "confidence": 0.4284,
+          "conflict_detected": false,
+          "conflict_resolution": null,
+          "weights_applied": {
+            "tech": 0.1,
+            "fund": 0.9
+          },
+          "phoenix_score": 35.62,
+          "fund_score": 28.1,
+          "phoenix_error": null,
+          "fund_error": null
+        }
+      ],
+      "summary": {
+        "total_periods": 1,
+        "directional_signals": 1,
+        "correct_signals": 0,
+        "accuracy_pct": 0.0,
+        "warning": "This covers 1 month on one stock. 1 data point is not statistically significant \u2014 use this to understand the signal behaviour, not to validate it.",
+        "basis": "orchestrator_fusion_signal_vs_target_hit"
+      },
+      "summary_phoenix": {
+        "total_periods": 1,
+        "directional_signals": 0,
+        "correct_signals": 0,
+        "accuracy_pct": null,
+        "warning": "This covers 1 month on one stock. 1 data point is not statistically significant \u2014 use this to understand the signal behaviour, not to validate it.",
+        "basis": "phoenix_signal_vs_target_hit"
+      }
+    },
+    "CGNT": {
+      "ticker": "CGNT",
+      "periods": [
+        {
+          "month": "January 2025",
+          "signal_date": "2025-01-01",
+          "result_date": "2025-01-31",
+          "start_price": 8.65,
+          "start_price_date": "2024-12-31",
+          "start_price_source": "polygon",
+          "exit_reference_price": 9.31,
+          "exit_reference_date": "2025-01-31",
+          "trade_levels": {
+            "entry_price": null,
+            "target_1": null,
+            "target_2": null,
+            "stop_price": null,
+            "exit_price": null,
+            "pattern_name": "None",
+            "pattern_breakout": false,
+            "notes": "exit_price is null for screening runs; populate after backtest or execution merge.",
+            "exit_reference_price": 9.31,
+            "exit_reference_date": "2025-01-31"
+          },
+          "target_price": 9.08,
+          "target_hit": true,
+          "target_hit_date": "2025-01-15",
+          "target_eval_error": null,
+          "target_data_source": "polygon",
+          "orchestrator_score": 35.02,
+          "signal": "bearish",
+          "signal_correct": false,
+          "phoenix_signal": "neutral",
+          "signal_correct_phoenix": null,
+          "confidence": 0.1548,
+          "conflict_detected": false,
+          "conflict_resolution": null,
+          "weights_applied": {
+            "tech": 0.1,
+            "fund": 0.9
+          },
+          "phoenix_score": 28.94,
+          "fund_score": 35.7,
+          "phoenix_error": null,
+          "fund_error": null
+        }
+      ],
+      "summary": {
+        "total_periods": 1,
+        "directional_signals": 1,
+        "correct_signals": 0,
+        "accuracy_pct": 0.0,
+        "warning": "This covers 1 month on one stock. 1 data point is not statistically significant \u2014 use this to understand the signal behaviour, not to validate it.",
+        "basis": "orchestrator_fusion_signal_vs_target_hit"
+      },
+      "summary_phoenix": {
+        "total_periods": 1,
+        "directional_signals": 0,
+        "correct_signals": 0,
+        "accuracy_pct": null,
+        "warning": "This covers 1 month on one stock. 1 data point is not statistically significant \u2014 use this to understand the signal behaviour, not to validate it.",
+        "basis": "phoenix_signal_vs_target_hit"
+      }
+    },
+    "SPT": {
+      "ticker": "SPT",
+      "periods": [
+        {
+          "month": "January 2025",
+          "signal_date": "2025-01-01",
+          "result_date": "2025-01-31",
+          "start_price": 30.71,
+          "start_price_date": "2024-12-31",
+          "start_price_source": "polygon",
+          "exit_reference_price": 32.67,
+          "exit_reference_date": "2025-01-31",
+          "trade_levels": {
+            "entry_price": null,
+            "target_1": null,
+            "target_2": null,
+            "stop_price": null,
+            "exit_price": null,
+            "pattern_name": "None",
+            "pattern_breakout": false,
+            "notes": "exit_price is null for screening runs; populate after backtest or execution merge.",
+            "exit_reference_price": 32.67,
+            "exit_reference_date": "2025-01-31"
+          },
+          "target_price": 32.25,
+          "target_hit": true,
+          "target_hit_date": "2025-01-03",
+          "target_eval_error": null,
+          "target_data_source": "polygon",
+          "orchestrator_score": 3.28,
+          "signal": "bearish",
+          "signal_correct": false,
+          "phoenix_signal": "bearish",
+          "signal_correct_phoenix": false,
+          "confidence": 1.0,
+          "conflict_detected": false,
+          "conflict_resolution": null,
+          "weights_applied": {
+            "tech": 0.9,
+            "fund": 0.1
+          },
+          "phoenix_score": 0.0,
+          "fund_score": 32.8,
+          "phoenix_error": null,
+          "fund_error": null
+        }
+      ],
+      "summary": {
+        "total_periods": 1,
+        "directional_signals": 1,
+        "correct_signals": 0,
+        "accuracy_pct": 0.0,
+        "warning": "This covers 1 month on one stock. 1 data point is not statistically significant \u2014 use this to understand the signal behaviour, not to validate it.",
+        "basis": "orchestrator_fusion_signal_vs_target_hit"
+      },
+      "summary_phoenix": {
+        "total_periods": 1,
+        "directional_signals": 1,
+        "correct_signals": 0,
+        "accuracy_pct": 0.0,
+        "warning": "This covers 1 month on one stock. 1 data point is not statistically significant \u2014 use this to understand the signal behaviour, not to validate it.",
+        "basis": "phoenix_signal_vs_target_hit"
+      }
+    },
+    "ICHR": {
+      "ticker": "ICHR",
+      "periods": [
+        {
+          "month": "January 2025",
+          "signal_date": "2025-01-01",
+          "result_date": "2025-01-31",
+          "start_price": 32.22,
+          "start_price_date": "2024-12-31",
+          "start_price_source": "polygon",
+          "exit_reference_price": 27.46,
+          "exit_reference_date": "2025-01-31",
+          "trade_levels": {
+            "entry_price": null,
+            "target_1": null,
+            "target_2": null,
+            "stop_price": null,
+            "exit_price": null,
+            "pattern_name": "None",
+            "pattern_breakout": false,
+            "notes": "exit_price is null for screening runs; populate after backtest or execution merge.",
+            "exit_reference_price": 27.46,
+            "exit_reference_date": "2025-01-31"
+          },
+          "target_price": 33.83,
+          "target_hit": true,
+          "target_hit_date": "2025-01-06",
+          "target_eval_error": null,
+          "target_data_source": "polygon",
+          "orchestrator_score": 4.25,
+          "signal": "bearish",
+          "signal_correct": false,
+          "phoenix_signal": "bearish",
+          "signal_correct_phoenix": false,
+          "confidence": 0.85,
+          "conflict_detected": false,
+          "conflict_resolution": null,
+          "weights_applied": {
+            "tech": 0.9,
+            "fund": 0.1
+          },
+          "phoenix_score": 0.0,
+          "fund_score": 42.5,
+          "phoenix_error": null,
+          "fund_error": null
+        }
+      ],
+      "summary": {
+        "total_periods": 1,
+        "directional_signals": 1,
+        "correct_signals": 0,
+        "accuracy_pct": 0.0,
+        "warning": "This covers 1 month on one stock. 1 data point is not statistically significant \u2014 use this to understand the signal behaviour, not to validate it.",
+        "basis": "orchestrator_fusion_signal_vs_target_hit"
+      },
+      "summary_phoenix": {
+        "total_periods": 1,
+        "directional_signals": 1,
+        "correct_signals": 0,
+        "accuracy_pct": 0.0,
+        "warning": "This covers 1 month on one stock. 1 data point is not statistically significant \u2014 use this to understand the signal behaviour, not to validate it.",
+        "basis": "phoenix_signal_vs_target_hit"
+      }
+    },
+    "CRSR": {
+      "ticker": "CRSR",
+      "periods": [
+        {
+          "month": "January 2025",
+          "signal_date": "2025-01-01",
+          "result_date": "2025-01-31",
+          "start_price": 6.61,
+          "start_price_date": "2024-12-31",
+          "start_price_source": "polygon",
+          "exit_reference_price": 9.16,
+          "exit_reference_date": "2025-01-31",
+          "trade_levels": {
+            "entry_price": null,
+            "target_1": null,
+            "target_2": null,
+            "stop_price": null,
+            "exit_price": null,
+            "pattern_name": "None",
+            "pattern_breakout": false,
+            "notes": "exit_price is null for screening runs; populate after backtest or execution merge.",
+            "exit_reference_price": 9.16,
+            "exit_reference_date": "2025-01-31"
+          },
+          "target_price": 6.94,
+          "target_hit": true,
+          "target_hit_date": "2025-01-02",
+          "target_eval_error": null,
+          "target_data_source": "polygon",
+          "orchestrator_score": 4.72,
+          "signal": "bearish",
+          "signal_correct": false,
+          "phoenix_signal": "bearish",
+          "signal_correct_phoenix": false,
+          "confidence": 0.85,
+          "conflict_detected": false,
+          "conflict_resolution": null,
+          "weights_applied": {
+            "tech": 0.9,
+            "fund": 0.1
+          },
+          "phoenix_score": 0.0,
+          "fund_score": 47.2,
+          "phoenix_error": null,
+          "fund_error": null
+        }
+      ],
+      "summary": {
+        "total_periods": 1,
+        "directional_signals": 1,
+        "correct_signals": 0,
+        "accuracy_pct": 0.0,
+        "warning": "This covers 1 month on one stock. 1 data point is not statistically significant \u2014 use this to understand the signal behaviour, not to validate it.",
+        "basis": "orchestrator_fusion_signal_vs_target_hit"
+      },
+      "summary_phoenix": {
+        "total_periods": 1,
+        "directional_signals": 1,
+        "correct_signals": 0,
+        "accuracy_pct": 0.0,
+        "warning": "This covers 1 month on one stock. 1 data point is not statistically significant \u2014 use this to understand the signal behaviour, not to validate it.",
+        "basis": "phoenix_signal_vs_target_hit"
+      }
+    },
+    "SMWB": {
+      "ticker": "SMWB",
+      "periods": [
+        {
+          "month": "January 2025",
+          "signal_date": "2025-01-01",
+          "result_date": "2025-01-31",
+          "start_price": 14.17,
+          "start_price_date": "2024-12-31",
+          "start_price_source": "polygon",
+          "exit_reference_price": 16.21,
+          "exit_reference_date": "2025-01-31",
+          "trade_levels": {
+            "entry_price": 14.17,
+            "target_1": 14.776,
+            "target_2": 15.079,
+            "stop_price": 14.016,
+            "exit_price": null,
+            "pattern_name": "Pullback",
+            "pattern_breakout": true,
+            "notes": "exit_price is null for screening runs; populate after backtest or execution merge.",
+            "exit_reference_price": 16.21,
+            "exit_reference_date": "2025-01-31"
+          },
+          "target_price": 14.78,
+          "target_hit": true,
+          "target_hit_date": "2025-01-06",
+          "target_eval_error": null,
+          "target_data_source": "polygon",
+          "orchestrator_score": 38.18,
+          "signal": "neutral",
+          "signal_correct": null,
+          "phoenix_signal": "neutral",
+          "signal_correct_phoenix": null,
+          "confidence": 0.1764,
+          "conflict_detected": false,
+          "conflict_resolution": null,
+          "weights_applied": {
+            "tech": 0.1,
+            "fund": 0.9
+          },
+          "phoenix_score": 65.94,
+          "fund_score": 35.1,
+          "phoenix_error": null,
+          "fund_error": null
+        }
+      ],
+      "summary": {
+        "total_periods": 1,
+        "directional_signals": 0,
+        "correct_signals": 0,
+        "accuracy_pct": null,
+        "warning": "This covers 1 month on one stock. 1 data point is not statistically significant \u2014 use this to understand the signal behaviour, not to validate it.",
+        "basis": "orchestrator_fusion_signal_vs_target_hit"
+      },
+      "summary_phoenix": {
+        "total_periods": 1,
+        "directional_signals": 0,
+        "correct_signals": 0,
+        "accuracy_pct": null,
+        "warning": "This covers 1 month on one stock. 1 data point is not statistically significant \u2014 use this to understand the signal behaviour, not to validate it.",
+        "basis": "phoenix_signal_vs_target_hit"
+      }
+    },
+    "AEHR": {
+      "ticker": "AEHR",
+      "periods": [
+        {
+          "month": "January 2025",
+          "signal_date": "2025-01-01",
+          "result_date": "2025-01-31",
+          "start_price": 16.63,
+          "start_price_date": "2024-12-31",
+          "start_price_source": "polygon",
+          "exit_reference_price": 11.33,
+          "exit_reference_date": "2025-01-31",
+          "trade_levels": {
+            "entry_price": 16.63,
+            "target_1": 20.404,
+            "target_2": 22.291,
+            "stop_price": 16.4036,
+            "exit_price": null,
+            "pattern_name": "Shakeout",
+            "pattern_breakout": true,
+            "notes": "exit_price is null for screening runs; populate after backtest or execution merge.",
+            "exit_reference_price": 11.33,
+            "exit_reference_date": "2025-01-31"
+          },
+          "target_price": 20.4,
+          "target_hit": false,
+          "target_hit_date": null,
+          "target_eval_error": null,
+          "target_data_source": "polygon",
+          "orchestrator_score": 40.16,
+          "signal": "neutral",
+          "signal_correct": null,
+          "phoenix_signal": "neutral",
+          "signal_correct_phoenix": null,
+          "confidence": 0.0648,
+          "conflict_detected": false,
+          "conflict_resolution": null,
+          "weights_applied": {
+            "tech": 0.1,
+            "fund": 0.9
+          },
+          "phoenix_score": 57.78,
+          "fund_score": 38.2,
+          "phoenix_error": null,
+          "fund_error": null
+        }
+      ],
+      "summary": {
+        "total_periods": 1,
+        "directional_signals": 0,
+        "correct_signals": 0,
+        "accuracy_pct": null,
+        "warning": "This covers 1 month on one stock. 1 data point is not statistically significant \u2014 use this to understand the signal behaviour, not to validate it.",
+        "basis": "orchestrator_fusion_signal_vs_target_hit"
+      },
+      "summary_phoenix": {
+        "total_periods": 1,
+        "directional_signals": 0,
+        "correct_signals": 0,
+        "accuracy_pct": null,
+        "warning": "This covers 1 month on one stock. 1 data point is not statistically significant \u2014 use this to understand the signal behaviour, not to validate it.",
+        "basis": "phoenix_signal_vs_target_hit"
+      }
+    },
+    "AOSL": {
+      "ticker": "AOSL",
+      "periods": [
+        {
+          "month": "January 2025",
+          "signal_date": "2025-01-01",
+          "result_date": "2025-01-31",
+          "start_price": 37.03,
+          "start_price_date": "2024-12-31",
+          "start_price_source": "polygon",
+          "exit_reference_price": 38.42,
+          "exit_reference_date": "2025-01-31",
+          "trade_levels": {
+            "entry_price": null,
+            "target_1": null,
+            "target_2": null,
+            "stop_price": null,
+            "exit_price": null,
+            "pattern_name": "None",
+            "pattern_breakout": false,
+            "notes": "exit_price is null for screening runs; populate after backtest or execution merge.",
+            "exit_reference_price": 38.42,
+            "exit_reference_date": "2025-01-31"
+          },
+          "target_price": 38.88,
+          "target_hit": true,
+          "target_hit_date": "2025-01-02",
+          "target_eval_error": null,
+          "target_data_source": "polygon",
+          "orchestrator_score": 21.21,
+          "signal": "bearish",
+          "signal_correct": false,
+          "phoenix_signal": "bearish",
+          "signal_correct_phoenix": false,
+          "confidence": 0.5437,
+          "conflict_detected": false,
+          "conflict_resolution": null,
+          "weights_applied": {
+            "tech": 0.9,
+            "fund": 0.1
+          },
+          "phoenix_score": 19.01,
+          "fund_score": 41.0,
+          "phoenix_error": null,
+          "fund_error": null
+        }
+      ],
+      "summary": {
+        "total_periods": 1,
+        "directional_signals": 1,
+        "correct_signals": 0,
+        "accuracy_pct": 0.0,
+        "warning": "This covers 1 month on one stock. 1 data point is not statistically significant \u2014 use this to understand the signal behaviour, not to validate it.",
+        "basis": "orchestrator_fusion_signal_vs_target_hit"
+      },
+      "summary_phoenix": {
+        "total_periods": 1,
+        "directional_signals": 1,
+        "correct_signals": 0,
+        "accuracy_pct": 0.0,
+        "warning": "This covers 1 month on one stock. 1 data point is not statistically significant \u2014 use this to understand the signal behaviour, not to validate it.",
+        "basis": "phoenix_signal_vs_target_hit"
+      }
+    },
+    "WEAV": {
+      "ticker": "WEAV",
+      "periods": [
+        {
+          "month": "January 2025",
+          "signal_date": "2025-01-01",
+          "result_date": "2025-01-31",
+          "start_price": 15.92,
+          "start_price_date": "2024-12-31",
+          "start_price_source": "polygon",
+          "exit_reference_price": 16.32,
+          "exit_reference_date": "2025-01-31",
+          "trade_levels": {
+            "entry_price": null,
+            "target_1": null,
+            "target_2": null,
+            "stop_price": null,
+            "exit_price": null,
+            "pattern_name": "None",
+            "pattern_breakout": false,
+            "notes": "exit_price is null for screening runs; populate after backtest or execution merge.",
+            "exit_reference_price": 16.32,
+            "exit_reference_date": "2025-01-31"
+          },
+          "target_price": 16.72,
+          "target_hit": true,
+          "target_hit_date": "2025-01-31",
+          "target_eval_error": null,
+          "target_data_source": "polygon",
+          "orchestrator_score": 41.36,
+          "signal": "neutral",
+          "signal_correct": null,
+          "phoenix_signal": "neutral",
+          "signal_correct_phoenix": null,
+          "confidence": 0.7,
+          "conflict_detected": false,
+          "conflict_resolution": null,
+          "weights_applied": {
+            "tech": 0.9,
+            "fund": 0.1
+          },
+          "phoenix_score": 41.31,
+          "fund_score": 41.8,
+          "phoenix_error": null,
+          "fund_error": null
+        }
+      ],
+      "summary": {
+        "total_periods": 1,
+        "directional_signals": 0,
+        "correct_signals": 0,
+        "accuracy_pct": null,
+        "warning": "This covers 1 month on one stock. 1 data point is not statistically significant \u2014 use this to understand the signal behaviour, not to validate it.",
+        "basis": "orchestrator_fusion_signal_vs_target_hit"
+      },
+      "summary_phoenix": {
+        "total_periods": 1,
+        "directional_signals": 0,
+        "correct_signals": 0,
+        "accuracy_pct": null,
+        "warning": "This covers 1 month on one stock. 1 data point is not statistically significant \u2014 use this to understand the signal behaviour, not to validate it.",
+        "basis": "phoenix_signal_vs_target_hit"
+      }
+    },
+    "HCKT": {
+      "ticker": "HCKT",
+      "periods": [
+        {
+          "month": "January 2025",
+          "signal_date": "2025-01-01",
+          "result_date": "2025-01-31",
+          "start_price": 30.72,
+          "start_price_date": "2024-12-31",
+          "start_price_source": "polygon",
+          "exit_reference_price": 30.88,
+          "exit_reference_date": "2025-01-31",
+          "trade_levels": {
+            "entry_price": null,
+            "target_1": null,
+            "target_2": null,
+            "stop_price": null,
+            "exit_price": null,
+            "pattern_name": "None",
+            "pattern_breakout": false,
+            "notes": "exit_price is null for screening runs; populate after backtest or execution merge.",
+            "exit_reference_price": 30.88,
+            "exit_reference_date": "2025-01-31"
+          },
+          "target_price": 32.26,
+          "target_hit": false,
+          "target_hit_date": null,
+          "target_eval_error": null,
+          "target_data_source": "polygon",
+          "orchestrator_score": 32.0,
+          "signal": "bearish",
+          "signal_correct": true,
+          "phoenix_signal": "bearish",
+          "signal_correct_phoenix": true,
+          "confidence": 0.1397,
+          "conflict_detected": false,
+          "conflict_resolution": null,
+          "weights_applied": {
+            "tech": 0.9,
+            "fund": 0.1
+          },
+          "phoenix_score": 30.89,
+          "fund_score": 42.0,
+          "phoenix_error": null,
+          "fund_error": null
+        }
+      ],
+      "summary": {
+        "total_periods": 1,
+        "directional_signals": 1,
+        "correct_signals": 1,
+        "accuracy_pct": 100.0,
+        "warning": "This covers 1 month on one stock. 1 data point is not statistically significant \u2014 use this to understand the signal behaviour, not to validate it.",
+        "basis": "orchestrator_fusion_signal_vs_target_hit"
+      },
+      "summary_phoenix": {
+        "total_periods": 1,
+        "directional_signals": 1,
+        "correct_signals": 1,
+        "accuracy_pct": 100.0,
+        "warning": "This covers 1 month on one stock. 1 data point is not statistically significant \u2014 use this to understand the signal behaviour, not to validate it.",
+        "basis": "phoenix_signal_vs_target_hit"
+      }
+    },
+    "OSPN": {
+      "ticker": "OSPN",
+      "periods": [
+        {
+          "month": "January 2025",
+          "signal_date": "2025-01-01",
+          "result_date": "2025-01-31",
+          "start_price": 18.54,
+          "start_price_date": "2024-12-31",
+          "start_price_source": "polygon",
+          "exit_reference_price": 19.24,
+          "exit_reference_date": "2025-01-31",
+          "trade_levels": {
+            "entry_price": null,
+            "target_1": null,
+            "target_2": null,
+            "stop_price": null,
+            "exit_price": null,
+            "pattern_name": "None",
+            "pattern_breakout": false,
+            "notes": "exit_price is null for screening runs; populate after backtest or execution merge.",
+            "exit_reference_price": 19.24,
+            "exit_reference_date": "2025-01-31"
+          },
+          "target_price": 19.47,
+          "target_hit": true,
+          "target_hit_date": "2025-01-23",
+          "target_eval_error": null,
+          "target_data_source": "polygon",
+          "orchestrator_score": 28.29,
+          "signal": "bearish",
+          "signal_correct": false,
+          "phoenix_signal": "neutral",
+          "signal_correct_phoenix": null,
+          "confidence": 0.4284,
+          "conflict_detected": false,
+          "conflict_resolution": null,
+          "weights_applied": {
+            "tech": 0.1,
+            "fund": 0.9
+          },
+          "phoenix_score": 29.98,
+          "fund_score": 28.1,
+          "phoenix_error": null,
+          "fund_error": null
+        }
+      ],
+      "summary": {
+        "total_periods": 1,
+        "directional_signals": 1,
+        "correct_signals": 0,
+        "accuracy_pct": 0.0,
+        "warning": "This covers 1 month on one stock. 1 data point is not statistically significant \u2014 use this to understand the signal behaviour, not to validate it.",
+        "basis": "orchestrator_fusion_signal_vs_target_hit"
+      },
+      "summary_phoenix": {
+        "total_periods": 1,
+        "directional_signals": 0,
+        "correct_signals": 0,
+        "accuracy_pct": null,
+        "warning": "This covers 1 month on one stock. 1 data point is not statistically significant \u2014 use this to understand the signal behaviour, not to validate it.",
+        "basis": "phoenix_signal_vs_target_hit"
+      }
+    },
+    "LAW": {
+      "ticker": "LAW",
+      "periods": [
+        {
+          "month": "January 2025",
+          "signal_date": "2025-01-01",
+          "result_date": "2025-01-31",
+          "start_price": 4.99,
+          "start_price_date": "2024-12-31",
+          "start_price_source": "polygon",
+          "exit_reference_price": 5.04,
+          "exit_reference_date": "2025-01-31",
+          "trade_levels": {
+            "entry_price": null,
+            "target_1": null,
+            "target_2": null,
+            "stop_price": null,
+            "exit_price": null,
+            "pattern_name": "None",
+            "pattern_breakout": false,
+            "notes": "exit_price is null for screening runs; populate after backtest or execution merge.",
+            "exit_reference_price": 5.04,
+            "exit_reference_date": "2025-01-31"
+          },
+          "target_price": 5.24,
+          "target_hit": true,
+          "target_hit_date": "2025-01-07",
+          "target_eval_error": null,
+          "target_data_source": "polygon",
+          "orchestrator_score": 4.26,
+          "signal": "bearish",
+          "signal_correct": false,
+          "phoenix_signal": "bearish",
+          "signal_correct_phoenix": false,
+          "confidence": 0.85,
+          "conflict_detected": false,
+          "conflict_resolution": null,
+          "weights_applied": {
+            "tech": 0.9,
+            "fund": 0.1
+          },
+          "phoenix_score": 0.0,
+          "fund_score": 42.6,
+          "phoenix_error": null,
+          "fund_error": null
+        }
+      ],
+      "summary": {
+        "total_periods": 1,
+        "directional_signals": 1,
+        "correct_signals": 0,
+        "accuracy_pct": 0.0,
+        "warning": "This covers 1 month on one stock. 1 data point is not statistically significant \u2014 use this to understand the signal behaviour, not to validate it.",
+        "basis": "orchestrator_fusion_signal_vs_target_hit"
+      },
+      "summary_phoenix": {
+        "total_periods": 1,
+        "directional_signals": 1,
+        "correct_signals": 0,
+        "accuracy_pct": 0.0,
+        "warning": "This covers 1 month on one stock. 1 data point is not statistically significant \u2014 use this to understand the signal behaviour, not to validate it.",
+        "basis": "phoenix_signal_vs_target_hit"
+      }
+    },
+    "FUFU": {
+      "ticker": "FUFU",
+      "periods": [
+        {
+          "month": "January 2025",
+          "signal_date": "2025-01-01",
+          "result_date": "2025-01-31",
+          "start_price": 4.95,
+          "start_price_date": "2024-12-31",
+          "start_price_source": "polygon",
+          "exit_reference_price": 5.09,
+          "exit_reference_date": "2025-01-31",
+          "trade_levels": {
+            "entry_price": null,
+            "target_1": null,
+            "target_2": null,
+            "stop_price": null,
+            "exit_price": null,
+            "pattern_name": "None",
+            "pattern_breakout": false,
+            "notes": "exit_price is null for screening runs; populate after backtest or execution merge.",
+            "exit_reference_price": 5.09,
+            "exit_reference_date": "2025-01-31"
+          },
+          "target_price": 5.2,
+          "target_hit": true,
+          "target_hit_date": "2025-01-02",
+          "target_eval_error": null,
+          "target_data_source": "polygon",
+          "orchestrator_score": 25.44,
+          "signal": "bearish",
+          "signal_correct": false,
+          "phoenix_signal": "bearish",
+          "signal_correct_phoenix": false,
+          "confidence": 0.3978,
+          "conflict_detected": false,
+          "conflict_resolution": null,
+          "weights_applied": {
+            "tech": 0.9,
+            "fund": 0.1
+          },
+          "phoenix_score": 23.3,
+          "fund_score": 44.7,
+          "phoenix_error": null,
+          "fund_error": null
+        }
+      ],
+      "summary": {
+        "total_periods": 1,
+        "directional_signals": 1,
+        "correct_signals": 0,
+        "accuracy_pct": 0.0,
+        "warning": "This covers 1 month on one stock. 1 data point is not statistically significant \u2014 use this to understand the signal behaviour, not to validate it.",
+        "basis": "orchestrator_fusion_signal_vs_target_hit"
+      },
+      "summary_phoenix": {
+        "total_periods": 1,
+        "directional_signals": 1,
+        "correct_signals": 0,
+        "accuracy_pct": 0.0,
+        "warning": "This covers 1 month on one stock. 1 data point is not statistically significant \u2014 use this to understand the signal behaviour, not to validate it.",
+        "basis": "phoenix_signal_vs_target_hit"
+      }
+    }
+  }
+}

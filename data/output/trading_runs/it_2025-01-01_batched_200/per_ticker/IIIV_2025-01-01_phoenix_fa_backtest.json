@@ -1,0 +1,64 @@
+{
+  "ticker": "IIIV",
+  "periods": [
+    {
+      "month": "January 2025",
+      "signal_date": "2025-01-01",
+      "result_date": "2025-01-31",
+      "start_price": 23.04,
+      "start_price_date": "2024-12-31",
+      "start_price_source": "polygon",
+      "exit_reference_price": 24.89,
+      "exit_reference_date": "2025-01-31",
+      "trade_levels": {
+        "entry_price": null,
+        "target_1": null,
+        "target_2": null,
+        "stop_price": null,
+        "exit_price": null,
+        "pattern_name": "None",
+        "pattern_breakout": false,
+        "notes": "exit_price is null for screening runs; populate after backtest or execution merge.",
+        "exit_reference_price": 24.89,
+        "exit_reference_date": "2025-01-31"
+      },
+      "target_price": 24.19,
+      "target_hit": true,
+      "target_hit_date": "2025-01-15",
+      "target_eval_error": null,
+      "target_data_source": "polygon",
+      "orchestrator_score": 5.39,
+      "signal": "bearish",
+      "signal_correct": false,
+      "phoenix_signal": "bearish",
+      "signal_correct_phoenix": false,
+      "confidence": 0.85,
+      "conflict_detected": false,
+      "conflict_resolution": null,
+      "weights_applied": {
+        "tech": 0.9,
+        "fund": 0.1
+      },
+      "phoenix_score": 0.0,
+      "fund_score": 53.9,
+      "phoenix_error": null,
+      "fund_error": null
+    }
+  ],
+  "summary": {
+    "total_periods": 1,
+    "directional_signals": 1,
+    "correct_signals": 0,
+    "accuracy_pct": 0.0,
+    "warning": "This covers 1 month on one stock. 1 data point is not statistically significant \u2014 use this to understand the signal behaviour, not to validate it.",
+    "basis": "orchestrator_fusion_signal_vs_target_hit"
+  },
+  "summary_phoenix": {
+    "total_periods": 1,
+    "directional_signals": 1,
+    "correct_signals": 0,
+    "accuracy_pct": 0.0,
+    "warning": "This covers 1 month on one stock. 1 data point is not statistically significant \u2014 use this to understand the signal behaviour, not to validate it.",
+    "basis": "phoenix_signal_vs_target_hit"
+  }
+}

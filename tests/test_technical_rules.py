@@ -30,6 +30,23 @@ from agents.technical.rules import (
     evaluate_volume,
 )
 
+# Mirrors agents/technical/rules._FRAMEWORK_WEIGHTS — composite tests must
+# populate every weighted framework so band thresholds reflect v3 tuning.
+_ALL_FRAMEWORK_KEYS = (
+    "ema_trend",
+    "macd_system",
+    "rsi_regime",
+    "bollinger",
+    "volume_obv",
+    "adx_stochastic",
+    "pattern_recognition",
+    "ichimoku",
+    "momentum",
+    "supertrend",
+    "volatility_squeeze",
+    "entry_exit_rules",
+)
+
 
 # ====================================================================== #
 # Fixtures                                                                 #
@@ -351,15 +368,12 @@ class TestCompositeScore:
 
     def test_band_thresholds(self):
         """Spot-check the band thresholds."""
-        fw = {k: {"applicable": True, "score_pct": 0} for k in [
-            "ema_trend", "macd_system", "rsi_regime", "bollinger",
-            "volume_obv", "adx_stochastic", "pattern_recognition",
-            "ichimoku", "momentum",
-        ]}
+        fw = {k: {"applicable": True, "score_pct": 0} for k in _ALL_FRAMEWORK_KEYS}
 
-        # Score 75 → strong (≥75)
+        # Strong tier is composite ≥ 75; twelve weighted floats can land at ~74.99999
+        # when every sub-score is nominally 75 — use a clear-above-boundary value.
         for k in fw:
-            fw[k]["score_pct"] = 75
+            fw[k]["score_pct"] = 76
         result = build_composite_score(fw, adx_value=50.0)
         assert result["band"] == "strong"
 
@@ -371,11 +385,7 @@ class TestCompositeScore:
 
     def test_confidence_levels(self):
         """ADX drives confidence: ≥40 = high, ≥20 = medium, <20 = low."""
-        fw = {k: {"applicable": True, "score_pct": 70} for k in [
-            "ema_trend", "macd_system", "rsi_regime", "bollinger",
-            "volume_obv", "adx_stochastic", "pattern_recognition",
-            "ichimoku", "momentum",
-        ]}
+        fw = {k: {"applicable": True, "score_pct": 70} for k in _ALL_FRAMEWORK_KEYS}
         assert build_composite_score(fw, adx_value=45.0)["confidence"] == "high"
         assert build_composite_score(fw, adx_value=25.0)["confidence"] == "medium"
         assert build_composite_score(fw, adx_value=15.0)["confidence"] == "low"
@@ -409,12 +419,7 @@ class TestEvaluateSnapshot:
 
         result = evaluate_snapshot(snapshot, indicators, [])
 
-        expected_frameworks = {
-            "ema_trend", "macd_system", "rsi_regime", "bollinger",
-            "volume_obv", "adx_stochastic", "pattern_recognition",
-            "ichimoku", "momentum",
-        }
-        assert expected_frameworks == set(result["frameworks"].keys())
+        assert set(_ALL_FRAMEWORK_KEYS) == set(result["frameworks"].keys())
 
     def test_score_bounded(self):
         bars = _rising_bars()

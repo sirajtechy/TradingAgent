@@ -1,0 +1,14 @@
+{
+  "source_csv": "/Users/sirajuddeeng/Downloads/Spreadsheets_Excel_Csv/data.csv",
+  "generated_at": "2026-05-11",
+  "notes": [
+    "CSV tickers were normalized by stripping trailing commas and uppercasing (e.g. 'AAPL,' -> 'AAPL').",
+    "Comparison was done against the union of existing project ticker sources: data/halal_universe/halal_all_tickers.json, data/input/master_data/halal_tickers_clean.json, data/input/master_data/halal_by_sector.json, data/halal_universe/halal_sector_tickers.json, data/input/master_data/halal_tickers_sector.json."
+  ],
+  "counts": {
+    "csv_unique_tickers": 537,
+    "project_existing_unique_tickers_union": 1316,
+    "missing_from_project": 0
+  },
+  "missing_tickers": []
+}

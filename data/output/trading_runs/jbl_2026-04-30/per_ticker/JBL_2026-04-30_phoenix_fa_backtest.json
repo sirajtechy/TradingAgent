@@ -1,0 +1,64 @@
+{
+  "ticker": "JBL",
+  "periods": [
+    {
+      "month": "April 2026",
+      "signal_date": "2026-04-30",
+      "result_date": "2026-05-30",
+      "start_price": 337.49,
+      "start_price_date": "2026-04-30",
+      "start_price_source": "polygon",
+      "exit_reference_price": 355.15,
+      "exit_reference_date": "2026-05-08",
+      "trade_levels": {
+        "entry_price": 337.49,
+        "target_1": 349.189,
+        "target_2": 355.0385,
+        "stop_price": 331.9377,
+        "exit_price": null,
+        "pattern_name": "Pullback",
+        "pattern_breakout": true,
+        "notes": "exit_price is null for screening runs; populate after backtest or execution merge.",
+        "exit_reference_price": 355.15,
+        "exit_reference_date": "2026-05-08"
+      },
+      "target_price": 349.19,
+      "target_hit": true,
+      "target_hit_date": "2026-05-01",
+      "target_eval_error": null,
+      "target_data_source": "polygon",
+      "orchestrator_score": 71.18,
+      "signal": "bullish",
+      "signal_correct": true,
+      "phoenix_signal": "bullish",
+      "signal_correct_phoenix": true,
+      "confidence": 0.0309,
+      "conflict_detected": false,
+      "conflict_resolution": null,
+      "weights_applied": {
+        "tech": 0.9,
+        "fund": 0.1
+      },
+      "phoenix_score": 74.09,
+      "fund_score": 45.0,
+      "phoenix_error": null,
+      "fund_error": null
+    }
+  ],
+  "summary": {
+    "total_periods": 1,
+    "directional_signals": 1,
+    "correct_signals": 1,
+    "accuracy_pct": 100.0,
+    "warning": "This covers 1 month on one stock. 1 data point is not statistically significant \u2014 use this to understand the signal behaviour, not to validate it.",
+    "basis": "orchestrator_fusion_signal_vs_target_hit"
+  },
+  "summary_phoenix": {
+    "total_periods": 1,
+    "directional_signals": 1,
+    "correct_signals": 1,
+    "accuracy_pct": 100.0,
+    "warning": "This covers 1 month on one stock. 1 data point is not statistically significant \u2014 use this to understand the signal behaviour, not to validate it.",
+    "basis": "phoenix_signal_vs_target_hit"
+  }
+}

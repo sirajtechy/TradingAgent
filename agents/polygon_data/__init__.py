@@ -189,6 +189,28 @@ class PolygonClient:
 
         return self._parse_df(data["results"], as_of)
 
+    def fetch_daily_between(
+        self,
+        ticker: str,
+        start: date,
+        end: date,
+    ) -> Optional[pd.DataFrame]:
+        """
+        Fetch adjusted daily OHLCV for [start, end] inclusive (Polygon range API).
+
+        Same columns as :meth:`fetch_daily_bars` (DatetimeIndex, Open/High/Low/Close/Volume).
+        """
+        ticker = ticker.upper()
+        if start > end:
+            return None
+        data = _get(
+            f"/v2/aggs/ticker/{ticker}/range/1/day/{start.isoformat()}/{end.isoformat()}",
+            {"adjusted": "true", "sort": "asc", "limit": 50000},
+        )
+        if not data or "results" not in data:
+            return None
+        return self._parse_df(data["results"], end)
+
     # ── Weekly OHLCV bars (pandas DataFrame) ────────────────────────────
 
     def fetch_weekly_bars(

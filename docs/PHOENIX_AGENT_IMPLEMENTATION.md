@@ -1,5 +1,7 @@
 # Phoenix Agent — Implementation Document
 
+> Contract note: `PHOENIX_AGENT_SPEC.md` is the normative source for Phoenix public APIs, output keys, thresholds, and pattern priority. This implementation document is retained as build history and rationale.
+
 **Based on:** @pheonix_trader (Himanshu Sharma) strategy  
 **Source file:** `trading-strategies/phoneix-trader.md`  
 **Status:** Ready to implement — new session kickoff doc  

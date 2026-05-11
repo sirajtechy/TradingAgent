@@ -1,0 +1,64 @@
+{
+  "ticker": "JBL",
+  "periods": [
+    {
+      "month": "April 2026",
+      "signal_date": "2026-04-08",
+      "result_date": "2026-05-08",
+      "start_price": 287.14,
+      "start_price_date": "2026-04-08",
+      "start_price_source": "polygon",
+      "exit_reference_price": 355.15,
+      "exit_reference_date": "2026-05-08",
+      "trade_levels": {
+        "entry_price": null,
+        "target_1": null,
+        "target_2": null,
+        "stop_price": null,
+        "exit_price": null,
+        "pattern_name": "None",
+        "pattern_breakout": false,
+        "notes": "exit_price is null for screening runs; populate after backtest or execution merge.",
+        "exit_reference_price": 355.15,
+        "exit_reference_date": "2026-05-08"
+      },
+      "target_price": 301.5,
+      "target_hit": true,
+      "target_hit_date": "2026-04-10",
+      "target_eval_error": null,
+      "target_data_source": "polygon",
+      "orchestrator_score": 39.7,
+      "signal": "neutral",
+      "signal_correct": null,
+      "phoenix_signal": "neutral",
+      "signal_correct_phoenix": null,
+      "confidence": 0.7,
+      "conflict_detected": false,
+      "conflict_resolution": null,
+      "weights_applied": {
+        "tech": 0.9,
+        "fund": 0.1
+      },
+      "phoenix_score": 39.46,
+      "fund_score": 41.9,
+      "phoenix_error": null,
+      "fund_error": null
+    }
+  ],
+  "summary": {
+    "total_periods": 1,
+    "directional_signals": 0,
+    "correct_signals": 0,
+    "accuracy_pct": null,
+    "warning": "This covers 1 month on one stock. 1 data point is not statistically significant \u2014 use this to understand the signal behaviour, not to validate it.",
+    "basis": "orchestrator_fusion_signal_vs_target_hit"
+  },
+  "summary_phoenix": {
+    "total_periods": 1,
+    "directional_signals": 0,
+    "correct_signals": 0,
+    "accuracy_pct": null,
+    "warning": "This covers 1 month on one stock. 1 data point is not statistically significant \u2014 use this to understand the signal behaviour, not to validate it.",
+    "basis": "phoenix_signal_vs_target_hit"
+  }
+}

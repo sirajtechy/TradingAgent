@@ -1040,6 +1040,10 @@ def stochastic_rsi(
     raw_stoch: List[Optional[float]] = [None] * n
     warmup = rsi_period + stoch_period - 1
 
+    # Short series cannot satisfy stochastic RSI warmup; avoid OOB SMA fixes.
+    if n <= warmup:
+        return [None] * n, [None] * n
+
     for i in range(warmup, n):
         window = []
         for j in range(i - stoch_period + 1, i + 1):

@@ -384,13 +384,9 @@ def _conflict(
     tc = tech.computed_confidence
     fc = fund.computed_confidence
 
-    # v4: Always use fixed tech-dominant weights for score blending.
-    # The confidence winner still determines the signal direction,
-    # but the orchestrator score is always 90% tech / 10% fund.
-    wt, wf = 0.90, 0.10
-
     if fc > tc + gap:
-        # Fund has higher confidence — adopt fund's signal direction
+        # Fund dominates — overweight FA in blended score so result stays directional
+        wt, wf = w.conflict_fund_wins
         score = wt * tech.score + wf * fund.score
         conf = fc * cfg.conflict_winner_discount_fa
         signal = fund.signal
@@ -399,7 +395,7 @@ def _conflict(
             f"TA {tech.signal} (conf={tc:.2f})"
         )
     elif tc > fc + gap:
-        # Tech has higher confidence — adopt tech's signal direction
+        wt, wf = w.conflict_tech_wins
         score = wt * tech.score + wf * fund.score
         conf = tc * cfg.conflict_winner_discount_ta
         signal = tech.signal
@@ -408,7 +404,9 @@ def _conflict(
             f"FA {fund.signal} (conf={fc:.2f})"
         )
     else:
-        # Near-equal → abstain
+        # Near-equal confidence → abstain on direction; balanced blend avoids
+        # score-only guardrails undoing neutrality (CWAF playbook / tests).
+        wt, wf = w.conflict_abstain
         score = wt * tech.score + wf * fund.score
         conf = cfg.conflict_abstain_confidence
         signal = "neutral"
