@@ -296,9 +296,21 @@ export default function PhoenixWatchBuyPage() {
         const list: RunItem[] = d.runs ?? [];
         setRuns(list);
         const masters = list.filter((x: RunItem) => x.kind === "master");
-        if (masters.length && !selected) {
-          setSelected(masters[0].id);
-        }
+        if (!masters.length) return;
+        setSelected((prev) => {
+          if (prev) return prev;
+          let relQ: string | null = null;
+          if (typeof window !== "undefined") {
+            relQ = new URLSearchParams(window.location.search).get("rel");
+          }
+          if (relQ) {
+            const decoded = decodeURIComponent(relQ.trim());
+            const hit = masters.find((x) => x.relPath === decoded || x.relPath === relQ.trim());
+            if (hit) return hit.id;
+          }
+          const unified = masters.find((x) => x.relPath.includes("/unified_master_"));
+          return (unified ?? masters[0]).id;
+        });
       })
       .catch(() => setErr("Failed to list runs"));
   }, []);
