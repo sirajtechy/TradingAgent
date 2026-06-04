@@ -33,14 +33,22 @@ import requests
 # .env loader
 # ─────────────────────────────────────────────────────────────────────────────
 
-_PROJECT_ROOT = Path(__file__).resolve().parent.parent
-_env_path = _PROJECT_ROOT / ".env"
-if _env_path.exists():
-    for _line in _env_path.read_text().splitlines():
+def _load_env_if_present(root: Path) -> None:
+    env_path = root / ".env"
+    if not env_path.exists():
+        return
+    for _line in env_path.read_text().splitlines():
         _line = _line.strip()
         if _line and not _line.startswith("#") and "=" in _line:
             _k, _v = _line.split("=", 1)
             os.environ.setdefault(_k.strip(), _v.strip())
+
+
+# Prefer project root (MyTradingSpace/.env). Fallback to agents/.env for legacy layouts.
+_AGENTS_DIR = Path(__file__).resolve().parent.parent          # .../agents
+_PROJECT_ROOT = _AGENTS_DIR.parent                            # .../MyTradingSpace
+_load_env_if_present(_PROJECT_ROOT)
+_load_env_if_present(_AGENTS_DIR)
 
 POLYGON_API_KEY: str = os.environ.get("POLYGON_API_KEY", "")
 BASE_URL = "https://api.polygon.io"
@@ -180,6 +188,28 @@ class PolygonClient:
             return None
 
         return self._parse_df(data["results"], as_of)
+
+    def fetch_daily_between(
+        self,
+        ticker: str,
+        start: date,
+        end: date,
+    ) -> Optional[pd.DataFrame]:
+        """
+        Fetch adjusted daily OHLCV for [start, end] inclusive (Polygon range API).
+
+        Same columns as :meth:`fetch_daily_bars` (DatetimeIndex, Open/High/Low/Close/Volume).
+        """
+        ticker = ticker.upper()
+        if start > end:
+            return None
+        data = _get(
+            f"/v2/aggs/ticker/{ticker}/range/1/day/{start.isoformat()}/{end.isoformat()}",
+            {"adjusted": "true", "sort": "asc", "limit": 50000},
+        )
+        if not data or "results" not in data:
+            return None
+        return self._parse_df(data["results"], end)
 
     # ── Weekly OHLCV bars (pandas DataFrame) ────────────────────────────
 

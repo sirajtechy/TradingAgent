@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+  <key>Label</key>
+  <string>com.mytrading.daily-pilot</string>
+  <key>ProgramArguments</key>
+  <array>
+    <string>/bin/bash</string>
+    <string>-lc</string>
+    <string>ABS_PATH/openclaw/scripts/run_daily_pipeline.sh</string>
+  </array>
+  <key>WorkingDirectory</key>
+  <string>ABS_PATH</string>
+  <key>EnvironmentVariables</key>
+  <dict>
+    <key>PATH</key>
+    <string>/usr/local/bin:/usr/bin:/bin:/opt/homebrew/bin</string>
+  </dict>
+  <key>StartCalendarInterval</key>
+  <dict>
+    <key>Hour</key>
+    <integer>6</integer>
+    <key>Minute</key>
+    <integer>30</integer>
+  </dict>
+  <key>StandardOutPath</key>
+  <string>ABS_PATH/data/output/trading_runs/logs/launchd-daily-pilot.log</string>
+  <key>StandardErrorPath</key>
+  <string>ABS_PATH/data/output/trading_runs/logs/launchd-daily-pilot.err.log</string>
+  <key>RunAtLoad</key>
+  <false/>
+</dict>
+</plist>

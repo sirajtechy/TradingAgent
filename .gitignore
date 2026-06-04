@@ -1,37 +1,116 @@
-# Python
+# ==============================================================================
+# MyTradingSpace — single root gitignore (no nested .gitignore files)
+# Track: source, docs, tests, data/input master universe, config examples
+# Ignore: generated output, caches, secrets, build artifacts
+# ==============================================================================
+
+# --- Python ---
 __pycache__/
-*.pyc
+*.py[cod]
 *.pyo
 .pytest_cache/
+.mypy_cache/
+.ruff_cache/
 *.egg-info/
 dist/
 build/
-
-# Environment
 .venv/
-.env
+venv/
 
-# IDE
+# --- Environment & secrets ---
+.env
+.env.*
+!.env.example
+!**/.env.example
+
+# --- IDE & OS ---
 .vscode/
 .idea/
 *.swp
 *.swo
 .DS_Store
+Thumbs.db
+*.pem
 
-# Node / Next.js (dashboard)
+# --- Vercel / deploy ---
+.vercel/
+
+# --- Node / Next.js (backtest-dashboard: legacy + apps/) ---
 backtest-dashboard/node_modules/
+apps/backtest-dashboard/node_modules/
+backtest-dashboard/.pnp
+apps/backtest-dashboard/.pnp
+backtest-dashboard/.pnp.*
+apps/backtest-dashboard/.pnp.*
+backtest-dashboard/.yarn/*
+apps/backtest-dashboard/.yarn/*
+!backtest-dashboard/.yarn/patches
+!backtest-dashboard/.yarn/plugins
+!backtest-dashboard/.yarn/releases
+!backtest-dashboard/.yarn/versions
+!apps/backtest-dashboard/.yarn/patches
+!apps/backtest-dashboard/.yarn/plugins
+!apps/backtest-dashboard/.yarn/releases
+!apps/backtest-dashboard/.yarn/versions
 backtest-dashboard/.next/
+apps/backtest-dashboard/.next/
 backtest-dashboard/out/
+apps/backtest-dashboard/out/
+backtest-dashboard/build/
+apps/backtest-dashboard/build/
+backtest-dashboard/coverage/
+apps/backtest-dashboard/coverage/
+backtest-dashboard/.vercel/
+apps/backtest-dashboard/.vercel/
+backtest-dashboard/next-env.d.ts
+apps/backtest-dashboard/next-env.d.ts
+*.tsbuildinfo
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
 
-# Temp / audit scripts
+# --- OpenClaw (local runtime only) ---
+openclaw/.venv/
+openclaw/workspace/.openclaw/
+openclaw/workspace/.openclaw-local/
+apps/openclaw/.venv/
+apps/openclaw/workspace/.openclaw/
+apps/openclaw/workspace/.openclaw-local/
+
+# --- Temp / audit scripts (legacy names) ---
 _audit_data.py
 _check_data.py
 _export_dashboard_data.py
 start-dev.sh
 
-# Binary docs
+# --- Binary docs ---
 *.pdf
 
-# Prediction output — generated data, never commit
-data/output/predictions/
+# --- Generated data (never commit) ---
+data/output/*
+!data/output/.gitkeep
+data/output/.mts/
+data/archive/*
+!data/archive/.gitkeep
+data/input/polygon_cache/
+data/input/**/_staging_*
+data/output/_staging_*/
+
+# Dashboard static fallbacks generated from runs
 backtest-dashboard/app/data/halal-predictions.json
+backtest-dashboard/app/data/dashboard-data.json
+backtest-dashboard/app/data/prediction-data.json
+backtest-dashboard/app/data/sectors-predictions.json
+apps/backtest-dashboard/app/data/halal-predictions.json
+apps/backtest-dashboard/app/data/dashboard-data.json
+apps/backtest-dashboard/app/data/prediction-data.json
+apps/backtest-dashboard/app/data/sectors-predictions.json
+
+# --- Logs & local run artifacts ---
+*.log
+nohup.out
+
+# --- Misc local ---
+*.local
+.cursor/

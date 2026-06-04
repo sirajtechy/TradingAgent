@@ -1,0 +1,71 @@
+// Copy to ~/.openclaw/openclaw.json — replace ABS_PATH and Telegram values.
+
+{
+  agents: {
+    defaults: {
+      workspace: "ABS_PATH/openclaw/workspace",
+      repoRoot: "ABS_PATH",
+      userTimezone: "America/New_York",
+      model: { primary: "ollama/qwen3.6:latest" },
+      skills: ["trading-orchestrator", "daily-unified-pilot"],
+      timeoutSeconds: 600,
+    },
+    list: [
+      {
+        id: "trading-orchestrator",
+        default: true,
+        identity: {
+          name: "TradingOrchestrator",
+          theme: "Phoenix + Fundamental fused analysis via MyTradingSpace",
+          emoji: "📈",
+        },
+        skills: [
+          "trading-orchestrator",
+          "daily-unified-pilot",
+          "fundamental-only",
+          "phoenix-only",
+        ],
+      },
+    ],
+  },
+
+  env: {
+    shellEnv: { enabled: true },
+  },
+
+  tools: {
+    allow: ["exec", "read", "write", "message"],
+    exec: { timeoutSec: 3600 },
+  },
+
+  skills: {
+    load: {
+      extraDirs: ["ABS_PATH/openclaw/workspace/skills"],
+    },
+  },
+
+  // Phone channel — get chat id from @userinfobot after messaging your bot
+  channels: {
+    telegram: {
+      enabled: true,
+      botToken: "YOUR_TELEGRAM_BOT_TOKEN",
+      allowFrom: ["YOUR_TELEGRAM_USER_ID"],
+      groups: { "*": { requireMention: true } },
+    },
+  },
+
+  cron: {
+    enabled: true,
+    maxConcurrentRuns: 2,
+    sessionRetention: "24h",
+  },
+
+  gateway: {
+    mode: "local",
+    port: 18789,
+    bind: "loopback",
+    controlUi: { enabled: true },
+    // Optional: reach from phone via Tailscale — do not expose 0.0.0.0 on public internet
+    // tailscale: { mode: "serve", resetOnExit: false },
+  },
+}

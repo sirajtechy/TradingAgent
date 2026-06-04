@@ -42,7 +42,7 @@ TRADE_SETUPS_DIR       = OUTPUT_DIR / "trade_setups"
 DASHBOARD_EXPORT_DIR   = OUTPUT_DIR / "dashboard"
 
 # Next.js dashboard (consumed by frontend — keep separate)
-DASHBOARD_APP_DATA     = ROOT / "backtest-dashboard" / "app" / "data"
+DASHBOARD_APP_DATA     = ROOT / "apps" / "backtest-dashboard" / "app" / "data"
 
 # ── Archive (stale / legacy data) ─────────────────────────────
 ARCHIVE_DIR            = DATA_DIR / "archive"

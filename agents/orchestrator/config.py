@@ -13,14 +13,33 @@ from typing import List
 
 @dataclasses.dataclass(frozen=True)
 class FusionWeights:
-    """Weight pairs (tech, fund) for each scenario."""
+    """Weight pairs (tech, fund) for CWAF scenarios.
 
-    agreement: tuple = (0.90, 0.10)
-    agreement_neutral: tuple = (0.90, 0.10)
-    tech_only: tuple = (0.90, 0.10)
-    fund_only: tuple = (0.90, 0.10)
-    conflict_dominant: tuple = (0.10, 0.90)   # loser, winner
-    conflict_equal: tuple = (0.90, 0.10)
+    Mirrors ORCHESTRATOR_DESIGN.md and unit tests — agreement /
+    neutral / single-agent use asymmetric FA tilt where documented.
+    """
+
+    agreement: tuple = (0.45, 0.55)
+    agreement_neutral: tuple = (0.50, 0.50)
+    tech_only: tuple = (0.85, 0.15)
+    fund_only: tuple = (0.15, 0.85)
+    # Conflict: blend toward the resolved direction (see fusion._conflict)
+    conflict_fund_wins: tuple = (0.10, 0.90)
+    conflict_tech_wins: tuple = (0.70, 0.30)
+    conflict_abstain: tuple = (0.50, 0.50)
+
+
+# Phoenix + Fundamental fusion — Phoenix-dominant blend (configurable later).
+# Tuple is always (phoenix_slot, fund) i.e. ("tech" weight in FusionResult, fund weight).
+PHOENIX_FUND_FUSION_WEIGHTS = FusionWeights(
+    agreement=(0.90, 0.10),
+    agreement_neutral=(0.90, 0.10),
+    tech_only=(0.90, 0.10),
+    fund_only=(0.10, 0.90),
+    conflict_fund_wins=(0.10, 0.90),
+    conflict_tech_wins=(0.90, 0.10),
+    conflict_abstain=(0.90, 0.10),
+)
 
 
 @dataclasses.dataclass(frozen=True)
@@ -67,5 +86,10 @@ class OrchestratorSettings:
     # Weight tables
     weights: FusionWeights = dataclasses.field(default_factory=FusionWeights)
 
-    # Fundamental agent data_source for backtest
+    # FusionWeights used only by fuse_signals_phoenix (Phoenix + FA). Defaults to 90/10 Phoenix/Fund.
+    phoenix_fund_weights: FusionWeights = dataclasses.field(
+        default_factory=lambda: PHOENIX_FUND_FUSION_WEIGHTS
+    )
+
+    # Fundamental agent data_source — "yfinance" (free, no API key) or "fmp" (paid)
     fund_data_source: str = "yfinance"

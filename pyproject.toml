@@ -5,7 +5,7 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "trading-analysis-platform"
 version = "0.2.0"
-description = "Multi-agent trading analysis platform: Fundamental + Technical + O'Neil CAN SLIM + Orchestrator"
+description = "Multi-agent trading analysis platform: Phoenix + Fundamental fusion via orchestrator"
 readme = "README.md"
 requires-python = ">=3.9"
 dependencies = [
@@ -24,13 +24,14 @@ dev = [
 
 [project.scripts]
 fundamental-agent = "agents.fundamental.cli:main"
-technical-agent   = "agents.technical.cli:main"
-oneil-agent       = "agents.oneil.cli:main"
 
 [tool.setuptools.packages.find]
 include = [
   "agents*",
   "backtests*",
+  "core*",
+  "pipelines*",
+  "cli*",
 ]
 
 [tool.pytest.ini_options]

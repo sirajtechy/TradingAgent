@@ -43,10 +43,10 @@ jobs:
         with:
           node-version: "22"
           cache: "npm"
-          cache-dependency-path: backtest-dashboard/package-lock.json
+          cache-dependency-path: apps/backtest-dashboard/package-lock.json
 
       - name: Install & Build
-        working-directory: backtest-dashboard
+        working-directory: apps/backtest-dashboard
         run: |
           npm ci
           npm run build

@@ -1,0 +1,57 @@
+{
+  "ticker": "CRWD",
+  "analysis_date": "2026-04-10",
+  "final_signal": "bearish",
+  "final_confidence": 0.391,
+  "orchestrator_score": 25.54,
+  "conflict_detected": false,
+  "conflict_resolution": null,
+  "weights_applied": {
+    "tech": 0.9,
+    "fund": 0.1
+  },
+  "tech_output": {
+    "signal": "bearish",
+    "score": 23.5,
+    "band": "weak",
+    "confidence": "weak",
+    "computed_confidence": 0.46,
+    "subscores": {
+      "ema_trend": 0.0,
+      "macd_system": 13.0,
+      "rsi_regime": 38.0,
+      "bollinger": 15.0,
+      "volume_obv": 18.0,
+      "adx_stochastic": 27.0,
+      "pattern_recognition": 50.7,
+      "ichimoku": 28.0,
+      "momentum": 40.0,
+      "supertrend": 36.0,
+      "volatility_squeeze": 25.0,
+      "entry_exit_rules": 13.3
+    },
+    "data_quality": null,
+    "adx_confidence": null
+  },
+  "fund_output": {
+    "signal": "neutral",
+    "score": 43.9,
+    "band": "mixed",
+    "confidence": "high",
+    "computed_confidence": 0.15599999999999994,
+    "subscores": {
+      "financial_health": 75.0,
+      "valuation": 36.0,
+      "quality": 15.0,
+      "growth": 65.0,
+      "eps_momentum": 80.0,
+      "fcf_quality": 100.0
+    },
+    "data_quality": "fair",
+    "adx_confidence": null
+  },
+  "tech_error": null,
+  "fund_error": null,
+  "note": null,
+  "text_report": "ORCHESTRATOR REPORT  \u2014  CRWD\n================================================================\nAnalysis date : 2026-04-10\n\n  SIGNAL      : \u25bc BEARISH\n  SCORE       : 25.5 / 100\n  CONFIDENCE  : 39%\n\n  Weights     : Tech 90%  |  Fund 10%\n  Conflict    : No\n\n\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\nTECHNICAL AGENT\n  Signal      : \u25bc BEARISH\n  Score       : 23.5 / 100  [weak]\n  Confidence  : weak  (computed: 0.46)\n  Subscores   : ema_trend: 0% | macd_system: 13% | rsi_regime: 38% | bollinger: 15% | volume_obv: 18% | adx_stochastic: 27% | pattern_recognition: 51% | ichimoku: 28% | momentum: 40% | supertrend: 36% | volatility_squeeze: 25% | entry_exit_rules: 13%\n\n\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\nFUNDAMENTAL AGENT\n  Signal      : \u2014 NEUTRAL\n  Score       : 43.9 / 100  [mixed]\n  Confidence  : high  (computed: 0.16)\n  Data quality: fair\n  Subscores   : financial_health: 75% | valuation: 36% | quality: 15% | growth: 65% | eps_momentum: 80% | fcf_quality: 100%\n\n================================================================"
+}
