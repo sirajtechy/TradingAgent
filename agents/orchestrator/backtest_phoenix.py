@@ -47,7 +47,7 @@ def _compute_target(
     entry_price: float,
 ) -> Optional[float]:
     """
-    Determine a target price for the 30-day evaluation window.
+    Determine a target price for the evaluation window.
 
     Preference:
       1) Phoenix risk.target_1 (if available)
@@ -378,4 +378,7 @@ def _run_period(
         "fund_score": fund_score,
         "phoenix_error": phoenix_error,
         "fund_error": fund_error,
+        "extension_guardrail": (
+            phoenix_result.get("extension_guardrail") if phoenix_result else None
+        ),
     }

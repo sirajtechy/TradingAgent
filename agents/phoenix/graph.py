@@ -45,6 +45,7 @@ from .models import (
     StageResult,
 )
 from .patterns import detect_all_patterns
+from .extension import compute_extension_guardrail
 from .reporting import build_text_report
 from .risk import compute_risk as _compute_risk
 from .scoring import build_score
@@ -283,6 +284,13 @@ def build_graph(
         elif state.get("stage_exit"):
             signal = "WATCH" if stg.stage == 1 else "AVOID"
 
+        ext_guard: Optional[Dict[str, Any]] = None
+        ext_warnings: List[str] = list(warnings)
+        if snap is not None and state.get("hard_filter_passed", True):
+            ext_guard = compute_extension_guardrail(snap, pat, state.get("settings") or _settings)
+            if ext_guard.get("chase_risk") in ("moderate", "elevated"):
+                ext_warnings.append(str(ext_guard.get("summary") or ""))
+
         phoenix_signal = PhoenixSignal(
             ticker=req.ticker,
             as_of_date=req.as_of_date,
@@ -296,7 +304,8 @@ def build_graph(
             hard_filter_passed=state.get("hard_filter_passed", False),
             hard_filter_reason=state.get("hard_filter_reason"),
             report="",
-            warnings=warnings,
+            warnings=ext_warnings,
+            extension_guardrail=ext_guard,
         )
 
         report_text = build_text_report(phoenix_signal)

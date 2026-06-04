@@ -155,6 +155,8 @@ def _signal_to_dict(sig: PhoenixSignal) -> Dict[str, Any]:
         ),
     }
 
+    ext = sig.extension_guardrail
+
     return {
         "ticker":              sig.ticker,
         "as_of_date":          sig.as_of_date.isoformat(),
@@ -166,6 +168,7 @@ def _signal_to_dict(sig: PhoenixSignal) -> Dict[str, Any]:
         "entry":               entry_dict,
         "risk":                risk_dict,
         "trade_levels":        trade_levels,
+        "extension_guardrail": ext,
         "hard_filter_passed":  sig.hard_filter_passed,
         "hard_filter_reason":  sig.hard_filter_reason,
         "report":              sig.report,
@@ -194,6 +197,7 @@ def _error_result(ticker: str, as_of: date, error_msg: str) -> Dict[str, Any]:
             "pattern_breakout": False,
             "notes": error_msg,
         },
+        "extension_guardrail": None,
         "hard_filter_passed": False,
         "hard_filter_reason": error_msg,
         "report":             f"Phoenix Agent error for {ticker}: {error_msg}",

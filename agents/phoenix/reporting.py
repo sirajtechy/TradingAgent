@@ -144,6 +144,30 @@ def build_text_report(signal: PhoenixSignal) -> str:
         lines.append(f"  Trail stop:    {rsk.trail_stop_ma}")
         lines.append("")
 
+    # ── Extension / chase guardrail ───────────────────────────────────────
+    if signal.extension_guardrail:
+        eg = signal.extension_guardrail
+        lines.append(sep)
+        lines.append("  EXTENSION / CHASE CHECK  (signal unchanged)")
+        lines.append(sep)
+        lines.append(f"  Chase risk:  {eg.get('chase_risk', 'unknown').upper()}")
+        m = eg.get("metrics") or {}
+        if m.get("daily_change_5d_pct") is not None:
+            lines.append(f"  Daily 5-bar:  {m['daily_change_5d_pct']:+.1f}%")
+        if m.get("daily_change_10d_pct") is not None:
+            lines.append(f"  Daily 10-bar: {m['daily_change_10d_pct']:+.1f}%")
+        if m.get("weekly_change_1w_pct") is not None:
+            lines.append(f"  Weekly 1w:    {m['weekly_change_1w_pct']:+.1f}%")
+        if m.get("weekly_change_4w_pct") is not None:
+            lines.append(f"  Weekly 4w:    {m['weekly_change_4w_pct']:+.1f}%")
+        if m.get("pct_above_sma20") is not None:
+            lines.append(f"  vs SMA20:     {m['pct_above_sma20']:+.1f}%")
+        if m.get("pct_above_sma50") is not None:
+            lines.append(f"  vs SMA50:     {m['pct_above_sma50']:+.1f}%")
+        if eg.get("action_hint"):
+            lines.append(f"  · {eg['action_hint']}")
+        lines.append("")
+
     # ── Warnings ──────────────────────────────────────────────────────────
     if signal.warnings:
         lines.append(sep)

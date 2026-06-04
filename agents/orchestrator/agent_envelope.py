@@ -116,5 +116,7 @@ def envelope_from_phoenix(
             "subscores": ao.subscores,
             "pattern": native.get("pattern"),
             "stage": native.get("stage"),
+            "chase_risk": (native.get("extension_guardrail") or {}).get("chase_risk"),
+            "extension_metrics": (native.get("extension_guardrail") or {}).get("metrics"),
         },
     }

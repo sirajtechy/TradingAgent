@@ -19,7 +19,7 @@ from __future__ import annotations
 
 from dataclasses import dataclass, field
 from datetime import date
-from typing import Dict, List, Optional
+from typing import Any, Dict, List, Optional
 
 
 # ─────────────────────────────────────────────────────────────────────────────
@@ -259,3 +259,6 @@ class PhoenixSignal:
 
     warnings: List[str]
     """Non-fatal data quality notes from the data client."""
+
+    extension_guardrail: Optional[Dict[str, Any]] = None
+    """Extension / chase context at signal date (informational)."""

@@ -34,6 +34,11 @@ ROOT = Path(__file__).resolve().parent.parent.parent
 PILOT = ROOT / "scripts" / "backtests" / "run_halal_sector_month_pilot.py"
 DEFAULT_MASTER = ROOT / "data" / "input" / "master_data" / "halal_tickers_clean.json"
 
+if str(ROOT) not in sys.path:
+    sys.path.insert(0, str(ROOT))
+
+from core.io.master_pilot import confusion_from_master_tickers
+
 
 def _slug(sector: str) -> str:
     s = re.sub(r"[^a-zA-Z0-9]+", "-", sector.strip()).strip("-").lower()
@@ -86,73 +91,6 @@ def _run_one_sector(args: Tuple[str, List[str], Path, str, int, int, int]) -> Pa
     return out_dir
 
 
-def _confusion_from_master_tickers(tickers: Dict[str, Any]) -> Dict[str, Any]:
-    TP = FP = TN = FN = neutral = errors = 0
-    for row in tickers.values():
-        if not isinstance(row, dict):
-            continue
-        if row.get("error"):
-            errors += 1
-            continue
-        sig = row.get("fusion_final_signal")
-        corr = row.get("signal_correct")
-        if corr is None:
-            neutral += 1
-            continue
-        if sig is None:
-            neutral += 1
-            continue
-        sig = str(sig).lower()
-        corr = bool(corr)
-        if sig not in ("bullish", "bearish"):
-            neutral += 1
-            continue
-        if sig == "bullish" and corr is True:
-            TP += 1
-        elif sig == "bullish" and corr is False:
-            FP += 1
-        elif sig == "bearish" and corr is True:
-            TN += 1
-        elif sig == "bearish" and corr is False:
-            FN += 1
-        else:
-            errors += 1
-
-    directional = TP + FP + TN + FN
-    correct = TP + TN
-
-    def pct(v: float | None) -> float | None:
-        return round(v * 100, 1) if v is not None else None
-
-    acc = correct / directional if directional else None
-    prec = TP / (TP + FP) if (TP + FP) else None
-    rec = TP / (TP + FN) if (TP + FN) else None
-    spec = TN / (TN + FP) if (TN + FP) else None
-    f1 = (
-        (2 * prec * rec / (prec + rec))
-        if (prec is not None and rec is not None and (prec + rec) > 0)
-        else None
-    )
-    abst = neutral / (neutral + directional) if (neutral + directional) else None
-
-    return {
-        "TP": TP,
-        "FP": FP,
-        "TN": TN,
-        "FN": FN,
-        "directional": directional,
-        "correct": correct,
-        "neutral": neutral,
-        "errors": errors,
-        "accuracy_pct": pct(acc),
-        "precision_pct": pct(prec),
-        "recall_pct": pct(rec),
-        "specificity_pct": pct(spec),
-        "f1_pct": pct(f1),
-        "abstention_pct": pct(abst),
-    }
-
-
 def main() -> None:
     ap = argparse.ArgumentParser(description=__doc__)
     ap.add_argument(
@@ -194,7 +132,7 @@ def main() -> None:
     ap.add_argument(
         "--eval-days",
         type=int,
-        default=30,
+        default=15,
         metavar="N",
         help="Forward calendar days after signal_date for outcome labeling (passed to pilot).",
     )
@@ -262,7 +200,7 @@ def main() -> None:
         for sym, row in (doc.get("tickers") or {}).items():
             merged[str(sym).upper()] = row
 
-    cm = _confusion_from_master_tickers(merged)
+    cm = confusion_from_master_tickers(merged)
     run_id = f"halal_pilot_{args.signal_date}_master_data_{uuid.uuid4().hex[:10]}"
     final_path = (
         args.merged_output.expanduser().resolve()

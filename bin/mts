@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+# bin/mts — MyTradingSpace control plane (dashboard, backtests, analyze)
+set -euo pipefail
+ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+cd "$ROOT"
+PY="${MYTRADING_PYTHON:-${ROOT}/.venv/bin/python}"
+if [[ ! -x "${PY}" ]]; then
+  PY="$(command -v python3)"
+fi
+exec "${PY}" -m cli "$@"

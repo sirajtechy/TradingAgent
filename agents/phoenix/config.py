@@ -131,6 +131,19 @@ class PhoenixSettings:
     capital_risk_pct: float = 0.01
     """1% of account size at risk per trade for position sizing."""
 
+    # ── Extension / chase guardrails (informational; signal unchanged) ───
+    extension_daily_warn_pct: float = 5.0
+    """Flag when 5-bar daily return >= this percent."""
+
+    extension_daily_severe_pct: float = 10.0
+    """Flag when 10-bar daily return >= this percent."""
+
+    extension_weekly_warn_pct: float = 5.0
+    """Flag when 1-week return >= this percent."""
+
+    extension_weekly_severe_pct: float = 10.0
+    """Flag when 4-week return >= this percent."""
+
     def __post_init__(self) -> None:
         total = self.weight_volume + self.weight_structure + self.weight_pattern + self.weight_stage
         if abs(total - 1.0) > 1e-6:

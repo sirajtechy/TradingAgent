@@ -81,6 +81,7 @@ def trade_levels_from_phoenix(px: Dict[str, Any]) -> Dict[str, Any]:
         "exit_price": None,
         "pattern_name": pat_name,
         "pattern_breakout": bool(pat.get("confirmed")) if pat else False,
+        "extension_guardrail": px.get("extension_guardrail"),
         "notes": (
             "exit_price is null until backtest or execution merge; "
             "prefer phoenix.trade_levels when present."
@@ -147,6 +148,7 @@ def row_from_labeled_backtest_period(
         },
         "artifact_relative": artifact_name,
         "error": err,
+        "extension_guardrail": period.get("extension_guardrail"),
         "evaluation": {
             "directional_labels_available": sc is not None,
             "signal_correct": sc,

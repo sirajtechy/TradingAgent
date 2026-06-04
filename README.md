@@ -1,184 +1,154 @@
 # MyTradingSpace — Multi-Agent Stock Analysis Platform
 
-A **deterministic, rule-based** multi-agent stack for point-in-time stock analysis, halal-universe screening, Phoenix-style pattern scoring, and **Confidence-Weighted Asymmetric Fusion (CWAF)** across agents. Outputs feed **JSON run bundles**, **backtests**, and a **Next.js backtest dashboard**. No LLM influences numeric scores or pass/fail gates.
+A **deterministic, rule-based** multi-agent stack for point-in-time stock analysis, halal-universe screening, Phoenix-style pattern scoring, and **Confidence-Weighted Asymmetric Fusion (CWAF)**. Outputs feed **JSON run bundles**, **backtests**, and a **Next.js Research Lab dashboard**.
 
 ---
 
-## What This Repository Does
+## Quick Start
 
-For a **ticker**, **as-of date**, and optional **holding window**, the system can:
+```bash
+# Start dashboard
+./bin/mts dashboard                     # → http://localhost:3055
 
-1. Run the **Fundamental** agent (FMP-backed frameworks) for financial health, valuation, quality, and growth.
-2. Run the **Technical** agent (Polygon OHLCV) across momentum, trend, and pattern-style rule sets.
-3. Run the **Phoenix** agent for stage/pattern/risk scoring and trade-level hints used in Phoenix-only or fused flows.
-4. **Fuse** agents through the **Orchestrator** — e.g. **TA+FA** (`fuse_signals`) or **Phoenix+FA** (`fuse_signals_phoenix` / `FusionMode.PHOENIX_FUND`, default **90% / 10%** Phoenix vs fundamental weights).
-5. Emit structured **BUY / SELL / HOLD** (and related) recommendations, **run_bundle.json** aggregates, confusion-style evaluation when labels exist, and exports for Excel/JSON and the dashboard.
+# Run backtests
+./bin/mts unified --date 2026-05-28     # All-sector unified pilot
+./bin/mts sector --sector Energy        # Single sector
+./bin/mts analyze --ticker AAPL         # Single ticker
 
-Canonical entry points and module boundaries are summarized in **`MODULE_MAP.md`** (start there when navigating or extending the codebase).
+# Export signals
+./bin/mts export --from 2026-05-10 --to 2026-05-28
+
+# Full daily pipeline
+./bin/mts daily
+
+# Combined: backtest + dashboard
+./bin/mts lab unified --date 2026-05-28
+```
 
 ---
 
-## Top-Level Layout
+## Project Structure
 
 ```
 MyTradingSpace/
-├── agents/                    # Bounded agent packages (import from agents.*)
-│   ├── fundamental/           # FMP-based fundamental scoring + graph/service
-│   ├── technical/             # Polygon TA rules, indicators, predictor, graph
-│   ├── phoenix/               # Phoenix agent: scoring, filters, stage, reporting
-│   │   ├── patterns/          # Split pattern detectors (VCP, pullback, flag, …)
-│   │   └── pattern_helpers.py
-│   ├── orchestrator/          # Fusion, LangGraph-style graph, CWAF, Phoenix fusion
-│   │   ├── fusion.py          # TA+FA fusion
-│   │   ├── fusion_phoenix.py  # Phoenix+FA fusion
-│   │   ├── modes.py           # FusionMode dispatcher (ta-fa vs phoenix-fa, …)
-│   │   ├── agent_envelope.py  # Normalized multi-agent envelopes
-│   │   ├── graph.py / service.py / backtest*.py
-│   │   └── config.py          # OrchestratorSettings (incl. phoenix_fund_weights)
-│   ├── polygon_data/          # Shared Polygon OHLCV access
-│   ├── oneil/                 # O’Neil-style stage / breakout helpers
-│   └── prediction/            # Strategy formatting / backtester utilities
-├── backtests/                 # Long-form Python backtest drivers (per engine)
-├── backtest-dashboard/        # Next.js (App Router) UI + API routes → see its README
-├── scripts/
-│   ├── run_trading.py         # **Canonical CLI**: analyze | backtest | compare
-│   ├── lib/                   # Shared helpers (e.g. run_bundle aggregation)
-│   ├── backtests/             # Thin runners / pilots (halal sector month, …)
-│   ├── run_halal_predictions.py
-│   ├── run_orchestrator_tickers.py   # Shim → run_trading.py analyze (legacy flags)
-│   └── analysis/ | dashboard/ | polygon/ | workstreams/   # Ad-hoc pipelines
-├── tests/                     # Pytest suite
-│   ├── phoenix/               # Phoenix unit / synthetic tests
-│   └── orchestrator/          # Modes + envelope tests
+├── bin/mts                  # Control plane (dashboard, analyze, sector, unified, daily, export, lab)
+├── cli/                     # CLI implementation
+├── pipelines/               # Pipeline modules (analyze, sector, unified, daily)
+├── agents/                  # Agent packages
+│   ├── phoenix/             # Phoenix pattern/stage scoring
+│   ├── technical/           # Technical analysis (Polygon OHLCV)
+│   ├── fundamental/         # Fundamental analysis (FMP)
+│   ├── orchestrator/        # Fusion logic (TA+FA, Phoenix+FA)
+│   └── polygon_data/        # Shared Polygon client
+├── core/                    # Core modules
+│   ├── universe/            # Stock universes, halal sectors
+│   ├── data/                # Data access (polygon re-export)
+│   ├── io/                  # Export, master_pilot merge
+│   └── contracts/           # Fusion, envelope contracts
+├── apps/
+│   ├── backtest-dashboard/  # Next.js Research Lab UI
+│   └── openclaw/            # WhatsApp / phone automation
 ├── data/
-│   ├── input/                 # Universe files, caches, master dumps
-│   ├── halal_universe/        # Halal lists / loaders
-│   └── output/                # Generated artifacts (see .gitignore for some trees)
-│       ├── trading_runs/      # run_bundle.json, master_pilot.json, pilots
-│       ├── orchestrator_runs/ # Sample per-ticker JSON (when committed)
-│       ├── predictions/       # Ignored: generated predictions
-│       └── backtests/         # Ignored: heavy backtest exports
-├── docs/                      # Playbooks, contracts, implementation notes
-├── prompts/                   # Agent steering / prompt assets
-├── agent_learning/            # Human-written steering per agent area
-├── trading-strategies/        # Strategy notes / configs (as used in-repo)
-├── CHANGELOG.md               # Keep a Changelog–style history
-├── MODULE_MAP.md              # Feature → spec → module → tests → scripts
-└── ORCHESTRATOR_MODES.md      # Fusion modes and CLI guidance
+│   ├── input/               # Master data, halal universe
+│   └── output/              # Trading runs, exports (gitignored)
+├── docs/                    # All documentation
+├── backtests/common.py      # Universe constants shim → core/universe
+└── archive/                 # Retired scripts and tests
 ```
 
 ---
 
-## Modularity (How Pieces Fit)
+## Documentation
 
-| Layer | Role |
-| --- | --- |
-| **`agents/*`** | Each agent owns its **data clients**, **rules/scoring**, **graph** (where applicable), and **reporting**. Keep new logic inside the right package; expose narrow public APIs. |
-| **`agents/orchestrator`** | **Single place** for combining agent outputs: TA+FA and Phoenix+FA paths, **modes**, **envelopes**, and **backtest** glue. Prefer extending `modes.py` / fusion modules over duplicating fusion in scripts. |
-| **`scripts/run_trading.py`** | **Preferred CLI** for `analyze`, `backtest --engine <alias>`, and `compare`. New batch behavior should extend flags or registered engines, not fork one-off CLIs (see `MODULE_MAP.md`). |
-| **`scripts/lib/`** | Non–agent-specific building blocks (bundle JSON, shared pilot helpers) used by CLI and backtests. |
-| **`backtest-dashboard/`** | Read-only visualization over committed or mounted JSON under `data/output/`; API routes under `app/api/` proxy the filesystem for local QA. |
-| **`tests/`** | Mirrors critical packages (`phoenix/`, `orchestrator/`) plus integration-style tests at repo root. |
+All documentation lives in `docs/`:
 
----
+| Folder | Contents |
+|--------|----------|
+| `docs/` | Main docs (SCRIPTS, CHANGELOG, STRUCTURE, MODULE_MAP) |
+| `docs/specs/` | Agent specs, ADRs, pipeline design |
+| `docs/plans/` | Production plan, refactor plan |
+| `docs/agent-learning/` | Steering guides, backtesting guides |
+| `docs/strategies/` | Trading strategies |
+| `docs/prompts/` | Agent prompts |
 
-## Documentation Map
-
-| Document | Contents |
-| --- | --- |
-| `MODULE_MAP.md` | Feature areas, specs, modules, tests, and scripts in one table |
-| `ORCHESTRATOR_MODES.md` | `FusionMode`, `phoenix-fa` vs `ta-fa`, weights |
-| `docs/BACKTEST_PLAYBOOK.md` | Engines, outputs, `run_bundle` usage |
-| `docs/MULTI_AGENT_CONTRACT.md` | How future agents plug into the same envelope pattern |
-| `docs/PHOENIX_AGENT_IMPLEMENTATION.md` | Phoenix implementation detail |
-| `CHANGELOG.md` | Notable changes (including dated integration notes) |
+Key files:
+- **`docs/SCRIPTS.md`** — All commands and scripts
+- **`docs/MODULE_MAP.md`** — Feature → module mapping
+- **`docs/STRUCTURE.md`** — Folder layout
+- **`docs/specs/ORCHESTRATOR_MODES.md`** — Fusion modes (phoenix-fa, ta-fa)
 
 ---
 
-## Key Scripts (Current)
+## Commands (`bin/mts`)
 
-| Path | Purpose |
-| --- | --- |
-| **`python scripts/run_trading.py analyze`** | Point-in-time analysis: `--fusion phoenix-fa` (default Phoenix+FA), `ta-fa`, `phoenix`, `compare`; halal flags (`--halal-universe`, `--halal-sector`, …) per `MODULE_MAP.md` |
-| **`python scripts/run_trading.py backtest --engine …`** | Delegates to registered long-form backtest engines |
-| **`python scripts/run_trading.py compare`** | Run-vs-run deltas for QA |
-| **`scripts/backtests/run_halal_sector_month_pilot.py`** | Sector (or ticker list) pilot: **`--signal-date`**, optional **`--single-master-json`** / `master_pilot.json` for dashboard bundles |
-| **`scripts/run_halal_predictions.py`** | Batch halal predictions (Excel + JSON) |
-| **`scripts/run_orchestrator_tickers.py`** | **Shim** to `run_trading.py analyze` (legacy entry; defaults TA+FA if fusion omitted) |
-| **`backtests/run_*.py`** | Standalone engine drivers where still used |
-
-Heavy generated trees under `data/output/predictions/` and `data/output/backtests/` are **gitignored**; **`data/output/trading_runs/`** may contain committed sample bundles for the dashboard (see repo state).
+| Command | Purpose |
+|---------|---------|
+| `./bin/mts dashboard` | Start dashboard on http://localhost:3055 |
+| `./bin/mts stop` | Stop dashboard |
+| `./bin/mts analyze --ticker AAPL --date YYYY-MM-DD` | Single-ticker analysis |
+| `./bin/mts sector --sector Energy --date YYYY-MM-DD` | Single-sector pilot |
+| `./bin/mts unified --date YYYY-MM-DD` | All-sector unified pilot |
+| `./bin/mts daily` | Daily pipeline (unified + export + notify) |
+| `./bin/mts export --from YYYY-MM-DD --to YYYY-MM-DD` | Reconcile BUY+WATCH → Excel + JSON |
+| `./bin/mts lab unified --date YYYY-MM-DD` | Backtest + dashboard together |
 
 ---
 
-## Backtest Dashboard (`backtest-dashboard/`)
+## Dashboard (Research Lab)
 
-Next.js **App Router** app. Main **routes**:
+Next.js app at `apps/backtest-dashboard/`:
 
 | Route | Purpose |
-| --- | --- |
-| `/` | Home / navigation hub |
-| `/halal` | Halal prediction views |
-| `/sectors` | Sector-oriented views |
-| `/phoenix-scans` | Phoenix scan listings and drill-down |
-| **`/trading-runs`** | Lists `data/output/trading_runs/**`; bundle compare, confusion columns when evaluations exist |
-| **`/phoenix-watch-buy`** | Sector **`master_pilot.json`** via **`/api/trading-runs/bundle`**; BUY+WATCH vs all tickers; sortable table + Excel export |
+|-------|---------|
+| `/` | Home / navigation |
+| `/research` | Research Lab hub |
+| `/research/signals` | Reconciled BUY/WATCH signals |
+| `/research/phoenix` | Single master_pilot viewer |
+| `/research/runs` | Trading runs browser |
+| `/research/scans` | Phoenix sector scans |
 
-**API (selected):** `app/api/trading-runs/`, `app/api/phoenix-scans/`, `app/api/halal-predictions/`, `app/api/sectors-predictions/`.
+---
 
-```bash
-cd backtest-dashboard
-npm install
-npm run dev          # default dev port 3000
-# production
-npm run build && npm run start   # set PORT=3055 (or any) as needed
-```
+## Agents
 
-See **`backtest-dashboard/README.md`** for dashboard-focused setup.
+| Agent | Purpose |
+|-------|---------|
+| **Phoenix** | Stage/pattern/risk scoring, trade-level hints |
+| **Technical** | Momentum, trend, pattern rules (Polygon OHLCV) |
+| **Fundamental** | Financial health, valuation, quality (FMP) |
+| **Orchestrator** | Fusion: TA+FA (`ta-fa`) or Phoenix+FA (`phoenix-fa`, default 90/10 weights) |
 
 ---
 
 ## Environment Setup
 
 ```bash
-# Python: use a project venv at repo root or your preferred path
+# Python venv
 python -m venv .venv && source .venv/bin/activate
-pip install -r requirements.txt
-# Optional: long / pinned backtest stacks
-pip install -r requirements-backtest.txt
+pip install -e .
 
-# API keys (Fundamental + Polygon)
-export FMP_API_KEY=your_fmp_key
-export POLYGON_API_KEY=your_polygon_key
+# API keys
+export FMP_API_KEY=your_key
+export POLYGON_API_KEY=your_key
+
+# Dashboard
+cd apps/backtest-dashboard && npm install
 ```
 
 ---
 
-## Running Tests
+## Output Locations
 
-```bash
-python -m pytest -q
-# Targeted:
-python -m pytest -q tests/phoenix tests/orchestrator
-```
+| Path | Contents |
+|------|----------|
+| `data/output/trading_runs/` | master_pilot.json, run_bundle.json |
+| `data/output/trading_runs/phoenix_signals_reconciled.xlsx` | Exported BUY/WATCH signals |
+| `data/archive/trading_runs/` | Archived runs |
 
----
-
-## The Three “Classic” Agents (Plus Phoenix)
-
-The original README tables for **Fundamental (v3)** and **Technical (v2)** framework weights still apply conceptually; orchestrator headline metrics were historically quoted for **TA+FA CWAF**. **Phoenix** adds a separate scoring path and **Phoenix+FA** fusion — see `ORCHESTRATOR_MODES.md` and Phoenix docs for weights and behavior.
+All output directories are **gitignored**.
 
 ---
 
-## Important Limitations
+## License
 
-- Scores and labels are **research / backtest oriented**, not a guarantee of live performance.
-- Shariah screening uses pragmatic proxies (e.g. interest income ratio); not a full fiqh board–grade classification.
-- Point-in-time constraints: some metadata (e.g. sector/industry) may come from endpoints without full historical snapshots; estimates may be excluded where documented.
-- Dashboard APIs read local JSON; secure or authenticate before exposing beyond localhost.
-
----
-
-## License / Contact
-
-Project-specific license and maintainer notes live with the upstream **`TradingAgent`** repository settings on GitHub.
+Project-specific license and maintainer notes live with the upstream repository settings.

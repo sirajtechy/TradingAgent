@@ -225,6 +225,16 @@ def bundle_row_to_master_ticker(row: Dict[str, Any]) -> Dict[str, Any]:
         "target_hit": bt.get("target_hit"),
         "target_hit_date": bt.get("target_hit_date"),
         "signal_correct": (row.get("evaluation") or {}).get("signal_correct"),
+        "extension_guardrail": row.get("extension_guardrail"),
+        "chase_risk": (row.get("extension_guardrail") or {}).get("chase_risk"),
+        "extension_justification": (row.get("extension_guardrail") or {}).get("justification"),
+        "extension_summary": (row.get("extension_guardrail") or {}).get("summary"),
+        "extension_daily_5d_pct": ((row.get("extension_guardrail") or {}).get("metrics") or {}).get(
+            "daily_change_5d_pct"
+        ),
+        "extension_weekly_4w_pct": ((row.get("extension_guardrail") or {}).get("metrics") or {}).get(
+            "weekly_change_4w_pct"
+        ),
         "pattern_name": tl.get("pattern_name"),
     }
     out["notes"] = (
@@ -306,7 +316,7 @@ def main() -> None:
     parser.add_argument(
         "--eval-days",
         type=int,
-        default=30,
+        default=15,
         help="Calendar days after signal_date for Polygon target-hit window.",
     )
     parser.add_argument("--period-workers", type=int, default=1)
