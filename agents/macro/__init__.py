@@ -1,0 +1,1 @@
+"""Macroeconomics agent package."""

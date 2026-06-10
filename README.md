@@ -31,7 +31,7 @@ set -a && source .env && set +a
 
 ## Daily workflow
 
-See **[Trading-Journals/DailyCommands.txt](./Trading-Journals/DailyCommands.txt)** for the full ship-it list.
+See **[Trading-Journals/DailyCommands.md](./Trading-Journals/DailyCommands.md)** for the full ship-it list.
 
 ```bash
 set -a && source .env && set +a
@@ -147,8 +147,8 @@ All run outputs are **gitignored**.
 
 | Resource | Contents |
 |----------|----------|
-| [Trading-Journals/DailyCommands.txt](./Trading-Journals/DailyCommands.txt) | Daily operator commands |
-| [Trading-Journals/DailyTradingJournal.txt](./Trading-Journals/DailyTradingJournal.txt) | Full backtest matrix + change log |
+| [Trading-Journals/DailyCommands.md](./Trading-Journals/DailyCommands.md) | Daily operator commands |
+| [Trading-Journals/DailyTradingJournal.md](./Trading-Journals/DailyTradingJournal.md) | Full backtest matrix + change log |
 | [docs/SCRIPTS.md](./docs/SCRIPTS.md) | All scripts and engines |
 | [docs/STRUCTURE.md](./docs/STRUCTURE.md) | Folder layout |
 | [docs/architecture/CONFIG.md](./docs/architecture/CONFIG.md) | CLI flags reference |

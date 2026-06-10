@@ -71,10 +71,16 @@ class FusionResult:
     orchestrator_score: float   # 0–100
     conflict_detected: bool
     conflict_resolution: Optional[str]
-    weights_applied: Dict[str, float]  # {"tech": w, "fund": w}
+    weights_applied: Dict[str, float]  # {"tech": w, "fund": w} or full-context slots
 
     tech_output: Optional[AgentOutput] = None
     fund_output: Optional[AgentOutput] = None
     tech_error: Optional[str] = None
     fund_error: Optional[str] = None
     note: Optional[str] = None
+    context_outputs: Dict[str, AgentOutput] = dataclasses.field(default_factory=dict)
+    operator_verdict: Optional[str] = None
+    operator_reasons: tuple = ()
+    agent_envelopes: Dict[str, Dict[str, Any]] = dataclasses.field(default_factory=dict)
+    market_regime: Optional[str] = None
+    summary: Optional[str] = None

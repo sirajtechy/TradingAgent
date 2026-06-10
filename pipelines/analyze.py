@@ -34,7 +34,7 @@ def analyze_single(
     """
     Point-in-time analysis for one ticker. Returns a JSON-serializable dict.
 
-    Fusion modes: phoenix-fa | phoenix | fundamental
+    Fusion modes: phoenix-fa | phoenix | fundamental | full
     """
     tk = ticker.strip().upper()
     as_of = validate_date_iso(as_of_date)
@@ -65,6 +65,18 @@ def analyze_single(
             "phoenix": px,
             "fundamental": fund,
         }
+
+    if mode in ("full", "full-context"):
+        from agents.orchestrator.config import OrchestratorSettings
+        from agents.orchestrator.pipeline_full import run_full_analysis
+
+        cfg = OrchestratorSettings(fund_data_source=fund_data_source)
+        return run_full_analysis(
+            ticker=tk,
+            as_of_date=as_of,
+            fund_data_source=cfg.fund_data_source,
+            settings=cfg,
+        )
 
     if mode == "phoenix":
         from agents.phoenix.service import analyze_ticker as phoenix_analyze

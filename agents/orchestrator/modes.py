@@ -19,6 +19,7 @@ class FusionMode(Enum):
     """Fusion variants that share ``FusionResult`` output shape."""
 
     PHOENIX_FUND = "phoenix_fund"
+    FULL_CONTEXT = "full_context"
 
 
 def fuse_by_mode(
@@ -28,12 +29,14 @@ def fuse_by_mode(
     fund_error: Optional[str] = None,
     phoenix_result: Optional[Dict[str, Any]] = None,
     phoenix_error: Optional[str] = None,
+    agent_envelopes: Optional[Dict[str, Dict[str, Any]]] = None,
+    market_summary_native: Optional[Dict[str, Any]] = None,
     settings: Optional[OrchestratorSettings] = None,
 ) -> FusionResult:
     """
-    Dispatch to ``fuse_signals_phoenix`` (Phoenix + FA fusion).
+    Dispatch to Phoenix+FA or full-context fusion.
 
-    ``phoenix_*`` applies only to :attr:`FusionMode.PHOENIX_FUND`.
+    ``FULL_CONTEXT`` requires ``agent_envelopes`` with intelligence agent outputs.
     """
     cfg = settings or OrchestratorSettings()
 
@@ -42,6 +45,19 @@ def fuse_by_mode(
             phoenix_result=phoenix_result,
             phoenix_error=phoenix_error,
             fund_result=fund_result,
+            fund_error=fund_error,
+            settings=cfg,
+        )
+
+    if mode is FusionMode.FULL_CONTEXT:
+        from .fusion_full import fuse_signals_full
+
+        return fuse_signals_full(
+            phoenix_result=phoenix_result or {},
+            fund_result=fund_result or {},
+            agent_envelopes=agent_envelopes or {},
+            market_summary_native=market_summary_native,
+            phoenix_error=phoenix_error,
             fund_error=fund_error,
             settings=cfg,
         )

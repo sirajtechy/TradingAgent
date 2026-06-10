@@ -267,6 +267,50 @@ def cmd_export(args: argparse.Namespace) -> int:
     return 0
 
 
+def cmd_agent(args: argparse.Namespace) -> int:
+    from agents._registry import analyze_and_envelope
+
+    agent_id = args.agent_id.strip().lower()
+    as_of = args.date
+    ticker = args.ticker or ""
+    try:
+        native, envelope = analyze_and_envelope(
+            agent_id,
+            ticker=ticker,
+            as_of_date=as_of,
+        )
+    except KeyError as exc:
+        raise SystemExit(str(exc)) from exc
+    except Exception as exc:
+        raise SystemExit(f"Agent {agent_id!r} failed: {exc}") from exc
+
+    payload = {"native": native, "envelope": envelope}
+    if args.envelope_only:
+        payload = envelope
+    print(json.dumps(payload, indent=2, default=str))
+    return 0
+
+
+def cmd_context(args: argparse.Namespace) -> int:
+    from agents._registry import analyze_and_envelope
+
+    as_of = args.date
+    out_dir = ROOT / "data" / "output" / "context"
+    out_dir.mkdir(parents=True, exist_ok=True)
+    out_path = out_dir / f"context_{as_of}.json"
+
+    session_agents = ["macro", "market_summary", "geopolitics"]
+    result: dict = {"as_of_date": as_of, "agents": {}}
+    for agent_id in session_agents:
+        native, envelope = analyze_and_envelope(agent_id, ticker="", as_of_date=as_of)
+        result["agents"][agent_id] = {"native": native, "envelope": envelope}
+
+    out_path.write_text(json.dumps(result, indent=2, default=str), encoding="utf-8")
+    print(json.dumps(result, indent=2, default=str))
+    print(f"\nWrote → {out_path.relative_to(ROOT)}")
+    return 0
+
+
 def cmd_lab(args: argparse.Namespace) -> int:
     port = int(args.port)
     if not args.no_dashboard:
@@ -324,7 +368,7 @@ def build_parser() -> argparse.ArgumentParser:
     pa.add_argument(
         "--fusion",
         default="phoenix-fa",
-        choices=["phoenix-fa", "phoenix", "fundamental"],
+        choices=["phoenix-fa", "phoenix", "fundamental", "full"],
     )
     pa.add_argument("--fund-data-source", default="yfinance", choices=["yfinance", "fmp"])
     pa.set_defaults(func=cmd_analyze)
@@ -387,6 +431,21 @@ def build_parser() -> argparse.ArgumentParser:
     pl.add_argument("--no-dashboard", action="store_true", help="Run backtest only")
     pl.set_defaults(func=cmd_lab)
 
+    pag = sub.add_parser("agent", help="Run a single registered agent (standalone JSON)")
+    pag.add_argument(
+        "agent_id",
+        choices=["macro", "market_summary", "phoenix", "fundamental", "news", "insider", "sentiment", "geopolitics"],
+        help="Registered agent id",
+    )
+    pag.add_argument("--ticker", default="", help="Ticker (required for phoenix/fundamental)")
+    pag.add_argument("--date", default=None, metavar="YYYY-MM-DD")
+    pag.add_argument("--envelope-only", action="store_true", help="Print envelope JSON only")
+    pag.set_defaults(func=cmd_agent)
+
+    pctx = sub.add_parser("context", help="Run session agents (macro + market_summary) → JSON cache")
+    pctx.add_argument("--date", default=None, metavar="YYYY-MM-DD")
+    pctx.set_defaults(func=cmd_context)
+
     return p
 
 
@@ -401,6 +460,15 @@ def _apply_default_dates(args: argparse.Namespace) -> None:
         args.date = getattr(args, "global_date", None) or _default_yesterday()
 
 
+def _validate_agent_args(args: argparse.Namespace) -> None:
+    if getattr(args, "command", None) != "agent":
+        return
+    agent_id = args.agent_id.strip().lower()
+    ticker_agents = {"phoenix", "fundamental", "news", "insider", "sentiment"}
+    if agent_id in ticker_agents and not (args.ticker or "").strip():
+        raise SystemExit(f"agent {agent_id} requires --ticker")
+
+
 def main(argv: Optional[List[str]] = None) -> int:
     _load_env()
     if str(ROOT) not in sys.path:
@@ -408,6 +476,7 @@ def main(argv: Optional[List[str]] = None) -> int:
     parser = build_parser()
     args = parser.parse_args(argv)
     _apply_default_dates(args)
+    _validate_agent_args(args)
     return int(args.func(args))
 
 

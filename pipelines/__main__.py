@@ -29,7 +29,7 @@ def main(argv: list[str] | None = None) -> int:
     pa.add_argument(
         "--fusion",
         default="phoenix-fa",
-        choices=["phoenix-fa", "phoenix", "fundamental"],
+        choices=["phoenix-fa", "phoenix", "fundamental", "full"],
     )
     pa.add_argument("--fund-data-source", default="yfinance", choices=["yfinance", "fmp"])
 
