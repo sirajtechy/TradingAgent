@@ -8,7 +8,7 @@ can be overridden in tests without monkey-patching.
 from __future__ import annotations
 
 import dataclasses
-from typing import List
+from typing import Dict, List
 
 
 @dataclasses.dataclass(frozen=True)
@@ -93,3 +93,18 @@ class OrchestratorSettings:
 
     # Fundamental agent data_source — "yfinance" (free, no API key) or "fmp" (paid)
     fund_data_source: str = "yfinance"
+
+    # Full-context fusion slot weights (sum to 1.0). market_summary is regime overlay only.
+    full_context_weights: Dict[str, float] = dataclasses.field(
+        default_factory=lambda: {
+            "phoenix": 0.55,
+            "fundamental": 0.10,
+            "macro": 0.10,
+            "news": 0.10,
+            "insider": 0.08,
+            "geopolitics": 0.07,
+        }
+    )
+
+    strong_buy_min_score: float = 65.0
+    regime_vix_cap_score: float = 62.0

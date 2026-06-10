@@ -4,7 +4,7 @@ Personal operator notes for MyTradingSpace — kept in git alongside the codebas
 
 | File | Purpose |
 |------|---------|
-| [DailyCommands.txt](./DailyCommands.txt) | Ship-it cheat sheet: daily `./bin/mts` commands only |
-| [DailyTradingJournal.txt](./DailyTradingJournal.txt) | Full project journal: backtest matrix, architecture, change log |
+| [DailyCommands.md](./DailyCommands.md) | Ship-it cheat sheet: daily `./bin/mts` commands only |
+| [DailyTradingJournal.md](./DailyTradingJournal.md) | Full project journal: backtest matrix, architecture, change log |
 
-Start with **DailyCommands.txt** for day-to-day runs. Use **DailyTradingJournal.txt** when you need every backtest variant or refactor history.
+Start with **[DailyCommands.md](./DailyCommands.md)** for day-to-day runs. Use **[DailyTradingJournal.md](./DailyTradingJournal.md)** when you need every backtest variant or refactor history.
