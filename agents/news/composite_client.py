@@ -31,10 +31,35 @@ class CompositeNewsClient:
                 snap = self._fmp.build_snapshot(ticker, as_of_date)
                 if snap.headlines or snap.grades or snap.price_targets:
                     return snap
-            except Exception:
-                pass
+            except Exception as exc:
+                msg = str(exc)
+                if "402" in msg or "Payment Required" in msg:
+                    finnhub = _try_finnhub(ticker, as_of_date)
+                    if finnhub.headlines:
+                        return finnhub
+                    yf = yfinance_snapshot(ticker, as_of_date)
+                    yf.warnings.insert(
+                        0,
+                        "FMP news/grades endpoint requires paid tier (402) — using yfinance headlines.",
+                    )
+                    return yf
+
+        finnhub = _try_finnhub(ticker, as_of_date)
+        if finnhub.headlines:
+            return finnhub
 
         return yfinance_snapshot(ticker, as_of_date)
+
+
+def _try_finnhub(ticker: str, as_of_date: date) -> NewsSnapshot:
+    from .finnhub_client import build_snapshot as finnhub_snapshot, is_available
+
+    if not is_available():
+        return NewsSnapshot(ticker=ticker, as_of_date=as_of_date, headlines=[], data_sources=[], warnings=[])
+    try:
+        return finnhub_snapshot(ticker, as_of_date)
+    except Exception:
+        return NewsSnapshot(ticker=ticker, as_of_date=as_of_date, headlines=[], data_sources=[], warnings=[])
 
 
 def load_composite_client(api_key: str | None = None) -> CompositeNewsClient:

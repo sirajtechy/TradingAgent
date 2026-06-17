@@ -1,0 +1,1 @@
+"""Minervini SEPA strategy."""

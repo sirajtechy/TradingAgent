@@ -28,7 +28,7 @@ def build_snapshot(ticker: str, as_of_date: date, lookback_days: int = 30) -> Ne
             warnings=[f"yfinance news failed: {exc}"],
         )
 
-    for item in raw[:30]:
+    for item in raw[:10]:
         content = item.get("content") if isinstance(item.get("content"), dict) else item
         title = str((content or {}).get("title") or item.get("title") or "")
         if not title:
@@ -59,7 +59,7 @@ def build_snapshot(ticker: str, as_of_date: date, lookback_days: int = 30) -> Ne
     return NewsSnapshot(
         ticker=ticker,
         as_of_date=as_of_date,
-        headlines=headlines,
+        headlines=headlines[:10],
         data_sources=sources,
         warnings=warnings,
     )

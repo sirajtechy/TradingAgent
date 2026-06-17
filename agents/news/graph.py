@@ -47,7 +47,17 @@ def build_graph(client: FMPNewsClient, settings: NewsSettings):
 
     def render_node(state: NewsState) -> Dict[str, Any]:
         evaluation = dict(state["evaluation"])
+        snapshot = state["snapshot"]
         evaluation["report"] = build_text_report(evaluation)
+        evaluation["headlines"] = [
+            {
+                "title": h.title,
+                "source": h.source,
+                "date": h.published_date.isoformat(),
+                "url": h.url,
+            }
+            for h in snapshot.headlines[:10]
+        ]
         return {"evaluation": evaluation}
 
     graph.add_node("fetch_news", fetch_node)

@@ -1,4 +1,4 @@
-"""Insider client: FMP when available, yfinance fallback (free)."""
+"""Insider client: SEC EDGAR Form 4 primary, FMP/yfinance fallbacks."""
 
 from __future__ import annotations
 
@@ -7,6 +7,7 @@ from datetime import date
 from typing import Optional
 
 from .config import InsiderSettings, load_settings
+from .edgar_client import build_snapshot as edgar_snapshot
 from .fmp_client import FMPInsiderClient
 from .models import InsiderSnapshot
 from .yfinance_fallback import build_snapshot as yfinance_snapshot
@@ -26,15 +27,38 @@ class CompositeInsiderClient:
         if prefer == "yfinance":
             return yfinance_snapshot(ticker, as_of_date, lookback_days=lookback)
 
+        if prefer in ("auto", "edgar"):
+            try:
+                snap = edgar_snapshot(ticker, as_of_date, lookback_days=lookback)
+                if snap.trades or prefer == "edgar":
+                    return snap
+            except Exception as exc:
+                if prefer == "edgar":
+                    snap = InsiderSnapshot(
+                        ticker=ticker.upper(),
+                        as_of_date=as_of_date,
+                        trades=[],
+                        data_sources=[],
+                        warnings=[f"SEC EDGAR failed: {exc}"],
+                    )
+                    return snap
+
         if self._fmp and prefer in ("auto", "fmp"):
             try:
                 snap = self._fmp.build_snapshot(ticker, as_of_date)
                 if snap.trades:
                     return snap
-            except Exception:
-                pass
+            except Exception as exc:
+                msg = str(exc)
+                if "402" in msg or "Payment Required" in msg:
+                    yf = yfinance_snapshot(ticker, as_of_date, lookback_days=lookback)
+                    yf.warnings.insert(0, "FMP insider endpoint requires paid tier (402) — using yfinance.")
+                    return yf
 
-        return yfinance_snapshot(ticker, as_of_date, lookback_days=lookback)
+        yf = yfinance_snapshot(ticker, as_of_date, lookback_days=lookback)
+        if prefer in ("auto", "edgar") and not yf.trades:
+            yf.warnings.insert(0, "No SEC Form 4 trades parsed — fell back to yfinance.")
+        return yf
 
 
 def load_composite_client(api_key: str | None = None) -> CompositeInsiderClient:

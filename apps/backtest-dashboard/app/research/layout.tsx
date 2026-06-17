@@ -7,12 +7,17 @@ import {
   ChevronLeft,
   Crosshair,
   Layers,
+  Microscope,
+  ShoppingCart,
   Table2,
 } from "lucide-react";
 
 const NAV = [
   { href: "/research/signals", label: "Signals", icon: Crosshair, color: "text-emerald-400" },
   { href: "/research/phoenix", label: "Phoenix pilot", icon: Table2, color: "text-indigo-400" },
+  { href: "/research/portfolio", label: "Portfolio", icon: BarChart3, color: "text-teal-400" },
+  { href: "/research/analyze", label: "Deep analyze", icon: Microscope, color: "text-indigo-400" },
+  { href: "/research/analyze/watchlist", label: "BUY/WATCH dive", icon: ShoppingCart, color: "text-emerald-400" },
   { href: "/research/runs", label: "Trading runs", icon: Layers, color: "text-amber-400" },
   { href: "/research/scans", label: "Phoenix scans", icon: BarChart3, color: "text-purple-400" },
 ];

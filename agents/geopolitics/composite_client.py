@@ -30,8 +30,12 @@ class CompositeGeopoliticsClient:
                 snap = self._fmp.build_snapshot(as_of_date)
                 if snap.headlines or snap.total_scanned:
                     return snap
-            except Exception:
-                pass
+            except Exception as exc:
+                msg = str(exc)
+                if "402" in msg or "Payment Required" in msg:
+                    snap = yfinance_snapshot(as_of_date, settings=self._settings)
+                    snap.warnings.insert(0, "FMP geopolitics feeds require paid tier (402) — using yfinance scan.")
+                    return snap
 
         return yfinance_snapshot(as_of_date, settings=self._settings)
 

@@ -1,0 +1,55 @@
+{
+  "schema_version": "1.0",
+  "budget_default": 200000,
+  "currency_note": "Nominal account size for US halal equities (map from INR capital at your FX rate).",
+  "num_stocks": 20,
+  "num_stocks_min": 15,
+  "num_stocks_max": 25,
+  "rebalance_day_of_month": 21,
+  "rebalance_holiday": "next_day",
+  "universe_mode_default": "top10",
+  "exit_rank_pct": 0.10,
+  "sector_cap_pct": 0.25,
+  "single_name_cap_pct": 0.10,
+  "min_avg_dollar_volume": 500000,
+  "momentum_lookbacks_days": {
+    "1m": 21,
+    "3m": 63,
+    "6m": 126,
+    "9m": 189
+  },
+  "momentum_weights": {
+    "1m": 0.33,
+    "6m": 0.34,
+    "9m": 0.33
+  },
+  "conviction_weights": {
+    "cross_sectional_momentum": 0.25,
+    "phoenix_fusion_score": 0.20,
+    "strategy_blend_score": 0.20,
+    "intelligence_consensus": 0.15,
+    "relative_strength_vs_spy": 0.10,
+    "smoothness": 0.10
+  },
+  "regime": {
+    "enabled": true,
+    "index_symbol": "SPY",
+    "timeframe": "weekly",
+    "supertrend_period": 10,
+    "supertrend_multiplier": 2.5,
+    "action": "cash_only"
+  },
+  "swing_overlay": {
+    "enabled": false,
+    "hold_days_min": 2,
+    "hold_days_max": 5
+  },
+  "position_sizing": {
+    "mode": "equal_weight",
+    "tier_bumps_pct": {
+      "high": 0.20,
+      "medium": 0.0,
+      "low": -0.20
+    }
+  }
+}

@@ -47,7 +47,17 @@ def build_graph(client: GeopoliticsDataClient, settings: GeopoliticsSettings):
 
     def render_node(state: GeopoliticsState) -> Dict[str, Any]:
         evaluation = dict(state["evaluation"])
+        snapshot: GeopoliticsSnapshot = state["snapshot"]
         evaluation["report"] = build_text_report(evaluation)
+        evaluation["headlines"] = [
+            {
+                "title": h.title,
+                "source": h.source,
+                "date": h.published_date.isoformat(),
+                "keywords": list(h.matched_keywords),
+            }
+            for h in snapshot.headlines[:10]
+        ]
         return {"evaluation": evaluation}
 
     graph.add_node("fetch_geo", fetch_node)

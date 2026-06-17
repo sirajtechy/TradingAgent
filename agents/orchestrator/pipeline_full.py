@@ -15,7 +15,12 @@ from typing import Any, Dict, List, Optional, Tuple
 
 from core.paths import ROOT
 
-from .agent_breakdown import ALL_AGENT_IDS, build_agent_breakdown, build_deterministic_digest
+from .agent_breakdown import (
+    ALL_AGENT_IDS,
+    build_agent_breakdown,
+    build_deterministic_digest,
+    write_agent_breakdown_markdown,
+)
 from .config import OrchestratorSettings
 from .fusion_full import fuse_signals_full
 
@@ -99,6 +104,7 @@ def run_full_analysis(
     refresh_context: bool = False,
     include_llm_summary: bool = False,
     human_decision_mode: bool = True,
+    markdown_out: Optional[Path] = None,
 ) -> Dict[str, Any]:
     """
     Full orchestrator analysis for one ticker.
@@ -205,7 +211,12 @@ def run_full_analysis(
 
     fusion_dict["summary"] = summary
 
-    return {
+    breakdown_markdown_path: Optional[str] = None
+    if markdown_out is not None:
+        written = write_agent_breakdown_markdown(breakdown, markdown_out, fusion=fusion_dict)
+        breakdown_markdown_path = str(written.relative_to(ROOT))
+
+    result: Dict[str, Any] = {
         "ok": True,
         "fusion_mode": "full",
         "human_decision_mode": human_decision_mode,
@@ -220,3 +231,8 @@ def run_full_analysis(
         "summary": summary,
         "all_agents_ran": True,
     }
+    if breakdown_markdown_path:
+        result["breakdown_markdown_path"] = breakdown_markdown_path
+    if refresh_context:
+        result["context_refreshed"] = True
+    return result

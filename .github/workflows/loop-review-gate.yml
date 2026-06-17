@@ -1,0 +1,32 @@
+name: loop-review-gate
+
+on:
+  workflow_dispatch:
+    inputs:
+      feature_id:
+        description: "Feature ID under review"
+        required: true
+        type: string
+
+jobs:
+  review_gate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        working-directory: .
+        run: pip install -e ".[dev]" pyyaml
+
+      - name: Run verification gate
+        working-directory: .
+        run: python scripts/loop_verify.py --feature "${{ github.event.inputs.feature_id }}"
+
+      - name: Check plan exists
+        working-directory: .
+        run: test -f ".loop/state/plans/${{ github.event.inputs.feature_id }}.md"

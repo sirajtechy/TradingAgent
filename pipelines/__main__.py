@@ -13,8 +13,23 @@ from __future__ import annotations
 
 import argparse
 import sys
+from pathlib import Path
 
-from pipelines.analyze import analyze_single
+ROOT = Path(__file__).resolve().parent.parent
+
+
+def _load_env() -> None:
+    try:
+        from dotenv import load_dotenv
+
+        load_dotenv(ROOT / ".env")
+    except ImportError:
+        pass
+
+
+_load_env()
+
+from pipelines.analyze import analyze_single, analyze_watchlist
 from pipelines.backtest import run_sector_pilot, run_unified_pilot
 from pipelines.daily import run_daily
 
@@ -23,8 +38,20 @@ def main(argv: list[str] | None = None) -> int:
     p = argparse.ArgumentParser(description=__doc__)
     sub = p.add_subparsers(dest="command", required=True)
 
-    pa = sub.add_parser("analyze", help="Single-ticker analyze (OpenClaw / JSON)")
-    pa.add_argument("--ticker", required=True)
+    pa = sub.add_parser("analyze", help="Single-ticker or BUY/WATCH watchlist analyze (JSON)")
+    pa.add_argument("--ticker", default=None, help="Required unless --watchlist")
+    pa.add_argument("--watchlist", action="store_true", help="Analyze all BUY/WATCH from master_pilot")
+    pa.add_argument(
+        "--trade-focus",
+        action="store_true",
+        help="Watchlist: BUY + WATCH with Phoenix score > 60 only",
+    )
+    pa.add_argument("--max-tickers", type=int, default=None, help="Cap watchlist batch size")
+    pa.add_argument(
+        "--force",
+        action="store_true",
+        help="Re-analyze even when cached JSON exists (watchlist)",
+    )
     pa.add_argument("--date", required=True, metavar="YYYY-MM-DD")
     pa.add_argument(
         "--fusion",
@@ -32,6 +59,34 @@ def main(argv: list[str] | None = None) -> int:
         choices=["phoenix-fa", "phoenix", "fundamental", "full"],
     )
     pa.add_argument("--fund-data-source", default="yfinance", choices=["yfinance", "fmp"])
+    pa.add_argument(
+        "--export-breakdown",
+        action="store_true",
+        help="Write agent_breakdown markdown (full fusion only; default path under data/output/research/)",
+    )
+    pa.add_argument(
+        "--markdown-out",
+        default=None,
+        metavar="PATH",
+        help="Override markdown output path (implies --export-breakdown)",
+    )
+    pa.add_argument(
+        "--json-out",
+        default=None,
+        metavar="PATH",
+        help="Write analyze JSON to PATH (default auto-save for full fusion or --export-breakdown)",
+    )
+    pa.add_argument(
+        "--refresh-context",
+        action="store_true",
+        help="Re-run macro, market_summary, geopolitics cache (full fusion)",
+    )
+    pa.add_argument(
+        "--strategy-profile",
+        default="none",
+        choices=["none", "minervini", "moglen", "breitstein", "mcintosh", "blend", "all"],
+        help="Attach trader strategy intelligence layers",
+    )
 
     ps = sub.add_parser("sector", help="Single-sector master pilot")
     ps.add_argument("--sector", required=True)
@@ -54,11 +109,38 @@ def main(argv: list[str] | None = None) -> int:
     args = p.parse_args(argv)
 
     if args.command == "analyze":
+        import json
+
+        if args.watchlist:
+            doc = analyze_watchlist(
+                as_of_date=args.date,
+                fusion=args.fusion,
+                fund_data_source=args.fund_data_source,
+                export_breakdown=args.export_breakdown or bool(args.markdown_out),
+                refresh_context=args.refresh_context,
+                strategy_profile=args.strategy_profile,
+                trade_focus_only=args.trade_focus,
+                skip_cached=not args.force,
+                max_tickers=args.max_tickers,
+            )
+            print(json.dumps(doc, indent=2, default=str))
+            return 0 if doc.get("ok", True) else 1
+
+        if not args.ticker:
+            print("error: --ticker required unless --watchlist", file=sys.stderr)
+            return 1
+
+        export_breakdown = args.export_breakdown or bool(args.markdown_out)
         doc = analyze_single(
             ticker=args.ticker,
             as_of_date=args.date,
             fusion=args.fusion,
             fund_data_source=args.fund_data_source,
+            export_breakdown=export_breakdown,
+            markdown_out=args.markdown_out,
+            json_out=args.json_out,
+            refresh_context=args.refresh_context,
+            strategy_profile=args.strategy_profile,
         )
         import json
 

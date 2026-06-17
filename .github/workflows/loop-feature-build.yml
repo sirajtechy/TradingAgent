@@ -1,0 +1,58 @@
+name: loop-feature-build
+
+on:
+  workflow_dispatch:
+    inputs:
+      feature_id:
+        description: "Feature ID to build (e.g. FEAT-001)"
+        required: true
+        type: string
+      dry_run:
+        description: "Dry run only (no worktree)"
+        required: false
+        type: boolean
+        default: false
+
+jobs:
+  build_feature:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        working-directory: .
+        run: |
+          pip install -e ".[dev]"
+          pip install pyyaml
+
+      - name: Triage and select
+        working-directory: .
+        run: |
+          python scripts/loop_triage.py
+          python scripts/loop_select.py --feature "${{ github.event.inputs.feature_id }}"
+
+      - name: Plan feature
+        working-directory: .
+        run: python scripts/loop_plan.py --feature "${{ github.event.inputs.feature_id }}"
+
+      - name: Spawn worktree
+        if: ${{ github.event.inputs.dry_run == false }}
+        working-directory: .
+        run: bash scripts/loop_spawn_worktree.sh "${{ github.event.inputs.feature_id }}"
+
+      - name: Verify (tests)
+        working-directory: .
+        run: python scripts/loop_verify.py --feature "${{ github.event.inputs.feature_id }}"
+
+      - name: Upload plan artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: loop-plan-${{ github.event.inputs.feature_id }}
+          path: |
+            .loop/state/plans/${{ github.event.inputs.feature_id }}.md
+            .loop/state/verify/${{ github.event.inputs.feature_id }}.json

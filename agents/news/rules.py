@@ -179,10 +179,15 @@ def _build_bullets(
     bullets: List[str] = []
     if priority_actions:
         pa = priority_actions[0]
-        bullets.append(f"• {pa['firm']} {pa['action']} → {pa['grade']}")
+        bullets.append(f"{pa['firm']} {pa['action']} → {pa['grade']} ({pa['date']})")
     if upgrades or downgrades:
-        bullets.append(f"• Analyst activity: {upgrades} upgrade(s), {downgrades} downgrade(s)")
-    if snapshot.headlines:
-        bullets.append(f"• {len(snapshot.headlines)} headlines in last 30d")
-    bullets.append(f"• News/analyst signal: {signal}")
-    return bullets[:3]
+        bullets.append(f"Analyst activity: {upgrades} upgrade(s), {downgrades} downgrade(s)")
+    for headline in snapshot.headlines[:3]:
+        title = headline.title.strip()
+        if title:
+            src = f" — {headline.source}" if headline.source else ""
+            bullets.append(f"\"{title[:120]}\"{src} ({headline.published_date})")
+    if snapshot.headlines and len(snapshot.headlines) > 3:
+        bullets.append(f"{len(snapshot.headlines)} headlines in last 30d")
+    bullets.append(f"News/analyst signal: {signal}")
+    return bullets[:6]

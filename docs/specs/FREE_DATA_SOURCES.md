@@ -2,6 +2,30 @@
 
 This project supports paid APIs (Polygon/Massive, FMP, FRED) and **free fallbacks** when keys are missing or paid tiers fail.
 
+## Config validation (FEAT-001)
+
+Validate your `.env` against the platform schema before running agents:
+
+```bash
+./bin/mts config validate              # validates MyTradingSpace/.env
+./bin/mts config validate --env .env.example
+```
+
+Checks:
+
+| Env var | Allowed values |
+|---------|----------------|
+| `MACRO_DATA_SOURCE` | `auto`, `fred`, `yfinance` |
+| `NEWS_DATA_SOURCE` | `auto`, `fmp`, `yfinance` |
+| `INSIDER_DATA_SOURCE` | `auto`, `fmp`, `yfinance` |
+| `GEOPOLITICS_DATA_SOURCE` | `auto`, `fmp`, `yfinance` |
+| `MARKET_DATA_SOURCE` | `auto`, `polygon`, `yfinance` |
+| `LLM_PROVIDER` | `deterministic`, `openai` |
+
+Unknown keys (not in `.env.example` / platform schema) produce **errors**. Placeholder API keys produce **warnings**.
+
+Implementation: `core/config_schema.py` · Tests: `tests/test_config_schema.py`
+
 ## Macro agent
 
 | Source | Cost | Env | What you get |
@@ -31,14 +55,15 @@ Default: `NEWS_DATA_SOURCE=auto` → FMP if key works, else yfinance.
 
 Default: `MARKET_DATA_SOURCE=auto` → Polygon if key works, else yfinance.
 
-## Insider agent
+### Insider (ticker-specific)
 
 | Source | Cost | Env | What you get |
 |--------|------|-----|--------------|
-| FMP | Paid | `FMP_API_KEY` | Form 4-style insider trades |
+| **SEC EDGAR Form 4** | **Free** | `SEC_EDGAR_USER_AGENT` | Authoritative insider buys/sales from Form 4 XML |
+| FMP | Paid | `FMP_API_KEY` | Aggregated insider trades |
 | yfinance | **Free** | `INSIDER_DATA_SOURCE=yfinance` | Insider transactions dataframe |
 
-Default: `INSIDER_DATA_SOURCE=auto` → FMP if key works, else yfinance.
+Default: `INSIDER_DATA_SOURCE=auto` → SEC EDGAR Form 4, then FMP if key works, else yfinance.
 
 ## Geopolitics agent
 

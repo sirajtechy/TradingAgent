@@ -1,0 +1,150 @@
+# Loop roadmap — epics and features for autonomous build selection.
+# Only features with auto_eligible: true may be picked by loop_select.py.
+
+epics:
+  - id: EPIC-001
+    name: Full-context orchestrator
+    priority: high
+    status: active
+  - id: EPIC-002
+    name: Loop engineering infrastructure
+    priority: high
+    status: active
+  - id: EPIC-004
+    name: Trader strategy intelligence layer
+    priority: high
+    status: active
+  - id: EPIC-003
+    name: Production research ops
+    priority: medium
+    status: active
+
+features:
+  - id: FEAT-001
+    title: Config schema validator for env and data-source flags
+    epic: EPIC-002
+    priority: high
+    auto_eligible: true
+    status: done
+    risk_level: low
+    acceptance_criteria:
+      - Validates MACRO_DATA_SOURCE, NEWS_DATA_SOURCE, INSIDER_DATA_SOURCE values
+      - Emits clear errors for unknown keys
+      - Unit tests cover valid and invalid configs
+      - Documented in FREE_DATA_SOURCES.md
+
+  - id: FEAT-002
+    title: Agent breakdown markdown export for daily journal
+    epic: EPIC-001
+    priority: high
+    auto_eligible: true
+    status: done
+    risk_level: low
+    acceptance_criteria:
+      - CLI or script exports agent_breakdown to markdown file
+      - Includes all 8 agents with status, signal, score, bullets
+      - Human decision mode note preserved
+      - Fixture-based test on sample JSON
+
+  - id: FEAT-003
+    title: Refresh context CLI flag for session agent cache
+    epic: EPIC-001
+    priority: medium
+    auto_eligible: true
+    status: done
+    risk_level: low
+    acceptance_criteria:
+      - ./bin/mts analyze supports --refresh-context
+      - Forces re-run of macro, market_summary, geopolitics session cache
+      - Documented in DailyCommands.md
+
+  - id: FEAT-004
+    title: Full-fusion backtest wiring in pipelines
+    epic: EPIC-001
+    priority: medium
+    auto_eligible: false
+    status: deferred
+    risk_level: high
+    acceptance_criteria:
+      - --fusion full available in sector/unified backtests
+      - Labeled outcomes comparable to phoenix-fa baseline
+      - Quant-risk review required before auto_eligible
+
+  - id: FEAT-005
+    title: Relative strength vs SPY module for Phoenix
+    epic: EPIC-001
+    priority: high
+    auto_eligible: false
+    status: deferred
+    risk_level: high
+    acceptance_criteria:
+      - RS vs SPY computed point-in-time
+      - Surfaced in agent_breakdown and Phoenix report
+      - Backtest precision improvement documented
+
+  - id: FEAT-012
+    title: Strategy signal contract and trader module registry
+    epic: EPIC-004
+    priority: high
+    auto_eligible: true
+    status: done
+    risk_level: low
+    acceptance_criteria:
+      - StrategySignal schema in agents/strategies/common
+      - Registry supports minervini moglen breitstein mcintosh
+      - Unit tests with fixture bars
+
+  - id: FEAT-013
+    title: Minervini SEPA strategy module
+    epic: EPIC-004
+    priority: high
+    auto_eligible: true
+    status: done
+    risk_level: low
+    acceptance_criteria:
+      - Trend template VCP quality catalyst chase guard
+      - Integrated via --strategy-profile minervini
+
+  - id: FEAT-014
+    title: Moglen regime and setup pack module
+    epic: EPIC-004
+    priority: high
+    auto_eligible: true
+    status: done
+    risk_level: low
+    acceptance_criteria:
+      - SPY 21 EMA regime guard RMV setup pack
+      - Integrated via --strategy-profile moglen
+
+  - id: FEAT-015
+    title: McIntosh leader rank and position tiers
+    epic: EPIC-004
+    priority: medium
+    auto_eligible: true
+    status: done
+    risk_level: low
+    acceptance_criteria:
+      - Leader rank ADR tiers pyramid permission
+      - Integrated via --strategy-profile mcintosh
+
+  - id: FEAT-016
+    title: Breitstein execution features daily proxy
+    epic: EPIC-004
+    priority: medium
+    auto_eligible: true
+    status: done
+    risk_level: low
+    acceptance_criteria:
+      - VWAP proxy rangebound filter capitulation character
+      - Integrated via --strategy-profile breitstein
+
+  - id: FEAT-017
+    title: Strategy blend meta-signals and analyze CLI
+    epic: EPIC-004
+    priority: medium
+    auto_eligible: true
+    status: done
+    risk_level: low
+    acceptance_criteria:
+      - --strategy-profile blend on analyze and strategy CLI
+      - meta_signals with attribution in JSON output

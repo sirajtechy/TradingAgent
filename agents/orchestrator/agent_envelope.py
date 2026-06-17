@@ -202,6 +202,8 @@ def envelope_from_insider(
             "metrics": native.get("metrics") or {},
             "subscores": native.get("subscores") or {},
             "data_sources": list(native.get("data_sources") or []),
+            "recent_trades": list(native.get("recent_trades") or []),
+            "per_insider_sales": list(native.get("per_insider_sales") or []),
         },
     }
 
@@ -288,8 +290,6 @@ def envelope_from_market_summary(
             "vix_regime": native.get("vix_regime"),
             "sector_leaders": native.get("sector_leaders") or [],
             "sector_laggards": native.get("sector_laggards") or [],
-            "macro": native.get("macro") or {},
-            "subscores": native.get("subscores") or {},
             "data_sources": list(native.get("data_sources") or []),
         },
     }

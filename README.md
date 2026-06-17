@@ -122,6 +122,9 @@ MyTradingSpace/
 │   ├── backtest-dashboard/  # Research Lab UI
 │   └── openclaw/            # Phone / WhatsApp wrappers
 ├── Trading-Journals/        # DailyCommands + DailyTradingJournal (operator notes)
+├── .loop/                   # Loop engineering control plane (triage, skills, state)
+├── AGENTS.md                # Cursor/agent instructions for loop + architecture
+├── scripts/loop_*.py        # Loop triage, plan, verify, ops scripts
 ├── docs/                    # Specs, architecture, SCRIPTS.md
 ├── data/input/              # Halal universe, master tickers
 ├── data/output/             # trading_runs (gitignored)
@@ -148,6 +151,9 @@ All run outputs are **gitignored**.
 | Resource | Contents |
 |----------|----------|
 | [Trading-Journals/DailyCommands.md](./Trading-Journals/DailyCommands.md) | Daily operator commands |
+| [AGENTS.md](./AGENTS.md) | Loop engineering + agent boundaries |
+| [skills/tradingagent-loop-engineering-scaffold.md](./skills/tradingagent-loop-engineering-scaffold.md) | Loop scaffold spec |
+| [.loop/roadmap.yaml](./.loop/roadmap.yaml) | Feature backlog for loop automation |
 | [Trading-Journals/DailyTradingJournal.md](./Trading-Journals/DailyTradingJournal.md) | Full backtest matrix + change log |
 | [docs/SCRIPTS.md](./docs/SCRIPTS.md) | All scripts and engines |
 | [docs/STRUCTURE.md](./docs/STRUCTURE.md) | Folder layout |
@@ -158,7 +164,7 @@ All run outputs are **gitignored**.
 ## Environment
 
 ```bash
-python3 -m pip install -e .
+python3 -m pip install -e ".[dev]"
 export POLYGON_API_KEY=your_key    # or in .env
 export FMP_API_KEY=your_key        # optional; yfinance fallback for FA
 cd apps/backtest-dashboard && npm install
