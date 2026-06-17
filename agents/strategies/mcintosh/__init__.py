@@ -1,0 +1,1 @@
+"""McIntosh concentration strategy."""

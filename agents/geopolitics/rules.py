@@ -152,15 +152,21 @@ def _build_bullets(
 ) -> List[str]:
     bullets: List[str] = []
     if llm_bullets:
-        bullets.extend(llm_bullets[:2])
+        bullets.extend(str(b).lstrip("• ").strip() for b in llm_bullets[:2])
+    for headline in snapshot.headlines[:3]:
+        title = headline.title.strip()
+        if title:
+            kws = ", ".join(headline.matched_keywords[:3])
+            kw_txt = f" [{kws}]" if kws else ""
+            bullets.append(f"\"{title[:120]}\"{kw_txt}")
     if snapshot.headlines:
         top_kws = set()
         for h in snapshot.headlines[:5]:
             top_kws.update(h.matched_keywords)
         if top_kws:
-            bullets.append(f"• Key themes: {', '.join(sorted(top_kws)[:4])}")
+            bullets.append(f"Key themes: {', '.join(sorted(top_kws)[:4])}")
     if sector_exposure:
         top_sector = max(sector_exposure, key=sector_exposure.get)
-        bullets.append(f"• Most exposed sector: {top_sector}")
-    bullets.append(f"• Geopolitical signal: {signal}")
-    return bullets[:3]
+        bullets.append(f"Most exposed sector: {top_sector} ({sector_exposure[top_sector]} hits)")
+    bullets.append(f"Geopolitical signal: {signal} ({len(snapshot.headlines)} geo headlines)")
+    return bullets[:6]

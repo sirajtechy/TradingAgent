@@ -47,8 +47,9 @@ def build_snapshot(as_of_date: date) -> Tuple[Dict[str, Any], List[str], List[st
 
     if t10 is not None and short is not None:
         spread = round(t10 - short, 2)
-        metrics["yield_spread"] = spread
+        metrics["yield_spread_10y2y"] = spread
         metrics["yield_spread_date"] = as_of_date.isoformat()
+        metrics["long_yield_10y"] = round(t10, 2)
         sources.append("yfinance:yield_spread_proxy")
 
     if t10 is not None and len(sources) >= 1:

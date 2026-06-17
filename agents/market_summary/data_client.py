@@ -33,6 +33,17 @@ class MarketSummaryDataClient:
             try:
                 snap = self._build_polygon_snapshot(as_of_date)
                 if snap.vix is not None or snap.spy is not None:
+                    if snap.vix is None:
+                        yf_snap = yfinance_snapshot(as_of_date, self._settings)
+                        snap = MarketDataSnapshot(
+                            as_of_date=snap.as_of_date,
+                            vix=yf_snap.vix,
+                            vix_regime=yf_snap.vix_regime if yf_snap.vix is not None else snap.vix_regime,
+                            spy=snap.spy or yf_snap.spy,
+                            sectors=snap.sectors or yf_snap.sectors,
+                            data_sources=list(dict.fromkeys((snap.data_sources or []) + ["yfinance:^VIX"])),
+                            warnings=list(snap.warnings or []) + list(yf_snap.warnings or []),
+                        )
                     return snap
             except Exception:
                 pass
@@ -82,10 +93,13 @@ class MarketSummaryDataClient:
     def _fetch_vix(self, as_of_date: date) -> Tuple[Optional[float], List[str]]:
         warnings: List[str] = []
         for ticker in (self._settings.vix_ticker, "VIX"):
-            df = self._polygon.fetch_daily_bars(ticker, as_of_date, lookback_days=10)
+            try:
+                df = self._polygon.fetch_daily_bars(ticker, as_of_date, lookback_days=10)
+            except Exception:
+                continue
             if df is not None and not df.empty:
                 return float(df["Close"].iloc[-1]), warnings
-        warnings.append("VIX data unavailable from Polygon")
+        warnings.append("VIX data unavailable from Polygon — will try yfinance proxy if needed")
         return None, warnings
 
     def _fetch_performance(

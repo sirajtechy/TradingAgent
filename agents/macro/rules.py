@@ -160,12 +160,14 @@ def evaluate_metrics(metrics: Dict[str, Any], warnings: List[str], data_sources:
 def _build_bullets(metrics: Dict[str, Any], signal: str) -> List[str]:
     bullets: List[str] = []
     if metrics.get("fed_funds") is not None:
-        bullets.append(f"• Fed funds {metrics['fed_funds']:.2f}% as of {metrics.get('fed_funds_date', 'n/a')}")
+        bullets.append(f"Fed funds {metrics['fed_funds']:.2f}% as of {metrics.get('fed_funds_date', 'n/a')}")
     if metrics.get("cpi_yoy_pct") is not None:
-        bullets.append(f"• CPI YoY {metrics['cpi_yoy_pct']:.1f}%")
+        bullets.append(f"CPI YoY {metrics['cpi_yoy_pct']:.1f}%")
+    if metrics.get("unemployment") is not None:
+        bullets.append(f"Unemployment {metrics['unemployment']:.1f}%")
     if metrics.get("yield_spread_10y2y") is not None:
         spread = metrics["yield_spread_10y2y"]
         curve = "inverted" if spread < 0 else "positive"
-        bullets.append(f"• 10Y-2Y spread {spread:.2f}% ({curve} curve)")
-    bullets.append(f"• Macro swing backdrop: {signal}")
-    return bullets[:3]
+        bullets.append(f"10Y-2Y spread {spread:.2f}% ({curve} curve)")
+    bullets.append(f"Macro swing backdrop: {signal}")
+    return bullets[:6]

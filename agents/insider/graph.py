@@ -36,6 +36,24 @@ def build_graph(client: InsiderDataClient):
     def render_node(state: InsiderState) -> Dict[str, Any]:
         evaluation = dict(state["evaluation"])
         evaluation["report"] = build_text_report(evaluation)
+        snapshot: InsiderSnapshot = state["snapshot"]
+        recent = sorted(
+            snapshot.trades,
+            key=lambda t: (t.transaction_date or t.filing_date, t.filing_date),
+            reverse=True,
+        )
+        evaluation["recent_trades"] = [
+            {
+                "owner": t.owner_name,
+                "title": t.title,
+                "type": t.transaction_type,
+                "shares": t.shares,
+                "value": t.value,
+                "price": t.price,
+                "date": (t.transaction_date or t.filing_date).isoformat(),
+            }
+            for t in recent[:10]
+        ]
         return {"evaluation": evaluation}
 
     graph.add_node("fetch_insider", fetch_node)

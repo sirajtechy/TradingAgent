@@ -182,12 +182,23 @@ def _build_bullets(
     bullets: List[str] = []
     if market_snapshot.vix is not None:
         bullets.append(
-            f"• VIX {market_snapshot.vix:.2f} ({market_snapshot.vix_regime})"
+            f"VIX {market_snapshot.vix:.2f} ({market_snapshot.vix_regime})"
         )
     if market_snapshot.spy and market_snapshot.spy.change_20d_pct is not None:
-        bullets.append(f"• SPY 20d {market_snapshot.spy.change_20d_pct:+.2f}%")
+        bullets.append(f"SPY 20d {market_snapshot.spy.change_20d_pct:+.2f}%")
     macro_metrics = macro_eval.get("metrics") or {}
     if macro_metrics.get("cpi_yoy_pct") is not None:
-        bullets.append(f"• CPI YoY {macro_metrics['cpi_yoy_pct']:.1f}%")
-    bullets.append(f"• Market-wide signal: {market_wide_signal}")
-    return bullets[:3]
+        bullets.append(f"CPI YoY {macro_metrics['cpi_yoy_pct']:.1f}%")
+    if macro_metrics.get("fed_funds") is not None:
+        bullets.append(f"Fed funds {macro_metrics['fed_funds']:.2f}%")
+    if macro_metrics.get("yield_spread_10y2y") is not None:
+        spread = macro_metrics["yield_spread_10y2y"]
+        curve = "inverted" if spread < 0 else "positive"
+        bullets.append(f"10Y-2Y spread {spread:.2f}% ({curve} curve)")
+    leaders = _top_sectors(market_snapshot.sectors, n=2)
+    for row in leaders:
+        bullets.append(
+            f"Leading sector: {row['label']} ({row['ticker']}) {row['vs_spy_20d_pct']:+.2f}% vs SPY"
+        )
+    bullets.append(f"Market-wide signal: {market_wide_signal}")
+    return bullets[:6]

@@ -1,6 +1,7 @@
 from __future__ import annotations
 
-from typing import Any, Dict, List, Tuple
+from datetime import date
+from typing import Any, Dict, List, Optional, Tuple
 
 from .models import InsiderSnapshot, InsiderTrade
 
@@ -131,9 +132,41 @@ def evaluate_insider(snapshot: InsiderSnapshot) -> Dict[str, Any]:
 
     buy_value = sum(t.value for t in buys)
     sell_value = sum(t.value for t in sells)
-    data_quality = "good" if len(all_trades) >= 3 else "fair"
+    sell_shares = sum(t.shares for t in sells)
+    avg_sale_price = round(sell_value / sell_shares, 4) if sell_shares > 0 else 0.0
 
-    bullets = _build_bullets(buys, sells, buy_value, sell_value, signal)
+    per_insider: Dict[str, Dict[str, Any]] = {}
+    per_insider_titles: Dict[str, str] = {}
+    all_sale_dates: List[date] = []
+    for trade in sells:
+        owner = trade.owner_name or "Unknown"
+        tx_date = trade.transaction_date or trade.filing_date
+        if tx_date:
+            all_sale_dates.append(tx_date)
+        bucket = per_insider.setdefault(
+            owner,
+            {"shares": 0.0, "dollars": 0.0, "sale_count": 0.0, "first_date": None, "last_date": None},
+        )
+        bucket["shares"] += trade.shares
+        bucket["dollars"] += trade.value
+        bucket["sale_count"] += 1
+        if tx_date:
+            if bucket["first_date"] is None or tx_date < bucket["first_date"]:
+                bucket["first_date"] = tx_date
+            if bucket["last_date"] is None or tx_date > bucket["last_date"]:
+                bucket["last_date"] = tx_date
+        if trade.title and owner not in per_insider_titles:
+            per_insider_titles[owner] = trade.title
+
+    per_insider_sales = _build_per_insider_sales(per_insider, per_insider_titles)
+    first_sale_date = min(all_sale_dates).isoformat() if all_sale_dates else None
+    last_sale_date = max(all_sale_dates).isoformat() if all_sale_dates else None
+
+    data_quality = "good" if len(all_trades) >= 3 else "fair"
+    if any("Deduplicated" in w or "Dropped" in w for w in snapshot.warnings):
+        data_quality = "fair" if data_quality == "good" else "poor"
+
+    bullets = _build_bullets(buys, sells, buy_value, sell_value, sell_shares, avg_sale_price, signal)
 
     return {
         "signal": signal,
@@ -148,12 +181,18 @@ def evaluate_insider(snapshot: InsiderSnapshot) -> Dict[str, Any]:
             "buy_value": round(buy_value, 2),
             "sell_value": round(sell_value, 2),
             "net_value": round(buy_value - sell_value, 2),
+            "total_shares_sold": round(sell_shares, 4),
+            "avg_sale_price": avg_sale_price,
+            "first_sale_date": first_sale_date,
+            "last_sale_date": last_sale_date,
+            "per_insider": per_insider,
         },
         "data_quality": data_quality,
         "warnings": list(snapshot.warnings),
         "data_sources": list(snapshot.data_sources),
         "bullets": bullets,
         "abstain": False,
+        "per_insider_sales": per_insider_sales,
     }
 
 
@@ -162,6 +201,8 @@ def _build_bullets(
     sells: List[InsiderTrade],
     buy_value: float,
     sell_value: float,
+    sell_shares: float,
+    avg_sale_price: float,
     signal: str,
 ) -> List[str]:
     bullets: List[str] = []
@@ -169,6 +210,49 @@ def _build_bullets(
         unique = len(set(t.owner_name for t in buys if t.owner_name))
         bullets.append(f"• {len(buys)} insider buy(s) by {unique} insider(s), ${buy_value:,.0f}")
     if sells:
-        bullets.append(f"• {len(sells)} insider sale(s), ${sell_value:,.0f}")
+        bullets.append(
+            f"• {len(sells)} common-stock sale(s) (Form 4 code S), ${sell_value:,.0f}"
+        )
+        if sell_shares > 0:
+            bullets.append(
+                f"• {sell_shares:,.0f} shares sold @ avg ${avg_sale_price:,.2f}"
+            )
     bullets.append(f"• Insider signal: {signal}")
-    return bullets[:3]
+    return bullets[:4]
+
+
+def _format_sale_period(first: Optional[date], last: Optional[date]) -> str:
+    if first is None and last is None:
+        return ""
+    if first is None:
+        return last.isoformat() if last else ""
+    if last is None or first == last:
+        return first.isoformat()
+    return f"{first.isoformat()} – {last.isoformat()}"
+
+
+def _build_per_insider_sales(
+    per_insider: Dict[str, Dict[str, Any]],
+    titles: Dict[str, str],
+) -> List[Dict[str, Any]]:
+    rows: List[Dict[str, Any]] = []
+    for owner, bucket in sorted(per_insider.items(), key=lambda item: -item[1]["dollars"]):
+        shares = bucket["shares"]
+        dollars = bucket["dollars"]
+        avg_price = round(dollars / shares, 4) if shares > 0 else 0.0
+        first_date: Optional[date] = bucket.get("first_date")
+        last_date: Optional[date] = bucket.get("last_date")
+        rows.append(
+            {
+                "owner": owner,
+                "title": titles.get(owner, ""),
+                "shares": round(shares, 4),
+                "dollars": round(dollars, 2),
+                "avg_price": avg_price,
+                "sale_count": int(bucket.get("sale_count", 0)),
+                "first_sale_date": first_date.isoformat() if first_date else None,
+                "last_sale_date": last_date.isoformat() if last_date else None,
+                "sale_period": _format_sale_period(first_date, last_date),
+            }
+        )
+    return rows

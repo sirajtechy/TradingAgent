@@ -1,0 +1,83 @@
+{
+  "ok": true,
+  "fusion_mode": "full",
+  "ticker": "NVDA",
+  "as_of_date": "2026-06-06",
+  "agent_breakdown": {
+    "ticker": "NVDA",
+    "as_of_date": "2026-06-06",
+    "agents_available": 7,
+    "agents_total": 8,
+    "decision_by": "human",
+    "note": "All agents run regardless of Phoenix BUY/WATCH/AVOID. Use this breakdown to decide buy, hold, or avoid.",
+    "agents": {
+      "phoenix": {
+        "agent_id": "phoenix",
+        "status": "ok",
+        "error": null,
+        "signal": "bullish",
+        "score": 75.0,
+        "band": "good",
+        "confidence": "medium",
+        "bullets": ["Stage 2 base breakout", "Volume above average"],
+        "phoenix_signal": "BUY"
+      },
+      "fundamental": {
+        "agent_id": "fundamental",
+        "status": "ok",
+        "signal": "bullish",
+        "score": 68.0,
+        "bullets": ["Revenue growth strong"]
+      },
+      "macro": {
+        "agent_id": "macro",
+        "status": "ok",
+        "signal": "neutral",
+        "score": 55.0,
+        "bullets": ["Rates stable"]
+      },
+      "market_summary": {
+        "agent_id": "market_summary",
+        "status": "ok",
+        "signal": "bullish",
+        "score": 62.0,
+        "bullets": ["Breadth improving"]
+      },
+      "geopolitics": {
+        "agent_id": "geopolitics",
+        "status": "ok",
+        "signal": "neutral",
+        "score": 50.0,
+        "bullets": []
+      },
+      "news": {
+        "agent_id": "news",
+        "status": "ok",
+        "signal": "bullish",
+        "score": 70.0,
+        "bullets": ["Positive earnings headlines"]
+      },
+      "insider": {
+        "agent_id": "insider",
+        "status": "ok",
+        "signal": "neutral",
+        "score": 52.0,
+        "bullets": ["Net selling modest"]
+      },
+      "sentiment": {
+        "agent_id": "sentiment",
+        "status": "error",
+        "error": "API timeout",
+        "signal": null,
+        "score": null,
+        "bullets": []
+      }
+    }
+  },
+  "fusion": {
+    "orchestrator_score": 64.5,
+    "final_signal": "bullish",
+    "advisory_verdict": "BUY",
+    "note": "advisory_verdict is a reference blend only — your buy/hold/avoid decision should use agent_breakdown below."
+  }
+}

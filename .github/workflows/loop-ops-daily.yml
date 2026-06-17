@@ -1,0 +1,29 @@
+name: loop-ops-daily
+
+on:
+  schedule:
+    - cron: "0 12 * * 1-5"
+  workflow_dispatch:
+    inputs:
+      date:
+        description: "Signal date YYYY-MM-DD (optional)"
+        required: false
+        type: string
+
+jobs:
+  ops:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Ops health check (dry-run without .env)
+        working-directory: .
+        run: |
+          DATE="${{ github.event.inputs.date }}"
+          if [ -z "$DATE" ]; then DATE=$(date -u -v-1d +%Y-%m-%d 2>/dev/null || date -u -d yesterday +%Y-%m-%d); fi
+          python scripts/loop_ops_run.py --date "$DATE" --dry-run

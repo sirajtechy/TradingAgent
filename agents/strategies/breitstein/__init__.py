@@ -1,0 +1,1 @@
+"""Breitstein execution-timing strategy."""

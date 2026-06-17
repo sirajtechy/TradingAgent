@@ -53,13 +53,23 @@ def build_snapshot(
             )
 
     geo_filtered = [h for h in all_headlines if h.matched_keywords]
+    # Include top market headlines for context even when keywords do not match
+    context_headlines = sorted(
+        [h for h in all_headlines if h.title and not h.matched_keywords],
+        key=lambda h: h.published_date,
+        reverse=True,
+    )[:5]
+    display_headlines = geo_filtered if geo_filtered else context_headlines
+
     sources = ["yfinance:market_news_scan"] if total_scanned else []
-    if not geo_filtered:
+    if not geo_filtered and context_headlines:
+        warnings.append("No geo keyword matches — showing general market headlines for context")
+    if not display_headlines:
         warnings.append("No geopolitical headlines matched in yfinance scan window")
 
     return GeopoliticsSnapshot(
         as_of_date=as_of_date,
-        headlines=geo_filtered,
+        headlines=display_headlines[:10],
         total_scanned=total_scanned,
         data_sources=sources,
         warnings=warnings,
