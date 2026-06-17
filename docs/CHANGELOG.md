@@ -6,6 +6,95 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [Unreleased]
 
+_Nothing pending._
+
+---
+
+## [2026-06-17] — SEC EDGAR insider, Research Lab deep analyze, portfolio intelligence
+
+Merged branch `feature/sec-edgar-insider-research-lab` into `main`. Major expansion beyond Phoenix+FA daily production: full intelligence fusion, dashboard deep-dive UI, SEC Form 4 insider sales, portfolio engine, and loop engineering scaffold.
+
+### Added — SEC EDGAR insider agent
+
+- **`agents/insider/edgar_client.py`** — Ticker → CIK → SEC submissions → Form 4 XML parsing.
+- **Sale-only pipeline** — includes `nonDerivativeTransaction` rows where `transactionCode == "S"` and `securityTitle` contains **Common Stock**; skips missing/zero price rows.
+- **Aggregation** — `total_shares_sold`, `total_dollar_sold`, `avg_sale_price`, **`per_insider_sales`** breakdown (owner, shares, dollars, avg price, sale count, **first/last sale dates**).
+- **URL resolution** — `{cik}/{accClean}/{accClean}.xml` with fallback to raw `form4.xml` via filing index (XSL HTML paths excluded).
+- **Dedup** — original + amended Form 4 filings collapsed to latest filing.
+- **Config** — `INSIDER_DATA_SOURCE=auto|edgar|fmp|yfinance`; `SEC_EDGAR_USER_AGENT` required by SEC (see `.env.example`).
+- **Tests** — `tests/test_insider_edgar.py`.
+
+### Added — Research Lab deep analyze
+
+- **Dashboard routes**
+  - `/research/analyze` — single-ticker fusion dashboard with agent sidebar + detail panels.
+  - `/research/analyze/watchlist` — batch deep dive for all Phoenix **BUY/WATCH** names from `master_pilot.json`.
+- **API** — `apps/backtest-dashboard/app/api/analyze/` and `.../watchlist/`.
+- **Shared UI** — `apps/backtest-dashboard/app/research/analyze/analyzeUi.tsx` (fusion hero, agent grid, insider sale table, headlines, source tier badges).
+- **CLI / pipeline**
+  - `./bin/mts analyze --fusion full --export-breakdown --refresh-context`
+  - `./bin/mts analyze --watchlist --fusion full --max-tickers N --force`
+  - `pipelines/watchlist.py`, JSON auto-save to `data/output/research/<date>/`.
+- **Agent breakdown** — `agents/orchestrator/agent_breakdown.py`: one-liners, insights, headlines (top 10), `source_tier`, data legitimacy map.
+
+### Added — Intelligence agents & data layer
+
+- **Macro** — FRED primary (`FRED_API_KEY`); yfinance fallback for rates/CPI.
+- **Market summary** — Polygon SPY/sectors + hybrid yfinance VIX when Polygon `I:VIX` returns 403.
+- **News** — FMP → optional **Finnhub** (`agents/news/finnhub_client.py`) → yfinance; richer bullets and headline export.
+- **Geopolitics** — FMP scan with improved yfinance context headlines when geo keywords miss.
+- **Sentiment** — labeled **Derived** in dashboard (composite of upstream agents, not a standalone API).
+- **Session context cache** — `data/output/context/context_<date>.json`; `--refresh-context` bypasses stale cache after key changes.
+- **Config schema** — `core/config_schema.py`; `./bin/mts config validate`.
+- **Docs** — `docs/specs/INTELLIGENCE_DATA_PLAN.md`, updates to `docs/specs/FREE_DATA_SOURCES.md`.
+
+### Added — Portfolio intelligence engine
+
+- **`agents/portfolio/`** — momentum scorer, selector, sizer, FRR rebalancer, regime guard, simulator, enrich, sector report.
+- **CLI** — `./bin/mts portfolio backtest`, `./bin/mts portfolio allocate` with `--full-agents`, `--strategy-profile blend`.
+- **Dashboard** — `/research/portfolio`.
+- **Config** — `data/config/portfolio_rules.json`.
+- **Docs** — `docs/specs/PORTFOLIO_ENGINE.md`, `docs/MYTRADINGSPACE_ONE_PAGER.md`.
+- **Tests** — `tests/test_portfolio.py`.
+
+### Added — Trader strategy profiles
+
+- **`agents/strategies/`** — Minervini, Moglen, Breitstein, McIntosh modules + `blend` fusion.
+- **CLI** — `./bin/mts strategy --ticker X --profile minervini|blend|...`
+- **Analyze integration** — `--strategy-profile blend` on `./bin/mts analyze`.
+- **Tests** — `tests/test_strategies.py`.
+
+### Added — Loop engineering scaffold
+
+- **`.loop/`** — roadmap, policies, skills, state, agent prompts.
+- **`scripts/loop_*.py`** — triage, plan, verify, ops, worktree spawn.
+- **GitHub workflows** — loop triage, feature build, review gate, ops daily.
+- **`AGENTS.md`**, `skills/tradingagent-loop-engineering-scaffold.md`.
+- **Tests** — `tests/test_loop_engine.py`.
+
+### Changed
+
+- **`agents/insider/composite_client.py`** — auto mode prefers EDGAR → FMP → yfinance.
+- **`agents/insider/rules.py`** — sale-focused metrics, per-insider aggregation, data quality downgrade on dedup warnings.
+- **`agents/orchestrator/pipeline_full.py`** — full fusion runs all intelligence agents; human decision mode preserved.
+- **`pipelines/analyze.py`** — `.env` loading, JSON export paths, watchlist batch, context refresh flag.
+- **`cli/__main__.py`** — analyze watchlist, portfolio, strategy, agent, context, loop, config validate commands.
+- **`apps/backtest-dashboard/app/research/layout.tsx`** — nav links for Analyze and Portfolio.
+- **README.md** — expanded for all new surfaces (this release).
+
+### Fixed
+
+- **Insider value aggregation** — derivative Form 4 rows no longer multiply total-dollar fields by share count (eliminated trillion-dollar totals on names like CRWV).
+- **Form 4 XML parsing** — nested `<value>` elements and raw XML URL resolution (XSL HTML no longer parsed as trades).
+- **Macro cache** — stale `context_<date>.json` could show yfinance rates after FRED key added; use `--refresh-context`.
+- **`agent_breakdown.py`** — insider block indentation restored inside agent loop.
+
+---
+
+## [Earlier — pre-2026-06-17 backlog]
+
+Items below were tracked under `[Unreleased]` before the 2026-06-17 release.
+
 ### Added
 
 - **`halal-sector-pilot`** backtest engine (`scripts/backtests/run_halal_sector_month_pilot.py`): halal sector slice, single-window Phoenix+FA labeled run with **`run_bundle.json`** for `/trading-runs`, **`confusion_matrix.json`**, and explicit **`no_lookahead_statement`** in `pilot_manifest.json`.
