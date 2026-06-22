@@ -31,13 +31,13 @@ def build_context(
     phoenix_result: Optional[Dict[str, Any]] = None,
     fund_result: Optional[Dict[str, Any]] = None,
     fetch_market_data: bool = True,
+    snapshot: Optional[Any] = None,
+    spy_snapshot: Optional[Any] = None,
 ) -> StrategyContext:
     ticker = ticker.upper()
     warnings: list[str] = []
-    snapshot = None
-    spy_snapshot = None
 
-    if fetch_market_data:
+    if snapshot is None and spy_snapshot is None and fetch_market_data:
         client = _get_client()
         try:
             snapshot = client.build_snapshot(ticker, as_of_date)
@@ -75,6 +75,8 @@ def analyze_strategies(
     phoenix_result: Optional[Dict[str, Any]] = None,
     fund_result: Optional[Dict[str, Any]] = None,
     fetch_market_data: bool = True,
+    snapshot: Optional[Any] = None,
+    spy_snapshot: Optional[Any] = None,
 ) -> Dict[str, Any]:
     """
     Run one or more trader strategy modules.
@@ -87,6 +89,8 @@ def analyze_strategies(
         phoenix_result=phoenix_result,
         fund_result=fund_result,
         fetch_market_data=fetch_market_data,
+        snapshot=snapshot,
+        spy_snapshot=spy_snapshot,
     )
     layers = run_strategies(ctx, profile)
     meta = build_meta_signals(layers) if layers else {}

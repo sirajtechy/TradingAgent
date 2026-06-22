@@ -21,6 +21,9 @@ from core.contracts.envelope import (
     envelope_from_sentiment,
 )
 
+from agents.technical.envelope import envelope_from_unified_technical
+from agents.technical.service import analyze_technical
+
 AnalyzeFn = Callable[..., Dict[str, Any]]
 EnvelopeFn = Callable[..., Dict[str, Any]]
 
@@ -83,7 +86,24 @@ def _geopolitics_analyze(*, as_of_date: str, ticker: str = "", **_: Any) -> Dict
     return analyze_market(as_of_date=as_of_date)
 
 
+def _technical_analyze(
+    *, ticker: str, as_of_date: str, strategy_profile: str = "blend", **kwargs: Any
+) -> Dict[str, Any]:
+    return analyze_technical(
+        ticker=ticker,
+        as_of_date=as_of_date,
+        strategy_profile=strategy_profile,
+        fund_result=kwargs.get("fund_result"),
+    )
+
+
 AGENT_REGISTRY: Dict[str, AgentSpec] = {
+    "technical": AgentSpec(
+        agent_id="technical",
+        analyze=_technical_analyze,
+        to_envelope=envelope_from_unified_technical,
+        description="Unified technical agent (Phoenix + 4 trader strategies + fusion)",
+    ),
     "phoenix": AgentSpec(
         agent_id="phoenix",
         analyze=_phoenix_analyze,

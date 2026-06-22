@@ -22,14 +22,25 @@ def analyze(ctx: StrategyContext) -> StrategySignal:
     catalyst = evaluate_catalyst(ctx.fund_result)
     chase = evaluate_chase_guard(phoenix)
 
+    # Phase 2: in a confirmed post-correction recovery, Phoenix's recovery-
+    # upgrade WATCH replaces the Stage-2 disqualifier with a "Stage 1 → 2
+    # transition" allowance. This mirrors Minervini's own playbook
+    # (re-engage on follow-through days after corrections). Trend-template
+    # and chase-guard checks still apply.
+    recovery_watch = (
+        phoenix.get("signal") == "WATCH"
+        and phoenix.get("phoenix_entry_mode") == "recovery_upgrade"
+    )
+
     disqualifiers: List[str] = []
     if not template.get("checks", {}).get("stage_2_confirmed", False):
         stage = (phoenix.get("stage") or {}).get("stage")
-        if stage and stage != 2:
+        if stage and stage != 2 and not recovery_watch:
             disqualifiers.append(f"Not Stage 2 (stage={stage}).")
     if chase.get("invalid_if_chasing"):
         disqualifiers.append("Chasing: price extended above pivot threshold.")
-    if template.get("pass_count", 0) < 6:
+    min_trend_pass = 5 if recovery_watch else 6
+    if template.get("pass_count", 0) < min_trend_pass:
         disqualifiers.append(f"Trend template weak ({template.get('pass_count')}/10).")
 
     subscores = {
@@ -53,14 +64,25 @@ def analyze(ctx: StrategyContext) -> StrategySignal:
     setup_detected = bool(vcp.get("setup_detected"))
     setup_type = vcp.get("pattern_name") or "none"
     stage2 = template.get("checks", {}).get("stage_2_confirmed", False)
-    entry_trigger = setup_detected and stage2 and not chase.get("invalid_if_chasing") and score >= 60.0
-
-    if score >= 70 and not disqualifiers:
-        signal = "bullish"
-    elif score >= 50:
-        signal = "neutral"
+    # Recovery entries don't require Stage 2 (reclaim gate already validated
+    # the reversal). Bar is higher: score>=65 for entry, >=75 for bullish.
+    if recovery_watch:
+        entry_trigger = (
+            setup_detected
+            and not chase.get("invalid_if_chasing")
+            and score >= 65.0
+        )
+        bullish_threshold = 75.0
     else:
-        signal = "bearish"
+        entry_trigger = (
+            setup_detected and stage2 and not chase.get("invalid_if_chasing") and score >= 60.0
+        )
+        bullish_threshold = 70.0
+
+    if score >= bullish_threshold and not disqualifiers:
+        signal = "bullish"
+    else:
+        signal = "neutral"
 
     risk = phoenix.get("risk") or {}
     stop_logic = {

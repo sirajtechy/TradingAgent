@@ -52,11 +52,12 @@ def analyze_single(
     json_out: Optional[str] = None,
     refresh_context: bool = False,
     strategy_profile: str = "none",
+    technical_pass_only: bool = True,
 ) -> Dict[str, Any]:
     """
     Point-in-time analysis for one ticker. Returns a JSON-serializable dict.
 
-    Fusion modes: phoenix-fa | phoenix | fundamental | full
+    Fusion modes: phoenix-fa | phoenix | fundamental | full | technical
     Strategy profiles: none | minervini | moglen | breitstein | mcintosh | blend | all
     """
     tk = ticker.strip().upper()
@@ -68,13 +69,25 @@ def analyze_single(
         save_path: Optional[Path] = None
         if json_out:
             save_path = Path(json_out)
-        elif export_breakdown or mode in ("full", "full-context"):
+        elif export_breakdown or mode in ("full", "full-context", "technical"):
             save_path = default_analyze_json_path(tk, as_of)
         if save_path is not None:
             doc["analyze_json_path"] = _write_analyze_json(doc, save_path)
 
     def _attach_strategies(doc: Dict[str, Any], px: Optional[Dict] = None, fund: Optional[Dict] = None) -> None:
         if profile == "none":
+            return
+        if doc.get("technical") and profile in ("blend", "all"):
+            tech = doc["technical"]
+            doc["strategies"] = {
+                "ok": True,
+                "ticker": tk,
+                "as_of_date": as_of,
+                "strategy_profile": profile,
+                "layers": tech.get("strategy_layers") or {},
+                "meta_signals": (tech.get("technical_fusion") or {}),
+                "warnings": tech.get("warnings") or [],
+            }
             return
         from agents.strategies.service import analyze_strategies
 
@@ -86,6 +99,24 @@ def analyze_single(
             fund_result=fund or doc.get("fundamental"),
             fetch_market_data=True,
         )
+
+    if mode == "technical":
+        from agents.technical.service import analyze_technical
+
+        profile_eff = profile if profile != "none" else "blend"
+        tech = analyze_technical(ticker=tk, as_of_date=as_of, strategy_profile=profile_eff)
+        doc = {
+            "ok": tech.get("ok", True),
+            "fusion_mode": "technical",
+            "ticker": tk,
+            "as_of_date": as_of,
+            "technical": tech,
+            "phoenix": tech.get("phoenix"),
+            "pass_enrichment": (tech.get("technical_fusion") or {}).get("pass_enrichment"),
+        }
+        _attach_strategies(doc)
+        _maybe_save_json(doc)
+        return doc
 
     if mode == "phoenix-fa":
         from agents.fundamental.service import analyze_ticker as fund_analyze
@@ -132,8 +163,13 @@ def analyze_single(
             settings=cfg,
             markdown_out=md_path,
             refresh_context=refresh_context,
+            technical_pass_only=technical_pass_only,
+            strategy_profile=profile if profile != "none" else "blend",
         )
-        _attach_strategies(full_doc)
+        if profile != "none" and not full_doc.get("gated"):
+            _attach_strategies(full_doc)
+        elif full_doc.get("technical"):
+            _attach_strategies(full_doc)
         _maybe_save_json(full_doc)
         return full_doc
 

@@ -46,14 +46,24 @@ def analyze(ctx: StrategyContext) -> StrategySignal:
     score = max(0.0, min(score, 100.0))
 
     phoenix_buy = phoenix.get("signal") == "BUY"
-    entry_trigger = phoenix_buy and above_vwap and not rangebound and score >= 60.0
+    # Phase 2: accept Phoenix recovery-upgrade WATCH as an alternate gateway.
+    # Recovery setups are reversal entries by definition — Phoenix will never
+    # call them BUY (BUY = full trend continuation). Require tighter score
+    # to compensate for the lower-conviction setup type.
+    phoenix_recovery_watch = (
+        phoenix.get("signal") == "WATCH"
+        and phoenix.get("phoenix_entry_mode") == "recovery_upgrade"
+    )
+    standard_trigger = phoenix_buy and above_vwap and not rangebound and score >= 60.0
+    recovery_trigger = (
+        phoenix_recovery_watch and above_vwap and not rangebound and score >= 65.0
+    )
+    entry_trigger = bool(standard_trigger or recovery_trigger)
 
     if entry_trigger:
         signal = "bullish"
-    elif score >= 45 and not rangebound:
-        signal = "neutral"
     else:
-        signal = "bearish"
+        signal = "neutral"
 
     explanation = list(vwap.get("notes") or []) + list(trend.get("notes") or [])
 

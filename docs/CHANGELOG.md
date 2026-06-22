@@ -6,7 +6,14 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [Unreleased]
 
-_Nothing pending._
+### Added — Planned specs & backtest design (docs only)
+
+- **`docs/planned-atr-sma50-exit-ladder.md`** — DEFERRED production exit rules: `(Close-SMA50)/ATR(14)`, trim at 7 ATR (~65%), scale-out ladder, liquidity tiers, gap/pin clean filters; fit to Phoenix, 4 strategies, portfolio, Research Lab.
+- **`docs/planned-151-trading-strategies.md`** — DEFERRED catalog map from SSRN readout to MyTradingSpace modules and phased research backlog.
+- **`docs/confusion-matrix-backtest-plan.md`** — Multi-agent confusion matrix architecture: ground truth, PIT agent audit, walk-forward vs single-window, reuse vs build, implementation phases.
+- **`docs/planned-unified-technical-agent.md`** — Active design: one-stop Technical Agent (Phoenix hard filters + 4 strategies + blend), enrichment gating, resilience score, confusion-matrix layers T1–T5, trader research map.
+- **`agents/technical/`** — Phase T1 implementation: `analyze_technical()`, fusion PASS rules, resilience score, registry + envelope adapter.
+- **T2–T5** — Multi-agent confusion matrix (`core/evaluation/`), backtest period labels, enrichment gating in `pipeline_full`, `technical_pass.json` on daily run, walk-forward helper + `technical_pass_v1` spec.
 
 ---
 

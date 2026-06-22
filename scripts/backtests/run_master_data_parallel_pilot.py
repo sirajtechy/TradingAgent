@@ -37,7 +37,9 @@ DEFAULT_MASTER = ROOT / "data" / "input" / "master_data" / "halal_tickers_clean.
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
-from core.io.master_pilot import confusion_from_master_tickers
+from core.evaluation.technical_confusion import build_technical_confusion_payload
+from core.evaluation.confusion import build_confusion_payload
+from core.io.master_pilot import slug_sector
 
 
 def _slug(sector: str) -> str:
@@ -59,8 +61,8 @@ def _load_groups(path: Path) -> Dict[str, List[str]]:
     return by
 
 
-def _run_one_sector(args: Tuple[str, List[str], Path, str, int, int, int]) -> Path:
-    sector, tickers, out_dir, signal_date, workers, period_workers, eval_days = args
+def _run_one_sector(args: Tuple[str, List[str], Path, str, int, int, int, bool]) -> Path:
+    sector, tickers, out_dir, signal_date, workers, period_workers, eval_days, technical_only = args
     out_dir.mkdir(parents=True, exist_ok=True)
     cmd = [
         sys.executable,
@@ -79,6 +81,8 @@ def _run_one_sector(args: Tuple[str, List[str], Path, str, int, int, int]) -> Pa
         "--output-dir",
         str(out_dir),
     ]
+    if not technical_only:
+        cmd.append("--with-enrichment")
     r = subprocess.run(cmd, cwd=str(ROOT), capture_output=True, text=True)
     if r.returncode != 0:
         raise RuntimeError(
@@ -151,7 +155,13 @@ def main() -> None:
         action="store_true",
         help="After a successful merge, delete the entire --output-root tree (staging).",
     )
+    ap.add_argument(
+        "--with-enrichment",
+        action="store_true",
+        help="Run sector pilots with FA + intelligence (default: technical-only).",
+    )
     args = ap.parse_args()
+    technical_only = not args.with_enrichment
 
     master_json = args.master_json.expanduser().resolve()
     groups = _load_groups(master_json)
@@ -162,7 +172,7 @@ def main() -> None:
     root.mkdir(parents=True, exist_ok=True)
 
     if not args.skip_pilot:
-        tasks: List[Tuple[str, List[str], Path, str, int, int, int]] = []
+        tasks: List[Tuple[str, List[str], Path, str, int, int, int, bool]] = []
         for sector, tickers in sorted(groups.items(), key=lambda x: x[0]):
             od = root / _slug(sector)
             tasks.append(
@@ -174,6 +184,7 @@ def main() -> None:
                     args.workers,
                     args.period_workers,
                     args.eval_days,
+                    technical_only,
                 )
             )
 
@@ -200,7 +211,49 @@ def main() -> None:
         for sym, row in (doc.get("tickers") or {}).items():
             merged[str(sym).upper()] = row
 
-    cm = confusion_from_master_tickers(merged)
+    cm_rows = []
+    for sym, row in merged.items():
+        if not isinstance(row, dict):
+            continue
+        px_sym = row.get("phoenix_signal")
+        px_dir = (
+            "bullish"
+            if px_sym == "BUY"
+            else ("bearish" if px_sym == "AVOID" else "neutral")
+        )
+        cm_rows.append(
+            {
+                "ticker": sym,
+                "sector": row.get("sector"),
+                "target_hit": row.get("target_hit"),
+                "technical_signal": row.get("technical_signal") or row.get("fusion_final_signal"),
+                "signal_correct_technical": row.get("signal_correct_technical")
+                or row.get("signal_correct"),
+                "phoenix_signal": px_dir,
+                "signal_correct_phoenix": row.get("signal_correct_phoenix"),
+                "technical_fusion": row.get("technical_fusion"),
+            }
+        )
+    if technical_only:
+        cm_payload = build_technical_confusion_payload(
+            cm_rows,
+            meta={
+                "description": "Merged technical agent vs target-hit (all sectors).",
+                "elapsed_sec_sector_sum": round(total_elapsed, 2),
+                "tickers": len(merged),
+                "primary_artifact": "master_pilot.json",
+            },
+        )
+    else:
+        cm_payload = build_confusion_payload(
+            cm_rows,
+            meta={
+                "description": "Merged fusion directional vs target-hit (all sectors from master data list).",
+                "elapsed_sec_sector_sum": round(total_elapsed, 2),
+                "tickers": len(merged),
+                "primary_artifact": "master_pilot.json",
+            },
+        )
     run_id = f"halal_pilot_{args.signal_date}_master_data_{uuid.uuid4().hex[:10]}"
     final_path = (
         args.merged_output.expanduser().resolve()
@@ -213,10 +266,10 @@ def main() -> None:
         "run_id": run_id,
         "manifest": {
             "no_lookahead_statement": (
-                "Phoenix and Fundamental analyze_ticker calls use as_of_date equal to signal_date only. "
-                "OHLCV and fundamentals are restricted to data on or before that date. "
-                "Prices after signal_date are used only for outcome labeling (target hit, exit reference close), "
-                "never as inputs to the screening models."
+                "Technical (Phoenix + strategies) and Fundamental analyze calls use as_of_date "
+                "equal to signal_date only. OHLCV and fundamentals are restricted to data on or "
+                "before that date. Prices after signal_date are used only for outcome labeling "
+                "(target hit, exit reference close), never as inputs to the screening models."
             ),
             "signal_date": args.signal_date,
             "eval_days": int(args.eval_days),
@@ -224,19 +277,13 @@ def main() -> None:
             "sectors": sorted(groups.keys()),
             "tickers_total": len(merged),
             "parallel_sector_runs": True,
+            "backtest_mode": "technical_only" if technical_only else "full_enrichment",
+            "backtest_signal_profile": "phoenix_recall",
             "output_root": str(final_path.parent.relative_to(ROOT)),
             "merged_artifact": final_path.name,
             "per_sector_manifests": per_manifests,
         },
-        "confusion_matrix": {
-            "meta": {
-                "description": "Merged fusion directional vs target-hit (all sectors from master data list).",
-                "elapsed_sec_sector_sum": round(total_elapsed, 2),
-                "tickers": len(merged),
-                "primary_artifact": "master_pilot.json",
-            },
-            "cumulative": {"overall": cm},
-        },
+        "confusion_matrix": cm_payload,
         "tickers": merged,
         "elapsed_sec": round(total_elapsed, 2),
     }
@@ -254,7 +301,23 @@ def main() -> None:
     print()
     print("=" * 72)
     print(f"Merged master_pilot.json → {final_path}")
-    print(f"Tickers: {len(merged)} | Confusion overall: {cm}")
+    print(f"Tickers: {len(merged)} | Confusion overall: {cm_payload.get('cumulative', {}).get('overall', {})}")
+    if technical_only:
+        from core.evaluation.technical_confusion import print_technical_matrix_summary
+
+        print_technical_matrix_summary(cm_payload)
+    try:
+        from core.persistence.ingest import dashboard_backtest_url, finalize_backtest_ingest, purge_orphan_runs
+
+        rk = finalize_backtest_ingest(final_path)
+        if rk:
+            print(f"Registry ingested → {rk}")
+            print(f"Dashboard → {dashboard_backtest_url(rk)}")
+        removed = purge_orphan_runs()
+        if removed:
+            print(f"Registry purged {len(removed)} orphan staging row(s)")
+    except Exception as exc:
+        print(f"Registry ingest warning: {exc}")
     print("=" * 72)
 
 

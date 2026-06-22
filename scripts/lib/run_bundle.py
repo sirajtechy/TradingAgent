@@ -119,10 +119,35 @@ def row_from_labeled_backtest_period(
     else:
         tl_out = {}
     px_dir = period.get("phoenix_signal")
-    phx_sym = _direction_to_phoenix_signal(px_dir)
+    raw_px = period.get("phoenix_raw_signal")
+    if raw_px:
+        phx_sym = str(raw_px).upper()
+    else:
+        phx_sym = _direction_to_phoenix_signal(px_dir)
     sc = period.get("signal_correct")
     err = period.get("error")
-    return {
+    tf = period.get("technical_fusion") or {}
+    eval_block: Dict[str, Any] = {
+        "directional_labels_available": sc is not None,
+        "signal_correct": sc,
+        "signal_correct_technical": period.get("signal_correct_technical"),
+        "signal_correct_fundamental": period.get("signal_correct_fundamental"),
+        "notes": (
+            "Labeled backtest row: signal_correct from target-hit vs fusion signal "
+            "(see agents/orchestrator/backtest_phoenix). Inputs use data through "
+            "as_of_date only; exit_reference_* uses forward window."
+        ),
+    }
+    for sid in ("minervini", "moglen", "breitstein", "mcintosh"):
+        ck = f"signal_correct_{sid}"
+        if period.get(ck) is not None:
+            eval_block[ck] = period.get(ck)
+    for intel in ("macro", "news", "insider", "sentiment", "geopolitics", "fusion_full"):
+        ck = f"signal_correct_{intel}"
+        if period.get(ck) is not None:
+            eval_block[ck] = period.get(ck)
+
+    row: Dict[str, Any] = {
         "ticker": ticker.upper(),
         "sector": sector,
         "as_of_date": as_of_date,
@@ -132,9 +157,14 @@ def row_from_labeled_backtest_period(
         "fusion_conflict": period.get("conflict_detected"),
         "phoenix_signal": phx_sym,
         "phoenix_score": period.get("phoenix_score"),
-        "fund_signal_normalized": None,
+        "technical_signal": period.get("technical_signal"),
+        "technical_score": period.get("technical_score"),
+        "technical_fusion": tf,
+        "pass_enrichment": tf.get("pass_enrichment"),
+        "resilience_score": tf.get("resilience_score"),
+        "fund_signal_normalized": period.get("fund_signal"),
         "fund_score": period.get("fund_score"),
-        "hard_filter_passed": None,
+        "hard_filter_passed": period.get("hard_filter_passed"),
         "trade_levels": tl_out,
         "backtest": {
             "signal_date": period.get("signal_date"),
@@ -149,16 +179,15 @@ def row_from_labeled_backtest_period(
         "artifact_relative": artifact_name,
         "error": err,
         "extension_guardrail": period.get("extension_guardrail"),
-        "evaluation": {
-            "directional_labels_available": sc is not None,
-            "signal_correct": sc,
-            "notes": (
-                "Labeled backtest row: signal_correct from target-hit vs fusion signal "
-                "(see agents/orchestrator/backtest_phoenix). Inputs use data through "
-                "as_of_date only; exit_reference_* uses forward window."
-            ),
-        },
+        "evaluation": eval_block,
     }
+    for intel in ("macro", "news", "insider", "sentiment", "geopolitics"):
+        sk = f"{intel}_signal"
+        if period.get(sk):
+            row[sk] = period.get(sk)
+    if period.get("fusion_full_signal"):
+        row["fusion_full_signal"] = period.get("fusion_full_signal")
+    return row
 
 
 def row_from_phoenix_fund(
