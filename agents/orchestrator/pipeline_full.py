@@ -105,17 +105,58 @@ def run_full_analysis(
     include_llm_summary: bool = False,
     human_decision_mode: bool = True,
     markdown_out: Optional[Path] = None,
+    technical_pass_only: bool = True,
+    strategy_profile: str = "blend",
 ) -> Dict[str, Any]:
     """
     Full orchestrator analysis for one ticker.
 
-    All agents run always. Output includes ``agent_breakdown`` for human review.
-    ``fusion.advisory_verdict`` is reference only — not an auto trade decision.
+    When ``technical_pass_only`` is True (default), enrichment agents (FA, macro,
+    news, insider, sentiment, geopolitics) run only if the unified Technical Agent
+    passes the enrichment gate.
     """
     cfg = settings or OrchestratorSettings(fund_data_source=fund_data_source)
     tk = ticker.strip().upper()
 
-    px_native, px_env, px_err = _safe_analyze("phoenix", ticker=tk, as_of_date=as_of_date)
+    tech_native, tech_env, tech_err = _safe_analyze(
+        "technical",
+        ticker=tk,
+        as_of_date=as_of_date,
+        strategy_profile=strategy_profile,
+    )
+    px_native = (tech_native or {}).get("phoenix") if tech_native else None
+    technical_fusion = (tech_native or {}).get("technical_fusion") or {}
+    pass_enrichment = bool(technical_fusion.get("pass_enrichment"))
+
+    if technical_pass_only and not pass_enrichment:
+        breakdown = build_agent_breakdown(
+            {
+                "technical": {"native": tech_native, "envelope": tech_env, "error": tech_err},
+            },
+            ticker=tk,
+            as_of_date=as_of_date,
+        )
+        return {
+            "ok": True,
+            "fusion_mode": "full",
+            "human_decision_mode": human_decision_mode,
+            "ticker": tk,
+            "as_of_date": as_of_date,
+            "technical": tech_native,
+            "phoenix": px_native,
+            "gated": True,
+            "pass_enrichment": False,
+            "gate_reason": technical_fusion.get("pass_reason") or tech_err,
+            "agent_breakdown": breakdown,
+            "fusion": {
+                "advisory_verdict": "avoid",
+                "advisory_reasons": [technical_fusion.get("pass_reason") or "Technical gate closed"],
+                "decision_by": "human",
+                "note": "Enrichment skipped — technical gate did not pass.",
+            },
+            "all_agents_ran": False,
+        }
+
     fund_native, fund_env, fund_err = _safe_analyze(
         "fundamental",
         ticker=tk,
@@ -129,13 +170,15 @@ def run_full_analysis(
             "fusion_mode": "full",
             "ticker": tk,
             "as_of_date": as_of_date,
-            "error": px_err or fund_err or "Phoenix and FA both failed",
+            "technical": tech_native,
+            "error": tech_err or fund_err or "Technical and FA both failed",
         }
 
     session = load_or_run_session_context(as_of_date, refresh=refresh_context)
 
     agents: Dict[str, Any] = {
-        "phoenix": {"native": px_native, "envelope": px_env, "error": px_err},
+        "technical": {"native": tech_native, "envelope": tech_env, "error": tech_err},
+        "phoenix": {"native": px_native, "envelope": None, "error": tech_err},
         "fundamental": {"native": fund_native, "envelope": fund_env, "error": fund_err},
     }
 
@@ -164,7 +207,7 @@ def run_full_analysis(
         fund_result=fund_native or {},
         agent_envelopes=agent_envelopes,
         market_summary_native=ms_native,
-        phoenix_error=px_err,
+        phoenix_error=tech_err,
         fund_error=fund_err,
         settings=cfg,
     )
@@ -222,6 +265,7 @@ def run_full_analysis(
         "human_decision_mode": human_decision_mode,
         "ticker": tk,
         "as_of_date": as_of_date,
+        "technical": tech_native,
         "phoenix": px_native,
         "fundamental": fund_native,
         "agents": agents,
@@ -229,6 +273,8 @@ def run_full_analysis(
         "research_digest": digest,
         "fusion": fusion_dict,
         "summary": summary,
+        "pass_enrichment": pass_enrichment,
+        "gated": False,
         "all_agents_ran": True,
     }
     if breakdown_markdown_path:

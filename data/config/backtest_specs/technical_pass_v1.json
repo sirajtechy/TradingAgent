@@ -1,0 +1,19 @@
+{
+  "schema_version": "1.0.0",
+  "name": "technical_pass_v1",
+  "description": "Default unified Technical Agent enrichment gate (see agents/technical/fusion.py).",
+  "pass_rules": {
+    "hard_gates_required": true,
+    "phoenix_signals_allowed": ["BUY", "WATCH"],
+    "blend_bearish_blocks_unless_alt_pass": true,
+    "consensus_entry_triggers_min": 2,
+    "alt_pass_minervini_entry_and_moglen_regime": true
+  },
+  "resilience_weights": {
+    "phoenix": 0.30,
+    "minervini_trend_template": 0.20,
+    "moglen_rmv_regime": 0.15,
+    "mcintosh_leader_rank": 0.20,
+    "extension_penalty": 0.15
+  }
+}

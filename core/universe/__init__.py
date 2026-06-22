@@ -126,6 +126,10 @@ def matrix_metrics(m: Dict[str, int]) -> Dict[str, Any]:
     acc  = c / d if d else None
     tot  = d + m["neutral"]
     abst = m["neutral"] / tot if tot else None
+    mcc_val = None
+    denom = (tp + fp) * (tp + fn) * (tn + fp) * (tn + fn)
+    if denom > 0:
+        mcc_val = round(((tp * tn) - (fp * fn)) / (denom**0.5), 4)
 
     pct  = lambda v: round(v * 100, 1) if v is not None else None
     return {
@@ -140,6 +144,7 @@ def matrix_metrics(m: Dict[str, int]) -> Dict[str, Any]:
         "specificity_pct":     pct(spec),
         "f1_pct":              pct(f1),
         "abstention_rate_pct": pct(abst),
+        "mcc":                 mcc_val,
     }
 
 

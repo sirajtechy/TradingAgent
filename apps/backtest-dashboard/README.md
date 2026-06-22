@@ -1,21 +1,36 @@
-# Backtest Dashboard
+# Backtest Dashboard (Research Lab)
 
-Next.js (**App Router**) UI for exploring halal predictions, sector views, Phoenix scans, and **`run_bundle` / `master_pilot`** outputs produced under `../data/output/`.
+Next.js **App Router** UI for MyTradingSpace daily workflow and deep research.
 
-## App structure
+**Default entry:** `/` redirects to **`/research`** (Overview).
 
-| Path | Role |
+## Active routes
+
+| Path | Purpose |
 | --- | --- |
-| `app/page.tsx` | Dashboard home / links |
-| `app/halal/`, `app/sectors/` | Halal and sector pages |
-| `app/phoenix-scans/` | Phoenix scan browser |
-| `app/trading-runs/` | Trading run bundles + compare (reads `data/output/trading_runs/`) |
-| `app/phoenix-watch-buy/` | Sector master pilot table (TP/FP/TN/FN, sort, Excel export) |
-| `app/lib/` | Shared TS helpers (`confusionBucket`, `compareRunBundles`, …) |
-| `app/api/trading-runs/` | `route.ts`, `bundle/`, `compare/` — filesystem-backed JSON for local QA |
-| `app/api/phoenix-scans/`, `halal-predictions/`, `sectors-predictions/` | Other JSON-backed endpoints |
+| `/research` | **Overview** — agent data sources, BUY/WATCH pre-trade table (entry/stop/targets + analyze status) |
+| `/research/phoenix` | Phoenix pilot — full `master_pilot.json` table, Excel export |
+| `/research/analyze` | Single-ticker deep analyze (8 agents + SEC insider) |
+| `/research/analyze/watchlist` | BUY/WATCH batch deep dive |
+| `/research/signals` | Reconciled export (`phoenix_signals_reconciled.json`) |
+| `/research/portfolio` | Momentum allocation book |
+| `/research/runs` | Browse/compare trading run bundles |
 
-Static or generated JSON samples may live under `app/data/` where noted in code.
+Legacy redirects: `/phoenix-watch-buy` → phoenix, `/trading-runs` → runs, `/sectors` & `/halal` → overview.
+
+## API (filesystem-backed)
+
+| API | Data |
+| --- | --- |
+| `/api/research/overview` | Master pilot + watchlist analyze status + agent source matrix |
+| `/api/trading-runs`, `/bundle`, `/compare` | `data/output/trading_runs/` |
+| `/api/research/signals` | `phoenix_signals_reconciled.json` |
+| `/api/analyze`, `/watchlist` | `data/output/research/<date>/` + pipeline spawn |
+| `/api/portfolio`, `/allocation` | Portfolio outputs |
+
+## Legacy (archived)
+
+Pre–Research Lab CWAF dashboard parked under **`archive/legacy-dashboard/`** (static JSON, not `./bin/mts daily`).
 
 ## Commands
 
@@ -23,12 +38,7 @@ Static or generated JSON samples may live under `app/data/` where noted in code.
 npm install
 npm run dev       # http://localhost:3000
 npm run build
-npm run start     # production; set PORT if needed (e.g. PORT=3055)
-npm run lint
+npm run start     # production; PORT=3055 via ./bin/mts dashboard -b
 ```
 
-The dashboard expects the Python repo’s **`data/output/`** tree to exist relative to the monorepo root (paths are resolved from the Next server process cwd / repo layout — run from `MyTradingSpace` context as in your usual workflow).
-
-## Parent project
-
-See **`../README.md`** and **`../MODULE_MAP.md`** for the full multi-agent layout and canonical `scripts/run_trading.py` CLI.
+Parent: **`../README.md`**, **`../Trading-Journals/DailyCommands.md`**.

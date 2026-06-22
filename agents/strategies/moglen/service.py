@@ -18,6 +18,14 @@ def analyze(ctx: StrategyContext) -> StrategySignal:
     phoenix = ctx.phoenix_result or {}
 
     regime_ok = bool(regime.get("regime_ok"))
+    # Phase 2: Phoenix recovery-upgrade WATCH effectively satisfies Moglen's
+    # regime check (the recovery detector already validated the broader market
+    # turning up — index above EMA10 + rising + follow-through-day).
+    recovery_watch = (
+        phoenix.get("signal") == "WATCH"
+        and phoenix.get("phoenix_entry_mode") == "recovery_upgrade"
+    )
+    effective_regime_ok = regime_ok or recovery_watch
     tight = bool(rmv.get("tight_right_side"))
     setup_detected = bool(setup.get("setup_detected"))
     setup_type = setup.get("setup_type") or "none"
@@ -35,23 +43,21 @@ def analyze(ctx: StrategyContext) -> StrategySignal:
     }
 
     score = aggression * 0.40 + subscores["rmv_tight"] * 0.25 + phoenix_score * 0.35
-    if not regime_ok:
+    if not regime_ok and not recovery_watch:
         score *= 0.65
 
     disqualifiers: List[str] = []
-    if not regime_ok:
+    if not regime_ok and not recovery_watch:
         disqualifiers.append("Market below rising 21 EMA — reduce new long aggression.")
     if setup_type == "none":
         disqualifiers.append("No Moglen setup pack match.")
 
-    entry_trigger = regime_ok and setup_detected and (tight or setup_type.startswith("gap")) and score >= 55.0
+    entry_trigger = effective_regime_ok and setup_detected and (tight or setup_type.startswith("gap")) and score >= 55.0
 
-    if score >= 65 and regime_ok and setup_detected:
+    if score >= 65 and effective_regime_ok and setup_detected:
         signal = "bullish"
-    elif score >= 45:
-        signal = "neutral"
     else:
-        signal = "bearish"
+        signal = "neutral"
 
     explanation: List[str] = list(regime.get("warnings") or [])
     explanation.extend(setup.get("notes") or [])
@@ -62,7 +68,7 @@ def analyze(ctx: StrategyContext) -> StrategySignal:
         strategy_id="moglen",
         ticker=ctx.ticker.upper(),
         as_of_date=ctx.as_of_date,
-        regime_ok=regime_ok,
+        regime_ok=effective_regime_ok,
         setup_detected=setup_detected,
         setup_type=setup_type,
         entry_trigger=entry_trigger,

@@ -150,6 +150,8 @@ Runs **one** evaluation window per ticker: **`--signal-date`** (required) and **
 
 Writes **`run_bundle.json`**, `confusion_matrix.json`, `pilot_manifest.json`, `per_ticker/*.json` under **`--output-dir`** (default `data/output/trading_runs/phoenix_fa_window_pilot`). Dashboard: **`backtest-dashboard` → `/trading-runs`**.
 
+> **Roadmap:** Today’s matrix is Phoenix + FA only. Multi-agent expansion (4 strategies, full fusion, intelligence agents, MCC, walk-forward) is specified in [confusion-matrix-backtest-plan.md](./confusion-matrix-backtest-plan.md).
+
 **One ticker (e.g. Applied Materials):**
 
 ```bash

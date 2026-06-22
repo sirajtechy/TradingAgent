@@ -206,6 +206,16 @@ def _pipeline_argv(command: str, args: argparse.Namespace) -> List[str]:
                 str(args.eval_days),
             ]
         )
+        if getattr(args, "backtest_signal_profile", None):
+            base.extend(["--backtest-signal-profile", args.backtest_signal_profile])
+        if getattr(args, "full_sector", False):
+            base.append("--full-sector")
+        if getattr(args, "limit", None) is not None:
+            base.extend(["--limit", str(args.limit)])
+        if getattr(args, "max_tickers", None) is not None:
+            base.extend(["--max-tickers", str(args.max_tickers)])
+        if getattr(args, "offset", None):
+            base.extend(["--offset", str(args.offset)])
     elif command == "unified":
         base.extend(
             [
@@ -327,6 +337,30 @@ def cmd_unified(args: argparse.Namespace) -> int:
 
 def cmd_daily(args: argparse.Namespace) -> int:
     return subprocess.call(_pipeline_argv("daily", args), cwd=str(ROOT))
+
+
+def cmd_backtest_sync(args: argparse.Namespace) -> int:
+    from core.persistence import get_default_store, scan_and_ingest_trading_runs
+
+    store = get_default_store()
+    result = scan_and_ingest_trading_runs(store=store)
+    print(
+        json.dumps(
+            {
+                "ok": True,
+                "db_path": str(store.db_path.relative_to(ROOT)),
+                **result,
+            },
+            indent=2,
+        )
+    )
+    return 0
+
+
+def cmd_backtest(args: argparse.Namespace) -> int:
+    if args.backtest_cmd == "sync":
+        return cmd_backtest_sync(args)
+    raise SystemExit(f"Unknown backtest subcommand: {args.backtest_cmd}")
 
 
 def cmd_export(args: argparse.Namespace) -> int:
@@ -524,6 +558,11 @@ def build_parser() -> argparse.ArgumentParser:
     )
     pd.set_defaults(func=cmd_dashboard)
 
+    pbtreg = sub.add_parser("backtest", help="Backtest registry — sync labeled runs to SQLite")
+    pbtreg_sub = pbtreg.add_subparsers(dest="backtest_cmd", required=True)
+    pbts = pbtreg_sub.add_parser("sync", help="Scan trading_runs and upsert backtest_registry")
+    pbts.set_defaults(func=cmd_backtest)
+
     ps = sub.add_parser("stop", help="Stop background dashboard")
     ps.add_argument("--port", type=int, default=3055)
     ps.set_defaults(func=cmd_stop)
@@ -684,6 +723,32 @@ def build_parser() -> argparse.ArgumentParser:
     pc.add_argument("--sector", required=True)
     pc.add_argument("--date", default=None, metavar="YYYY-MM-DD")
     pc.add_argument("--eval-days", type=int, default=15)
+    pc.add_argument(
+        "--backtest-signal-profile",
+        default="phoenix_recall",
+        choices=["enrichment_strict", "phoenix_watch_bull", "phoenix_recall", "phoenix_buy_only"],
+        help="Confusion-matrix signal profile (default phoenix_recall)",
+    )
+    pc.add_argument(
+        "--full-sector",
+        action="store_true",
+        help="Run all halal tickers in the sector (not just first --limit)",
+    )
+    pc.add_argument(
+        "--limit",
+        type=int,
+        default=None,
+        metavar="N",
+        help="Max tickers when not using --full-sector (pilot default: 50)",
+    )
+    pc.add_argument(
+        "--max-tickers",
+        type=int,
+        default=None,
+        metavar="N",
+        help="Cap tickers with --full-sector (optional)",
+    )
+    pc.add_argument("--offset", type=int, default=0, help="Skip first N tickers in sector list")
     pc.set_defaults(func=cmd_sector)
 
     pu = sub.add_parser("unified", help="All-sector unified master pilot")

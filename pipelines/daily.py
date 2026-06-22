@@ -50,6 +50,24 @@ def run_daily(
     if rc != 0:
         return rc
 
+    if master.is_file():
+        from pipelines.technical_pass import write_technical_pass_from_master
+
+        tp = write_technical_pass_from_master(master)
+        print(f"--- technical_pass.json → {tp}", flush=True)
+
+        try:
+            from core.persistence.ingest import finalize_backtest_ingest
+
+            rk = finalize_backtest_ingest(master)
+            if rk:
+                from core.persistence.ingest import dashboard_backtest_url
+
+                print(f"--- backtest registry → {rk}", flush=True)
+                print(f"--- dashboard → {dashboard_backtest_url(rk)}", flush=True)
+        except Exception as exc:
+            print(f"--- backtest registry warning: {exc}", flush=True)
+
     if export_buy:
         print("--- export Phoenix BUY excel ---", flush=True)
         export_script = ROOT / "scripts" / "dashboard" / "export_phoenix_buy_from_masters.py"

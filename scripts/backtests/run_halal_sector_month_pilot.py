@@ -91,10 +91,20 @@ def _run_ticker(
     ticker: str,
     months: List[Tuple[date, date]],
     period_workers: int,
+    evaluate_intelligence: bool = False,
+    technical_only: bool = True,
+    backtest_signal_profile: str = "phoenix_recall",
 ) -> Dict[str, Any]:
     from agents.orchestrator.backtest_phoenix import run_monthly_backtest
 
-    return run_monthly_backtest(ticker=ticker, months=months, period_workers=period_workers)
+    return run_monthly_backtest(
+        ticker=ticker,
+        months=months,
+        period_workers=period_workers,
+        evaluate_intelligence=evaluate_intelligence,
+        technical_only=technical_only,
+        backtest_signal_profile=backtest_signal_profile,
+    )
 
 
 def _confusion_target_hit(df: pd.DataFrame) -> Dict[str, Any]:
@@ -225,6 +235,9 @@ def bundle_row_to_master_ticker(row: Dict[str, Any]) -> Dict[str, Any]:
         "target_hit": bt.get("target_hit"),
         "target_hit_date": bt.get("target_hit_date"),
         "signal_correct": (row.get("evaluation") or {}).get("signal_correct"),
+        "signal_correct_technical": (row.get("evaluation") or {}).get("signal_correct_technical"),
+        "fund_signal_normalized": row.get("fund_signal_normalized"),
+        "signal_correct_fundamental": (row.get("evaluation") or {}).get("signal_correct_fundamental"),
         "extension_guardrail": row.get("extension_guardrail"),
         "chase_risk": (row.get("extension_guardrail") or {}).get("chase_risk"),
         "extension_justification": (row.get("extension_guardrail") or {}).get("justification"),
@@ -236,12 +249,40 @@ def bundle_row_to_master_ticker(row: Dict[str, Any]) -> Dict[str, Any]:
             "weekly_change_4w_pct"
         ),
         "pattern_name": tl.get("pattern_name"),
+        "technical_signal": row.get("technical_signal"),
+        "technical_score": row.get("technical_score"),
+        "pass_enrichment": row.get("pass_enrichment"),
+        "resilience_score": row.get("resilience_score"),
+        "technical_fusion": row.get("technical_fusion"),
+        "signal_correct_technical": (row.get("evaluation") or {}).get("signal_correct_technical"),
     }
     out["notes"] = (
         "profit_pct_* counts only when fusion_final_signal is bullish (labeled accuracy). "
         "hypothetical_long_profit_pct_* is (target-entry)/entry from listed prices—not trade advice. "
         "exit_price is end-of-eval-window reference when forward data exists."
     )
+    return out
+
+
+def _drilldown_from_period(period: Dict[str, Any]) -> Dict[str, Any]:
+    """Per-agent signal + correctness for dashboard TP/FP/TN/FN drill-down."""
+    out: Dict[str, Any] = {
+        "phoenix_signal_directional": period.get("phoenix_signal"),
+        "signal_correct_phoenix": period.get("signal_correct_phoenix"),
+        "fusion_signal": period.get("signal"),
+    }
+    for sid in ("minervini", "moglen", "breitstein", "mcintosh"):
+        out[f"{sid}_signal"] = period.get(f"{sid}_signal")
+        ck = f"signal_correct_{sid}"
+        if period.get(ck) is not None:
+            out[ck] = period.get(ck)
+    for intel in ("macro", "news", "insider", "sentiment", "geopolitics", "fusion_full"):
+        sk = f"{intel}_signal"
+        ck = f"signal_correct_{intel}"
+        if period.get(sk) is not None:
+            out[sk] = period.get(sk)
+        if period.get(ck) is not None:
+            out[ck] = period.get(ck)
     return out
 
 
@@ -320,6 +361,22 @@ def main() -> None:
         help="Calendar days after signal_date for Polygon target-hit window.",
     )
     parser.add_argument("--period-workers", type=int, default=1)
+    parser.add_argument(
+        "--intelligence-agents",
+        action="store_true",
+        help="Evaluate macro/news/insider/sentiment/geopolitics + fusion_full (requires --with-enrichment).",
+    )
+    parser.add_argument(
+        "--with-enrichment",
+        action="store_true",
+        help="Include FA + intelligence in backtest (default: technical-only).",
+    )
+    parser.add_argument(
+        "--backtest-signal-profile",
+        default="phoenix_recall",
+        choices=["enrichment_strict", "phoenix_watch_bull", "phoenix_recall", "phoenix_buy_only"],
+        help="How to map Phoenix+strategies to bullish/bearish for confusion matrix (default: phoenix_recall).",
+    )
     parser.add_argument("--workers", type=int, default=4, help="Parallel tickers.")
     parser.add_argument(
         "--output-dir",
@@ -336,6 +393,10 @@ def main() -> None:
         ),
     )
     args = parser.parse_args()
+    technical_only = not args.with_enrichment
+    if args.intelligence_agents and technical_only:
+        raise SystemExit("--intelligence-agents requires --with-enrichment")
+    evaluate_intel = bool(args.intelligence_agents) and not technical_only
 
     sig = date.fromisoformat(args.signal_date)
     end = sig + timedelta(days=int(args.eval_days))
@@ -391,11 +452,12 @@ def main() -> None:
 
     manifest: Dict[str, Any] = {
         "no_lookahead_statement": (
-            "Phoenix and Fundamental analyze_ticker calls use as_of_date equal to signal_date only. "
-            "OHLCV and fundamentals are restricted to data on or before that date. "
-            "Prices after signal_date are used only for outcome labeling (target hit, exit reference close), "
-            "never as inputs to the screening models."
+            "Technical Agent (Phoenix + Minervini/Moglen/Breitstein/McIntosh) uses as_of_date "
+            "equal to signal_date only. No FA or intelligence agents in technical-only mode. "
+            "Forward prices after signal_date are used only for outcome labeling (target hit)."
         ),
+        "backtest_mode": "technical_only" if technical_only else "full_enrichment",
+        "backtest_signal_profile": str(args.backtest_signal_profile),
         "signal_date": sig.isoformat(),
         "result_date": end.isoformat(),
         "eval_days": int(args.eval_days),
@@ -425,7 +487,15 @@ def main() -> None:
             )
             with ThreadPoolExecutor(max_workers=max(1, int(args.workers))) as pool:
                 futs = {
-                    pool.submit(_run_ticker, t, months, int(args.period_workers)): t
+                    pool.submit(
+                        _run_ticker,
+                        t,
+                        months,
+                        int(args.period_workers),
+                        evaluate_intel,
+                        technical_only,
+                        str(args.backtest_signal_profile),
+                    ): t
                     for t in batch
                 }
                 for fut in as_completed(futs):
@@ -447,7 +517,15 @@ def main() -> None:
     else:
         with ThreadPoolExecutor(max_workers=max(1, int(args.workers))) as pool:
             futs = {
-                pool.submit(_run_ticker, t, months, int(args.period_workers)): t
+                pool.submit(
+                    _run_ticker,
+                    t,
+                    months,
+                    int(args.period_workers),
+                    evaluate_intel,
+                    technical_only,
+                    str(args.backtest_signal_profile),
+                ): t
                 for t in tickers
             }
             for fut in as_completed(futs):
@@ -502,7 +580,7 @@ def main() -> None:
     bundle = build_run_bundle(
         run_id=run_id,
         as_of_date=as_of_str,
-        fusion="phoenix-fa",
+        fusion="technical" if technical_only else "phoenix-fa",
         universe_label=(
             f"{universe_label} | labeled_backtest signal={as_of_str} "
             f"eval_horizon={int(args.eval_days)}d"
@@ -524,22 +602,59 @@ def main() -> None:
         for p in r.get("periods") or []:
             rows_flat.append({**p, "ticker": tk, "sector": sec_flat})
     df = pd.DataFrame(rows_flat)
-    cm = _confusion_target_hit(df) if not df.empty else {}
-    cm_payload = {
-        "meta": {
-            "description": "Fusion directional signal vs target-hit correctness (see backtest_phoenix).",
-            "elapsed_sec": round(elapsed, 2),
-            "tickers": len(tickers),
-            "primary_artifact": (
-                "master_pilot.json" if args.single_master_json else str(bp.name)
-            ),
-        },
-        "cumulative": {"overall": cm},
-    }
+    from core.evaluation.technical_confusion import (  # noqa: E402
+        build_technical_confusion_payload,
+        print_technical_matrix_summary,
+    )
+
+    if technical_only:
+        cm_payload = (
+            build_technical_confusion_payload(
+                rows_flat,
+                meta={
+                    "description": "Technical agent + Phoenix + strategies vs target-hit.",
+                    "backtest_signal_profile": str(args.backtest_signal_profile),
+                    "elapsed_sec": round(elapsed, 2),
+                    "tickers": len(tickers),
+                    "primary_artifact": (
+                        "master_pilot.json" if args.single_master_json else str(bp.name)
+                    ),
+                },
+            )
+            if not df.empty
+            else {"meta": {"mode": "technical_only"}, "cumulative": {"overall": {}, "by_agent": {}}}
+        )
+    else:
+        from core.evaluation.confusion import build_confusion_payload  # noqa: E402
+
+        cm_payload = (
+            build_confusion_payload(
+                rows_flat,
+                meta={
+                    "description": "Multi-agent directional signal vs target-hit correctness.",
+                    "elapsed_sec": round(elapsed, 2),
+                    "tickers": len(tickers),
+                    "primary_artifact": (
+                        "master_pilot.json" if args.single_master_json else str(bp.name)
+                    ),
+                },
+            )
+            if not df.empty
+            else {"meta": {}, "cumulative": {"overall": {}, "by_agent": {}}}
+        )
     if not args.single_master_json:
         (out_dir / "confusion_matrix.json").write_text(json.dumps(cm_payload, indent=2))
 
-    master_tickers = {str(r["ticker"]).upper(): bundle_row_to_master_ticker(r) for r in bundle_rows}
+    master_tickers: Dict[str, Any] = {}
+    for tk in tickers:
+        bundle_row = next((b for b in bundle_rows if str(b.get("ticker", "")).upper() == tk.upper()), None)
+        if not bundle_row:
+            continue
+        row_out = bundle_row_to_master_ticker(bundle_row)
+        periods = (results.get(tk) or {}).get("periods") or []
+        if periods:
+            row_out.update(_drilldown_from_period(periods[0]))
+        master_tickers[str(tk).upper()] = row_out
 
     if args.single_master_json:
         master_doc: Dict[str, Any] = {
@@ -561,7 +676,20 @@ def main() -> None:
         print(f"master_pilot.json → {bp}")
     else:
         print(f"run_bundle.json → {bp}")
-    print(f"Confusion (overall): {cm}")
+    print(f"Confusion (overall): {cm_payload.get('cumulative', {}).get('overall', {})}")
+    if technical_only:
+        print_technical_matrix_summary(cm_payload)
+    try:
+        from core.persistence.ingest import dashboard_backtest_url, finalize_backtest_ingest
+
+        ingest_path = bp if args.single_master_json else (out_dir / "confusion_matrix.json")
+        if ingest_path.is_file():
+            rk = finalize_backtest_ingest(ingest_path)
+            if rk:
+                print(f"Registry ingested → {rk}")
+                print(f"Dashboard → {dashboard_backtest_url(rk)}")
+    except Exception as exc:
+        print(f"Registry ingest warning: {exc}")
     print("=" * 72)
 
 

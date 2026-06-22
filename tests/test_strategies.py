@@ -171,6 +171,45 @@ def test_mcintosh_leader_tiers():
     assert sig.subscores["starter_position_pct"] >= 3.0
 
 
+def test_long_only_strategies_never_emit_bearish():
+    """
+    Phase 1 semantic fix: a long-only screener that doesn't see a setup is
+    *abstaining*, not predicting a drop. None of the 4 strategy modules has
+    explicit short-thesis logic, so they must never emit `bearish`. Treating
+    low-score as bearish inflates FN in any rebound tape (verified on
+    2025-04-23 IT: 187/206 false negatives entirely from this misclassification).
+    """
+    flat = [50.0] * 260  # rangebound, no setup, low scores
+    snap = _make_snapshot(closes=flat)
+    px_avoid = {
+        "signal": "AVOID",
+        "score": 25.0,
+        "stage": {"stage": 1, "label": "Basing", "action": "WAIT"},
+        "pattern": {"pattern_name": "none", "confirmed": False},
+        "entry": {},
+        "risk": {},
+        "extension_guardrail": {"chase_risk": "low", "metrics": {}, "flags": []},
+    }
+    ctx = StrategyContext(
+        ticker="XYZ",
+        as_of_date=snap.as_of_price_date.isoformat(),
+        snapshot=snap,
+        spy_snapshot=snap,
+        phoenix_result=px_avoid,
+    )
+    for strategy_analyze, sid in (
+        (minervini_analyze, "minervini"),
+        (moglen_analyze, "moglen"),
+        (breitstein_analyze, "breitstein"),
+        (mcintosh_analyze, "mcintosh"),
+    ):
+        sig = strategy_analyze(ctx)
+        assert sig.signal in {"bullish", "neutral"}, (
+            f"{sid} emitted '{sig.signal}' on a no-setup ticker — long-only "
+            f"strategies must abstain (neutral), not predict a drop (bearish)."
+        )
+
+
 def test_run_strategies_blend_and_meta():
     snap = _make_snapshot()
     ctx = StrategyContext(

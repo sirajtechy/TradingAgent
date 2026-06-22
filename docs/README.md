@@ -44,6 +44,10 @@ All project documentation is organized in this folder.
 
 | Document | Purpose |
 |----------|---------|
+| [planned-unified-technical-agent.md](./planned-unified-technical-agent.md) | **Active** — unified Technical Agent (Phoenix + 4 strategies), enrichment gating, matrix layers |
+| [confusion-matrix-backtest-plan.md](./confusion-matrix-backtest-plan.md) | **Active** — multi-agent confusion matrix, PIT audit, implementation phases |
+| [planned-atr-sma50-exit-ladder.md](./planned-atr-sma50-exit-ladder.md) | DEFERRED — ATR/SMA50 scale-out exit rules |
+| [planned-151-trading-strategies.md](./planned-151-trading-strategies.md) | DEFERRED — SSRN 151-strategies catalog map |
 | [plans/PRODUCTION_PLAN.md](./plans/PRODUCTION_PLAN.md) | Production roadmap |
 | [plans/REFACTOR_PLAN.md](./plans/REFACTOR_PLAN.md) | Refactor plan |
 | [plans/README.md](./plans/README.md) | Plans overview |

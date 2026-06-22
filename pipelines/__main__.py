@@ -92,6 +92,15 @@ def main(argv: list[str] | None = None) -> int:
     ps.add_argument("--sector", required=True)
     ps.add_argument("--signal-date", required=True)
     ps.add_argument("--eval-days", type=int, default=15)
+    ps.add_argument(
+        "--backtest-signal-profile",
+        default="phoenix_recall",
+        choices=["enrichment_strict", "phoenix_watch_bull", "phoenix_recall", "phoenix_buy_only"],
+    )
+    ps.add_argument("--full-sector", action="store_true")
+    ps.add_argument("--limit", type=int, default=None)
+    ps.add_argument("--max-tickers", type=int, default=None)
+    ps.add_argument("--offset", type=int, default=0)
 
     pu = sub.add_parser("unified", help="All-sector unified master pilot")
     pu.add_argument("--signal-date", required=True)
@@ -152,6 +161,11 @@ def main(argv: list[str] | None = None) -> int:
             sector=args.sector,
             signal_date=args.signal_date,
             eval_days=args.eval_days,
+            backtest_signal_profile=args.backtest_signal_profile,
+            full_sector=args.full_sector,
+            limit=args.limit,
+            max_tickers=args.max_tickers,
+            offset=args.offset,
         )
 
     if args.command == "unified":

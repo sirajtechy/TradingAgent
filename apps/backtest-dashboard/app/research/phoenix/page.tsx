@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { useSearchParams } from "next/navigation";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import {
   ArrowLeft,
@@ -205,6 +206,9 @@ type MasterTickerRow = {
   extension_guardrail?: Record<string, unknown> | null;
   chase_risk?: string | null;
   target_hit?: boolean | null;
+  target_hit_date?: string | null;
+  signal_correct_phoenix?: boolean | null;
+  phoenix_entry_mode?: string | null;
   pattern_name?: string | null;
 };
 
@@ -336,6 +340,9 @@ function PctCell({ v }: { v: number | null | undefined }) {
 }
 
 export default function PhoenixWatchBuyPage() {
+  const searchParams = useSearchParams();
+  const winnersFromUrl = searchParams.get("winners") === "1";
+
   const [runs, setRuns] = useState<RunItem[]>([]);
   const [selected, setSelected] = useState("");
   const [doc, setDoc] = useState<MasterDoc | null>(null);
@@ -345,6 +352,8 @@ export default function PhoenixWatchBuyPage() {
   const [viewAllTickers, setViewAllTickers] = useState(false);
   /** BUY + WATCH with Phoenix score > 60 (trade focus list) */
   const [tradeFocus, setTradeFocus] = useState(false);
+  /** Backtest true positives only (signal_correct_phoenix) */
+  const [winnersOnly, setWinnersOnly] = useState(winnersFromUrl);
   const [sortColumn, setSortColumn] = useState<SortKey>("ticker");
   const [sortDir, setSortDir] = useState<"asc" | "desc">("asc");
 
@@ -420,6 +429,10 @@ export default function PhoenixWatchBuyPage() {
     return out;
   }, [doc]);
 
+  useEffect(() => {
+    setWinnersOnly(winnersFromUrl);
+  }, [winnersFromUrl, selected]);
+
   const rows = useMemo(() => {
     let list = viewAllTickers
       ? allRows
@@ -430,8 +443,11 @@ export default function PhoenixWatchBuyPage() {
     if (tradeFocus) {
       list = list.filter((r) => isTradeFocusRow(r));
     }
+    if (winnersOnly) {
+      list = list.filter((r) => r.signal_correct_phoenix === true);
+    }
     return list;
-  }, [allRows, viewAllTickers, tradeFocus]);
+  }, [allRows, viewAllTickers, tradeFocus, winnersOnly]);
 
   const buyN = allRows.filter((r) => (r.phoenix_signal || "").toUpperCase() === "BUY").length;
   const watchN = allRows.filter((r) => (r.phoenix_signal || "").toUpperCase() === "WATCH").length;
@@ -486,13 +502,26 @@ export default function PhoenixWatchBuyPage() {
               Phoenix BUY &amp; WATCH
             </h1>
             <p className="text-sm text-[var(--text-dim)] mt-1 max-w-3xl">
-              Toggle <strong className="text-[var(--text)]">All tickers</strong> for TP/FP/TN/FN on every symbol.{" "}
-              Column <strong className="text-[var(--text)]">Already up</strong> shows how far price moved before the signal (no future data): all{" "}
-              <span className="text-emerald-400">BUY</span>, and{" "}
-              <span className="text-amber-400">WATCH</span> with Phoenix score &gt; {WATCH_EXTENSION_MIN_SCORE}. Re-run sectors after guardrail update to populate.
+              Full trade sheet: <strong className="text-[var(--text)]">Entry</strong>,{" "}
+              <strong className="text-[var(--text)]">Exit (ref)</strong>,{" "}
+              <strong className="text-[var(--text)]">Stop</strong>,{" "}
+              <strong className="text-[var(--text)]">Target 1/2</strong>,{" "}
+              <strong className="text-[var(--text)]">Upside T1/T2</strong>,{" "}
+              <strong className="text-[var(--text)]">5d / 4w</strong> extension at signal date. Toggle{" "}
+              <strong className="text-[var(--text)]">Winners (TP)</strong> after a sector backtest to review
+              names that hit the label target.
             </p>
           </div>
           <div className="flex flex-wrap items-center gap-3">
+            <label className="flex items-center gap-2 text-xs text-[var(--text-dim)] cursor-pointer shrink-0">
+              <input
+                type="checkbox"
+                checked={winnersOnly}
+                onChange={(e) => setWinnersOnly(e.target.checked)}
+                className="rounded border-[var(--border)]"
+              />
+              <span>Winners (TP)</span>
+            </label>
             <label className="flex items-center gap-2 text-xs text-[var(--text-dim)] cursor-pointer shrink-0">
               <input
                 type="checkbox"
@@ -549,7 +578,18 @@ export default function PhoenixWatchBuyPage() {
 
         {loading && <p className="text-sm text-[var(--text-dim)]">Loading…</p>}
 
-        {!loading && doc && !hasExtensionData && (
+        {!loading && doc && winnersOnly && (
+          <div className="mb-4 rounded-lg border border-emerald-500/40 bg-emerald-500/10 px-4 py-3 text-sm text-emerald-100">
+            Showing <strong>backtest true positives</strong> only ({rows.length} rows) — Phoenix directional
+            call matched target hit. Use the columns below for entry, stop, targets, upside, and extension.
+            {" "}
+            <Link href="/research/backtests" className="underline text-emerald-300">
+              Back to Technical backtest
+            </Link>
+          </div>
+        )}
+
+        {!loading && doc && !hasExtensionData && !winnersOnly && (
           <div className="mb-4 rounded-lg border border-amber-500/40 bg-amber-500/10 px-4 py-3 text-sm text-amber-200">
             This run has no extension / &quot;Already up&quot; data (likely an older backtest). Pick your newest{" "}
             <strong>unified_master_*</strong> run from the dropdown above, or re-run:{" "}
@@ -798,7 +838,7 @@ export default function PhoenixWatchBuyPage() {
                             {showExt && extText ? (
                               <span className="text-[var(--text)] leading-snug">{extText}</span>
                             ) : showExt ? (
-                              <span className="text-[var(--text-dim)] italic">Re-run for extension data</span>
+                              <span className="text-[var(--text-dim)] italic">—</span>
                             ) : (
                               <span className="text-[var(--text-dim)]">—</span>
                             )}

@@ -31,6 +31,11 @@ def run_sector_pilot(
     workers: int = 6,
     period_workers: int = 2,
     use_halal_json: bool = True,
+    backtest_signal_profile: str = "phoenix_recall",
+    full_sector: bool = False,
+    limit: Optional[int] = None,
+    max_tickers: Optional[int] = None,
+    offset: int = 0,
 ) -> int:
     """Run one sector via ``run_halal_sector_month_pilot.py`` (--sector or --tickers)."""
     out = output_dir or sector_run_dir(slug_sector(sector), signal_date)
@@ -50,11 +55,36 @@ def run_sector_pilot(
         "--output-dir",
         str(out),
     ]
+    cmd.extend(["--backtest-signal-profile", backtest_signal_profile])
+    if full_sector:
+        cmd.append("--full-sector")
+    if limit is not None:
+        cmd.extend(["--limit", str(limit)])
+    if max_tickers is not None:
+        cmd.extend(["--max-tickers", str(max_tickers)])
+    if offset:
+        cmd.extend(["--offset", str(offset)])
     if use_halal_json:
         cmd.extend(["--sector", sector])
     else:
         raise NotImplementedError("Explicit ticker list: pass output_dir and extend CLI")
-    return _run(cmd)
+    rc = _run(cmd)
+    if rc != 0:
+        return rc
+    master = out / "master_pilot.json"
+    if master.is_file():
+        try:
+            from core.persistence.ingest import finalize_backtest_ingest
+
+            rk = finalize_backtest_ingest(master)
+            if rk:
+                from core.persistence.ingest import dashboard_backtest_url
+
+                print(f"Registry ingested → {rk}", flush=True)
+                print(f"Dashboard → {dashboard_backtest_url(rk)}", flush=True)
+        except Exception as exc:
+            print(f"Registry ingest warning: {exc}", flush=True)
+    return rc
 
 
 def run_unified_pilot(
@@ -95,4 +125,23 @@ def run_unified_pilot(
         cmd.extend(["--master-json", str(_DEFAULT_MASTER)])
     if cleanup_staging:
         cmd.append("--cleanup-staging")
-    return _run(cmd)
+    rc = _run(cmd)
+    if rc != 0:
+        return rc
+    merged_path = merged
+    if merged_path.is_file():
+        try:
+            from core.persistence.ingest import finalize_backtest_ingest, purge_orphan_runs
+
+            rk = finalize_backtest_ingest(merged_path)
+            if rk:
+                from core.persistence.ingest import dashboard_backtest_url
+
+                print(f"Registry ingested → {rk}", flush=True)
+                print(f"Dashboard → {dashboard_backtest_url(rk)}", flush=True)
+            removed = purge_orphan_runs()
+            if removed:
+                print(f"Registry purged {len(removed)} orphan staging row(s)", flush=True)
+        except Exception as exc:
+            print(f"Registry ingest warning: {exc}", flush=True)
+    return rc
